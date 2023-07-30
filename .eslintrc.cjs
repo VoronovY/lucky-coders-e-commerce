@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: { browser: true, es2020: true, jest: true },
   extends: [
     "airbnb",
     "airbnb/hooks",
@@ -10,7 +10,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
     "plugin:prettier/recommended"
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', "jest.config.ts", 'vite.config.ts', 'jest-setup.ts'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
@@ -53,10 +53,10 @@ module.exports = {
     "@typescript-eslint/no-unnecessary-type-assertion": ["error"],
     "@typescript-eslint/no-non-null-assertion": "error",
     "import/no-extraneous-dependencies": [
-      "error",
+    "error",
       {
-        "devDependencies": ["**/*.test.ts", "**/*.test.js"]
-      }
+       "devDependencies": ["**/*.test.ts", "**/*.test.js", "**/*.test.tsx", "**/*.test.jsx"]
+      } 
     ]
   },
 }
