@@ -6,7 +6,7 @@ describe('SimpleComponent', () => {
     const name = 'John';
     render(<App name={name} />);
     const headingElement = screen.getByRole('heading', { name: /hello, john/i });
-    const paragraphElement = screen.getByText(/this is a simple react component/i);
+    const paragraphElement = screen.getByText('This is a simple React component.');
 
     expect(headingElement).toBeInTheDocument();
     expect(paragraphElement).toBeInTheDocument();
