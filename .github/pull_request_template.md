@@ -1,3 +1,10 @@
+## 👌 Pull Request Convention
+
+- Title should follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary)
+- For every pull request, add yourself as the assigner and two others as reviewers.
+- Merge only if the PR is approved.
+- [ ] I followed convention rules
+
 ## 🧑‍⚖️ Description  
 
 *[Description of the changes being made in this pull request]*
