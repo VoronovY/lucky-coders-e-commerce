@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import App from '../index';
 
 describe('SimpleComponent', () => {
   it('should render correctly with the provided name', () => {
