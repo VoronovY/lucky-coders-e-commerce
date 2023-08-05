@@ -1,12 +1,8 @@
-<a name="readme-top"></a>
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="https://github.com/VoronovY/lucky-coders-e-commerce/assets/70838995/e3d1bc94-db02-4702-9c8f-36b0237c42c1" alt="Logo" width="120" height="80">
-  </a>
+  <a name="readme-top"></a>
+  <img src="./public/assets/logo.png" alt="Logo">
 
   <h3 align="center">STONES FALL</h3>
 
@@ -79,7 +75,7 @@ This application is developed using the following technologies:
 * <a href="https://eslint.org/">
     <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/ESLint_logo.svg" alt="ESLint" width="20" height="20">
     ESLint </a>
-* <a href="">
+* <a href="https://sass-lang.com/">
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Sass_Logo_Color.svg" alt="Sass" width="20" height="20">
     Sass </a>
 * <a href="https://jestjs.io/">
@@ -114,7 +110,7 @@ Install the latest version Node.js if you don't have it installed on your system
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/VoronovY/lucky-coders-e-commerce.git
    ```
 2. Install NPM packages
    ```sh
@@ -128,27 +124,27 @@ Install the latest version Node.js if you don't have it installed on your system
 
 * Run the development server with hot-reloading.
    ```sh
-   npm run dev or yarn dev
+   npm run dev
    ```
 * Build the application for production.
    ```sh
-   npm run build or yarn build
+   npm run build
    ```
 * Run the application preview using Vite.
    ```sh
-   npm run preview or yarn preview
+   npm run preview
    ```
 * Run ESLint to check for code errors and style issues.
    ```sh
-   npm run lint or yarn lint
+   npm run lint
    ```
 * Run Prettier to automatically format the code.
    ```sh
-   npm run format or yarn format
+   npm run format
    ```
 * Run tests using Jest.
    ```js
-   npm run test or yarn test
+   npm run test
    ```
 
 
@@ -171,9 +167,9 @@ See the [open issues](https://github.com/VoronovY/lucky-coders-e-commerce/issues
 
 Thank you for your interest in our project! If you have any questions or suggestions, feel free to reach out to us.
 
-Anastasia Shishmarev - email@example.com
+Anastasia Shishmareva - stacy.shishmareva@gmail.com
 
-Voronov Yuri - email@example.com
+Voronov Yuri - voronov.yuri87@gmail.com
 
 Julia Kukharckik - julianorwill@gmail.com
 
