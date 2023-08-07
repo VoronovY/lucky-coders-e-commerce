@@ -124,7 +124,7 @@ Install the latest version Node.js if you don't have it installed on your system
 
 * Run the development server with hot-reloading.
    ```sh
-   npm run dev
+   npm run start
    ```
 * Build the application for production.
    ```sh

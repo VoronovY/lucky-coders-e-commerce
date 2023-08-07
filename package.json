@@ -4,12 +4,21 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 3001",
+    "start": "vite --port 3001",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --fix",
+    "format": "prettier --write src/**/*.{js,ts,tsx,scss}",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint-staged": "lint-staged $STAGED_FILES"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,scss}": "prettier --write"
   },
   "dependencies": {
     "jest-environment-jsdom": "^29.6.2",
@@ -38,6 +47,7 @@
     "husky": "^8.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.6.2",
+    "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
     "sass": "^1.64.1",
     "ts-jest": "^29.1.1",
