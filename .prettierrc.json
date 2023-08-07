@@ -1,8 +1,25 @@
 {
   "trailingComma": "all",
-  "singleQuote": true,
   "tabWidth": 2,
   "useTabs": false,
   "semi": true,
-  "printWidth": 120
+  "bracketSpacing": true,
+  "printWidth": 120,
+  "overrides": [
+    {
+      "files": "*.{ts,tsx,js}",
+      "options": {
+        "jsxBracketSameLine": false,
+        "singleQuote": true,
+        "parser": "typescript"
+      }
+    },
+    {
+      "files": "*.scss",
+      "options": {
+        "singleQuote": false,
+        "parser": "scss"
+      }
+    }
+  ]
 }
