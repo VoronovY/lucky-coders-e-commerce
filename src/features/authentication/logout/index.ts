@@ -1,1 +1,2 @@
-console.log('Hello World');
+const temp = (): void => {};
+export default temp;

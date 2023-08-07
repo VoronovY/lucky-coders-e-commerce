@@ -8,6 +8,6 @@ enum Paths {
   about = '/about',
   product = '/product',
   registration = '/registration',
-};
+}
 
 export default Paths;
