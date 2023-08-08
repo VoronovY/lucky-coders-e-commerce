@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 
-import './main.scss';
+import './app.scss';
 import router from './app/appRouter';
 
 const root = document.getElementById('root');
