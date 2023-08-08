@@ -14,18 +14,40 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --primary-bg-color: #{$color-primary-bg-light};
+  --secondary-bg-color: #{$color-primary-bg-dark};
+  --primary-text-color: #{$color-primary-dark};
+  --secondary-text-color: #{$color-primary-light};
+
+  --font-weight-primary: #{$font-weight-primary};
+  --font-weight-link: #{$font-weight-link};
+  --font-size-primary: #{$font-size-primary};
+  --font-size-middle: #{$font-size-middle};
+  --font-size-small: #{$font-size-small};
+  --font-size-h2: #{$font-size-h2};
+  --font-size-h3: #{$font-size-h3};
+  --font-size-bold: #{$font-size-bold};
+
+  --primary-placeholder-color: #{$color-primary-placeholder};
+  --colored-btn-bg: #{$color-primary-bg-button};
+  --color-promo-text: #{$color-primary-orange};
+  --color-primary-link: #{$color-primary-link};
+  --color-secondary-link: #{$color-secondary-link};
 }
 
 a {
   font-weight: var(--font-weight-link);
-  color: #646cff;
+  color: var(--color-primary-link);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--color-secondary-link);
 }
 
 body {
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
   margin: 0;
   display: flex;
   place-items: center;
@@ -46,12 +68,11 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  background: var(--primary-text-color);
 }
 button:focus,
 button:focus-visible {
