@@ -1,4 +1,4 @@
-// import styles from './index.module.scss';
+import styles from './index.module.scss';
 
 interface SimpleComponentProps {
   name: string;
@@ -6,7 +6,7 @@ interface SimpleComponentProps {
 
 function App({ name }: SimpleComponentProps): JSX.Element {
   return (
-    <div>
+    <div className={styles.app}>
       <div>
         <h1>Hello, {name}!</h1>
         <p>This is a simple React component.</p>
