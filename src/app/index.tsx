@@ -1,5 +1,3 @@
-// import styles from './index.module.scss';
-
 interface SimpleComponentProps {
   name: string;
 }
