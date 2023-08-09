@@ -1,3 +1,3 @@
-import LayoutHeader from './ui/LayoutHeader/LayoutHeader';
+import LayoutHeader from './ui/layoutHeader/LayoutHeader';
 
 export default LayoutHeader;

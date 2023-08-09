@@ -1,3 +1,3 @@
-import LayoutFooter from './ui/LayoutFooter/LayoutFooter';
+import LayoutFooter from './ui/layoutFooter/LayoutFooter';
 
 export default LayoutFooter;
