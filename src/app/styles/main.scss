@@ -2,52 +2,63 @@
 @import "./variables.scss";
 
 :root {
-  // font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  // color-scheme: light dark;
-  // color: rgba(255, 255, 255, 0.87);
-  // background-color: #242424;
-  font-family: $font-family-primary;
-  font-weight: $font-weight-primary;
-  line-height: 1.5;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --primary-bg-color: #{$color-primary-bg-light};
-  --secondary-bg-color: #{$color-primary-bg-dark};
-  --primary-text-color: #{$color-primary-dark};
-  --secondary-text-color: #{$color-primary-light};
+  --color-primary-bg-light: #{$color-primary-bg-light};
+  --color-secondary-bg-light: #{$color-secondary-bg-light};
+  --color-primary-bg-dark: #{$color-primary-dark};
+  --color-accent-bg: #{$color-accent};
+  --color-primary-text: #{$color-primary-dark};
+  --color-secondary-text: #{$color-primary-light};
+  --color-accent-text: #{$color-accent};
 
-  --font-weight-primary: #{$font-weight-primary};
-  --font-weight-link: #{$font-weight-link};
+  --font-family-primary: #{$font-family-primary};
+  --font-line-height-primary: #{$font-line-height-primary};
+
+  --font-weight-regular: #{$font-weight-regular};
+  --font-weight-medium: #{$font-weight-medium};
+  --font-weight-bold: #{$font-weight-bold};
+
   --font-size-primary: #{$font-size-primary};
   --font-size-middle: #{$font-size-middle};
   --font-size-small: #{$font-size-small};
+  --font-size-h1: #{$font-size-h1};
   --font-size-h2: #{$font-size-h2};
   --font-size-h3: #{$font-size-h3};
-  --font-size-bold: #{$font-size-bold};
 
-  --primary-placeholder-color: #{$color-primary-placeholder};
-  --colored-btn-bg: #{$color-primary-bg-button};
-  --color-promo-text: #{$color-primary-orange};
+  --color-primary-placeholder: #{$color-primary-placeholder};
+
+  --color-gradient-bg-orange: #{$color-gradient-bg-orange};
+  --color-gradient-bg-light: #{$color-gradient-bg-light};
+
   --color-primary-link: #{$color-primary-link};
-  --color-secondary-link: #{$color-secondary-link};
+  --color-hovered-link: #{$color-hovered-link};
 }
 
 a {
-  font-weight: var(--font-weight-link);
+  font-weight: var(--font-weight-bold);
   color: var(--color-primary-link);
   text-decoration: inherit;
 }
 a:hover {
-  color: var(--color-secondary-link);
+  color: var(--color-hovered-link);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
 }
 
 body {
-  background-color: var(--primary-bg-color);
-  color: var(--primary-text-color);
+  background-color: var(--color-primary-bg-light);
+  color: var(--color-primary-text);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-primary);
+  line-height: var(--font-line-height-primary);
   margin: 0;
   display: flex;
   place-items: center;
@@ -55,39 +66,3 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  background: var(--primary-text-color);
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-// @media (prefers-color-scheme: light) {
-//   :root {
-//     color: #213547;
-//     background-color: #ffffff;
-//   }
-//   a:hover {
-//     color: #747bff;
-//   }
-//   button {
-//     background-color: #f9f9f9;
-//   }
-// }

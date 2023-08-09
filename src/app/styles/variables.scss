@@ -1,28 +1,29 @@
 @import "./fonts.scss";
 // fonts
-$font-family-primary: "Trebuchet MS";
-$font-weight-primary: 400;
-$font-weight-link: 500;
-$font-size-primary: 16px;
-$font-size-middle: 19px;
+$font-family-primary: "Trebuchet MS", sans-serif;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
 $font-size-small: 14px;
+$font-size-primary: 16px;
+$font-size-middle: 20px;
+$font-size-h1: 48px;
 $font-size-h2: 32px;
 $font-size-h3: 24px;
-$font-size-bold: 48px;
+$font-line-height-primary: 1.5;
+$font-line-height-secondary: 1.1;
 
 // colors
 $color-primary-light: #ffffff;
 $color-primary-dark: #2a2a2a;
-
-$color-primary-bg-dark: #2a2a2a;
 $color-secondary-bg-light: rgba(54, 54, 54, 0.04);
 $color-primary-bg-light: #fffbf8;
+$color-accent: #faaf00;
 
 $color-primary-placeholder: #929292;
 
-$color-primary-bg-button: #f9a43f linear-gradient(to bottom, #f9a43f, #fb791b);
+$color-gradient-bg-orange: #f9a43f linear-gradient(to bottom, #f9a43f, #fb791b);
+$color-gradient-bg-light: #bba66f linear-gradient(to right, #bba66f 0%, #ecdeb2 45%, #ecdeb2 55%, #a8996a 100%);
 
 $color-primary-link: #3430ec;
-$color-secondary-link: #1f1d97;
-
-$color-primary-orange: #faaf00;
+$color-hovered-link: #1f1d97;
