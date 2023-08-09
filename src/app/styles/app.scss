@@ -51,18 +51,3 @@ a:hover {
 h1 {
   font-size: var(--font-size-h1);
 }
-
-body {
-  background-color: var(--color-primary-bg-light);
-  color: var(--color-primary-text);
-  font-family: var(--font-family-primary);
-  font-weight: var(--font-weight-regular);
-  font-size: var(--font-size-primary);
-  line-height: var(--font-line-height-primary);
-  margin: 0;
-  display: flex;
-  place-items: center;
-  justify-content: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
