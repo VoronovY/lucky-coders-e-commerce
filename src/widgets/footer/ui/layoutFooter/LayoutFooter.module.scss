@@ -1,0 +1,34 @@
+.footer {
+  background-color: var(--color-primary-bg-dark);
+  color: var(--color-secondary-text);
+  width: 100%;
+
+  .footer_container {
+    max-width: 1350px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin: 0 auto;
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0 0;
+      line-height: 1.7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    span {
+      display: flex;
+      justify-content: center;
+      color: var(--color-accent-text);
+      font-size: var(--font-size-middle);
+    }
+  }
+}
