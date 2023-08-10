@@ -1,16 +1,14 @@
 import styles from './LayoutFooter.module.scss';
 
-import Logo from '../../../../../public/assets/logo.png';
 import FooterInfo from '../info/FooterInfo';
 import FooterCatalogList from '../catalogtList/FooterCatalogList';
+import Logo from '../../../../shared/ui/logo/Logo';
 
 function LayoutFooter(): JSX.Element {
   return (
     <footer className={styles.footer}>
       <div className={styles.footer_container}>
-        <div className={styles.logo}>
-          <img width="145" src={Logo} alt="Stones Fall Store Logo" />
-        </div>
+        <Logo />
         <FooterCatalogList />
         <FooterInfo />
       </div>
