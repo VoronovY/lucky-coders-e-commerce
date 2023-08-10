@@ -3,7 +3,7 @@ import styles from './SocialLinks.module.scss';
 import { GithubLogo } from '../../../../../app/layouts/images';
 
 const socialLinks = [
-  { id: 1, url: 'https://github.com/Nastasyma' },
+  { id: 1, url: 'https://github.com/nastasyma' },
   { id: 2, url: 'https://github.com/voronovy' },
   { id: 3, url: 'https://github.com/jnorwill' },
 ];

@@ -1,4 +1,11 @@
 .logo {
   display: flex;
   align-items: center;
+  justify-content: center;
+  transition: ease-in-out 0.2s;
+  margin-right: 15px;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 }
