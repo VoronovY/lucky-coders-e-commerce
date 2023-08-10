@@ -4,7 +4,12 @@ import styles from './FooterCatalogList.module.scss';
 
 import RoutesName from '../../../../shared/routing';
 
-const categories = ['Pearl', 'Collectible minerals', 'Beads', 'Magical stones'];
+const categories = [
+  { id: 1, name: 'Pearl' },
+  { id: 2, name: 'Collectible minerals' },
+  { id: 3, name: 'Beads' },
+  { id: 4, name: 'Magical stones' },
+];
 function FooterCatalogList(): JSX.Element {
   return (
     <div className={styles.footer_catalogs_list}>
@@ -13,7 +18,7 @@ function FooterCatalogList(): JSX.Element {
       </Link>
       <ul>
         {categories.map((category) => (
-          <li>{category}</li>
+          <li key={category.id}>{category.name}</li>
         ))}
       </ul>
     </div>
