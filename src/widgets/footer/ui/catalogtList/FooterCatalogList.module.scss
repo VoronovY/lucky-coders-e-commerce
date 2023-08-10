@@ -1,3 +1,15 @@
-.footer_catalog_list {
-  font-size: 16px;
+.footer_catalogs_list {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    line-height: 1.7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  li:hover {
+    cursor: pointer;
+    color: var(--color-accent-text);
+  }
 }

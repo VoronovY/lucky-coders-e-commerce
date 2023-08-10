@@ -15,5 +15,8 @@
       display: flex;
       gap: 10px;
     }
+    img:hover {
+      filter: invert(40%) sepia(90%) saturate(1000%);
+    }
   }
 }
