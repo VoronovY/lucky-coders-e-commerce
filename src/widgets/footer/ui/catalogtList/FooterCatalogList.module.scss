@@ -1,0 +1,19 @@
+.footerCatalogsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  ul {
+    line-height: var(--font-line-height-list);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  li {
+    transition: ease-in-out 0.2s;
+  }
+  li:hover {
+    cursor: pointer;
+    color: var(--color-accent-text);
+  }
+}

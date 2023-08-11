@@ -13,6 +13,7 @@ $font-size-h2: 32px;
 $font-size-h3: 24px;
 $font-line-height-primary: 1.5;
 $font-line-height-secondary: 1.1;
+$font-line-height-list: 1.7;
 
 // colors
 $color-primary-light: #ffffff;
@@ -31,3 +32,10 @@ $color-gradient-bg-light: #bba66f linear-gradient(to right, #bba66f 0%, #ecdeb2 
 
 $color-primary-link: #3430ec;
 $color-hovered-link: #1f1d97;
+
+// media
+$width-laptop: 1024px;
+$width-large-laptop: 1280px;
+$width-tablet: 768px;
+$width-mobile-big: 550px;
+$width-mobile-small: 390px;
