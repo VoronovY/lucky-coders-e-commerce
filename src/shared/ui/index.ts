@@ -1,3 +1,4 @@
 import Layout from './layout/Layout';
+import { TextInput } from './textInput/TextInput';
 
-export default Layout;
+export { TextInput, Layout };
