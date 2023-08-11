@@ -1,0 +1,16 @@
+.errorPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+
+  .notFoundImg {
+    width: 440px;
+    height: 310px;
+  }
+
+  .notFoundText {
+    font-size: var(--font-size-middle);
+  }
+}
