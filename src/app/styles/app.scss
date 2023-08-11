@@ -39,6 +39,8 @@
 
   --color-primary-link: #{$color-primary-link};
   --color-hovered-link: #{$color-hovered-link};
+
+  --color-hovered-btn: #{$color-hovered-btn};
 }
 
 a {
@@ -52,4 +54,8 @@ a:hover {
 
 h1 {
   font-size: var(--font-size-h1);
+}
+
+button {
+  border: none;
 }

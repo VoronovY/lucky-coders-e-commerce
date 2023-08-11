@@ -23,6 +23,7 @@
     "react/require-default-props": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-uses-react": "off",
+    "react/jsx-props-no-spreading": "off",
     "react-refresh/only-export-components": ["warn", { "allowConstantExport": true }],
     "import/extensions": "off",
     "import/order": [
@@ -54,7 +55,7 @@
         }
       }
     ],
-    "max-lines-per-function": ["error", 40],
+    "max-lines-per-function": ["error", 120],
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-unnecessary-type-assertion": ["error"],
     "@typescript-eslint/no-non-null-assertion": "error",
