@@ -23,3 +23,12 @@
   height: 4px;
   background-color: var(--color-primary-bg-dark);
 }
+
+.signInText {
+  font-size: var(--font-size-middle);
+  font-weight: var(--font-weight-bold);
+}
+
+.signInLink {
+  color: --color-primary-link;
+}

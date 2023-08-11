@@ -1,6 +1,10 @@
+import { Link } from 'react-router-dom';
+
 import styles from './RegistrationForm.module.scss';
 
-import { TextInput, PasswordInput, SelectInput } from '../../../../shared/ui';
+import RoutesName from '../../../../shared/routing';
+
+import { TextInput, PasswordInput, SelectInput, DateInput } from '../../../../shared/ui';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -10,17 +14,28 @@ const options = [
 
 function RegistratinonForm(): JSX.Element {
   return (
-    <div className={styles.formWrapper}>
+    <form className={styles.formWrapper}>
       <h3 className={styles.title}>Create An account</h3>
       <div className={styles.line} />
-      <PasswordInput id="1" placeholder="Field 2" label="First name *" name="Field 1" value="field 1 value" />
-      <TextInput id="1" placeholder="Field 2" label="First name *" name="Field 1" value="field 1 value" />
-      <TextInput id="1" placeholder="Field 2" label="Last name" name="Field 1" value="field 1 value" />
-      <TextInput id="1" placeholder="City" label="City" name="Field 1" value="field 1 value" />
+      <TextInput id="1" placeholder="Email" label="Email *" name="Email" value="Email" />
+      <PasswordInput id="2" placeholder="Password" label="Password" name="Password" value="Password" />
+      <TextInput id="3" placeholder="First name" label="First name" name="First name" value="First name" />
+      <TextInput id="4" placeholder="Last name" label="Last name" name="Last name" value="Last name" />
+      <DateInput title="Birth date" />
       <SelectInput options={options} title="Select Country" />
-      <TextInput id="1" placeholder="Street" label="Street" name="Field 1" value="field 1 value" />
-      <TextInput id="1" placeholder="Postal" label="Postal" name="Field 1" value="field 1 value" />
-    </div>
+      <TextInput id="5" placeholder="City" label="City" name="City" value="City" />
+      <TextInput id="5" placeholder="Street" label="Street" name="Street" value="Street" />
+      <TextInput id="6" placeholder="Postal" label="Postal" name="Postal" value="Postal" />
+      <p className={styles.signInText}>
+        Already have an account?{' '}
+        <Link to={RoutesName.login} className={styles.signInLink}>
+          Sign in
+        </Link>
+      </p>
+      <button type="button" className={styles.signUpButton}>
+        Sign up
+      </button>
+    </form>
   );
 }
 
