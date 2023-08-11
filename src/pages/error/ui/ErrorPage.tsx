@@ -4,6 +4,7 @@ import styles from './ErrorPage.module.scss';
 
 import notFoundImg from '../../../../public/assets/not-found.png';
 import Button from '../../../shared/ui/button/Button';
+import RoutesName from '../../../shared/routing';
 
 interface ErrorPageProps {
   message: string;
@@ -14,8 +15,13 @@ function ErrorPageLayout({ message }: ErrorPageProps): JSX.Element {
     <div className={styles.errorPage}>
       <img className={styles.notFoundImg} src={notFoundImg} alt="Not found" />
       <span className={styles.notFoundText}>{message}</span>
+      <Link to={RoutesName.catalog}>
+        <Button width="335px" height="50px">
+          Go to Catalog
+        </Button>
+      </Link>
       <Link to="/">
-        <Button width="335px" height="65px">
+        <Button width="335px" height="50px">
           Back Home
         </Button>
       </Link>

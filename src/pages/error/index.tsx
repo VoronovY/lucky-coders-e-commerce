@@ -1,6 +1,6 @@
 import { useRouteError } from 'react-router-dom';
 
-import ErrorPageLayout from './ui/ErroPage';
+import ErrorPageLayout from './ui/ErrorPage';
 
 import getErrorMessage from '../../shared/helpers/routerHelpres';
 import LayoutHeader from '../../widgets/header';
