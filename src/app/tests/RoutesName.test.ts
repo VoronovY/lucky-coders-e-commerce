@@ -4,7 +4,7 @@ describe('RoutesName', () => {
   it('should have the correct route values', () => {
     expect(RoutesName.home).toBe('/');
     expect(RoutesName.main).toBe('/main');
-    expect(RoutesName.category).toBe('/catalog');
+    expect(RoutesName.catalog).toBe('/catalog');
     expect(RoutesName.cart).toBe('/cart');
     expect(RoutesName.profile).toBe('/profile');
     expect(RoutesName.login).toBe('/login');

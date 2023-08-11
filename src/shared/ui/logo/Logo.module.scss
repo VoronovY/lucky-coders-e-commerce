@@ -3,7 +3,11 @@
   align-items: center;
   justify-content: center;
   transition: ease-in-out 0.2s;
-  margin-right: 15px;
+
+  img {
+    width: 145px;
+    height: 50px;
+  }
 
   &:hover {
     transform: scale(1.05);

@@ -1,7 +1,7 @@
 enum RoutesName {
   home = '/',
   main = '/main',
-  category = '/catalog',
+  catalog = '/catalog',
   cart = '/cart',
   profile = '/profile',
   login = '/login',

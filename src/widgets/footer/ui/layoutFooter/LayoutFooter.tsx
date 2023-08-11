@@ -7,7 +7,7 @@ import Logo from '../../../../shared/ui/logo/Logo';
 function LayoutFooter(): JSX.Element {
   return (
     <footer className={styles.footer}>
-      <div className={styles.footer_container}>
+      <div className={styles.footerContainer}>
         <Logo />
         <FooterCatalogList />
         <FooterInfo />

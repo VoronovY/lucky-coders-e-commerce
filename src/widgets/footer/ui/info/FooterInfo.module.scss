@@ -1,9 +1,8 @@
-.footer_info {
+.footerInfo {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  margin-left: 15px;
 
   .socials {
     display: flex;
@@ -12,9 +11,15 @@
     align-items: center;
     margin: auto;
 
+    .rssLogo {
+      width: 60px;
+      height: 25px;
+    }
+
     a {
       transition: ease-in-out 0.2s;
     }
+
     a:hover {
       filter: invert(40%) sepia(90%) saturate(1000%);
       position: relative;

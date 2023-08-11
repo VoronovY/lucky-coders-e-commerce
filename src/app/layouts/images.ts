@@ -8,8 +8,8 @@ import { ReactComponent as CheckedRedIcon } from '../../../public/assets/checked
 import { ReactComponent as LoginIcon } from '../../../public/assets/login.svg';
 import { ReactComponent as LogoutIcon } from '../../../public/assets/logout.svg';
 import { ReactComponent as RegisterIcon } from '../../../public/assets/register.svg';
-import { ReactComponent as EyeIcon } from '../../../public/assets/eye1.svg';
-import { ReactComponent as EyeSlashIcon } from '../../../public/assets/eye2.svg';
+import { ReactComponent as EyeIcon } from '../../../public/assets/view-eye.svg';
+import { ReactComponent as HiddenEyeIcon } from '../../../public/assets/hidden-eye.svg';
 
 export {
   RssLogo,
@@ -23,5 +23,5 @@ export {
   LogoutIcon,
   RegisterIcon,
   EyeIcon,
-  EyeSlashIcon,
+  HiddenEyeIcon,
 };

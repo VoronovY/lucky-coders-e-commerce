@@ -7,7 +7,7 @@ import LogoImg from '../../../../public/assets/logo.png';
 function Logo(): JSX.Element {
   return (
     <Link to="/" className={styles.logo}>
-      <img width="145" src={LogoImg} alt="Stones Fall Store Logo" />
+      <img src={LogoImg} alt="Stones Fall Store Logo" />
     </Link>
   );
 }

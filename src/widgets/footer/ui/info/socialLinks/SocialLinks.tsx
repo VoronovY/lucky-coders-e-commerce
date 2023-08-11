@@ -9,10 +9,10 @@ const socialLinks = [
 ];
 function SocialLinks(): JSX.Element {
   return (
-    <div className={styles.socials_items}>
+    <div className={styles.socialsItems}>
       {socialLinks.map((link) => (
         <a key={link.id} href={link.url}>
-          <GithubLogo width="30" height="30" />
+          <GithubLogo className={styles.socialsIcon} />
         </a>
       ))}
     </div>

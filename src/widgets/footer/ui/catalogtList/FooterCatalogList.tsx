@@ -12,8 +12,8 @@ const categories = [
 ];
 function FooterCatalogList(): JSX.Element {
   return (
-    <div className={styles.footer_catalogs_list}>
-      <Link to={RoutesName.category}>
+    <div className={styles.footerCatalogsList}>
+      <Link to={RoutesName.catalog}>
         <span>Catalog</span>
       </Link>
       <ul>

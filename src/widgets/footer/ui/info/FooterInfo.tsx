@@ -9,7 +9,7 @@ import RoutesName from '../../../../shared/routing';
 
 function FooterInfo(): JSX.Element {
   return (
-    <div className={styles.footer_info}>
+    <div className={styles.footerInfo}>
       <Link to={RoutesName.about}>
         <span>About Us</span>
       </Link>
@@ -17,7 +17,7 @@ function FooterInfo(): JSX.Element {
         <SocialLinks />
         <div>
           <a href="https://rs.school/js/">
-            <RssLogo width="60" height="25" />
+            <RssLogo className={styles.rssLogo} />
           </a>
         </div>
       </div>

@@ -1,4 +1,9 @@
-.socials_items {
+.socialsItems {
   display: flex;
   gap: 15px;
+
+  .socialsIcon {
+    width: 30px;
+    height: 30px;
+  }
 }
