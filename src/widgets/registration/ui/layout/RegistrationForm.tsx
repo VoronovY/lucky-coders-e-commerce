@@ -5,6 +5,7 @@ import styles from './RegistrationForm.module.scss';
 import RoutesName from '../../../../shared/routing';
 
 import { TextInput, PasswordInput, SelectInput, DateInput } from '../../../../shared/ui';
+import Button from '../../../../shared/ui/button/Button';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -32,9 +33,9 @@ function RegistratinonForm(): JSX.Element {
           Sign in
         </Link>
       </p>
-      <button type="button" className={styles.signUpButton}>
+      <Button type="button" height="48px" width="80%">
         Sign up
-      </button>
+      </Button>
     </form>
   );
 }
