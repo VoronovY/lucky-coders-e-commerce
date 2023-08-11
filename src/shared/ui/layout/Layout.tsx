@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 
 import styles from './Layout.module.scss';
 
-interface LayoutProps {
+export interface LayoutProps {
   headerSlot: ReactNode;
   bottomSlot: ReactNode;
   bodySlot: ReactNode;
@@ -18,4 +18,4 @@ function Layout({ headerSlot, bottomSlot, bodySlot }: LayoutProps): JSX.Element 
   );
 }
 
-export default Layout;
+export { Layout };
