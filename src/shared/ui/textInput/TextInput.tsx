@@ -12,9 +12,19 @@ export interface ITextInputProps {
   value?: string;
   defaultValue?: string;
   error?: FieldError;
+  type?: 'text' | 'email';
 }
 
-export function TextInput({ id, name, placeholder, label, value, defaultValue, error }: ITextInputProps): JSX.Element {
+export function TextInput({
+  id,
+  name,
+  placeholder,
+  label,
+  value,
+  defaultValue,
+  error,
+  type = 'text',
+}: ITextInputProps): JSX.Element {
   const inputStyle = cn(styles.input, {
     [styles.inputError]: error,
   });
@@ -28,7 +38,7 @@ export function TextInput({ id, name, placeholder, label, value, defaultValue, e
         value={value}
         className={inputStyle}
         defaultValue={defaultValue}
-        type="text"
+        type={type}
       />
       {error && <span className={styles.errorMessage}>{error?.message && ` (${error.message})`}</span>}
     </label>

@@ -6,6 +6,8 @@ import { useState } from 'react';
 
 import styles from './PasswordInput.module.scss';
 
+import { EyeIcon, HiddenEyeIcon } from '../../../app/layouts/images';
+
 export interface PasswordInputProps {
   id: string;
   name: string;
@@ -34,6 +36,8 @@ export function PasswordInput({
     setInputType((prev) => (prev === 'text' ? 'password' : 'text'));
   };
 
+  const icon = inputType === 'text' ? <HiddenEyeIcon /> : <EyeIcon />;
+
   return (
     <label htmlFor={id} className={styles.label}>
       {label && <span>{label}</span>}
@@ -48,7 +52,7 @@ export function PasswordInput({
           type={inputType}
         />
         <button className={styles.inputImgWrapper} onClick={handleShowPasswordBtn} type="button">
-          icon
+          {icon}
         </button>
       </div>
       {error && <span className={styles.errorMessage}>{error?.message && ` (${error.message})`}</span>}
