@@ -1,3 +1,26 @@
 .mainPage {
-  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1100px;
+  padding: 20px 30px;
+  margin: 0 auto;
+
+  .aboutUsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 40px;
+    border-radius: 30px;
+    box-shadow: var(--shadow-card-primary);
+    padding: 140px 0;
+    background: url("../../../public/assets/stones-bg.jpg") no-repeat center / cover;
+    width: 100%;
+
+    .aboutUsText {
+      max-width: 450px;
+      font-size: var(--font-size-middle);
+    }
+  }
 }

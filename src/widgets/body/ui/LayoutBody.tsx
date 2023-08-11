@@ -1,10 +1,12 @@
 import { Outlet } from 'react-router-dom';
 
+import styles from './LayoutBody.module.scss';
+
 function LayoutBody(): JSX.Element {
   return (
-    <div>
+    <main className={styles.mainBody}>
       <Outlet />
-    </div>
+    </main>
   );
 }
 

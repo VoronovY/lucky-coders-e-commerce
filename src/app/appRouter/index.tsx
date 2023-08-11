@@ -4,7 +4,7 @@ import LoginForm from '../../features/authentication/login/ui/LoginForm';
 import ErrorPage from '../../pages/error';
 import RoutesName from '../../shared/routing';
 import RegistrationPage from '../../pages/registration';
-import MainPage from '../../pages/main';
+import MainPage from '../../pages/main/MainPage';
 import BaseLayout from '../layouts/baseLayout';
 
 const router = createBrowserRouter(

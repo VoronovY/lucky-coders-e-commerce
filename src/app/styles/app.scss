@@ -41,6 +41,8 @@
   --color-hovered-link: #{$color-hovered-link};
 
   --color-hovered-btn: #{$color-hovered-btn};
+
+  --shadow-card-primary: #{$card-shadow-primary};
 }
 
 a {
@@ -48,6 +50,7 @@ a {
   color: var(--color-primary-link);
   text-decoration: inherit;
 }
+
 a:hover {
   color: var(--color-hovered-link);
 }
@@ -58,4 +61,8 @@ h1 {
 
 button {
   border: none;
+}
+
+p {
+  margin: 0;
 }
