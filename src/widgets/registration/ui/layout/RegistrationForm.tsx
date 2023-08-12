@@ -78,7 +78,6 @@ function RegistratinonForm(): JSX.Element {
       <Controller
         name="lastName"
         control={control}
-        rules={{ required: true }}
         render={({ field }): JSX.Element => {
           return <TextInput id="4" placeholder="Last name" label="Last name *" {...field} />;
         }}
@@ -89,7 +88,7 @@ function RegistratinonForm(): JSX.Element {
         render={({ field: { onChange, value }, fieldState: { error } }): JSX.Element => {
           return (
             <SelectInput
-              id="4"
+              id="5"
               placeholder="Select Country"
               title="Select Country"
               options={options}
@@ -103,9 +102,8 @@ function RegistratinonForm(): JSX.Element {
       <Controller
         name="birthDate"
         control={control}
-        rules={{ required: true }}
         render={({ field: { onChange, value }, fieldState: { error } }): JSX.Element => {
-          return <DateInput title="Birth date" onChange={onChange} value={value} error={error} />;
+          return <DateInput id="6" title="Birth date" onChange={onChange} value={value} error={error} />;
         }}
       />
       <Controller
@@ -113,7 +111,7 @@ function RegistratinonForm(): JSX.Element {
         control={control}
         rules={{ required: true }}
         render={({ field }): JSX.Element => {
-          return <TextInput id="5" placeholder="City" label="City *" {...field} />;
+          return <TextInput id="7" placeholder="City" label="City *" {...field} />;
         }}
       />
       <Controller
@@ -121,7 +119,7 @@ function RegistratinonForm(): JSX.Element {
         control={control}
         rules={{ required: true }}
         render={({ field }): JSX.Element => {
-          return <TextInput id="6" placeholder="Street" label="Street *" {...field} />;
+          return <TextInput id="8" placeholder="Street" label="Street *" {...field} />;
         }}
       />
       <Controller
@@ -129,11 +127,11 @@ function RegistratinonForm(): JSX.Element {
         control={control}
         rules={{ required: true }}
         render={({ field }): JSX.Element => {
-          return <TextInput id="7" placeholder="Postal" label="Postal *" {...field} />;
+          return <TextInput id="9" placeholder="Postal" label="Postal *" {...field} />;
         }}
       />
       <p className={styles.signInText}>
-        Already have an account?{' '}
+        Already have an account?
         <Link to={RoutesName.login} className={styles.signInLink}>
           Sign in
         </Link>
