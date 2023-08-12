@@ -6,13 +6,13 @@ import Button from '../../../../shared/ui/button/Button';
 import RoutesName from '../../../../shared/routing';
 
 import StonesImg from '../../../../../public/assets/stones-bg.png';
-import Stones2Img from '../../../../../public/assets/stones-bg2.png';
+import Stones768Img from '../../../../../public/assets/stones-bg-768.png';
 
 function AboutUsContainer(): JSX.Element {
   return (
     <div className={styles.aboutUsContainer}>
       <picture>
-        <source srcSet={Stones2Img} media="(max-width: 768px)" />
+        <source srcSet={Stones768Img} media="(max-width: 768px)" />
         <img src={StonesImg} alt="Stones" />
       </picture>
       <div className={styles.aboutUsContent}>
