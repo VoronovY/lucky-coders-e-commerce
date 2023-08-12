@@ -1,3 +1,5 @@
+@import "../../../../app//styles//variables.scss";
+
 .aboutUsContainer {
   position: relative;
   display: flex;
@@ -14,6 +16,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
 
   .aboutUsContent {
@@ -25,9 +28,29 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+
+    @media (max-width: $width-laptop) {
+      gap: 10px;
+    }
   }
+
+  button {
+    font-size: var(--font-size-primary);
+  }
+
   .aboutUsText {
     max-width: 450px;
     font-size: var(--font-size-middle);
+
+    @media (max-width: $width-laptop) {
+      font-size: var(--font-size-small);
+    }
+
+    @media (max-width: $width-mobile-big) {
+      line-height: 1;
+      p:nth-child(2) {
+        display: none;
+      }
+    }
   }
 }
