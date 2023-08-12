@@ -5,6 +5,8 @@ import styles from './MainPage.module.scss';
 import RoutesName from '../../shared/routing';
 import Button from '../../shared/ui/button/Button';
 
+import { ArrowIcon } from '../../app/layouts/images';
+
 import StonesImg from '../../../public/assets/stones-bg.jpg';
 import StoneSliceImg from '../../../public/assets/stone-slice.png';
 import PearlImg from '../../../public/assets/pearl.png';
@@ -58,15 +60,32 @@ function MainPage(): JSX.Element {
       </div>
       <div className={styles.specialsContainer}>
         <h2>Specials</h2>
-        <div className={styles.promoWrapper}>
-          <img className={styles.promoImg} src={Promo1Img} alt="Promo" />
-          <img className={styles.gradientImg} src={GradientImg} alt="Gradient" />
-          <div className={styles.specialsContent}>
-            <span>Explore the world of stones!</span>
-            <span>Add a touch of natural beauty to your life!</span>
-            <span>10% discount on all types of stones.</span>
-            <span>PROMOCODE</span>
-            <span>STONE10</span>
+        <div className={styles.specialsWrapper}>
+          <div>
+            <ArrowIcon />
+          </div>
+          <div className={styles.promoWrapper}>
+            <img className={styles.promoImg} src={Promo1Img} alt="Promo" />
+            <img className={styles.gradientImg} src={GradientImg} alt="Gradient" />
+            <div className={styles.specialsContent}>
+              <div>
+                <span>Explore the world of stones!</span>
+              </div>
+              <div>
+                <span>Add a touch of natural beauty to your life!</span>
+              </div>
+              <div>
+                <span>10% </span>
+                <span>discount on all types of stones.</span>
+              </div>
+              <div>
+                <span>PROMOCODE </span>
+                <span>STONE10</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <ArrowIcon className={styles.arrowRight} />
           </div>
         </div>
       </div>

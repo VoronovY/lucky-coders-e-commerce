@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1160px;
-  padding: 20px 30px;
+  gap: 40px;
+  max-width: 1280px;
+  padding: 20px 40px;
   margin: 0 auto;
 
   .aboutUsContainer {
@@ -12,12 +13,12 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    max-width: 1110px;
     gap: 40px;
     border-radius: 30px;
     box-shadow: var(--shadow-card-primary);
     // padding: 140px 0;
     // background: url("../../../public/assets/stones-bg.jpg") no-repeat center / cover;
-    width: 100%;
 
     img {
       border-radius: 30px;
@@ -43,7 +44,10 @@
   }
 
   .catalogContainer {
-    width: 100%;
+    max-width: 1110px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
     .catalog {
       display: grid;
@@ -103,10 +107,40 @@
   }
 
   .specialsContainer {
+    // position: relative;
     width: 100%;
 
+    h2 {
+      max-width: 1110px;
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
+    // .sliderNav {
+    //   position: absolute;
+    //   top: 50%;
+    //   display: flex;
+    //   width: 100%;
+    //   justify-content: space-between;
+    //   align-items: center;
+    //   align-content: center;
+    //   margin: 0 auto;
+    // }
+
+    .specialsWrapper {
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+
+      .arrowRight {
+        transform: rotate(180deg);
+      }
+    }
     .promoWrapper {
       position: relative;
+      max-width: 1110px;
       max-height: 472px;
       box-shadow: var(--shadow-card-primary);
       border-radius: 30px;
@@ -131,6 +165,9 @@
       position: absolute;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      width: 70%;
+      height: 70%;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -138,7 +175,39 @@
       font-size: var(--font-size-h3);
       font-weight: var(--font-weight-bold);
 
-      span:first-child {
+      div:nth-child(1) {
+        font-size: var(--font-size-h2);
+      }
+
+      div:nth-child(3) {
+        span:first-child {
+          font-size: var(--font-size-h1);
+          line-height: var(--font-line-height-secondary);
+        }
+      }
+
+      div:nth-child(4) {
+        display: flex;
+        flex-direction: column;
+        span:nth-child(2) {
+          font-size: var(--font-size-h1);
+          color: var(--color-accent-text);
+          -webkit-text-stroke: 2px var(--color-primary-text);
+        }
+      }
+
+      div:nth-child(3) {
+        max-width: 300px;
+      }
+
+      div:nth-child(1),
+      div:nth-child(4) {
+        justify-content: flex-start;
+      }
+
+      div:nth-child(2),
+      div:nth-child(3) {
+        align-self: flex-end;
       }
     }
   }
