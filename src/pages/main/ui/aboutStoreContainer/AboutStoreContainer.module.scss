@@ -1,17 +1,28 @@
+@import "../../../../app/styles/variables.scss";
+
 .aboutStoreContainer {
   max-width: 1110px;
   display: flex;
-  gap: 30px;
+  gap: 2%;
+
+  @media (max-width: $width-laptop) {
+    flex-direction: column;
+    gap: 20px;
+  }
 
   .aboutStoreText {
-    flex: 0 0 50%;
+    flex: 0 0 49%;
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    @media (max-width: $width-tablet) {
+      font-size: var(--font-size-small);
+    }
   }
 
   .aboutStoreImg {
-    flex: 0 0 50%;
+    flex: 0 0 49%;
     display: flex;
     align-items: center;
 
