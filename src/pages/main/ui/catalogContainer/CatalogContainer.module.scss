@@ -23,7 +23,7 @@
       grid-template-rows: repeat(4, 1fr);
     }
 
-    div {
+    a {
       box-shadow: var(--shadow-card-primary);
       border-radius: 10px;
       position: relative;
@@ -63,7 +63,7 @@
       }
     }
 
-    div:first-child {
+    a:first-child {
       grid-column: 1;
       grid-row: 1 / span 2;
       width: 540px;
@@ -79,7 +79,7 @@
       }
     }
 
-    div:not(:first-child) {
+    a:not(:first-child) {
       max-width: 255px;
       max-height: 175px;
 

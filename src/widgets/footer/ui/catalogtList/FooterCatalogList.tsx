@@ -18,7 +18,11 @@ function FooterCatalogList(): JSX.Element {
       </Link>
       <ul>
         {categories.map((category) => (
-          <li key={category.id}>{category.name}</li>
+          <li key={category.id}>
+            <Link to={category.name.toLowerCase().replace(/\s/g, '-')} key={category.id}>
+              {category.name}
+            </Link>
+          </li>
         ))}
       </ul>
     </div>

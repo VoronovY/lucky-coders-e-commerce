@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import styles from './catalogContainer.module.scss';
 
 import StoneSliceImg from '../../../../../public/assets/stone-slice.png';
@@ -19,10 +21,10 @@ function CatalogContainer(): JSX.Element {
       <h2>Catalog</h2>
       <div className={styles.catalog}>
         {catalogLinks.map((link) => (
-          <div key={link.id}>
+          <Link to={link.text.toLowerCase().replace(/\s/g, '-')} key={link.id}>
             <img src={link.src} alt={link.text} />
             <span className={styles.cardText}>{link.text}</span>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
