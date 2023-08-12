@@ -7,6 +7,11 @@
     max-width: 1110px;
     margin: 0 auto;
     margin-bottom: 20px;
+
+    @media (max-width: $width-large-laptop) {
+      display: flex;
+      justify-content: center;
+    }
   }
 
   .specialsWrapper {
