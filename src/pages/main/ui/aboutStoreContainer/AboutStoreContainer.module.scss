@@ -1,0 +1,23 @@
+.aboutStoreContainer {
+  max-width: 1110px;
+  display: flex;
+  gap: 30px;
+
+  .aboutStoreText {
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .aboutStoreImg {
+    flex: 0 0 50%;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  }
+}
