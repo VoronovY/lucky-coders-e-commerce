@@ -21,7 +21,9 @@ function AboutUsContainer(): JSX.Element {
           <p>Our goal is to inspire people to discover and appreciate the beauty and energy of nature.</p>
         </div>
         <Link to={RoutesName.about}>
-          <Button width="70%">Learn More</Button>
+          <Button width="70%" height="35px">
+            Learn More
+          </Button>
         </Link>
       </div>
     </div>

@@ -47,7 +47,7 @@
     }
 
     @media (max-width: $width-mobile-big) {
-      line-height: 1;
+      line-height: var(--font-line-height-secondary);
       p:nth-child(2) {
         display: none;
       }
