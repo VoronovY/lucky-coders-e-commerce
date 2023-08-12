@@ -1,23 +1,40 @@
-import Select, { Theme } from 'react-select';
+import Select, { OnChangeValue, Theme } from 'react-select';
 import cn from 'classnames';
+
+import { FieldError } from 'react-hook-form';
 
 import styles from './Select.module.scss';
 
-type OptionInput = {
+export type OptionInput = {
   value: string;
   label: string;
 };
 
 export interface SelectInputProps {
-  options: OptionInput[];
+  id: string;
+  placeholder: string;
+  options?: OptionInput[];
   title?: string | null;
+  value?: OptionInput | null;
+  onChange?: (value: OnChangeValue<OptionInput, boolean>) => void;
+  error?: FieldError | undefined;
 }
 
-function SelectInput({ options, title = null }: SelectInputProps): JSX.Element {
+function SelectInput({
+  id,
+  placeholder,
+  options,
+  title = null,
+  value,
+  onChange,
+  error,
+}: SelectInputProps): JSX.Element {
   return (
     <div className={styles.wrapper}>
       {title && <p>{title}</p>}
       <Select
+        id={id}
+        placeholder={placeholder}
         options={options}
         theme={(theme): Theme => ({
           ...theme,
@@ -34,7 +51,10 @@ function SelectInput({ options, title = null }: SelectInputProps): JSX.Element {
           },
         }}
         className={styles.select}
+        value={value}
+        onChange={onChange}
       />
+      {error && <div>error</div>}
     </div>
   );
 }
