@@ -70,4 +70,8 @@ p {
 h2 {
   font-size: var(--font-size-h2);
   margin: 0;
+
+  @media (max-width: $width-tablet) {
+    font-size: var(--font-size-h3);
+  }
 }
