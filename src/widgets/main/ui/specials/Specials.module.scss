@@ -40,11 +40,11 @@
     background-size: cover;
     max-width: var(--width-main-container);
     width: 100%;
-    max-height: 472px;
+    max-height: 460px;
     height: 100%;
     box-shadow: var(--shadow-card-primary);
     border-radius: 30px;
-    padding: 60px 0;
+    padding: 90px 0;
 
     @media (max-width: $width-tablet) {
       padding: 40px 0;
