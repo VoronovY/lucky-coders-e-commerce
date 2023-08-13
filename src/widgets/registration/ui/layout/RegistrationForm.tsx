@@ -132,10 +132,9 @@ function RegistratinonForm(): JSX.Element {
       />
       <p className={styles.signInText}>
         Already have an account?&nbsp;
-        <Link to={RoutesName.login} className={styles.signInLink}>
-          Sign in
-        </Link>
+        <Link to={RoutesName.login}>Sign in</Link>
       </p>
+      <div className={`${styles.line} ${styles.bottom}`} />
       <Button type="submit" height="48px" width="80%">
         Sign up
       </Button>
