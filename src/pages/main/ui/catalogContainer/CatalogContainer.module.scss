@@ -1,7 +1,7 @@
 @import "../../../../app//styles//variables.scss";
 
 .catalogContainer {
-  max-width: 1110px;
+  max-width: var(--width-main-container);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -16,7 +16,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr) auto;
     grid-template-rows: repeat(2, 1fr);
-    gap: 15px;
+    gap: 16px;
 
     @media (max-width: $width-large-laptop) {
       grid-template-columns: 1fr;

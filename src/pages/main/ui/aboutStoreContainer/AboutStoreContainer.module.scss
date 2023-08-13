@@ -1,7 +1,7 @@
 @import "../../../../app/styles/variables.scss";
 
 .aboutStoreContainer {
-  max-width: 1110px;
+  max-width: var(--width-main-container);
   display: flex;
   flex-direction: column;
   gap: 20px;

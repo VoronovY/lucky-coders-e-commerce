@@ -7,13 +7,14 @@ import PearlImg from '../../../../../public/assets/pearl.png';
 import CrystalsImg from '../../../../../public/assets/crystals.png';
 import AllCatalogImg from '../../../../../public/assets/all-catalog.png';
 import BeadsImg from '../../../../../public/assets/beads.png';
+import RoutesName from '../../../../shared/routing';
 
 const catalogLinks = [
-  { id: 1, src: StoneSliceImg, text: 'Collectible minerals' },
-  { id: 2, src: PearlImg, text: 'Pearl' },
-  { id: 3, src: CrystalsImg, text: 'Magical Stones' },
-  { id: 4, src: BeadsImg, text: 'Beads' },
-  { id: 5, src: AllCatalogImg, text: 'All Catalog' },
+  { id: 1, src: StoneSliceImg, text: 'Collectible minerals', path: '/collectible-minerals' },
+  { id: 2, src: PearlImg, text: 'Pearl', path: '/pearls' },
+  { id: 3, src: CrystalsImg, text: 'Magical Stones', path: '/magical-stones' },
+  { id: 4, src: BeadsImg, text: 'Beads', path: '/beads' },
+  { id: 5, src: AllCatalogImg, text: 'All Catalog', path: RoutesName.catalog },
 ];
 function CatalogContainer(): JSX.Element {
   return (
@@ -21,7 +22,7 @@ function CatalogContainer(): JSX.Element {
       <h2>Catalog</h2>
       <div className={styles.catalog}>
         {catalogLinks.map((link) => (
-          <Link to={link.text.toLowerCase().replace(/\s/g, '-')} key={link.id}>
+          <Link to={link.path} key={link.id}>
             <img src={link.src} alt={link.text} />
             <span className={styles.cardText}>{link.text}</span>
           </Link>

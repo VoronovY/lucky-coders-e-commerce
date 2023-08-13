@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 1110px;
+  max-width: var(--width-main-container);
   gap: 40px;
   border-radius: 30px;
   box-shadow: var(--shadow-card-primary);
@@ -23,7 +23,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 26px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

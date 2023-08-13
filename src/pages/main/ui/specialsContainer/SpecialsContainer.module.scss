@@ -4,7 +4,7 @@
   width: 100%;
 
   h2 {
-    max-width: 1110px;
+    max-width: var(--width-main-container);
     margin: 0 auto;
     margin-bottom: 20px;
 
@@ -20,7 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
+    gap: 16px;
 
     .arrowNav {
       cursor: pointer;
@@ -38,7 +38,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    max-width: 1110px;
+    max-width: var(--width-main-container);
     width: 100%;
     max-height: 472px;
     height: 100%;

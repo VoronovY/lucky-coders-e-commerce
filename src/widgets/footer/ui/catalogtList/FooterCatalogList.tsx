@@ -5,10 +5,10 @@ import styles from './FooterCatalogList.module.scss';
 import RoutesName from '../../../../shared/routing';
 
 const categories = [
-  { id: 1, name: 'Pearl' },
-  { id: 2, name: 'Collectible minerals' },
-  { id: 3, name: 'Beads' },
-  { id: 4, name: 'Magical stones' },
+  { id: 1, name: 'Pearl', path: '/pearls' },
+  { id: 2, name: 'Collectible minerals', path: '/collectible-minerals' },
+  { id: 3, name: 'Beads', path: '/beads' },
+  { id: 4, name: 'Magical stones', path: '/magical-stones' },
 ];
 function FooterCatalogList(): JSX.Element {
   return (
