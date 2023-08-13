@@ -131,7 +131,7 @@ function RegistratinonForm(): JSX.Element {
         }}
       />
       <p className={styles.signInText}>
-        Already have an account?
+        Already have an account?&nbsp;
         <Link to={RoutesName.login} className={styles.signInLink}>
           Sign in
         </Link>

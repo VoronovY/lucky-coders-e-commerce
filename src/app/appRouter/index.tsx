@@ -1,6 +1,6 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 
-import LoginForm from '../../features/authentication/login/ui/LoginForm';
+import LoginForm from '../../pages/login';
 import ErrorPage from '../../pages/error';
 import RoutesName from '../../shared/routing';
 import RegistrationPage from '../../pages/registration';
