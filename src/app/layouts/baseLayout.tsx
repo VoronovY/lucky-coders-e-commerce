@@ -1,6 +1,6 @@
 import LayoutFooter from '../../widgets/footer';
 
-import Layout from '../../shared/ui';
+import { Layout } from '../../shared/ui';
 
 import LayoutHeader from '../../widgets/header';
 import LayoutBody from '../../widgets/body';

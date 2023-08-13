@@ -10,11 +10,15 @@
 
   --color-primary-bg-light: #{$color-primary-bg-light};
   --color-secondary-bg-light: #{$color-secondary-bg-light};
+  --color-bg-light: #{$color-primary-light};
   --color-primary-bg-dark: #{$color-primary-dark};
   --color-accent-bg: #{$color-accent};
   --color-primary-text: #{$color-primary-dark};
   --color-secondary-text: #{$color-primary-light};
   --color-accent-text: #{$color-accent};
+  --color-primary-border: #{$color-black-light};
+  --color-hover-border: #{$color-black-dark};
+  --color-shadow-border: #{$color-black-dark-light};
 
   --font-family-primary: #{$font-family-primary};
   --font-line-height-primary: #{$font-line-height-primary};
@@ -26,6 +30,7 @@
   --font-weight-bold: #{$font-weight-bold};
 
   --font-size-primary: #{$font-size-primary};
+  --font-size-large: #{$font-size-large};
   --font-size-middle: #{$font-size-middle};
   --font-size-small: #{$font-size-small};
   --font-size-h1: #{$font-size-h1};
