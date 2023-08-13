@@ -2,10 +2,6 @@ import styles from './SpecialsContainer.module.scss';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '../../../../app/layouts/images';
 
-import Promo1Img from '../../../../../public/assets/promo1.png';
-import PromoFirst768Img from '../../../../../public/assets/promo1-768.png';
-import GradientImg from '../../../../../public/assets/gradient.png';
-
 function SpecialsContainer(): JSX.Element {
   return (
     <div className={styles.specialsContainer}>
@@ -15,12 +11,6 @@ function SpecialsContainer(): JSX.Element {
           <ArrowLeftIcon className={styles.arrowNav} />
         </div>
         <div className={styles.promoWrapper}>
-          <picture>
-            <source srcSet={PromoFirst768Img} media="(max-width: 768px)" />
-            <img className={styles.promoImg} src={Promo1Img} alt="Promo" />
-          </picture>
-
-          <img className={styles.gradientImg} src={GradientImg} alt="Gradient" />
           <div className={styles.specialsContent}>
             <div>
               <span>Explore the world of stones!</span>
