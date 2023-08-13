@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import styles from './catalogContainer.module.scss';
+import styles from './CatalogMain.module.scss';
 
 import StoneSliceImg from '../../../../../public/assets/stone-slice.png';
 import PearlImg from '../../../../../public/assets/pearl.png';
@@ -16,7 +16,7 @@ const catalogLinks = [
   { id: 4, src: BeadsImg, text: 'Beads', path: '/beads' },
   { id: 5, src: AllCatalogImg, text: 'All Catalog', path: RoutesName.catalog },
 ];
-function CatalogContainer(): JSX.Element {
+function CatalogMain(): JSX.Element {
   return (
     <div className={styles.catalogContainer}>
       <h2>Catalog</h2>
@@ -32,4 +32,4 @@ function CatalogContainer(): JSX.Element {
   );
 }
 
-export default CatalogContainer;
+export default CatalogMain;

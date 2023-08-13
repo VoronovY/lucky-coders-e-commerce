@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import styles from './AboutUsContainer.module.scss';
+import styles from './AboutUs.module.scss';
 
 import Button from '../../../../shared/ui/button/Button';
 import RoutesName from '../../../../shared/routing';
@@ -8,7 +8,7 @@ import RoutesName from '../../../../shared/routing';
 import StonesImg from '../../../../../public/assets/stones-bg.png';
 import Stones768Img from '../../../../../public/assets/stones-bg-768.png';
 
-function AboutUsContainer(): JSX.Element {
+function AboutUs(): JSX.Element {
   return (
     <div className={styles.aboutUsContainer}>
       <picture>
@@ -30,4 +30,4 @@ function AboutUsContainer(): JSX.Element {
   );
 }
 
-export default AboutUsContainer;
+export default AboutUs;

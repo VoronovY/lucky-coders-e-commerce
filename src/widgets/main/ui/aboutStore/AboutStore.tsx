@@ -1,8 +1,8 @@
-import styles from './aboutStoreContainer.module.scss';
+import styles from './AboutStore.module.scss';
 
 import StoreImg from '../../../../../public/assets/store.png';
 
-function AboutStoreContainer(): JSX.Element {
+function AboutStore(): JSX.Element {
   return (
     <div className={styles.aboutStoreContainer}>
       <h2>About &quot;Stones Fall&quot; Store</h2>
@@ -37,4 +37,4 @@ function AboutStoreContainer(): JSX.Element {
   );
 }
 
-export default AboutStoreContainer;
+export default AboutStore;

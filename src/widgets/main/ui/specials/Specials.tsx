@@ -1,4 +1,4 @@
-import styles from './SpecialsContainer.module.scss';
+import styles from './Specials.module.scss';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '../../../../app/layouts/images';
 
