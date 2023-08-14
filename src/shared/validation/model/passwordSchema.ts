@@ -1,6 +1,6 @@
 import { ObjectSchema, object, string } from 'yup';
 
-import { leadingTrailingWhitespaceTest, whitespaceInMiddleTest } from '../../constants/whitespaceTests';
+import { leadingTrailingWhitespaceTest, whitespaceInMiddleTest } from '../../helpers/whitespaceTests';
 
 interface PasswordFieldScheme {
   password: string;

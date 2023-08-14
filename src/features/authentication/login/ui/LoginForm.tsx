@@ -6,9 +6,10 @@ import { ObjectSchema } from 'yup';
 
 import { TextInput, PasswordInput, PasswordErrors } from '../../../../shared/ui';
 
-import FormWrapper from '../../../../shared/ui/form/FormWrapper';
+import { FormWrapper, FormText } from '../../../../shared/ui/form';
 import loginSchema from '../model/loginSchema';
 import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems';
+import RoutesName from '../../../../shared/routing';
 
 interface LoginUserFields {
   email: string;
@@ -37,7 +38,7 @@ function LoginForm(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormWrapper title="Log in to your account">
+      <FormWrapper title="Log in to your account" buttonText="Sign In">
         <Controller
           name="email"
           control={control}
@@ -61,6 +62,7 @@ function LoginForm(): JSX.Element {
             );
           }}
         />
+        <FormText link={RoutesName.registration} linkText="Sign Up" text="Don't have an account?" />
       </FormWrapper>
     </form>
   );

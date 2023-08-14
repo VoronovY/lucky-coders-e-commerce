@@ -1,4 +1,4 @@
-@import "../../../app//styles/variables.scss";
+@import "../../../../app//styles/variables.scss";
 
 .formWrapper {
   display: flex;
@@ -32,11 +32,5 @@
 
   .bottom {
     background-color: var(--color-accent-bg);
-  }
-
-  .signUpText {
-    font-size: var(--font-size-middle);
-    font-weight: var(--font-weight-bold);
-    margin-top: 20px;
   }
 }
