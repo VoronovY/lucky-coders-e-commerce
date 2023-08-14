@@ -1,5 +1,7 @@
 import { ObjectSchema, object, string } from 'yup';
 
+import { leadingTrailingWhitespaceTest, whitespaceInMiddleTest } from '../../constants/whitespaceTests';
+
 interface EmailFieldScheme {
   email: string;
 }
@@ -10,18 +12,12 @@ const emailSchema: ObjectSchema<EmailFieldScheme> = object().shape({
     .test(
       'no-leading-trailing-whitespace',
       'Email address must not contain leading or trailing whitespace',
-      (value) => {
-        if (!value) return true;
-        return !(value.startsWith(' ') || value.endsWith(' '));
-      },
+      leadingTrailingWhitespaceTest,
     )
     .test(
       'no-whitespace-in-middle',
       'Email address must not contain whitespace in the middle of the string',
-      (value) => {
-        if (!value) return true;
-        return !/\S\s+\S/.test(value);
-      },
+      whitespaceInMiddleTest,
     )
     .test('contains-at-symbol', "Email address must contain an '@' symbol", (value) => {
       if (!value) return true;

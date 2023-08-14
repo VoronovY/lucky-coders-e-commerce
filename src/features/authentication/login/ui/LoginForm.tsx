@@ -8,11 +8,17 @@ import { TextInput, PasswordInput, PasswordErrors } from '../../../../shared/ui'
 
 import FormWrapper from '../../../../shared/ui/form/FormWrapper';
 import loginSchema from '../model/loginSchema';
+import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems';
 
 interface LoginUserFields {
   email: string;
   password: string;
 }
+
+const initLoginForm = {
+  email: '',
+  password: '',
+};
 
 function LoginForm(): JSX.Element {
   const {
@@ -22,10 +28,7 @@ function LoginForm(): JSX.Element {
   } = useForm<LoginUserFields>({
     resolver: yupResolver(loginSchema as ObjectSchema<LoginUserFields>),
     mode: 'onChange',
-    defaultValues: {
-      email: '',
-      password: '',
-    },
+    defaultValues: initLoginForm,
   });
 
   const onSubmit: SubmitHandler<LoginUserFields> = (data) => {
@@ -51,7 +54,9 @@ function LoginForm(): JSX.Element {
             return (
               <>
                 <PasswordInput id="2" placeholder="Password" label="Password *" {...field} error={errors.password} />
-                {fieldState.isDirty && errors.password && <PasswordErrors value={field.value || ''} />}
+                {fieldState.isDirty && errors.password && (
+                  <PasswordErrors value={field.value || ''} errorItems={passwordErrorItems} />
+                )}
               </>
             );
           }}

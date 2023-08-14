@@ -32,7 +32,7 @@ const TextInput = forwardRef<HTMLInputElement, ITextInputProps>(
           type={type}
           {...otherProps}
         />
-        {error && <span className={styles.errorMessage}>{error?.message && ` ${error.message}`}</span>}
+        {error && <span className={styles.errorMessage}>{error?.message && `${error.message}`}</span>}
       </label>
     );
   },
