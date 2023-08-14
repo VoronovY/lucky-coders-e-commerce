@@ -28,7 +28,7 @@ interface RegisterUserFields {
   postal: string;
 }
 
-function RegistratinonForm(): JSX.Element {
+function RegistrationForm(): JSX.Element {
   const { handleSubmit, control } = useForm<RegisterUserFields>({
     mode: 'onChange',
     defaultValues: {
@@ -142,4 +142,4 @@ function RegistratinonForm(): JSX.Element {
   );
 }
 
-export default RegistratinonForm;
+export default RegistrationForm;

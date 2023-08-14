@@ -1,3 +1,3 @@
-import RegistratinonForm from './ui/layout/RegistrationForm';
+import RegistrationForm from './ui/layout/RegistrationForm';
 
-export default RegistratinonForm;
+export default RegistrationForm;

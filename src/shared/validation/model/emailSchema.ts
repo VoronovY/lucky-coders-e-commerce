@@ -15,6 +15,14 @@ const emailSchema: ObjectSchema<EmailFieldScheme> = object().shape({
         return !(value.startsWith(' ') || value.endsWith(' '));
       },
     )
+    .test(
+      'no-whitespace-in-middle',
+      'Email address must not contain whitespace in the middle of the string',
+      (value) => {
+        if (!value) return true;
+        return !/\S\s+\S/.test(value);
+      },
+    )
     .test('contains-at-symbol', "Email address must contain an '@' symbol", (value) => {
       if (!value) return true;
       return value.includes('@');

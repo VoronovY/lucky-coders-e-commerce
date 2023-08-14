@@ -37,11 +37,8 @@ function LoginForm(): JSX.Element {
   });
 
   const onSubmit: SubmitHandler<LoginUserFields> = (data) => {
-    const cleanedData = {
-      email: data.email.replace(/\s/g, ''),
-      password: data.password?.replace(/\s/g, ''),
-    };
-    return cleanedData;
+    console.log(data);
+    return data;
   };
 
   return (
