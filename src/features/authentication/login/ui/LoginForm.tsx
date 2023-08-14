@@ -22,10 +22,11 @@ const userSchema: ObjectSchema<LoginUserFieldsScheme> = object().shape({
   email: string().required('Email is required'),
   password: string()
     .required('Password is required')
-    .min(8, 'Password must contain at least 8 characters')
-    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter (A-Z)')
-    .matches(/[a-z]/, 'Password must contain at least one lowercase letter (a-z)')
-    .matches(/\d/, 'Password must contain at least one digit (0-9)'),
+    .trim()
+    .test('password-requirements', '', (value) => {
+      if (!value) return true;
+      return value.length >= 8 && /[A-Z]/.test(value) && /[a-z]/.test(value) && /\d/.test(value);
+    }),
 });
 interface LoginUserFields {
   email: string;
@@ -68,6 +69,7 @@ function LoginForm(): JSX.Element {
         control={control}
         rules={{ required: true }}
         render={({ field, fieldState }): JSX.Element => {
+          const hasMinLength = (field.value ?? '').length >= 8;
           const hasUppercase = /[A-Z]/.test(field.value || '');
           const hasLowercase = /[a-z]/.test(field.value || '');
           const hasDigit = /\d/.test(field.value || '');
@@ -80,7 +82,7 @@ function LoginForm(): JSX.Element {
                   <div className={styles.errorList}>
                     <div>
                       <div className={styles.errorItem}>
-                        {errors.password && errors.password.type === 'min' ? <CheckedRedIcon /> : <CheckedGreenIcon />}
+                        {errors.password && !hasMinLength ? <CheckedRedIcon /> : <CheckedGreenIcon />}
                         <span>at least 8 characters</span>
                       </div>
                       <div className={styles.errorItem}>
