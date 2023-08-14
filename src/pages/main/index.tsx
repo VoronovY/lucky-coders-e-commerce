@@ -1,7 +1,3 @@
-import styles from './MainPage.module.scss';
-
-function MainPage(): JSX.Element {
-  return <div className={styles.mainPage}>Main Page</div>;
-}
+import MainPage from './ui/MainPage';
 
 export default MainPage;

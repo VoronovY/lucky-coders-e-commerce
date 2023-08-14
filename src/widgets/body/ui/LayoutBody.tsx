@@ -4,9 +4,9 @@ import styles from './LayoutBody.module.scss';
 
 function LayoutBody(): JSX.Element {
   return (
-    <div className={styles.mainBody}>
+    <main className={styles.mainBody}>
       <Outlet />
-    </div>
+    </main>
   );
 }
 
