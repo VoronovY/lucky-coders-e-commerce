@@ -4,9 +4,12 @@ import { Link } from 'react-router-dom';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { ObjectSchema, object, string } from 'yup';
+import { ObjectSchema, object } from 'yup';
 
 import styles from './LoginForm.module.scss';
+
+import emailSchema from '../../../../shared/validation/model/emailSchema';
+import passwordSchema from '../../../../shared/validation/model/passwordSchema';
 
 import { TextInput, PasswordInput } from '../../../../shared/ui';
 import Button from '../../../../shared/ui/button/Button';
@@ -14,47 +17,10 @@ import Button from '../../../../shared/ui/button/Button';
 import RoutesName from '../../../../shared/routing';
 import { CheckedGreenIcon, CheckedRedIcon } from '../../../../app/layouts/images';
 
-interface LoginUserFieldsScheme {
-  email: string;
-}
-
-const userSchema: ObjectSchema<LoginUserFieldsScheme> = object().shape({
-  email: string()
-    .required('Email is required')
-    .test(
-      'no-leading-trailing-whitespace',
-      'Email address must not contain leading or trailing whitespace',
-      (value) => {
-        if (!value) return true;
-        return !(value.startsWith(' ') || value.endsWith(' '));
-      },
-    )
-    .test('contains-at-symbol', "Email address must contain an '@' symbol", (value) => {
-      if (!value) return true;
-      return value.includes('@');
-    })
-    .test('contains-domain', 'Email address must contain a domain name (e.g., example.com)', (value) => {
-      if (!value) return true;
-      const trimmedValue = value.replace(/\s/g, '');
-      const domainRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-      const isValidFormat = domainRegex.test(trimmedValue);
-      const hasDomainName = trimmedValue.split('@')[1]?.length > 0;
-      return isValidFormat && hasDomainName;
-    }),
-  password: string()
-    .required('Password is required')
-    .test('no-leading-trailing-whitespace', 'Password must not contain leading or trailing whitespace', (value) => {
-      if (!value) return true;
-      return !(value.startsWith(' ') || value.endsWith(' '));
-    })
-    .test('password-requirements', '', (value) => {
-      if (!value) return true;
-      return value.length >= 8 && /[A-Z]/.test(value) && /[a-z]/.test(value) && /\d/.test(value);
-    }),
-});
+const userSchema = object().shape({ ...emailSchema.fields, ...passwordSchema.fields });
 interface LoginUserFields {
   email: string;
-  password?: string;
+  password: string;
 }
 
 function LoginForm(): JSX.Element {
@@ -63,7 +29,7 @@ function LoginForm(): JSX.Element {
     control,
     formState: { errors },
   } = useForm<LoginUserFields>({
-    resolver: yupResolver(userSchema),
+    resolver: yupResolver(userSchema as ObjectSchema<LoginUserFields>),
     mode: 'onChange',
     defaultValues: {
       email: '',
