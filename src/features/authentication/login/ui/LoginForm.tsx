@@ -11,11 +11,10 @@ import styles from './LoginForm.module.scss';
 import emailSchema from '../../../../shared/validation/model/emailSchema';
 import passwordSchema from '../../../../shared/validation/model/passwordSchema';
 
-import { TextInput, PasswordInput } from '../../../../shared/ui';
+import { TextInput, PasswordInput, PasswordErrors } from '../../../../shared/ui';
 import Button from '../../../../shared/ui/button/Button';
 
 import RoutesName from '../../../../shared/routing';
-import { CheckedGreenIcon, CheckedRedIcon } from '../../../../app/layouts/images';
 
 const userSchema = object().shape({ ...emailSchema.fields, ...passwordSchema.fields });
 interface LoginUserFields {
@@ -42,8 +41,6 @@ function LoginForm(): JSX.Element {
       email: data.email.replace(/\s/g, ''),
       password: data.password?.replace(/\s/g, ''),
     };
-
-    console.log(cleanedData);
     return cleanedData;
   };
 
@@ -64,40 +61,10 @@ function LoginForm(): JSX.Element {
         control={control}
         rules={{ required: true }}
         render={({ field, fieldState }): JSX.Element => {
-          const hasMinLength = (field.value ?? '').length >= 8;
-          const hasUppercase = /[A-Z]/.test(field.value || '');
-          const hasLowercase = /[a-z]/.test(field.value || '');
-          const hasDigit = /\d/.test(field.value || '');
           return (
             <>
               <PasswordInput id="2" placeholder="Password" label="Password *" {...field} error={errors.password} />
-              {fieldState.isDirty && errors.password && (
-                <>
-                  <span>The password must contain:</span>
-                  <div className={styles.errorList}>
-                    <div>
-                      <div className={styles.errorItem}>
-                        {errors.password && !hasMinLength ? <CheckedRedIcon /> : <CheckedGreenIcon />}
-                        <span>at least 8 characters</span>
-                      </div>
-                      <div className={styles.errorItem}>
-                        {errors.password && !hasUppercase ? <CheckedRedIcon /> : <CheckedGreenIcon />}
-                        <span>at least one uppercase letter (A-Z)</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div className={styles.errorItem}>
-                        {errors.password && !hasLowercase ? <CheckedRedIcon /> : <CheckedGreenIcon />}
-                        <span>at least one lowercase letter (a-z)</span>
-                      </div>
-                      <div className={styles.errorItem}>
-                        {errors.password && !hasDigit ? <CheckedRedIcon /> : <CheckedGreenIcon />}
-                        <span>at least one digit (0-9)</span>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
+              {fieldState.isDirty && errors.password && <PasswordErrors value={field.value || ''} />}
             </>
           );
         }}

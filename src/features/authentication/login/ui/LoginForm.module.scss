@@ -39,22 +39,4 @@
     font-weight: var(--font-weight-bold);
     margin-top: 20px;
   }
-
-  .errorList {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-
-    .errorItem {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-
-      span {
-        opacity: 0.5;
-        font-size: var(--font-size-small);
-      }
-    }
-  }
 }
