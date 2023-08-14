@@ -2,13 +2,14 @@ import styles from './PasswordErrors.module.scss';
 
 import { CheckedGreenIcon, CheckedRedIcon } from '../../../app/layouts/images';
 
+interface ErrorItems {
+  id: number;
+  condition: (value: string) => boolean;
+  text: string;
+}
 export interface PasswordErrorsProps {
   value: string;
-  errorItems: {
-    id: number;
-    condition: (value: string) => boolean;
-    text: string;
-  }[];
+  errorItems: ErrorItems[];
 }
 
 function PasswordErrors({ value, errorItems }: PasswordErrorsProps): JSX.Element {
