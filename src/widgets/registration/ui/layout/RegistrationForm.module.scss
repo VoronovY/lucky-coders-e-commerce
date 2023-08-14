@@ -25,15 +25,17 @@
 .line {
   width: 100%;
   max-width: 400px;
-  height: 4px;
+  height: 3px;
+  margin-bottom: 20px;
   background-color: var(--color-primary-bg-dark);
+}
+
+.bottom {
+  background-color: var(--color-accent-bg);
 }
 
 .signInText {
   font-size: var(--font-size-middle);
   font-weight: var(--font-weight-bold);
-}
-
-.signInLink {
-  color: --color-primary-link;
+  margin-top: 20px;
 }

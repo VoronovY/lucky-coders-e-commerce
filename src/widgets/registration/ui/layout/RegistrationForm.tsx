@@ -28,7 +28,7 @@ interface RegisterUserFields {
   postal: string;
 }
 
-function RegistratinonForm(): JSX.Element {
+function RegistrationForm(): JSX.Element {
   const { handleSubmit, control } = useForm<RegisterUserFields>({
     mode: 'onChange',
     defaultValues: {
@@ -131,11 +131,10 @@ function RegistratinonForm(): JSX.Element {
         }}
       />
       <p className={styles.signInText}>
-        Already have an account?
-        <Link to={RoutesName.login} className={styles.signInLink}>
-          Sign in
-        </Link>
+        Already have an account?&nbsp;
+        <Link to={RoutesName.login}>Sign in</Link>
       </p>
+      <div className={`${styles.line} ${styles.bottom}`} />
       <Button type="submit" height="48px" width="80%">
         Sign up
       </Button>
@@ -143,4 +142,4 @@ function RegistratinonForm(): JSX.Element {
   );
 }
 
-export default RegistratinonForm;
+export default RegistrationForm;

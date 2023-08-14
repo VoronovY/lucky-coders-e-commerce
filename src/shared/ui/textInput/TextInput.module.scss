@@ -19,3 +19,7 @@
 .inputError {
   border: 1px solid var(--font-color-error);
 }
+
+.inputError:focus {
+  border-color: var(--font-color-error);
+}

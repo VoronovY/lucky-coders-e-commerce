@@ -53,7 +53,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             {icon}
           </button>
         </div>
-        {error && <span className={styles.errorMessage}>{error?.message && ` (${error.message})`}</span>}
+        {error && <span className={styles.errorMessage}>{error?.message && `${error.message}`}</span>}
       </label>
     );
   },
