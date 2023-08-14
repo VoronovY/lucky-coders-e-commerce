@@ -19,10 +19,34 @@ interface LoginUserFieldsScheme {
 }
 
 const userSchema: ObjectSchema<LoginUserFieldsScheme> = object().shape({
-  email: string().required('Email is required'),
+  email: string()
+    .required('Email is required')
+    .test(
+      'no-leading-trailing-whitespace',
+      'Email address must not contain leading or trailing whitespace',
+      (value) => {
+        if (!value) return true;
+        return !(value.startsWith(' ') || value.endsWith(' '));
+      },
+    )
+    .test('contains-at-symbol', "Email address must contain an '@' symbol", (value) => {
+      if (!value) return true;
+      return value.includes('@');
+    })
+    .test('contains-domain', 'Email address must contain a domain name (e.g., example.com)', (value) => {
+      if (!value) return true;
+      const trimmedValue = value.replace(/\s/g, '');
+      const domainRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      const isValidFormat = domainRegex.test(trimmedValue);
+      const hasDomainName = trimmedValue.split('@')[1]?.length > 0;
+      return isValidFormat && hasDomainName;
+    }),
   password: string()
     .required('Password is required')
-    .trim()
+    .test('no-leading-trailing-whitespace', 'Password must not contain leading or trailing whitespace', (value) => {
+      if (!value) return true;
+      return !(value.startsWith(' ') || value.endsWith(' '));
+    })
     .test('password-requirements', '', (value) => {
       if (!value) return true;
       return value.length >= 8 && /[A-Z]/.test(value) && /[a-z]/.test(value) && /\d/.test(value);
@@ -48,8 +72,13 @@ function LoginForm(): JSX.Element {
   });
 
   const onSubmit: SubmitHandler<LoginUserFields> = (data) => {
-    console.log(data);
-    return data;
+    const cleanedData = {
+      email: data.email.replace(/\s/g, ''),
+      password: data.password?.replace(/\s/g, ''),
+    };
+
+    console.log(cleanedData);
+    return cleanedData;
   };
 
   return (
