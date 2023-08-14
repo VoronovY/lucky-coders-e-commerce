@@ -37,7 +37,6 @@ function LoginForm(): JSX.Element {
   });
 
   const onSubmit: SubmitHandler<LoginUserFields> = (data) => {
-    console.log(data);
     return data;
   };
 
