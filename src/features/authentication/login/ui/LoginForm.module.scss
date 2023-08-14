@@ -16,27 +16,45 @@
   @media (max-width: $width-mobile-big) {
     padding: 20px;
   }
-}
 
-.title {
-  text-align: center;
-  font-size: var(--font-size-large);
-}
+  .title {
+    text-align: center;
+    font-size: var(--font-size-large);
+  }
 
-.line {
-  width: 100%;
-  max-width: 400px;
-  height: 3px;
-  margin-bottom: 20px;
-  background-color: var(--color-primary-bg-dark);
-}
+  .line {
+    width: 100%;
+    max-width: 400px;
+    height: 3px;
+    margin-bottom: 20px;
+    background-color: var(--color-primary-bg-dark);
+  }
 
-.bottom {
-  background-color: var(--color-accent-bg);
-}
+  .bottom {
+    background-color: var(--color-accent-bg);
+  }
 
-.signUpText {
-  font-size: var(--font-size-middle);
-  font-weight: var(--font-weight-bold);
-  margin-top: 20px;
+  .signUpText {
+    font-size: var(--font-size-middle);
+    font-weight: var(--font-weight-bold);
+    margin-top: 20px;
+  }
+
+  .errorList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+
+    .errorItem {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+
+      span {
+        opacity: 0.5;
+        font-size: var(--font-size-small);
+      }
+    }
+  }
 }
