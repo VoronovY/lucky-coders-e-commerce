@@ -47,6 +47,10 @@
   --color-hovered-link: #{$color-hovered-link};
 
   --color-hovered-btn: #{$color-hovered-btn};
+
+  --shadow-card-primary: #{$card-shadow-primary};
+
+  --width-main-container: #{$width-main-container};
 }
 
 a {
@@ -54,6 +58,7 @@ a {
   color: var(--color-primary-link);
   text-decoration: inherit;
 }
+
 a:hover {
   color: var(--color-hovered-link);
 }
@@ -64,4 +69,17 @@ h1 {
 
 button {
   border: none;
+}
+
+p {
+  margin: 0;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  margin: 0;
+
+  @media (max-width: $width-tablet) {
+    font-size: var(--font-size-h3);
+  }
 }

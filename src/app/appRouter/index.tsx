@@ -10,6 +10,7 @@ import BaseLayout from '../layouts/baseLayout';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={BaseLayout} errorElement={<ErrorPage />}>
+      <Route index element={<MainPage />} />
       <Route path={RoutesName.main} element={<MainPage />} />
       <Route path={RoutesName.login} element={<LoginForm />} />
       <Route path={RoutesName.registration} element={<RegistrationPage />} />

@@ -9,10 +9,13 @@
     flex-direction: column;
     align-items: center;
   }
-  li {
+
+  a {
+    color: var(--color-secondary-text);
     transition: ease-in-out 0.2s;
   }
-  li:hover {
+
+  a:hover {
     cursor: pointer;
     color: var(--color-accent-text);
   }
