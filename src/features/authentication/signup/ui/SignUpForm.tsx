@@ -4,6 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { ObjectSchema } from 'yup';
 
+import { useEffect, useState } from 'react';
+
+import axios, { AxiosResponse } from 'axios';
+
 import RoutesName from '../../../../shared/routing';
 
 import { TextInput, PasswordInput, SelectInput, DateInput, PasswordErrors } from '../../../../shared/ui';
@@ -13,11 +17,10 @@ import { FormText, FormWrapper } from '../../../../shared/ui/form';
 import signUpSchema from '../model/signUpSchema';
 import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems';
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
+interface CountriesOption {
+  value: string;
+  label: string;
+}
 
 const defaultValues = {
   email: 'string',
@@ -25,7 +28,7 @@ const defaultValues = {
   firstName: 'string',
   lastName: 'string',
   birthDate: new Date(),
-  country: { value: '123', label: '123' },
+  country: undefined,
   city: 'string',
   street: 'string',
   postal: 'string',
@@ -43,7 +46,38 @@ interface RegisterUserFields {
   postal: string;
 }
 
+interface CountriesResponse {
+  data: Countries[];
+  err: string;
+  msg: string;
+}
+
+interface Countries {
+  cities: string[];
+  country: string;
+  iso2: string;
+  iso3: string;
+}
+
 function SignUpForm(): JSX.Element {
+  const [countries, setCountries] = useState<CountriesOption[]>([]);
+  useEffect(() => {
+    axios
+      .get<CountriesResponse>('https://countriesnow.space/api/v0.1/countries/')
+      .then((response: AxiosResponse<CountriesResponse>): void => {
+        const { data } = response;
+        // console.log(data);
+        const formatedCountries: CountriesOption[] = data.data.map((el) => ({
+          label: el.country,
+          value: el.country.toLowerCase(),
+        }));
+        setCountries(formatedCountries);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   const {
     handleSubmit,
     control,
@@ -98,6 +132,13 @@ function SignUpForm(): JSX.Element {
           }}
         />
         <Controller
+          name="birthDate"
+          control={control}
+          render={({ field: { onChange, value } }): JSX.Element => {
+            return <DateInput id="6" title="Birth date" onChange={onChange} value={value} error={errors.birthDate} />;
+          }}
+        />
+        <Controller
           name="country"
           control={control}
           render={({ field: { onChange, value }, fieldState: { error } }): JSX.Element => {
@@ -105,20 +146,13 @@ function SignUpForm(): JSX.Element {
               <SelectInput
                 id="5"
                 placeholder="Select Country"
-                title="Select Country"
-                options={options}
+                title="Select Country *"
+                options={countries}
                 onChange={onChange}
                 value={value}
                 error={error}
               />
             );
-          }}
-        />
-        <Controller
-          name="birthDate"
-          control={control}
-          render={({ field: { onChange, value }, fieldState: { error } }): JSX.Element => {
-            return <DateInput id="6" title="Birth date" onChange={onChange} value={value} error={error} />;
           }}
         />
         <Controller
