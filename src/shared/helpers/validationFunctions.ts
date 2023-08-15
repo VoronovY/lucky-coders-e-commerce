@@ -17,3 +17,11 @@ export const isNoNumbers = (value: string): boolean => {
 export const isNoSpecSymbols = (value: string): boolean => {
   return charsAndNumbersRegExp.test(value);
 };
+
+export const getDateForValidation = (years: number): Date => {
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth();
+  const day = new Date().getDate();
+
+  return new Date(year - years, month, day);
+};
