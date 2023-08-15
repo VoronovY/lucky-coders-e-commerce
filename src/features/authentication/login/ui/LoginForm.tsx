@@ -7,7 +7,7 @@ import { ObjectSchema } from 'yup';
 import { TextInput, PasswordInput, PasswordErrors } from '../../../../shared/ui';
 
 import { FormWrapper, FormText } from '../../../../shared/ui/form';
-import loginSchema from '../model/loginSchema';
+import signInSchema from '../model/loginSchema';
 import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems';
 import RoutesName from '../../../../shared/routing';
 
@@ -27,7 +27,7 @@ function LoginForm(): JSX.Element {
     control,
     formState: { errors },
   } = useForm<LoginUserFields>({
-    resolver: yupResolver(loginSchema as ObjectSchema<LoginUserFields>),
+    resolver: yupResolver(signInSchema as ObjectSchema<LoginUserFields>),
     mode: 'onChange',
     defaultValues: initLoginForm,
   });
@@ -50,7 +50,6 @@ function LoginForm(): JSX.Element {
         <Controller
           name="password"
           control={control}
-          rules={{ required: true }}
           render={({ field, fieldState }): JSX.Element => {
             return (
               <>

@@ -12,8 +12,8 @@ export interface PasswordErrorsProps {
   errorItems: ErrorItems[];
 }
 
-function PasswordErrors({ value, errorItems }: PasswordErrorsProps): JSX.Element {
-  return (
+function PasswordErrors({ value, errorItems }: PasswordErrorsProps): JSX.Element | null {
+  return value ? (
     <>
       <span>The password must contain:</span>
       <div className={styles.errorList}>
@@ -25,7 +25,7 @@ function PasswordErrors({ value, errorItems }: PasswordErrorsProps): JSX.Element
         ))}
       </div>
     </>
-  );
+  ) : null;
 }
 
 export { PasswordErrors };

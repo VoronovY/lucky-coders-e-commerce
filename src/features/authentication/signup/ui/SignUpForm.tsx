@@ -1,17 +1,35 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import { ObjectSchema } from 'yup';
+
 import RoutesName from '../../../../shared/routing';
 
-import { TextInput, PasswordInput, SelectInput, DateInput } from '../../../../shared/ui';
+import { TextInput, PasswordInput, SelectInput, DateInput, PasswordErrors } from '../../../../shared/ui';
 import { OptionInput } from '../../../../shared/ui/select/SelectInput';
 
 import { FormText, FormWrapper } from '../../../../shared/ui/form';
+import signUpSchema from '../model/signUpSchema';
+import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' },
 ];
+
+const defaultValues = {
+  email: 'string',
+  password: 'string',
+  firstName: 'string',
+  lastName: 'string',
+  birthDate: new Date(),
+  country: { value: '123', label: '123' },
+  city: 'string',
+  street: 'string',
+  postal: 'string',
+};
 
 interface RegisterUserFields {
   email: string;
@@ -26,19 +44,14 @@ interface RegisterUserFields {
 }
 
 function SignUpForm(): JSX.Element {
-  const { handleSubmit, control } = useForm<RegisterUserFields>({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<RegisterUserFields>({
+    resolver: yupResolver(signUpSchema as ObjectSchema<RegisterUserFields>),
     mode: 'onChange',
-    defaultValues: {
-      email: 'string',
-      password: 'string',
-      firstName: 'string',
-      lastName: 'string',
-      birthDate: new Date(),
-      country: { value: '123', label: '123' },
-      city: 'string',
-      street: 'string',
-      postal: 'string',
-    },
+    defaultValues,
   });
 
   const onSubmit: SubmitHandler<RegisterUserFields> = (data) => {
@@ -50,7 +63,6 @@ function SignUpForm(): JSX.Element {
         <Controller
           name="email"
           control={control}
-          rules={{ required: true }}
           render={({ field }): JSX.Element => {
             return <TextInput id="1" placeholder="Email" label="Email *" {...field} />;
           }}
@@ -58,24 +70,31 @@ function SignUpForm(): JSX.Element {
         <Controller
           name="password"
           control={control}
-          rules={{ required: true }}
-          render={({ field }): JSX.Element => {
-            return <PasswordInput id="2" placeholder="Password" label="Password *" {...field} />;
+          render={({ field, fieldState: { isDirty } }): JSX.Element => {
+            return (
+              <>
+                <PasswordInput id="2" placeholder="Password" label="Password *" {...field} error={errors.password} />
+                {isDirty && errors.password && (
+                  <PasswordErrors value={field.value || ''} errorItems={passwordErrorItems} />
+                )}
+              </>
+            );
           }}
         />
         <Controller
           name="firstName"
           control={control}
-          rules={{ required: true }}
           render={({ field }): JSX.Element => {
-            return <TextInput id="3" placeholder="First name" label="First name *" {...field} />;
+            return (
+              <TextInput id="3" placeholder="First name" label="First name *" error={errors.firstName} {...field} />
+            );
           }}
         />
         <Controller
           name="lastName"
           control={control}
           render={({ field }): JSX.Element => {
-            return <TextInput id="4" placeholder="Last name" label="Last name *" {...field} />;
+            return <TextInput id="4" placeholder="Last name" label="Last name *" error={errors.lastName} {...field} />;
           }}
         />
         <Controller

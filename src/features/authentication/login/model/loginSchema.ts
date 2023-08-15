@@ -1,8 +1,8 @@
 import { object } from 'yup';
 
-import emailSchema from '../../../../shared/validation/model/emailSchema';
-import passwordSchema from '../../../../shared/validation/model/passwordSchema';
+import emailValidation from '../../../../shared/validation/model/emailValidation';
+import passwordValidation from '../../../../shared/validation/model/passwordValidation';
 
-const userSchema = object().shape({ ...emailSchema.fields, ...passwordSchema.fields });
+const signInSchema = object().shape({ email: emailValidation, password: passwordValidation });
 
-export default userSchema;
+export default signInSchema;
