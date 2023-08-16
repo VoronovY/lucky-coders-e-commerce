@@ -10,6 +10,7 @@ import { FormWrapper, FormText } from '../../../../shared/ui/form';
 import loginSchema from '../model/loginSchema';
 import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems';
 import RoutesName from '../../../../shared/routing';
+import loginUser from '../api/loginUser';
 
 interface LoginUserFields {
   email: string;
@@ -33,7 +34,7 @@ function LoginForm(): JSX.Element {
   });
 
   const onSubmit: SubmitHandler<LoginUserFields> = (data) => {
-    return data;
+    loginUser(data.email, data.password);
   };
 
   return (
