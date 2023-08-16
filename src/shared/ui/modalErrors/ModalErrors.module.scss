@@ -19,8 +19,10 @@
 .formModalWrapper {
   animation: slideInOut 4s ease-in-out forwards;
   position: fixed;
+  width: 100%;
   top: 0;
   display: flex;
+  justify-content: center;
   gap: 6px;
   padding: 20px;
   background-color: #e74c3c;

@@ -6,6 +6,8 @@ import { ObjectSchema } from 'yup';
 
 import { useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import { TextInput, PasswordInput, PasswordErrors } from '../../../../shared/ui';
 
 import { FormWrapper, FormText } from '../../../../shared/ui/form';
@@ -30,6 +32,8 @@ const initLoginForm = {
 function LoginForm(): JSX.Element {
   const [errorMessage, setErrorMessage] = useState('');
 
+  const navigate = useNavigate();
+
   const {
     handleSubmit,
     control,
@@ -45,7 +49,8 @@ function LoginForm(): JSX.Element {
 
     loginUser(data.email, data.password)
       .then((response) => {
-        console.log(response);
+        localStorage.setItem('token', response.body.customer.id);
+        navigate(RoutesName.main);
       })
       .catch((error) => {
         if (error.body.statusCode >= 500 && error.body.statusCode < 600) {
