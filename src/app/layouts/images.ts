@@ -11,6 +11,7 @@ import { ReactComponent as EyeIcon } from '../../../public/assets/view-eye.svg';
 import { ReactComponent as HiddenEyeIcon } from '../../../public/assets/hidden-eye.svg';
 import { ReactComponent as ArrowLeftIcon } from '../../../public/assets/arrow-left.svg';
 import { ReactComponent as ArrowRightIcon } from '../../../public/assets/arrow-right.svg';
+import { ReactComponent as WarningIcon } from '../../../public/assets/warning.svg';
 
 export {
   RssLogo,
@@ -26,4 +27,5 @@ export {
   HiddenEyeIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
+  WarningIcon,
 };
