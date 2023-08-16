@@ -1,6 +1,6 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 
-import LoginForm from '../../pages/login';
+import LoginPage from '../../pages/login';
 import ErrorPage from '../../pages/error';
 import RoutesName from '../../shared/routing';
 import RegistrationPage from '../../pages/registration';
@@ -12,7 +12,7 @@ const router = createBrowserRouter(
     <Route path="/" element={BaseLayout} errorElement={<ErrorPage />}>
       <Route index element={<MainPage />} />
       <Route path={RoutesName.main} element={<MainPage />} />
-      <Route path={RoutesName.login} element={<LoginForm />} />
+      <Route path={RoutesName.login} element={<LoginPage />} />
       <Route path={RoutesName.registration} element={<RegistrationPage />} />
     </Route>,
   ),

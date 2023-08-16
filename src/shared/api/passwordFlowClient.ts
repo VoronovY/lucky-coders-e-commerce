@@ -24,7 +24,6 @@ const passwordFlowClient = (username: string, password: string): Client => {
   const client = new ClientBuilder()
     .withPasswordFlow(passwordFlowOptions(username, password))
     .withHttpMiddleware(httpMiddlewareOptions)
-    // .withLoggerMiddleware()
     .build();
 
   return client;

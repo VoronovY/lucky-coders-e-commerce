@@ -18,6 +18,7 @@ import RoutesName from '../../../../shared/routing';
 import loginUser from '../api/loginUser';
 
 import ModalErrors from '../../../../shared/ui/modalErrors/ModalErrors';
+import getErrorLoginMessage from '../../../../shared/helpers/getErrorLoginMessage';
 
 interface LoginUserFields {
   email: string;
@@ -49,19 +50,11 @@ function LoginForm(): JSX.Element {
 
     loginUser(data.email, data.password)
       .then((response) => {
-        localStorage.setItem('token', response.body.customer.id);
+        sessionStorage.setItem('customer', response.body.customer.id);
         navigate(RoutesName.main);
       })
       .catch((error) => {
-        if (error.body.statusCode >= 500 && error.body.statusCode < 600) {
-          setErrorMessage('An internal server error has occurred. Please try again later.');
-        } else if (error.body.statusCode === 400) {
-          setErrorMessage('Invalid email or password');
-        } else if (error.body.statusCode === 404) {
-          setErrorMessage('Resource not found');
-        } else {
-          setErrorMessage('Unhandled error');
-        }
+        setErrorMessage(getErrorLoginMessage(error.body));
       });
   };
 
