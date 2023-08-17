@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { charsAndNumbersRegExp, digitsRegExp } from '../constants/regExpx';
 
 export const leadingTrailingWhitespaceTest = (value: string): boolean => {
@@ -24,4 +26,14 @@ export const getDateForValidation = (years: number): Date => {
   const day = new Date().getDate();
 
   return new Date(year - years, month, day);
+};
+
+export const vailadtePostal = async (value: string, iso: string): Promise<boolean> => {
+  try {
+    if (iso === undefined) return false;
+    const response = await axios.get(`http://api.zippopotam.us/${iso}/${value}`);
+    return response.data;
+  } catch {
+    throw new Error();
+  }
 };
