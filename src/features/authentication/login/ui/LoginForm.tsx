@@ -17,8 +17,8 @@ import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems
 import RoutesName from '../../../../shared/routing';
 import loginUser from '../api/loginUser';
 
-import ModalErrors from '../../../../shared/ui/modalErrors/ModalErrors';
 import getErrorLoginMessage from '../../../../shared/helpers/getErrorLoginMessage';
+import ModalError from '../../../../shared/ui/modalError/ModalError';
 
 interface LoginUserFields {
   email: string;
@@ -60,7 +60,7 @@ function LoginForm(): JSX.Element {
 
   return (
     <>
-      {errorMessage && <ModalErrors errorMessage={errorMessage} />}
+      {errorMessage && <ModalError errorMessage={errorMessage} />}
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormWrapper title="Log in to your account" buttonText="Sign In">
           <Controller

@@ -2,7 +2,7 @@ import { HttpErrorType } from '@commercetools/sdk-client-v2';
 
 function getErrorLoginMessage(error: HttpErrorType): string {
   let message = '';
-  if (error.statusCode >= 500 && error.statusCode < 600) {
+  if (error.statusCode >= 500) {
     message = 'An internal server error has occurred. Please try again later.';
   } else if (error.statusCode === 400) {
     message = 'Invalid email or password';

@@ -20,7 +20,6 @@ function credentialsFlowClient(): Client {
   const client = new ClientBuilder()
     .withClientCredentialsFlow(credentialsFlowOptions())
     .withHttpMiddleware(httpMiddlewareOptions)
-    .withLoggerMiddleware()
     .build();
 
   return client;
