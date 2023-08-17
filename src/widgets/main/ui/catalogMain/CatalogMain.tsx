@@ -10,10 +10,10 @@ import BeadsImg from '../../../../../public/assets/beads.png';
 import RoutesName from '../../../../shared/routing';
 
 const catalogLinks = [
-  { id: 1, src: StoneSliceImg, text: 'Collectible minerals', path: '/collectible-minerals' },
-  { id: 2, src: PearlImg, text: 'Pearl', path: '/pearls' },
-  { id: 3, src: CrystalsImg, text: 'Magical Stones', path: '/magical-stones' },
-  { id: 4, src: BeadsImg, text: 'Beads', path: '/beads' },
+  { id: 1, src: StoneSliceImg, text: 'Collectible minerals', path: `${RoutesName.catalog}/collectible-minerals` },
+  { id: 2, src: PearlImg, text: 'Pearl', path: `${RoutesName.catalog}/pearls` },
+  { id: 3, src: CrystalsImg, text: 'Magical Stones', path: `${RoutesName.catalog}/magical-stones` },
+  { id: 4, src: BeadsImg, text: 'Beads', path: `${RoutesName.catalog}/beads` },
   { id: 5, src: AllCatalogImg, text: 'All Catalog', path: RoutesName.catalog },
 ];
 function CatalogMain(): JSX.Element {
