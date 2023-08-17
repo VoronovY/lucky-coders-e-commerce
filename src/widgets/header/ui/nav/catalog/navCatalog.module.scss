@@ -1,0 +1,41 @@
+.navCatalog {
+  .burgerMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+
+    div {
+      background: var(--color-secondary-text);
+      width: 16px;
+      height: 1px;
+    }
+  }
+
+  p {
+    color: var(--color-secondary-text);
+  }
+}
+
+.buttonOpen {
+  background: none;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  transition: ease-in-out 0.2s;
+
+  &:hover {
+    cursor: pointer;
+
+    .burgerMenu > div {
+      background: var(--color-accent-text);
+    }
+
+    & > p {
+      color: var(--color-accent-text);
+    }
+  }
+}
