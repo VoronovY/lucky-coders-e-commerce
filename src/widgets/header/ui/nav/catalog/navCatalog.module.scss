@@ -25,17 +25,18 @@
   justify-content: center;
   align-items: center;
   gap: 16px;
+  font-weight: var(--font-weight-bold);
   transition: ease-in-out 0.2s;
 
   &:hover {
     cursor: pointer;
 
     .burgerMenu > div {
-      background: var(--color-accent-text);
+      background: var(--color-hovered-btn);
     }
 
     & > p {
-      color: var(--color-accent-text);
+      color: var(--color-hovered-btn);
     }
   }
 }

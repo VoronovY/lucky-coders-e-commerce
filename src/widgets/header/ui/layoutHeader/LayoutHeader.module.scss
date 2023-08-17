@@ -6,7 +6,7 @@
   position: relative;
 
   width: 100%;
-  padding: 20px;
+  padding: 20px 30px;
 
   background: var(--color-primary-bg-dark);
   color: var(--color-secondary-text);
@@ -16,7 +16,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  width: 145px;
+  width: 146px;
 }
 
 .cart {
@@ -24,6 +24,6 @@
   color: var(--color-secondary-text);
 
   &:hover {
-    color: var(--color-accent-text);
+    color: var(--color-hovered-btn);
   }
 }

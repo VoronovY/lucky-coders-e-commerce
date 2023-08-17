@@ -9,7 +9,13 @@ function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX
   const onClick = (): void => {
     setIsOpen(false);
   };
-  const categoriesArr = ['All Categories', 'Pearl', 'Collectible Minerals', 'Beads', 'Magical Stones'];
+  const categoriesArr = [
+    { id: 1, url: RoutesName.catalog, text: 'All Categories' },
+    { id: 2, url: RoutesName.catalog, text: 'Pearl' },
+    { id: 3, url: RoutesName.catalog, text: 'Collectible Minerals' },
+    { id: 4, url: RoutesName.catalog, text: 'Beads' },
+    { id: 5, url: RoutesName.catalog, text: 'Magical Stones' },
+  ];
   return (
     <div className={styles.container}>
       <div className={styles.categoriesWrapper}>
@@ -22,9 +28,9 @@ function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX
           <ul className={styles.categories}>
             {categoriesArr.map((item, index) => {
               return (
-                <li className={styles.categoriesItem} key={item}>
-                  <Link to={RoutesName.catalog} className={styles.link}>
-                    {item}
+                <li className={styles.categoriesItem} key={item.id}>
+                  <Link to={item.url} className={styles.link}>
+                    {item.text}
                   </Link>
                   {index > 0 ? (
                     <button type="button" className={styles.arrow}>

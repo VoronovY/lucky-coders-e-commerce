@@ -12,19 +12,18 @@
   transition: ease-in-out 0.2s;
   color: var(--color-secondary-text);
   width: 30px;
-  height: 30px;
+  height: 34px;
 
   &:hover {
     cursor: pointer;
-    color: var(--color-accent-text);
+    color: var(--color-hovered-btn);
   }
 }
 
 .dropDownMenu {
   display: none;
-  background-color: #ffffff;
+  background-color: var(--color-primary-bg-light);
   padding: 30px;
-
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
@@ -61,7 +60,7 @@
 
     .img,
     .text {
-      color: var(--color-accent-text);
+      color: var(--color-hovered-btn);
     }
   }
 

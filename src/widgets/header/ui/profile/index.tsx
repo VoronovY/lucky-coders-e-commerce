@@ -14,7 +14,7 @@ function HeaderNavProfile(): JSX.Element {
         <div className={styles.arrow} />
         <Link to={RoutesName.login} className={styles.linkWrapper}>
           <LoginIcon className={styles.img} />
-          <p className={styles.text}> Sign In</p>
+          <p className={styles.text}>Sign In</p>
         </Link>
         <Link to={RoutesName.registration} className={styles.linkWrapper}>
           <RegisterIcon className={styles.img} />

@@ -12,13 +12,13 @@
   top: 90px;
   left: 50%;
   transform: translate(-50%, 0);
-  max-width: 1111px;
+  max-width: var(--width-main-container);
   width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   z-index: 100;
-  box-shadow: 0px 4px 14px 0px #faaf00;
+  box-shadow: var(--categories-shadow);
 }
 
 .categories {
@@ -42,7 +42,7 @@
 
   &:hover {
     cursor: pointer;
-    color: var(--color-accent-text);
+    color: var(--color-hovered-btn);
   }
 }
 
@@ -52,31 +52,31 @@
   width: 20px;
   background: none;
   padding: 4px;
-  color: #c8c5c3;
+  color: var(--color-categories-arrow-button);
   transition: ease-in-out 0.2s;
 
   &:hover {
     cursor: pointer;
-    color: var(--color-accent-text);
+    color: var(--color-hovered-btn);
   }
 }
 
 .close {
-  border-bottom: grey 1px solid;
+  border-bottom: var(--color-categories-arrow-button) 2px solid;
   padding: 16px 30px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 
   .closeButton {
-    color: black;
+    color: var(--color-primary-text);
     transition: ease-in-out 0.2s;
     background: none;
     padding: 4px;
 
     &:hover {
       cursor: pointer;
-      color: var(--color-accent-text);
+      color: var(--color-hovered-btn);
     }
   }
 }
