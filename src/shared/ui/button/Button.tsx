@@ -5,6 +5,8 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
   width?: string;
   height?: string;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 function Button({ children, width = '100%', height = '35px', ...attributes }: ButtonProps): JSX.Element {
   return (
