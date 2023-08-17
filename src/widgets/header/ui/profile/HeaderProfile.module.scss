@@ -1,0 +1,78 @@
+.profileWrapper {
+  position: relative;
+
+  &:hover {
+    .dropDownMenu {
+      display: flex;
+    }
+  }
+}
+
+.profile {
+  transition: ease-in-out 0.2s;
+  color: var(--color-secondary-text);
+  width: 30px;
+  height: 30px;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--color-accent-text);
+  }
+}
+
+.dropDownMenu {
+  display: none;
+  background-color: #ffffff;
+  padding: 30px;
+
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: var(--shadow-card-primary);
+  border-radius: 10px;
+  position: absolute;
+  z-index: 10;
+  right: -15px;
+  top: 50px;
+  transition: ease-in-out 0.2s;
+
+  .arrow {
+    width: 0;
+    height: 0;
+    border: #ffffff solid 12px;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    position: absolute;
+    top: -20px;
+    right: 20px;
+  }
+}
+
+.linkWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  &:hover {
+    cursor: pointer;
+
+    .img,
+    .text {
+      color: var(--color-accent-text);
+    }
+  }
+
+  .img {
+    color: var(--color-primary-text);
+    width: 25px;
+    height: 25px;
+  }
+
+  .text {
+    color: var(--color-primary-text);
+    white-space: nowrap;
+  }
+}

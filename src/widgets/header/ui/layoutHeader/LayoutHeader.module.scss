@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+
+  width: 100%;
+  padding: 20px;
+
+  background: var(--color-primary-bg-dark);
+  color: var(--color-secondary-text);
+}
+
+.imgs {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  width: 145px;
+}
+
+.cart {
+  transition: ease-in-out 0.2s;
+  color: var(--color-secondary-text);
+
+  &:hover {
+    color: var(--color-accent-text);
+  }
+}
