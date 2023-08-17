@@ -22,7 +22,7 @@ function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX
           <ul className={styles.categories}>
             {categoriesArr.map((item, index) => {
               return (
-                <li className={styles.categoriesItem}>
+                <li className={styles.categoriesItem} key={item}>
                   <Link to={RoutesName.catalog} className={styles.link}>
                     {item}
                   </Link>
