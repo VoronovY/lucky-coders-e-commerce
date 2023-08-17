@@ -1,0 +1,16 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+
+  .navLink {
+    white-space: nowrap;
+    transition: ease-in-out 0.2s;
+    color: var(--color-secondary-text);
+
+    &:hover {
+      color: var(--color-accent-text);
+    }
+  }
+}
