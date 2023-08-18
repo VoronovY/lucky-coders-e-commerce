@@ -5,6 +5,8 @@ import RoutesName from '../../shared/routing';
 import MainPage from '../../pages/main';
 import BaseLayout from '../layouts/baseLayout';
 import { SignUpPage, LoginPage } from '../../pages';
+import AboutPage from '../../pages/about';
+import CatalogPage from '../../pages/catalog';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -13,6 +15,9 @@ const router = createBrowserRouter(
       <Route path={RoutesName.main} element={<MainPage />} />
       <Route path={RoutesName.login} element={<LoginPage />} />
       <Route path={RoutesName.registration} element={<SignUpPage />} />
+      <Route path={RoutesName.about} element={<AboutPage />} />
+      <Route path={RoutesName.catalog} element={<CatalogPage />} />
+      <Route path={`${RoutesName.catalog}/:category`} element={<CatalogPage />} />
     </Route>,
   ),
 );

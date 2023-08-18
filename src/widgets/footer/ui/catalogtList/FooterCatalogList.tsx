@@ -5,10 +5,10 @@ import styles from './FooterCatalogList.module.scss';
 import RoutesName from '../../../../shared/routing';
 
 const categories = [
-  { id: 1, name: 'Pearl', path: '/pearls' },
-  { id: 2, name: 'Collectible minerals', path: '/collectible-minerals' },
-  { id: 3, name: 'Beads', path: '/beads' },
-  { id: 4, name: 'Magical stones', path: '/magical-stones' },
+  { id: 1, name: 'Pearl', path: `${RoutesName.catalog}/pearl` },
+  { id: 2, name: 'Collectible minerals', path: `${RoutesName.catalog}/collectible-minerals` },
+  { id: 3, name: 'Beads', path: `${RoutesName.catalog}/beads` },
+  { id: 4, name: 'Magical stones', path: `${RoutesName.catalog}/magical-stones` },
 ];
 function FooterCatalogList(): JSX.Element {
   return (
@@ -19,7 +19,7 @@ function FooterCatalogList(): JSX.Element {
       <ul>
         {categories.map((category) => (
           <li key={category.id}>
-            <Link to={category.name.toLowerCase().replace(/\s/g, '-')} key={category.id}>
+            <Link to={category.path} key={category.id}>
               {category.name}
             </Link>
           </li>
