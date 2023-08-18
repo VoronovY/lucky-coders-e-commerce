@@ -11,6 +11,10 @@ import { ReactComponent as EyeIcon } from '../../../public/assets/view-eye.svg';
 import { ReactComponent as HiddenEyeIcon } from '../../../public/assets/hidden-eye.svg';
 import { ReactComponent as ArrowLeftIcon } from '../../../public/assets/arrow-left.svg';
 import { ReactComponent as ArrowRightIcon } from '../../../public/assets/arrow-right.svg';
+import { ReactComponent as SearchIcon } from '../../../public/assets/search.svg';
+import { ReactComponent as CrossIcon } from '../../../public/assets/cross.svg';
+import { ReactComponent as CategoriesArrowIcon } from '../../../public/assets/categories-arrow.svg';
+import { ReactComponent as BurgerMenuIcon } from '../../../public/assets/burger-menu.svg';
 import { ReactComponent as WarningIcon } from '../../../public/assets/warning.svg';
 
 export {
@@ -27,5 +31,9 @@ export {
   HiddenEyeIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
+  SearchIcon,
+  CrossIcon,
+  CategoriesArrowIcon,
+  BurgerMenuIcon,
   WarningIcon,
 };
