@@ -27,7 +27,7 @@ const defaultValues = {
       country: undefined,
       city: '',
       street: '',
-      postal: '',
+      postalCode: '',
     },
   ],
 };

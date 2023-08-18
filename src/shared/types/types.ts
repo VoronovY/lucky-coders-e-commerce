@@ -12,7 +12,7 @@ export interface Address {
   country: OptionInput;
   city: string;
   street: string;
-  postal: string;
+  postalCode: string;
 }
 
 export interface RegisterUserFields {

@@ -47,20 +47,3 @@ input:checked ~ .box .checkImg {
   width: 24px;
   height: 24px;
 }
-
-// input:not(:checked) .checkImg {
-//   width: 10px;
-//   height: 10px;
-//   // transition: height 0.3s ease width 0.3s ease;
-// }
-
-// input:checked .checkImg {
-//   width: 20px;
-//   height: 20px;
-// }
-
-// i + .box::before {
-//   // background-color: #2d71c4;
-//   background-image: url("../../../../public/assets/check.svg");
-//   // border-color: #2d71c4;
-// }

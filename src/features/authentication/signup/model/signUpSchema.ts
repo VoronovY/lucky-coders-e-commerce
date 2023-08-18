@@ -8,7 +8,7 @@ import birthDateValidation from '../../../../shared/validation/model/agesValidat
 import countryValidation from '../../../../shared/validation/model/countryValidation';
 import cityValidation from '../../../../shared/validation/model/cityValidation';
 import streetValidation from '../../../../shared/validation/model/streetValidation';
-import postalValidation from '../../../../shared/validation/model/postalValidation';
+import postalCodeValidation from '../../../../shared/validation/model/postalCodeValidation';
 
 const signUpSchema = Yup.object().shape(
   {
@@ -22,7 +22,7 @@ const signUpSchema = Yup.object().shape(
         country: countryValidation,
         city: cityValidation,
         street: streetValidation,
-        postal: postalValidation,
+        postalCode: postalCodeValidation,
       }),
     ),
   },

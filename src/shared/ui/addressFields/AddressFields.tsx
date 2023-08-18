@@ -6,7 +6,7 @@ import styles from './AddressFields.module.scss';
 
 import AddressButtons from './AddressButtons';
 
-import { vailadtePostal } from '../../helpers/validationFunctions';
+import { vailadtePostalCode } from '../../helpers/validationFunctions';
 import { SelectInput, TextInput } from '..';
 import countries from '../../constants/countries';
 
@@ -19,7 +19,7 @@ const nextAddresses = {
   country: undefined,
   city: '',
   street: '',
-  postal: '',
+  postalCode: '',
 };
 
 function FieldArray(): JSX.Element {
@@ -31,19 +31,19 @@ function FieldArray(): JSX.Element {
   });
 
   const addressLength = watch('address').length;
-  const changePostal = (index: number, postal: string): void => {
+  const changePostalCode = (index: number, postalCode: string): void => {
     const country = watch(`address.${index}.country`);
     if (country) {
       const { iso } = country;
-      if (postal === '') return;
-      vailadtePostal(postal, iso)
+      if (postalCode === '') return;
+      vailadtePostalCode(postalCode, iso)
         .then(() => {
-          clearErrors(`address.${index}.postal`);
+          clearErrors(`address.${index}.postalCode`);
         })
         .catch(() => {
-          setError(`address.${index}.postal`, {
+          setError(`address.${index}.postalCode`, {
             type: 'manual',
-            message: 'The entered postal code is not valid for the selected country.',
+            message: 'The entered postalCode code is not valid for the selected country.',
           });
         });
     }
@@ -84,8 +84,8 @@ function FieldArray(): JSX.Element {
                     options={countries}
                     onChange={(selectedCountry): void => {
                       onChange(selectedCountry);
-                      const postal = watch(`address.${index}.postal`);
-                      changePostal(index, postal);
+                      const postalCode = watch(`address.${index}.postalCode`);
+                      changePostalCode(index, postalCode);
                     }}
                     value={value}
                     error={error}
@@ -120,7 +120,7 @@ function FieldArray(): JSX.Element {
               }}
             />
             <Controller
-              name={`address.${index}.postal`}
+              name={`address.${index}.postalCode`}
               control={control}
               rules={{
                 required: true,
@@ -128,16 +128,16 @@ function FieldArray(): JSX.Element {
               render={({ field, fieldState: { error } }): JSX.Element => {
                 return (
                   <TextInput
-                    id={`address.${index}.postal`}
-                    placeholder="Postal"
-                    label="Postal *"
+                    id={`address.${index}.postalCode`}
+                    placeholder="Postal code"
+                    label="Postal code *"
                     {...field}
                     error={error}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => {
                       field.onChange(e.target.value);
                       const country = watch(`address.${index}.country`);
                       if (country) {
-                        changePostal(index, e.target.value);
+                        changePostalCode(index, e.target.value);
                       }
                     }}
                   />
