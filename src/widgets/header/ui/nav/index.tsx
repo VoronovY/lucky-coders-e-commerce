@@ -6,7 +6,7 @@ import Catalog from './catalog';
 
 import RoutesName from '../../../../shared/routing';
 
-function HeaderNavCart(): JSX.Element {
+function HeaderNav(): JSX.Element {
   const navArr = [
     { id: 1, url: RoutesName.home, text: 'Home' },
     { id: 2, url: RoutesName.about, text: 'About Us' },
@@ -25,4 +25,4 @@ function HeaderNavCart(): JSX.Element {
   );
 }
 
-export default HeaderNavCart;
+export default HeaderNav;

@@ -6,7 +6,7 @@ import { AccountIcon, RegisterIcon, LoginIcon } from '../../../../app/layouts/im
 
 import RoutesName from '../../../../shared/routing';
 
-function HeaderNavProfile(): JSX.Element {
+function HeaderProfile(): JSX.Element {
   const profileArr = [
     { id: 1, url: RoutesName.login, text: 'Sign In', icon: LoginIcon },
     { id: 2, url: RoutesName.registration, text: 'Sign Up', icon: RegisterIcon },
@@ -30,4 +30,4 @@ function HeaderNavProfile(): JSX.Element {
   );
 }
 
-export default HeaderNavProfile;
+export default HeaderProfile;

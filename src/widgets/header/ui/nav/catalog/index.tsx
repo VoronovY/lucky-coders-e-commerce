@@ -5,7 +5,7 @@ import Categories from './categories';
 
 import { BurgerMenuIcon } from '../../../../../app/layouts/images';
 
-function HeaderNavProfile(): JSX.Element {
+function Catalog(): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const onClick: React.MouseEventHandler<HTMLButtonElement> = () => {
     setIsOpen(true);
@@ -26,4 +26,4 @@ function HeaderNavProfile(): JSX.Element {
   );
 }
 
-export default HeaderNavProfile;
+export default Catalog;
