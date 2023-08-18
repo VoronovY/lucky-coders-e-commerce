@@ -15,10 +15,11 @@ import { FormWrapper, FormText } from '../../../../shared/ui/form';
 import loginSchema from '../model/loginSchema';
 import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems';
 import RoutesName from '../../../../shared/routing';
-import loginUser from '../api/loginUser';
+import loginUser from '../../../../shared/api/auth/loginUser';
 
 import getErrorLoginMessage from '../../../../shared/helpers/getErrorLoginMessage';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
+// import myTokenCache from '../../../../shared/api/auth/tokenCache';
 
 interface LoginUserFields {
   email: string;
@@ -51,6 +52,7 @@ function LoginForm(): JSX.Element {
     loginUser(data.email, data.password)
       .then((response) => {
         sessionStorage.setItem('customer', response.body.customer.id);
+        // console.log('Token cache:', myTokenCache.store.token);
         navigate(RoutesName.main);
       })
       .catch((error) => {

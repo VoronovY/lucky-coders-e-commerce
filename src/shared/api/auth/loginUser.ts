@@ -1,7 +1,7 @@
 import { ClientResponse, CustomerSignInResult, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 
-import passwordFlowClient from '../../../../shared/api/passwordFlowClient';
-import { projectKey } from '../../../../shared/api/baseApi';
+import { projectKey } from '../baseApi';
+import passwordFlowClient from '../clientBuilder/passwordFlowClient';
 
 const loginUser = (email: string, password: string): Promise<ClientResponse<CustomerSignInResult>> => {
   return createApiBuilderFromCtpClient(passwordFlowClient(email, password))

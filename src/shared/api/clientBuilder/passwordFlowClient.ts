@@ -1,6 +1,7 @@
-import { Client, ClientBuilder, PasswordAuthMiddlewareOptions } from '@commercetools/sdk-client-v2';
+import { Client, PasswordAuthMiddlewareOptions, ClientBuilder } from '@commercetools/sdk-client-v2';
 
-import { httpMiddlewareOptions, projectKey } from './baseApi';
+import { httpMiddlewareOptions, projectKey } from '../baseApi';
+import myTokenCache from '../auth/tokenCache';
 
 const passwordFlowOptions = (username: string, password: string): PasswordAuthMiddlewareOptions => {
   const options = {
@@ -14,6 +15,7 @@ const passwordFlowOptions = (username: string, password: string): PasswordAuthMi
         password,
       },
     },
+    tokenCache: myTokenCache,
     fetch,
   };
 
