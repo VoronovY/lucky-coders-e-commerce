@@ -21,6 +21,7 @@
   --color-hover-border: #{$color-black-dark};
   --color-shadow-border: #{$color-black-dark-light};
   --font-color-error: #{$color-border-error};
+  --color-categories-arrow-button: #{$color-categories-arrow-button};
 
   --font-family-primary: #{$font-family-primary};
   --font-line-height-primary: #{$font-line-height-primary};
@@ -51,6 +52,7 @@
   --color-hovered-btn: #{$color-hovered-btn};
 
   --shadow-card-primary: #{$card-shadow-primary};
+  --categories-shadow: #{$categories-shadow};
 
   --width-main-container: #{$width-main-container};
 }
