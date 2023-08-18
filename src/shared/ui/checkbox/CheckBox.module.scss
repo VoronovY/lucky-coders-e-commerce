@@ -1,0 +1,66 @@
+.label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.span {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  overflow: visible;
+}
+
+.box {
+  position: relative;
+  cursor: pointer;
+  align-items: flex-end;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-shadow-border);
+  border-radius: 4px;
+}
+
+.checkImg {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  width: 4px;
+  height: 4px;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+input:checked ~ .box .checkImg {
+  opacity: 1;
+  bottom: 0;
+  left: 0;
+  width: 0px;
+  height: 0px;
+  width: 24px;
+  height: 24px;
+}
+
+// input:not(:checked) .checkImg {
+//   width: 10px;
+//   height: 10px;
+//   // transition: height 0.3s ease width 0.3s ease;
+// }
+
+// input:checked .checkImg {
+//   width: 20px;
+//   height: 20px;
+// }
+
+// i + .box::before {
+//   // background-color: #2d71c4;
+//   background-image: url("../../../../public/assets/check.svg");
+//   // border-color: #2d71c4;
+// }
