@@ -7,16 +7,20 @@ import Catalog from './catalog';
 import RoutesName from '../../../../shared/routing';
 
 function HeaderNavCart(): JSX.Element {
+  const navArr = [
+    { id: 1, url: RoutesName.home, text: 'Home' },
+    { id: 2, url: RoutesName.about, text: 'About Us' },
+  ];
   return (
     <nav className={styles.nav}>
       <Catalog />
-
-      <Link to={RoutesName.home} className={styles.navLink} key={1}>
-        Home
-      </Link>
-      <Link to={RoutesName.about} className={styles.navLink} key={2}>
-        About Us
-      </Link>
+      {navArr.map((item) => {
+        return (
+          <Link to={item.url} className={styles.navLink} key={item.id}>
+            {item.text}
+          </Link>
+        );
+      })}
     </nav>
   );
 }
