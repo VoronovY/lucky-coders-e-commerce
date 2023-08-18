@@ -14,4 +14,9 @@
   &:active {
     transform: scale(0.95);
   }
+  &:disabled {
+    background: var(--color-disabled-bg);
+    cursor: default;
+    transform: none;
+  }
 }

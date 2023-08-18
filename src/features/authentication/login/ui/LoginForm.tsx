@@ -11,8 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { TextInput, PasswordInput, PasswordErrors } from '../../../../shared/ui';
 
 import { FormWrapper, FormText } from '../../../../shared/ui/form';
-
-import loginSchema from '../model/loginSchema';
+import signInSchema from '../model/loginSchema';
 import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems';
 import RoutesName from '../../../../shared/routing';
 import loginUser from '../../../../shared/api/auth/loginUser';
@@ -41,7 +40,7 @@ function LoginForm(): JSX.Element {
     control,
     formState: { errors },
   } = useForm<LoginUserFields>({
-    resolver: yupResolver(loginSchema as ObjectSchema<LoginUserFields>),
+    resolver: yupResolver(signInSchema as ObjectSchema<LoginUserFields>),
     mode: 'onChange',
     defaultValues: initLoginForm,
   });

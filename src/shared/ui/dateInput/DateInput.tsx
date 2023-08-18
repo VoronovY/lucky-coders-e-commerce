@@ -25,7 +25,7 @@ function DateInput({ id, value, title = null, onChange, error }: DateInputProps)
         onChange={onChange}
         showTimeInput
       />
-      {error && <div>{error.message}</div>}
+      {error && <span className={styles.errorMessage}>{error?.message && `${error.message}`}</span>}
     </div>
   );
 }

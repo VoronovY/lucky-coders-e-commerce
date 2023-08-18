@@ -36,6 +36,8 @@ function SelectInput({
         id={id}
         placeholder={placeholder}
         options={options}
+        isClearable
+        defaultValue={undefined}
         theme={(theme): Theme => ({
           ...theme,
           borderRadius: 8,
@@ -54,7 +56,7 @@ function SelectInput({
         value={value}
         onChange={onChange}
       />
-      {error && <div>error</div>}
+      {error && <span className={styles.errorMessage}>{error?.message && `${error.message}`}</span>}
     </div>
   );
 }

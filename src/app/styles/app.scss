@@ -11,6 +11,7 @@
   --color-primary-bg-light: #{$color-primary-bg-light};
   --color-secondary-bg-light: #{$color-secondary-bg-light};
   --color-bg-light: #{$color-primary-light};
+  --color-bg-orange-light: #{$color-orange-light};
   --color-primary-bg-dark: #{$color-primary-dark};
   --color-accent-bg: #{$color-accent};
   --color-primary-text: #{$color-primary-dark};
@@ -43,6 +44,7 @@
 
   --color-gradient-bg-orange: #{$color-gradient-bg-orange};
   --color-gradient-bg-light: #{$color-gradient-bg-light};
+  --color-disabled-bg: #{$color-black-dark-light};
 
   --color-primary-link: #{$color-primary-link};
   --color-hovered-link: #{$color-hovered-link};
