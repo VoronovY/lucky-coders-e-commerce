@@ -21,6 +21,10 @@
     "*.{css,scss}": "prettier --write"
   },
   "dependencies": {
+    "@commercetools/platform-sdk": "^5.0.0",
+    "@commercetools/sdk-client-v2": "^2.2.0",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@hookform/resolvers": "^3.2.0",
     "axios": "^1.4.0",
     "classnames": "^2.3.2",
