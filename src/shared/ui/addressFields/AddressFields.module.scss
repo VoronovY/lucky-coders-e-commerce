@@ -1,5 +1,8 @@
 .addressWrapper {
   width: 100%;
+  background-color: var(--color-bg-orange-light);
+  border-radius: 4px;
+  padding: 6px;
 }
 
 .btnConteiner {
@@ -7,4 +10,11 @@
   gap: 10px;
   width: 80%;
   padding: 10px;
+}
+
+.address {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  gap: 4px;
 }

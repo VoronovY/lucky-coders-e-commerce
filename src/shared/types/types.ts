@@ -7,6 +7,8 @@ export interface CountriesOption {
 }
 
 export interface Address {
+  isBillingAddress: boolean;
+  isShippingAddress: boolean;
   country: OptionInput;
   city: string;
   street: string;

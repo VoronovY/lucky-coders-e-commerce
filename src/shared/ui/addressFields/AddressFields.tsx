@@ -4,13 +4,26 @@ import { ChangeEvent } from 'react';
 
 import styles from './AddressFields.module.scss';
 
-import Button from '../button/Button';
+import AddressButtons from './AddressButtons';
+
 import { vailadtePostal } from '../../helpers/validationFunctions';
 import { SelectInput, TextInput } from '..';
 import countries from '../../constants/countries';
 
+import Checkbox from '../checkbox/CheckBox';
+import { Address } from '../../types/types';
+
+const nextAddresses = {
+  isBillingAddress: false,
+  isShippingAddress: false,
+  country: undefined,
+  city: '',
+  street: '',
+  postal: '',
+};
+
 function FieldArray(): JSX.Element {
-  const { control, watch, setError, clearErrors } = useFormContext();
+  const { control, watch, setError, clearErrors, setValue } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'address',
@@ -19,27 +32,39 @@ function FieldArray(): JSX.Element {
 
   const addressLength = watch('address').length;
   const changePostal = (index: number, postal: string): void => {
-    const { iso } = watch(`address.${index}.country`);
-    if (postal === '') return;
-    vailadtePostal(postal, iso)
-      .then(() => {
-        clearErrors(`address.${index}.postal`);
-      })
-      .catch(() => {
-        setError(`address.${index}.postal`, {
-          type: 'manual',
-          message: 'The entered postal code is not valid for the selected country.',
+    const country = watch(`address.${index}.country`);
+    if (country) {
+      const { iso } = country;
+      if (postal === '') return;
+      vailadtePostal(postal, iso)
+        .then(() => {
+          clearErrors(`address.${index}.postal`);
+        })
+        .catch(() => {
+          setError(`address.${index}.postal`, {
+            type: 'manual',
+            message: 'The entered postal code is not valid for the selected country.',
+          });
         });
-      });
+    }
   };
 
   const handleAddBtn = (): void => {
-    append({
-      country: undefined,
-      city: '',
-      street: '',
-      postal: '',
-    });
+    append(nextAddresses);
+  };
+
+  const removeRestAddressBlocks = (currentFieldName: string, dependenseFieldName: string, index: number): void => {
+    if (watch(`address.${index}.${currentFieldName}`) && watch(`address.${index}.${dependenseFieldName}`)) {
+      watch('address').forEach((_: Address, idx: number) => (idx !== index ? remove(idx) : null));
+    }
+  };
+
+  const clearRestCheckboxes = (currentFieldName: string, index: number): void => {
+    if (watch(`address.${index}.${currentFieldName}`)) {
+      watch('address').forEach((_: Address, idx: number) =>
+        idx !== index ? setValue(`address.${idx}.${currentFieldName}`, false) : null,
+      );
+    }
   };
 
   return (
@@ -119,22 +144,52 @@ function FieldArray(): JSX.Element {
                 );
               }}
             />
-            <div className={styles.btnConteiner}>
-              <Button disabled={addressLength >= 2} type="button" width="40%" height="50px" onClick={handleAddBtn}>
-                Add Address
-              </Button>
-              <Button
-                disabled={addressLength <= 1}
-                type="button"
-                width="40%"
-                height="50px"
-                onClick={(): void => {
-                  remove(index);
+            <div className={styles.address}>
+              <Controller
+                name={`address.${index}.isShippingAddress`}
+                control={control}
+                render={({ field: { onChange } }): JSX.Element => {
+                  return (
+                    <Checkbox
+                      text="Default Shipping Address"
+                      id={`address.${index}.isShippingAddress`}
+                      checked={watch(`address.${index}.isShippingAddress`)}
+                      onChange={(e): void => {
+                        onChange(e);
+                        removeRestAddressBlocks('isShippingAddress', 'isBillingAddress', index);
+                        clearRestCheckboxes('isShippingAddress', index);
+                      }}
+                    />
+                  );
                 }}
-              >
-                Delete Address
-              </Button>
+              />
+              <Controller
+                name={`address.${index}.isBillingAddress`}
+                control={control}
+                render={({ field: { onChange } }): JSX.Element => {
+                  return (
+                    <Checkbox
+                      text="Default Billing Address"
+                      checked={watch(`address.${index}.isBillingAddress`)}
+                      id={`address.${index}.isBillingAddress`}
+                      onChange={(e): void => {
+                        onChange(e);
+                        removeRestAddressBlocks('isBillingAddress', 'isShippingAddress', index);
+                        clearRestCheckboxes('isBillingAddress', index);
+                      }}
+                    />
+                  );
+                }}
+              />
             </div>
+            <AddressButtons
+              firstBtnDisable={addressLength > 1}
+              secondBtnDisable={addressLength <= 1}
+              firstBtnText="Add Address"
+              secondBtnText="Delete Address"
+              handleFirstBtn={handleAddBtn}
+              handleSecondBtn={(): void => remove(index)}
+            />
           </div>
         );
       })}

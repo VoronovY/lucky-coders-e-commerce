@@ -22,6 +22,8 @@ const defaultValues = {
   birthDate: new Date(),
   address: [
     {
+      isBillingAddress: false,
+      isShippingAddress: false,
       country: undefined,
       city: '',
       street: '',
