@@ -1,8 +1,11 @@
+@import "../../../../app/styles/variables.scss";
+
 .nav {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
+  margin: 0 20px;
 
   .navLink {
     white-space: nowrap;
@@ -12,5 +15,10 @@
     &:hover {
       color: var(--color-hovered-btn);
     }
+  }
+
+  @media (max-width: $width-mobile-big) {
+    flex-direction: column;
+    gap: 0;
   }
 }
