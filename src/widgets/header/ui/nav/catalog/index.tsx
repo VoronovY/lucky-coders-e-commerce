@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import styles from './navCatalog.module.scss';
 import Categories from './categories';
 
+import { BurgerMenuIcon } from '../../../../../app/layouts/images';
+
 function HeaderNavProfile(): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const onClick: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -16,11 +18,7 @@ function HeaderNavProfile(): JSX.Element {
   return (
     <div className={styles.navCatalog}>
       <button type="button" onClick={onClick} className={styles.buttonOpen}>
-        <div className={styles.burgerMenu}>
-          <div />
-          <div />
-          <div />
-        </div>
+        <BurgerMenuIcon className={styles.burgerMenu} />
         <p>Catalog</p>
       </button>
       {isOpen ? <Categories setIsOpen={setIsOpen} /> : null}

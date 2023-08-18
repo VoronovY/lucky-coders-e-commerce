@@ -1,16 +1,6 @@
 .navCatalog {
   .burgerMenu {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 4px;
-
-    div {
-      background: var(--color-secondary-text);
-      width: 16px;
-      height: 1px;
-    }
+    color: var(--color-secondary-text);
   }
 
   p {
@@ -31,8 +21,8 @@
   &:hover {
     cursor: pointer;
 
-    .burgerMenu > div {
-      background: var(--color-hovered-btn);
+    .burgerMenu {
+      color: var(--color-hovered-btn);
     }
 
     & > p {

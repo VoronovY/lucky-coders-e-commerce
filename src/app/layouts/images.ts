@@ -14,6 +14,7 @@ import { ReactComponent as ArrowRightIcon } from '../../../public/assets/arrow-r
 import { ReactComponent as SearchIcon } from '../../../public/assets/search.svg';
 import { ReactComponent as CrossIcon } from '../../../public/assets/cross.svg';
 import { ReactComponent as CategoriesArrowIcon } from '../../../public/assets/categories-arrow.svg';
+import { ReactComponent as BurgerMenuIcon } from '../../../public/assets/burger-menu.svg';
 
 export {
   RssLogo,
@@ -32,4 +33,5 @@ export {
   SearchIcon,
   CrossIcon,
   CategoriesArrowIcon,
+  BurgerMenuIcon,
 };
