@@ -16,7 +16,7 @@ import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems
 import RoutesName from '../../../../shared/routing';
 import loginUser from '../../../../shared/api/auth/loginUser';
 
-import getErrorLoginMessage from '../../../../shared/helpers/getErrorLoginMessage';
+import { getErrorLoginMessage } from '../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 // import myTokenCache from '../../../../shared/api/auth/tokenCache';
 

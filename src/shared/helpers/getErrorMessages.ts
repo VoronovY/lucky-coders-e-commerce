@@ -14,4 +14,18 @@ function getErrorLoginMessage(error: HttpErrorType): string {
   return message;
 }
 
-export default getErrorLoginMessage;
+function getErrorSignUpMessage(error: HttpErrorType): string {
+  let message = '';
+  if (error.statusCode >= 500) {
+    message = 'An internal server error has occurred. Please try again later.';
+  } else if (error.statusCode === 400) {
+    message = error.message;
+  } else if (error.statusCode === 404) {
+    message = 'Resource not found';
+  } else {
+    message = 'Unhandled error';
+  }
+  return message;
+}
+
+export { getErrorLoginMessage, getErrorSignUpMessage };
