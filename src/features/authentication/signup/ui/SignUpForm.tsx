@@ -13,6 +13,8 @@ import signUpSchema from '../model/signUpSchema';
 import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems';
 import FieldArray from '../../../../shared/ui/addressFields/AddressFields';
 import { RegisterUserFields } from '../../../../shared/types/types';
+import signUp from '../../../../shared/api/signUp/signUpUser';
+import { signUpConverter } from '../../../../shared/helpers/signUpHelpers';
 
 const defaultValues = {
   email: '',
@@ -40,7 +42,10 @@ function SignUpForm(): JSX.Element {
   });
 
   const onSubmit: SubmitHandler<RegisterUserFields> = (data) => {
-    return data;
+    const convertedData = signUpConverter(data);
+    signUp(convertedData)
+      .then((data1) => console.log(data1))
+      .catch((e) => console.log(e));
   };
 
   return (

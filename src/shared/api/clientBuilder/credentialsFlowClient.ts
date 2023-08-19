@@ -1,6 +1,6 @@
 import { ClientBuilder, Client, AuthMiddlewareOptions } from '@commercetools/sdk-client-v2';
 
-import { httpMiddlewareOptions, projectKey } from './baseApi';
+import { httpMiddlewareOptions, projectKey } from '../baseApi';
 
 const credentialsFlowOptions: () => AuthMiddlewareOptions = () => {
   const options = {
