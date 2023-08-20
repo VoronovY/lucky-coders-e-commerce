@@ -4,8 +4,9 @@ import { Address, AddressRequestData, RegisterUserFields, SignUpRequestData } fr
 
 export const convertAddressData = (addr: Address[]): AddressRequestData[] => {
   const convertedAddresses = addr.map((address: Address): AddressRequestData => {
+    const country = address.country ? address.country.iso : 'ru';
     return {
-      country: address.country.iso,
+      country,
       city: address.city,
       streetName: address.street,
       postalCode: address.postalCode,

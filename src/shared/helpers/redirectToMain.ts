@@ -8,7 +8,7 @@ function RedirectToMain(): void {
 
   const handleBrowserBackButton = useCallback(
     (event: PopStateEvent): void => {
-      const customer = sessionStorage.getItem('customer');
+      const customer = localStorage.getItem('accessToken');
       if (customer) {
         event.preventDefault();
         navigate(RoutesName.main);
@@ -20,7 +20,7 @@ function RedirectToMain(): void {
   useEffect(() => {
     window.addEventListener('popstate', handleBrowserBackButton);
 
-    const customer = sessionStorage.getItem('customer');
+    const customer = localStorage.getItem('accessToken');
     if (customer) {
       navigate(RoutesName.main, { replace: true });
     }

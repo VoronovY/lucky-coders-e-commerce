@@ -7,7 +7,7 @@ export interface CountriesOption {
 export interface Address {
   isBillingAddress: boolean;
   isShippingAddress: boolean;
-  country: CountriesOption;
+  country: CountriesOption | null;
   city: string;
   street: string;
   postalCode: string;

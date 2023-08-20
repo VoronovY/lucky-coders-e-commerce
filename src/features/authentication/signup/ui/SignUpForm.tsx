@@ -8,6 +8,8 @@ import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+
 import RoutesName from '../../../../shared/routing';
 
 import { getErrorLoginMessage, getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
@@ -23,6 +25,8 @@ import signUp from '../../../../shared/api/signUp/signUpUser';
 import { signUpConverter } from '../../../../shared/helpers/signUpHelpers';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 import loginUser from '../../../../shared/api/auth/loginUser';
+import { updateUserId } from '../../../../shared/model/appSlice';
+import myTokenCache from '../../../../shared/api/auth/tokenCache';
 
 const defaultValues = {
   email: '',
@@ -34,7 +38,7 @@ const defaultValues = {
     {
       isBillingAddress: false,
       isShippingAddress: false,
-      country: undefined,
+      country: null,
       city: '',
       street: '',
       postalCode: '',
@@ -44,12 +48,15 @@ const defaultValues = {
 
 function SignUpForm(): JSX.Element {
   const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const methods = useForm<RegisterUserFields>({
     resolver: yupResolver(signUpSchema as ObjectSchema<RegisterUserFields>),
     mode: 'onChange',
     defaultValues,
   });
+
+  const disavleSubmit = Object.values(methods.formState.errors).length;
 
   const onSubmit: SubmitHandler<RegisterUserFields> = (data) => {
     setErrorMessage('');
@@ -58,7 +65,8 @@ function SignUpForm(): JSX.Element {
       .then(() => {
         loginUser(data.email, data.password)
           .then((response) => {
-            sessionStorage.setItem('customer', response.body.customer.id);
+            dispatch(updateUserId(response.body.customer.id));
+            localStorage.setItem('accessToken:', myTokenCache.store.token);
             navigate(RoutesName.main);
           })
           .catch((error) => {
@@ -75,7 +83,7 @@ function SignUpForm(): JSX.Element {
       {errorMessage && <ModalError errorMessage={errorMessage} />}
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <FormWrapper title="Create An account" buttonText="Sign Up">
+          <FormWrapper title="Create An account" buttonText="Sign Up" disableBtn={disavleSubmit > 0}>
             <Controller
               name="email"
               control={methods.control}
