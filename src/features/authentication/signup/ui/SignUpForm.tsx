@@ -6,9 +6,11 @@ import { ObjectSchema } from 'yup';
 
 import { useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import RoutesName from '../../../../shared/routing';
 
-import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
+import { getErrorLoginMessage, getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
 
 import { TextInput, PasswordInput, DateInput, PasswordErrors } from '../../../../shared/ui';
 
@@ -20,6 +22,7 @@ import { RegisterUserFields } from '../../../../shared/types/types';
 import signUp from '../../../../shared/api/signUp/signUpUser';
 import { signUpConverter } from '../../../../shared/helpers/signUpHelpers';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
+import loginUser from '../../../../shared/api/auth/loginUser';
 
 const defaultValues = {
   email: '',
@@ -41,6 +44,7 @@ const defaultValues = {
 
 function SignUpForm(): JSX.Element {
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
   const methods = useForm<RegisterUserFields>({
     resolver: yupResolver(signUpSchema as ObjectSchema<RegisterUserFields>),
     mode: 'onChange',
@@ -51,7 +55,16 @@ function SignUpForm(): JSX.Element {
     setErrorMessage('');
     const convertedData = signUpConverter(data);
     signUp(convertedData)
-      .then((data1) => console.log(data1))
+      .then(() => {
+        loginUser(data.email, data.password)
+          .then((response) => {
+            sessionStorage.setItem('customer', response.body.customer.id);
+            navigate(RoutesName.main);
+          })
+          .catch((error) => {
+            setErrorMessage(getErrorLoginMessage(error.body));
+          });
+      })
       .catch((error) => {
         setErrorMessage(getErrorSignUpMessage(error.body));
       });
