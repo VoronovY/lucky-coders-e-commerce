@@ -18,7 +18,9 @@ import loginUser from '../../../../shared/api/auth/loginUser';
 
 import { getErrorLoginMessage } from '../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
-// import myTokenCache from '../../../../shared/api/auth/tokenCache';
+import myTokenCache from '../../../../shared/api/auth/tokenCache';
+import { useAppDispatch } from '../../../../app/appStore/hooks';
+import { updateUserId } from '../../../../shared/model/appSlice';
 
 interface LoginUserFields {
   email: string;
@@ -34,6 +36,7 @@ function LoginForm(): JSX.Element {
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const {
     handleSubmit,
@@ -50,8 +53,8 @@ function LoginForm(): JSX.Element {
 
     loginUser(data.email, data.password)
       .then((response) => {
-        sessionStorage.setItem('customer', response.body.customer.id);
-        // console.log('Token cache:', myTokenCache.store.token);
+        dispatch(updateUserId(response.body.customer.id));
+        localStorage.setItem('accessToken:', myTokenCache.store.token);
         navigate(RoutesName.main);
       })
       .catch((error) => {
