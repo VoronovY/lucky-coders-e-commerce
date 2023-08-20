@@ -25,7 +25,7 @@ import signUp from '../../../../shared/api/signUp/signUpUser';
 import { signUpConverter } from '../../../../shared/helpers/signUpHelpers';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 import loginUser from '../../../../shared/api/auth/loginUser';
-import { updateUserId } from '../../../../shared/model/appSlice';
+import { updateAccessToken, updateUserId } from '../../../../shared/model/appSlice';
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
 
 const defaultValues = {
@@ -66,7 +66,8 @@ function SignUpForm(): JSX.Element {
         loginUser(data.email, data.password)
           .then((response) => {
             dispatch(updateUserId(response.body.customer.id));
-            localStorage.setItem('accessToken:', myTokenCache.store.token);
+            dispatch(updateAccessToken(myTokenCache.store.token));
+            localStorage.setItem('accessToken', myTokenCache.store.token);
             navigate(RoutesName.main);
           })
           .catch((error) => {

@@ -5,12 +5,13 @@ import styles from './HeaderProfile.module.scss';
 import { AccountIcon, RegisterIcon, LoginIcon } from '../../../../app/layouts/images';
 
 import RoutesName from '../../../../shared/routing';
-import { getUserId } from '../../../../shared/selectors/mainSettingsSelectors';
+import { getAccessToken, getUserId } from '../../../../shared/selectors/mainSettingsSelectors';
 import { useAppDispatch, useAppSelector } from '../../../../app/appStore/hooks';
-import { updateUserId } from '../../../../shared/model/appSlice';
+import { updateAccessToken, updateUserId } from '../../../../shared/model/appSlice';
 
 function HeaderProfile(): JSX.Element {
   const userId = useAppSelector(getUserId);
+  const token = useAppSelector(getAccessToken);
   const disaptch = useAppDispatch();
 
   const profileArr = [
@@ -20,27 +21,29 @@ function HeaderProfile(): JSX.Element {
   const handleSignOut = (): void => {
     localStorage.removeItem('accessToken');
     disaptch(updateUserId(''));
+    disaptch(updateAccessToken(''));
   };
 
-  const layout = !userId ? (
-    profileArr.map((item) => {
-      return (
-        <Link to={item.url} className={styles.linkWrapper} key={item.id}>
-          <item.icon className={styles.img} />
-          <p className={styles.text}>{item.text}</p>
+  const layout =
+    !userId && !token ? (
+      profileArr.map((item) => {
+        return (
+          <Link to={item.url} className={styles.linkWrapper} key={item.id}>
+            <item.icon className={styles.img} />
+            <p className={styles.text}>{item.text}</p>
+          </Link>
+        );
+      })
+    ) : (
+      <div>
+        <Link to={RoutesName.profile} className={styles.linkWrapper} key="temporaryKey">
+          <p className={styles.text}>Profile</p>
         </Link>
-      );
-    })
-  ) : (
-    <div>
-      <Link to={RoutesName.profile} className={styles.linkWrapper} key="temporaryKey">
-        <p className={styles.text}>Profile</p>
-      </Link>
-      <button className={styles.linkWrapper} key="temporaryKey2" type="button" onClick={handleSignOut}>
-        <p className={styles.text}>Sign Out</p>
-      </button>
-    </div>
-  );
+        <button className={styles.linkWrapper} key="temporaryKey2" type="button" onClick={handleSignOut}>
+          <p className={styles.text}>Sign Out</p>
+        </button>
+      </div>
+    );
 
   return (
     <div className={styles.profileWrapper}>
