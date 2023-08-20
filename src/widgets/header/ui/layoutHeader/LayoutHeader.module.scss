@@ -1,15 +1,17 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-sizing: border-box;
-  position: relative;
-
   width: 100%;
-  padding: 20px 30px;
-
   background: var(--color-primary-bg-dark);
-  color: var(--color-secondary-text);
+
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 20px 30px;
+    margin: 0 auto;
+    color: var(--color-secondary-text);
+    max-width: var(--width-header-container);
+  }
 }
 
 .imgs {
