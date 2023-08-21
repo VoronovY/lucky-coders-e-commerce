@@ -7,11 +7,22 @@ import HeaderProfile from '../profile';
 import HeaderCart from '../cart';
 import HeaderNav from '../nav';
 
-import { useAppDispatch } from '../../../../app/appStore/hooks';
-import { updateAccessToken } from '../../../../shared/model/appSlice';
+import { useAppDispatch, useAppSelector } from '../../../../app/appStore/hooks';
+import { updateAccessToken, updateInfoMessage, updateIsModalInfoOpen } from '../../../../shared/model/appSlice';
+import { ModalInfo } from '../../../../shared/ui';
+import { getInfoModalMessage, getIsInfoModalOpen } from '../../../../shared/selectors/mainSettingsSelectors';
 
 function LayoutHeader(): JSX.Element {
   const dispatch = useAppDispatch();
+
+  const infoMessage = useAppSelector(getInfoModalMessage);
+  const isModalInfoOpen = useAppSelector(getIsInfoModalOpen);
+
+  const handleModalClick = (): void => {
+    dispatch(updateIsModalInfoOpen(false));
+    dispatch(updateInfoMessage(''));
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     if (token) {
@@ -26,6 +37,7 @@ function LayoutHeader(): JSX.Element {
         <HeaderProfile />
         <HeaderCart />
       </div>
+      <ModalInfo message={infoMessage} isOpen={isModalInfoOpen} handleClick={handleModalClick} />
     </header>
   );
 }

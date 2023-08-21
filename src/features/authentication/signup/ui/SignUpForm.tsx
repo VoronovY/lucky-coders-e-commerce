@@ -25,7 +25,12 @@ import signUp from '../../../../shared/api/signUp/signUpUser';
 import { signUpConverter } from '../../../../shared/helpers/signUpHelpers';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 import loginUser from '../../../../shared/api/auth/loginUser';
-import { updateAccessToken, updateUserId } from '../../../../shared/model/appSlice';
+import {
+  updateAccessToken,
+  updateInfoMessage,
+  updateIsModalInfoOpen,
+  updateUserId,
+} from '../../../../shared/model/appSlice';
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
 
 const defaultValues = {
@@ -67,6 +72,12 @@ function SignUpForm(): JSX.Element {
           .then((response) => {
             dispatch(updateUserId(response.body.customer.id));
             dispatch(updateAccessToken(myTokenCache.store.token));
+            dispatch(updateInfoMessage('Congratulations! Your account has been successfully created.'));
+            dispatch(updateIsModalInfoOpen(true));
+            setTimeout(() => {
+              dispatch(updateIsModalInfoOpen(false));
+              dispatch(updateInfoMessage(''));
+            }, 3000);
             localStorage.setItem('accessToken', myTokenCache.store.token);
             navigate(RoutesName.main);
           })

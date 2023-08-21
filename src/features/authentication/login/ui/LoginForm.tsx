@@ -20,7 +20,12 @@ import { getErrorLoginMessage } from '../../../../shared/helpers/getErrorMessage
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
 import { useAppDispatch } from '../../../../app/appStore/hooks';
-import { updateAccessToken, updateUserId } from '../../../../shared/model/appSlice';
+import {
+  updateAccessToken,
+  updateInfoMessage,
+  updateIsModalInfoOpen,
+  updateUserId,
+} from '../../../../shared/model/appSlice';
 
 interface LoginUserFields {
   email: string;
@@ -55,6 +60,12 @@ function LoginForm(): JSX.Element {
       .then((response) => {
         dispatch(updateUserId(response.body.customer.id));
         dispatch(updateAccessToken(myTokenCache.store.token));
+        dispatch(updateInfoMessage('Congratulations! You are now logged in and ready to explore'));
+        dispatch(updateIsModalInfoOpen(true));
+        setTimeout(() => {
+          dispatch(updateIsModalInfoOpen(false));
+          dispatch(updateInfoMessage(''));
+        }, 3000);
         localStorage.setItem('accessToken', myTokenCache.store.token);
         navigate(RoutesName.main);
       })
