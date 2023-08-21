@@ -1,2 +1,3 @@
-const temp = (): void => {};
-export default temp;
+import SignUpForm from './ui/SignUpForm';
+
+export default SignUpForm;

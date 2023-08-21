@@ -18,8 +18,6 @@
   </p>
 </div>
 
-
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -33,8 +31,8 @@
 4. [Contact](#contact)
 </details>
 
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 Welcome to our online mineral store! Here you will find unique and high-quality minerals, crystals and stones from different parts of the world. We specialize in providing customers with a wide range of products and a high level of service.
@@ -60,38 +58,37 @@ The application is powered by CommerceTools 🌐, a leading provider of commerce
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 ### Built With
 
 This application is developed using the following technologies:
 
-* <a href="https://react.dev/">
+- <a href="https://react.dev/">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" width="20" height="20">
     React </a>
-* <a href="https://www.typescriptlang.org/">
+- <a href="https://reactrouter.com/en/main">
+    <img src="https://www.svgrepo.com/show/354262/react-router.svg" alt="React-router" width="20" height="20">
+    React-router </a>
+- <a href="https://www.typescriptlang.org/">
     <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" alt="Typescript" width="20"height="20">
     Typescript </a>
-* <a href="https://eslint.org/">
+- <a href="https://eslint.org/">
     <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/ESLint_logo.svg" alt="ESLint" width="20" height="20">
     ESLint </a>
-* <a href="https://sass-lang.com/">
+- <a href="https://sass-lang.com/">
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Sass_Logo_Color.svg" alt="Sass" width="20" height="20">
     Sass </a>
-* <a href="https://jestjs.io/">
+- <a href="https://jestjs.io/">
     <img src="https://iconape.com/wp-content/files/dx/352988/png/jest-logo.png" alt="Jest" width="20" height="20">
     Jest </a>
-* <a href="https://prettier.io/">
+- <a href="https://prettier.io/">
     <img src="https://brandslogos.com/wp-content/uploads/images/large/prettier-logo-vector.svg" alt="Prettier" width="20"height="20">
     Prettier </a>
-* <a href="https://www.npmjs.com/package/husky"> 🐶 Husky</a>
-
+- <a href="https://www.npmjs.com/package/husky"> 🐶 Husky</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
@@ -100,13 +97,13 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 
 Install the latest version Node.js if you don't have it installed on your system
-* npm
+
+- npm
   ```sh
   npm install npm@latest -g
   ```
 
 ### Installation
-
 
 1. Clone the repo
    ```sh
@@ -119,39 +116,38 @@ Install the latest version Node.js if you don't have it installed on your system
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 ## Available commands
 
-* Run the development server with hot-reloading.
-   ```sh
-   npm run start
-   ```
-* Build the application for production.
-   ```sh
-   npm run build
-   ```
-* Run the application preview using Vite.
-   ```sh
-   npm run preview
-   ```
-* Run ESLint to check for code errors and style issues.
-   ```sh
-   npm run lint
-   ```
-* Run Prettier to automatically format the code.
-   ```sh
-   npm run format
-   ```
-* Run tests using Jest.
-   ```js
-   npm run test
-   ```
-
+- Run the development server with hot-reloading.
+  ```sh
+  npm run start
+  ```
+- Build the application for production.
+  ```sh
+  npm run build
+  ```
+- Run the application preview using Vite.
+  ```sh
+  npm run preview
+  ```
+- Run ESLint to check for code errors and style issues.
+  ```sh
+  npm run lint
+  ```
+- Run Prettier to automatically format the code.
+  ```sh
+  npm run format
+  ```
+- Run tests using Jest.
+  ```js
+  npm run test
+  ```
 
 <!-- ROADMAP -->
+
 ## Roadmap
 
-- [ ] Project Setup and CommerceTools Integration 🚀🔧
+- [x] Project Setup and CommerceTools Integration 🚀🔧
 - [ ] Login, Registration, and Main Pages Implementation 🔐🖥️
 - [ ] Catalog Product, Detailed Product, and User Profile Pages Implementation 📚🔍👥
 - [ ] Detailed Product Page Enhancement, Basket Page, Catalog Page Enhancement, and About Us Page Implementation 🛍️📊🙋‍♂️🙋‍♀️
@@ -160,9 +156,8 @@ See the [open issues](https://github.com/VoronovY/lucky-coders-e-commerce/issues
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
 Thank you for your interest in our project! If you have any questions or suggestions, feel free to reach out to us.

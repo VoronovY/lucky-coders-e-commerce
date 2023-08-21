@@ -1,0 +1,51 @@
+@import "./fonts.scss";
+// fonts
+$font-family-primary: "Trebuchet MS", sans-serif;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+$font-size-small: 14px;
+$font-size-primary: 16px;
+$font-size-middle: 20px;
+$font-size-large: 24px;
+$font-size-h1: 48px;
+$font-size-h2: 32px;
+$font-size-h3: 24px;
+$font-line-height-primary: 1.5;
+$font-line-height-secondary: 1.1;
+$font-line-height-list: 1.7;
+
+// colors
+$color-primary-light: #ffffff;
+$color-primary-dark: #2a2a2a;
+$color-secondary-bg-light: rgba(54, 54, 54, 0.04);
+$color-primary-bg-light: #fffbf8;
+$color-accent: #faaf00;
+$color-orange-light: #ffefdb;
+$color-black-light: #bababa;
+$color-black-dark-light: #5f5f5f;
+$color-black-dark: #252525;
+$color-border-error: #ff0000;
+$color-categories-arrow-button: #c8c5c3;
+
+$color-primary-placeholder: #929292;
+
+$color-gradient-bg-orange: #f9a43f linear-gradient(to bottom, #f9a43f, #fb791b);
+$color-gradient-bg-light: #bba66f linear-gradient(to right, #bba66f 0%, #ecdeb2 45%, #ecdeb2 55%, #a8996a 100%);
+
+$color-primary-link: #3430ec;
+$color-hovered-link: #1f1d97;
+
+$color-hovered-btn: #fb791b;
+
+// media
+$width-laptop: 1024px;
+$width-large-laptop: 1280px;
+$width-tablet: 768px;
+$width-mobile-big: 550px;
+$width-mobile-small: 390px;
+$width-main-container: 1110px;
+$width-header-container: 1440px;
+
+$card-shadow-primary: 8px 9px 15px -5px rgba(0, 0, 0, 0.56);
+$categories-shadow: 0px 4px 14px 0px #faaf00;

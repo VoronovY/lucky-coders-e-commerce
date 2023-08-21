@@ -1,0 +1,32 @@
+.navCatalog {
+  .burgerMenu {
+    color: var(--color-secondary-text);
+  }
+
+  p {
+    color: var(--color-secondary-text);
+  }
+}
+
+.buttonOpen {
+  background: none;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  font-weight: var(--font-weight-bold);
+  transition: ease-in-out 0.2s;
+
+  &:hover {
+    cursor: pointer;
+
+    .burgerMenu {
+      color: var(--color-hovered-btn);
+    }
+
+    & > p {
+      color: var(--color-hovered-btn);
+    }
+  }
+}

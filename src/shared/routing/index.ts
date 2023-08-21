@@ -1,6 +1,7 @@
-enum Paths {
+enum RoutesName {
   home = '/',
-  category = '/category',
+  main = '/main',
+  catalog = '/catalog',
   cart = '/cart',
   profile = '/profile',
   login = '/login',
@@ -10,4 +11,4 @@ enum Paths {
   registration = '/registration',
 }
 
-export default Paths;
+export default RoutesName;

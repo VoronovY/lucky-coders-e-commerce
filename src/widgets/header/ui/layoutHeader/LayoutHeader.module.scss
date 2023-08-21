@@ -1,0 +1,47 @@
+@import "../../../../app/styles/variables.scss";
+
+.logo {
+  @media (max-width: $width-mobile-big) {
+    display: none;
+  }
+}
+
+.header {
+  width: 100%;
+  background: var(--color-primary-bg-dark);
+
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    margin: 0 auto;
+    color: var(--color-secondary-text);
+    max-width: var(--width-header-container);
+
+    @media (max-width: $width-mobile-big) {
+      gap: 10px;
+      flex-direction: column-reverse;
+    }
+  }
+}
+
+.imgs {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  width: 146px;
+
+  @media (max-width: $width-mobile-big) {
+    align-self: flex-end;
+  }
+}
+
+.cart {
+  transition: ease-in-out 0.2s;
+  color: var(--color-secondary-text);
+
+  &:hover {
+    color: var(--color-hovered-btn);
+  }
+}
