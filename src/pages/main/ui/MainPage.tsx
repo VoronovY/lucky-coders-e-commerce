@@ -1,9 +1,10 @@
 import styles from './MainPage.module.scss';
 
 import MainPageLayout from '../../../widgets/main';
+import useScrollToTop from '../../../shared/helpers/ScrollToTop';
 
 function MainPage(): JSX.Element {
-  window.scrollTo(0, 0);
+  useScrollToTop();
 
   return (
     <div className={styles.mainPage}>

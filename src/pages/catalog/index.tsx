@@ -4,9 +4,10 @@ import styles from './CatalogPage.module.scss';
 
 import RoutesName from '../../shared/routing';
 import catalogLinks from '../../shared/constants/catalogLinks';
+import useScrollToTop from '../../shared/helpers/ScrollToTop';
 
 function CatalogPage(): JSX.Element {
-  window.scrollTo(0, 0);
+  useScrollToTop();
 
   const { category } = useParams();
 

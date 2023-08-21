@@ -1,9 +1,10 @@
 import styles from './Profile.module.scss';
 
 import userImg from '../../../../../public/assets/user.png';
+import useScrollToTop from '../../../../shared/helpers/ScrollToTop';
 
 function ProfilePage(): JSX.Element {
-  window.scrollTo(0, 0);
+  useScrollToTop();
 
   return (
     <div className={styles.profile}>

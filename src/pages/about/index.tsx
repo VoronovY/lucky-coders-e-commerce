@@ -1,9 +1,10 @@
 import styles from './AboutPage.module.scss';
 
 import aboutImg from '../../../public/assets/about.png';
+import useScrollToTop from '../../shared/helpers/ScrollToTop';
 
 function AboutPage(): JSX.Element {
-  window.scrollTo(0, 0);
+  useScrollToTop();
 
   return (
     <div className={styles.aboutPage}>
