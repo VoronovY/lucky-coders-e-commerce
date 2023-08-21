@@ -77,7 +77,7 @@ function SignUpForm(): JSX.Element {
             setTimeout(() => {
               dispatch(updateIsModalInfoOpen(false));
               dispatch(updateInfoMessage(''));
-            }, 3000);
+            }, 5000);
             localStorage.setItem('accessToken', myTokenCache.store.token);
             navigate(RoutesName.main);
           })
