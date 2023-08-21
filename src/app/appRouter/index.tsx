@@ -7,6 +7,7 @@ import BaseLayout from '../layouts/baseLayout';
 import { SignUpPage, LoginPage } from '../../pages';
 import AboutPage from '../../pages/about';
 import CatalogPage from '../../pages/catalog';
+import CartPage from '../../pages/cart';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
       <Route path={RoutesName.about} element={<AboutPage />} />
       <Route path={RoutesName.catalog} element={<CatalogPage />} />
       <Route path={`${RoutesName.catalog}/:category`} element={<CatalogPage />} />
+      <Route path={RoutesName.cart} element={<CartPage />} />
     </Route>,
   ),
 );
