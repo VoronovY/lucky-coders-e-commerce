@@ -6,6 +6,8 @@ import styles from './ModalInfo.module.scss';
 
 import Portal from '../../../widgets/portal/Portal';
 
+import { CheckedGreenIcon } from '../../../app/layouts/images';
+
 export interface ModalProps {
   message: string;
   setIsOpen?: Dispatch<SetStateAction<boolean>>;
@@ -46,6 +48,9 @@ export function ModalInfo({ message, setIsOpen, handleClick, isOpen }: ModalProp
     <Portal target="modal">
       <div className={modalStyle} onClick={handleModalClick} onKeyUp={handleKeyPress} tabIndex={0} role="button">
         <div className={contentStyle}>
+          <div className={styles.icon}>
+            <CheckedGreenIcon width="30" height="30" />
+          </div>
           <div className={styles.message}>{message}</div>
           <div>
             <button onClick={handleOkBtn} type="button">
