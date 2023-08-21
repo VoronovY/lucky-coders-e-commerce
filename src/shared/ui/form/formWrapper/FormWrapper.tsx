@@ -6,9 +6,10 @@ export interface FormWrapperProps {
   title: string;
   buttonText: string;
   children: React.ReactNode;
+  disableBtn?: boolean;
 }
 
-function FormWrapper({ title, buttonText, children }: FormWrapperProps): JSX.Element {
+function FormWrapper({ title, buttonText, children, disableBtn = false }: FormWrapperProps): JSX.Element {
   return (
     <div className={styles.formWrapper}>
       <h3 className={styles.title}>{title}</h3>
@@ -17,7 +18,7 @@ function FormWrapper({ title, buttonText, children }: FormWrapperProps): JSX.Ele
       {children}
 
       <div className={`${styles.line} ${styles.bottom}`} />
-      <Button type="submit" height="48px" width="80%">
+      <Button type="submit" height="48px" width="80%" disabled={disableBtn}>
         {buttonText}
       </Button>
     </div>

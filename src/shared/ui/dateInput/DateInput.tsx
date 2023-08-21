@@ -17,14 +17,7 @@ function DateInput({ id, value, title = null, onChange, error }: DateInputProps)
   return (
     <div className={styles.wrapper}>
       {title && <p className={styles.title}>{title}</p>}
-      <DatePicker
-        id={id}
-        className={styles.input}
-        dateFormat="dd.MM.yyyy"
-        selected={value}
-        onChange={onChange}
-        showTimeInput
-      />
+      <DatePicker id={id} className={styles.input} dateFormat="dd.MM.yyyy" selected={value} onChange={onChange} />
       {error && <span className={styles.errorMessage}>{error?.message && `${error.message}`}</span>}
     </div>
   );

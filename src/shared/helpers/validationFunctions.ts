@@ -31,7 +31,7 @@ export const getDateForValidation = (years: number): Date => {
 export const vailadtePostalCode = async (value: string, iso: string): Promise<boolean> => {
   try {
     if (iso === undefined) return false;
-    const response = await axios.get(`http://api.zippopotam.us/${iso}/${value}`);
+    const response = await axios.get(`https://api.zippopotam.us/${iso}/${value}`);
     return response.data;
   } catch {
     throw new Error();

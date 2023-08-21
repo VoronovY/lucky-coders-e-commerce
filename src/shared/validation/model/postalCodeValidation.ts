@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { leadingTrailingWhitespaceTest } from '../../helpers/validationFunctions';
 
 const postalCodeValidation = Yup.string()
-  .required('City is required')
+  .required('Postal code is required')
   .test(
     'no-leading-trailing-whitespace',
     'City must not contain leading or trailing whitespace',

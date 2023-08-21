@@ -1,5 +1,3 @@
-import { OptionInput } from '../ui/select/SelectInput';
-
 export interface CountriesOption {
   value: string;
   label: string;
@@ -9,7 +7,7 @@ export interface CountriesOption {
 export interface Address {
   isBillingAddress: boolean;
   isShippingAddress: boolean;
-  country: OptionInput;
+  country: CountriesOption | null;
   city: string;
   street: string;
   postalCode: string;
@@ -22,4 +20,22 @@ export interface RegisterUserFields {
   lastName: string;
   birthDate: Date;
   address: Address[];
+}
+
+export interface AddressRequestData {
+  country: string;
+  city: string;
+  streetName: string;
+  postalCode: string;
+}
+
+export interface SignUpRequestData {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  addresses: AddressRequestData[];
+  defaultShippingAddress?: number;
+  defaultBillingAddress?: number;
 }
