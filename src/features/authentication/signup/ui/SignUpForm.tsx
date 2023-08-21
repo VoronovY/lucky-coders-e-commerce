@@ -56,7 +56,7 @@ function SignUpForm(): JSX.Element {
     defaultValues,
   });
 
-  const disavleSubmit = Object.values(methods.formState.errors).length;
+  const disableSubmit = Object.values(methods.formState.errors).length > 0;
 
   const onSubmit: SubmitHandler<RegisterUserFields> = (data) => {
     setErrorMessage('');
@@ -84,7 +84,7 @@ function SignUpForm(): JSX.Element {
       {errorMessage && <ModalError errorMessage={errorMessage} />}
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <FormWrapper title="Create An account" buttonText="Sign Up" disableBtn={disavleSubmit > 0}>
+          <FormWrapper title="Create An account" buttonText="Sign Up" disableBtn={disableSubmit}>
             <Controller
               name="email"
               control={methods.control}
