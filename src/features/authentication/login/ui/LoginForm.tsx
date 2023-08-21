@@ -53,6 +53,7 @@ function LoginForm(): JSX.Element {
     defaultValues: initLoginForm,
   });
 
+  const disableSubmit = Object.values(errors).length > 0;
   const onSubmit: SubmitHandler<LoginUserFields> = (data) => {
     setErrorMessage('');
 
@@ -62,10 +63,10 @@ function LoginForm(): JSX.Element {
         dispatch(updateAccessToken(myTokenCache.store.token));
         dispatch(updateInfoMessage('Congratulations! You are now logged in and ready to explore'));
         dispatch(updateIsModalInfoOpen(true));
-        // setTimeout(() => {
-        //   dispatch(updateIsModalInfoOpen(false));
-        //   dispatch(updateInfoMessage(''));
-        // }, 5000);
+        setTimeout(() => {
+          dispatch(updateIsModalInfoOpen(false));
+          dispatch(updateInfoMessage(''));
+        }, 5000);
         localStorage.setItem('accessToken', myTokenCache.store.token);
         navigate(RoutesName.main);
       })
@@ -78,7 +79,7 @@ function LoginForm(): JSX.Element {
     <>
       {errorMessage && <ModalError errorMessage={errorMessage} />}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormWrapper title="Log in to your account" buttonText="Sign In">
+        <FormWrapper title="Log in to your account" buttonText="Sign In" disableBtn={disableSubmit}>
           <Controller
             name="email"
             control={control}

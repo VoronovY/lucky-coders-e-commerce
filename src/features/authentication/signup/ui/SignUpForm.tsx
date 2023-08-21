@@ -77,7 +77,7 @@ function SignUpForm(): JSX.Element {
             setTimeout(() => {
               dispatch(updateIsModalInfoOpen(false));
               dispatch(updateInfoMessage(''));
-            }, 3000);
+            }, 5000);
             localStorage.setItem('accessToken', myTokenCache.store.token);
             navigate(RoutesName.main);
           })
@@ -168,7 +168,7 @@ function SignUpForm(): JSX.Element {
                 return (
                   <DateInput
                     id="6"
-                    title="Birth date"
+                    title="Birth date *"
                     onChange={onChange}
                     value={value}
                     error={methods.formState.errors.birthDate}

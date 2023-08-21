@@ -23,8 +23,10 @@
   top: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 6px;
   padding: 20px;
   background-color: #e74c3c;
   color: var(--color-secondary-text);
+  font-size: var(--font-size-middle);
 }

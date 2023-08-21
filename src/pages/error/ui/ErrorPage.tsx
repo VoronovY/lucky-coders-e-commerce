@@ -5,12 +5,15 @@ import styles from './ErrorPage.module.scss';
 import notFoundImg from '../../../../public/assets/not-found.png';
 import Button from '../../../shared/ui/button/Button';
 import RoutesName from '../../../shared/routing';
+import useScrollToTop from '../../../shared/helpers/ScrollToTop';
 
 interface ErrorPageProps {
   message: string;
 }
 
 function ErrorPageLayout({ message }: ErrorPageProps): JSX.Element {
+  useScrollToTop();
+
   return (
     <div className={styles.errorPage}>
       <img className={styles.notFoundImg} src={notFoundImg} alt="Not found" />

@@ -49,8 +49,16 @@ function SelectInput({
         })}
         classNames={{
           control: (state): string => {
-            return cn(state.isFocused && styles.select);
+            return cn({
+              [styles.select]: state.isFocused,
+            });
           },
+        }}
+        styles={{
+          control: (baseStyles) => ({
+            ...baseStyles,
+            borderColor: error ? '#ff0000' : '#4f4f4f',
+          }),
         }}
         className={styles.select}
         value={value}

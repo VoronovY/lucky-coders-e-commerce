@@ -25,6 +25,7 @@ const emailValidation = Yup.string()
     const isValidFormat = domainRegex.test(trimmedValue);
     const hasDomainName = trimmedValue.split('@')[1]?.length > 0;
     return isValidFormat && hasDomainName;
-  });
+  })
+  .email('Invalid email address');
 
 export default emailValidation;
