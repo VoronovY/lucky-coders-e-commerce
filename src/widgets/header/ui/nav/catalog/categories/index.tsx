@@ -11,10 +11,10 @@ function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX
   };
   const categoriesArr = [
     { id: 1, url: RoutesName.catalog, text: 'All Categories' },
-    { id: 2, url: RoutesName.catalog, text: 'Pearl' },
-    { id: 3, url: RoutesName.catalog, text: 'Collectible Minerals' },
-    { id: 4, url: RoutesName.catalog, text: 'Beads' },
-    { id: 5, url: RoutesName.catalog, text: 'Magical Stones' },
+    { id: 2, url: `${RoutesName.catalog}/pearl`, text: 'Pearl' },
+    { id: 3, url: `${RoutesName.catalog}/collectible-minerals`, text: 'Collectible Minerals' },
+    { id: 4, url: `${RoutesName.catalog}/beads`, text: 'Beads' },
+    { id: 5, url: `${RoutesName.catalog}/magical-stones`, text: 'Magical Stones' },
   ];
   return (
     <div className={styles.container}>
