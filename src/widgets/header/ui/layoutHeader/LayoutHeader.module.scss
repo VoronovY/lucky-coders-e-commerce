@@ -18,6 +18,11 @@
     margin: 0 auto;
     color: var(--color-secondary-text);
     max-width: var(--width-header-container);
+
+    @media (max-width: $width-mobile-big) {
+      gap: 10px;
+      flex-direction: column-reverse;
+    }
   }
 }
 
@@ -26,6 +31,10 @@
   justify-content: flex-end;
   gap: 10px;
   width: 146px;
+
+  @media (max-width: $width-mobile-big) {
+    align-self: flex-end;
+  }
 }
 
 .cart {
