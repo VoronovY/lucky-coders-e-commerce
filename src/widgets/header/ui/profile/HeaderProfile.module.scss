@@ -54,6 +54,8 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  padding: 0;
+  background: transparent;
 
   &:hover {
     cursor: pointer;
@@ -73,5 +75,6 @@
   .text {
     color: var(--color-primary-text);
     white-space: nowrap;
+    font-weight: var(--font-weight-bold);
   }
 }

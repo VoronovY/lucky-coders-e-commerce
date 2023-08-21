@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './HeaderProfile.module.scss';
 
-import { AccountIcon, RegisterIcon, LoginIcon } from '../../../../app/layouts/images';
+import { AccountIcon, RegisterIcon, LoginIcon, LogoutIcon } from '../../../../app/layouts/images';
 
 import RoutesName from '../../../../shared/routing';
 import { getAccessToken, getUserId } from '../../../../shared/selectors/mainSettingsSelectors';
@@ -35,14 +35,16 @@ function HeaderProfile(): JSX.Element {
         );
       })
     ) : (
-      <div>
+      <>
         <Link to={RoutesName.profile} className={styles.linkWrapper} key="temporaryKey">
+          <AccountIcon className={styles.img} />
           <p className={styles.text}>Profile</p>
         </Link>
         <button className={styles.linkWrapper} key="temporaryKey2" type="button" onClick={handleSignOut}>
+          <LogoutIcon className={styles.img} />
           <p className={styles.text}>Sign Out</p>
         </button>
-      </div>
+      </>
     );
 
   return (
