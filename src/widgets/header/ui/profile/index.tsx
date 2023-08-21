@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './HeaderProfile.module.scss';
 
@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../../../app/appStore/hooks';
 import { updateAccessToken, updateUserId } from '../../../../shared/model/appSlice';
 
 function HeaderProfile(): JSX.Element {
+  const navigate = useNavigate();
   const userId = useAppSelector(getUserId);
   const token = useAppSelector(getAccessToken);
   const disaptch = useAppDispatch();
@@ -22,6 +23,7 @@ function HeaderProfile(): JSX.Element {
     localStorage.removeItem('accessToken');
     disaptch(updateUserId(''));
     disaptch(updateAccessToken(''));
+    navigate(RoutesName.main);
   };
 
   const layout =

@@ -4,8 +4,11 @@ import styles from './CatalogPage.module.scss';
 
 import RoutesName from '../../shared/routing';
 import catalogLinks from '../../shared/constants/catalogLinks';
+import useScrollToTop from '../../shared/helpers/ScrollToTop';
 
 function CatalogPage(): JSX.Element {
+  useScrollToTop();
+
   const { category } = useParams();
 
   const allCatalogData = catalogLinks.find((link) => link.path === RoutesName.catalog);

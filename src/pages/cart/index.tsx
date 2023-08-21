@@ -3,7 +3,11 @@ import styles from './CartPage.module.scss';
 // import CartSummary from './ui/CartSummary/CartSummary';
 import CartEmpty from './ui/CartEmpty/CartEmpty';
 
+import useScrollToTop from '../../shared/helpers/ScrollToTop';
+
 function CartPage(): JSX.Element {
+  useScrollToTop();
+
   return (
     <div className={styles.cart}>
       <CartEmpty />
