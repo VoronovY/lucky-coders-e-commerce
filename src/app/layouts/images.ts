@@ -17,6 +17,7 @@ import { ReactComponent as CrossIcon } from '../../../public/assets/cross.svg';
 import { ReactComponent as CategoriesArrowIcon } from '../../../public/assets/categories-arrow.svg';
 import { ReactComponent as BurgerMenuIcon } from '../../../public/assets/burger-menu.svg';
 import { ReactComponent as WarningIcon } from '../../../public/assets/warning.svg';
+import { ReactComponent as EditIcon } from '../../../public/assets/edit.svg';
 import { ReactComponent as CartEmptyIcon } from '../../../public/assets/cart-empty.svg';
 
 export {
@@ -39,5 +40,6 @@ export {
   CategoriesArrowIcon,
   BurgerMenuIcon,
   WarningIcon,
+  EditIcon,
   CartEmptyIcon,
 };
