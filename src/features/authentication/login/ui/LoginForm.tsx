@@ -62,10 +62,10 @@ function LoginForm(): JSX.Element {
         dispatch(updateAccessToken(myTokenCache.store.token));
         dispatch(updateInfoMessage('Congratulations! You are now logged in and ready to explore'));
         dispatch(updateIsModalInfoOpen(true));
-        setTimeout(() => {
-          dispatch(updateIsModalInfoOpen(false));
-          dispatch(updateInfoMessage(''));
-        }, 3000);
+        // setTimeout(() => {
+        //   dispatch(updateIsModalInfoOpen(false));
+        //   dispatch(updateInfoMessage(''));
+        // }, 5000);
         localStorage.setItem('accessToken', myTokenCache.store.token);
         navigate(RoutesName.main);
       })
