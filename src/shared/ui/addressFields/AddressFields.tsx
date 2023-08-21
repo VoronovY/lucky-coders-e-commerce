@@ -75,6 +75,7 @@ function FieldArray(): JSX.Element {
             <Controller
               name={`address.${index}.country`}
               control={control}
+              rules={{ required: true }}
               render={({ field: { onChange, value }, fieldState: { error } }): JSX.Element => {
                 return (
                   <SelectInput
@@ -124,6 +125,7 @@ function FieldArray(): JSX.Element {
               control={control}
               rules={{
                 required: true,
+                validate: () => false,
               }}
               render={({ field, fieldState: { error } }): JSX.Element => {
                 return (
