@@ -168,7 +168,7 @@ function SignUpForm(): JSX.Element {
                 return (
                   <DateInput
                     id="6"
-                    title="Birth date"
+                    title="Birth date *"
                     onChange={onChange}
                     value={value}
                     error={methods.formState.errors.birthDate}
