@@ -22,6 +22,7 @@
   --color-shadow-border: #{$color-black-dark-light};
   --font-color-error: #{$color-border-error};
   --color-categories-arrow-button: #{$color-categories-arrow-button};
+  --color-empty-cart: #{$color-black-light};
 
   --font-family-primary: #{$font-family-primary};
   --font-line-height-primary: #{$font-line-height-primary};
@@ -55,6 +56,7 @@
   --categories-shadow: #{$categories-shadow};
 
   --width-main-container: #{$width-main-container};
+  --width-header-container: #{$width-header-container};
 }
 
 a {
