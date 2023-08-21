@@ -11,6 +11,8 @@ interface ErrorPageProps {
 }
 
 function ErrorPageLayout({ message }: ErrorPageProps): JSX.Element {
+  window.scrollTo(0, 0);
+
   return (
     <div className={styles.errorPage}>
       <img className={styles.notFoundImg} src={notFoundImg} alt="Not found" />

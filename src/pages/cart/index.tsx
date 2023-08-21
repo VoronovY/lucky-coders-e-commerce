@@ -4,6 +4,8 @@ import styles from './CartPage.module.scss';
 import CartEmpty from './ui/CartEmpty/CartEmpty';
 
 function CartPage(): JSX.Element {
+  window.scrollTo(0, 0);
+
   return (
     <div className={styles.cart}>
       <CartEmpty />
