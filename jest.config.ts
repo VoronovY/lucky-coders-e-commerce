@@ -12,9 +12,8 @@ export default {
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
     'src/**/*.ts',
-    'src/**/*.mts',
+    'src/**/*.tsx',
     '!src/**/*.d.ts',
-    '!src/**/*.d.mts',
     '!<rootDir>/node_modules/',
     '!src/shared/api/baseApi.ts',
     '!src/shared/api/clientBuilder/credentialsFlowClient.ts',
