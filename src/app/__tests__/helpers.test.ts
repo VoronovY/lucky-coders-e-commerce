@@ -1,5 +1,10 @@
+import axios from 'axios';
+
 import getErrorMessage from '../../shared/helpers/routerHelpres';
 import { charsAndNumbersRegExp, digitsRegExp } from '../../shared/constants/regExpx';
+import { getDateForValidation, vailadtePostalCode } from '../../shared/helpers/validationFunctions';
+
+jest.mock('axios');
 
 describe('getErrorMessage', () => {
   it('should return the message from an instance of Error', () => {
@@ -47,5 +52,42 @@ describe('digitsRegExp', () => {
     expect(digitsRegExp.test('abc')).toBe(false);
     expect(digitsRegExp.test('ABCXYZ')).toBe(false);
     expect(digitsRegExp.test('HelloWorld')).toBe(false);
+  });
+});
+
+describe('getDateForValidation', () => {
+  it('returns the correct date for validation', () => {
+    const years = 5;
+    const currentDate = new Date();
+    const expectedDate = new Date(currentDate.getFullYear() - years, currentDate.getMonth(), currentDate.getDate());
+
+    const result = getDateForValidation(years);
+
+    expect(result).toEqual(expectedDate);
+  });
+});
+
+describe('vailadtePostalCode', () => {
+  it('returns true for a valid postal code', async () => {
+    const value = '12345';
+    const iso = 'US';
+    const responseData = true;
+    jest.spyOn(axios, 'get').mockResolvedValue({ data: responseData });
+
+    const result = await vailadtePostalCode(value, iso);
+
+    expect(result).toBe(true);
+    expect(axios.get).toHaveBeenCalledWith(`https://api.zippopotam.us/${iso}/${value}`);
+    jest.spyOn(axios, 'get').mockRestore();
+  });
+
+  it('throws an error for network failure', async () => {
+    const value = '12345';
+    const iso = 'US';
+    jest.spyOn(axios, 'get').mockRejectedValue(new Error('Network Error'));
+
+    await expect(vailadtePostalCode(value, iso)).rejects.toThrow(Error);
+    expect(axios.get).toHaveBeenCalledWith(`https://api.zippopotam.us/${iso}/${value}`);
+    jest.spyOn(axios, 'get').mockRestore();
   });
 });

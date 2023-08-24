@@ -6,6 +6,7 @@ import Button from '../../shared/ui/button/Button';
 import { DateInput } from '../../shared/ui/dateInput/DateInput';
 import { FormWrapper, FormWrapperProps } from '../../shared/ui/form/formWrapper/FormWrapper';
 import { SelectInput } from '../../shared/ui/select/SelectInput';
+import Portal from '../../widgets/portal/Portal';
 
 describe('Logo component', () => {
   it('renders logo image with correct alt text', () => {
@@ -116,5 +117,27 @@ describe('SelectInput', () => {
 
     const selectInput = getByRole('combobox');
     expect(selectInput).toBeInTheDocument();
+  });
+});
+
+describe('Portal', () => {
+  beforeEach(() => {
+    document.getElementById = jest.fn(() => document.createElement('div'));
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('renders the children inside the target element', () => {
+    const targetId = 'target-element';
+    const childText = 'Hello, World!';
+    render(
+      <Portal target={targetId}>
+        <div>{childText}</div>
+      </Portal>,
+    );
+
+    expect(document.getElementById).toHaveBeenCalledWith(targetId);
   });
 });
