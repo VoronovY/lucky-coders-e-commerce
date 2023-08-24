@@ -32,7 +32,9 @@ function LayoutHeader(): JSX.Element {
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
-        <Logo />
+        <div className={styles.logo}>
+          <Logo />
+        </div>
         <HeaderNav />
         <div className={styles.imgs}>
           <HeaderProfile />
