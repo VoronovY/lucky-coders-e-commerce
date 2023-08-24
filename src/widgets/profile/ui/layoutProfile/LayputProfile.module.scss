@@ -1,0 +1,73 @@
+.profileContainer {
+  max-width: var(--width-main-container);
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  gap: 30px;
+  padding: 40px 10px;
+
+  .profileMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .profileWelcomeText {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      h2 {
+        position: relative;
+        padding-left: 20px;
+        line-height: 1;
+
+        &::before {
+          content: "";
+          display: inline-block;
+          position: absolute;
+          background-color: orange;
+          width: 6px;
+          border-radius: 3px;
+          top: 0;
+          left: 0;
+          height: 100%;
+        }
+      }
+
+      span {
+        opacity: 0.5;
+      }
+    }
+
+    .profileList {
+      line-height: var(--font-line-height-list);
+      padding: 30px;
+      border-radius: 12px;
+      min-width: 230px;
+      background-color: var(--color-bg-light);
+      box-shadow: var(--shadow-card-primary);
+      font-size: var(--font-size-middle);
+      font-weight: var(--font-weight-bold);
+
+      .addressBookTitle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        .arrowIcon {
+          width: 15px;
+          height: 15px;
+          transform: rotate(90deg);
+        }
+      }
+
+      ul {
+        li {
+          padding-left: 20px;
+          font-size: var(--font-size-primary);
+        }
+      }
+    }
+  }
+}
