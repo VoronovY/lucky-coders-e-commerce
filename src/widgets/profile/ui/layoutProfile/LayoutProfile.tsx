@@ -1,9 +1,20 @@
+import { useState } from 'react';
+
+import { Link } from 'react-router-dom';
+
 import styles from './LayputProfile.module.scss';
 
 import { CategoriesArrowIcon } from '../../../../app/layouts/images';
 import Button from '../../../../shared/ui/button/Button';
+import RoutesName from '../../../../shared/routing';
 
 function LayoutProfile(): JSX.Element {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleToggle = (): void => {
+    setIsExpanded(!isExpanded);
+  };
+
   return (
     <div className={styles.profileContainer}>
       <div className={styles.profileWelcomeText}>
@@ -13,16 +24,24 @@ function LayoutProfile(): JSX.Element {
       <div className={styles.profile}>
         <div className={styles.profileMenu}>
           <ul className={styles.profileList}>
-            <li className={`${styles.link}, ${styles.menuActive}`}>Profile</li>
+            <li className={`${styles.link} ${styles.linkActive}`}>
+              <Link to={RoutesName.profile}>Profile</Link>
+            </li>
             <li>
-              <div className={`${styles.addressBookTitle} ${styles.link}`}>
+              <button type="button" className={`${styles.addressBookButton} ${styles.link}`} onClick={handleToggle}>
                 <span>Address book</span>
                 <CategoriesArrowIcon className={styles.arrowIcon} />
-              </div>
-              <ul>
-                <li className={styles.link}>Billing address</li>
-                <li className={styles.link}>Shipping address</li>
-              </ul>
+              </button>
+              {isExpanded && (
+                <ul>
+                  <li className={styles.link}>
+                    <Link to={`${RoutesName.profile}/billing-address`}>Billing address</Link>
+                  </li>
+                  <li className={styles.link}>
+                    <Link to={`${RoutesName.profile}/shipping-address`}>Shipping address</Link>
+                  </li>
+                </ul>
+              )}
             </li>
             <li className={styles.link}>Sign Out</li>
           </ul>

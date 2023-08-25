@@ -14,7 +14,7 @@
     h2 {
       position: relative;
       padding-left: 20px;
-      line-height: 1;
+      line-height: var(--font-line-height-secondary);
 
       &::before {
         content: "";
@@ -57,19 +57,40 @@
         font-size: var(--font-size-middle);
         font-weight: var(--font-weight-bold);
 
-        .link:hover {
-          color: var(--color-accent-text);
+        .link {
+          color: var(--color-primary-text);
+          transition: ease-in-out 0.2s;
           cursor: pointer;
+
+          &:hover {
+            color: var(--color-accent-text);
+          }
+
+          a {
+            color: var(--color-primary-text);
+            transition: ease-in-out 0.2s;
+            cursor: pointer;
+
+            &:hover {
+              color: var(--color-accent-text);
+            }
+          }
         }
 
-        .menuActive {
-          color: var(--color-accent-text);
+        .linkActive {
+          a {
+            color: var(--color-accent-text);
+          }
         }
 
-        .addressBookTitle {
+        .addressBookButton {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          background: transparent;
+          line-height: var(--font-line-height-list);
+          font-weight: var(--font-weight-bold);
+          padding: 0;
           width: 100%;
 
           .arrowIcon {
