@@ -45,12 +45,14 @@
 
   --color-gradient-bg-orange: #{$color-gradient-bg-orange};
   --color-gradient-bg-light: #{$color-gradient-bg-light};
+  --color-button-bg: #{$color-bg-orange};
   --color-disabled-bg: #{$color-black-dark-light};
 
   --color-primary-link: #{$color-primary-link};
   --color-hovered-link: #{$color-hovered-link};
 
   --color-hovered-btn: #{$color-hovered-btn};
+  --color-line: #{$color-hovered-btn};
 
   --shadow-card-primary: #{$card-shadow-primary};
   --categories-shadow: #{$categories-shadow};
