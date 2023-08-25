@@ -7,6 +7,7 @@ interface ButtonProps {
   height?: string;
   onClick?: () => void;
   disabled?: boolean;
+  className?: string;
 }
 function Button({ children, width = '100%', height = '35px', ...attributes }: ButtonProps): JSX.Element {
   return (
