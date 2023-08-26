@@ -1,23 +1,17 @@
-import { format } from 'date-fns';
+import { useLocation } from 'react-router-dom';
 
-import styles from './LayputProfile.module.scss';
+import styles from './LayoutProfile.module.scss';
 
-import Button from '../../../../shared/ui/button/Button';
 import ProfileMenu from '../profileMenu/ProfileMenu';
+import UserProfile from '../../../../entities/user/ui/userProfile/UserProfile';
+import UserAddress from '../../../../entities/user/ui/userAddress/UserAddress';
+import RoutesName from '../../../../shared/routing';
 
 interface LayoutProfileProps {
   firstName?: string | undefined;
-  lastName?: string | undefined;
-  email?: string | undefined;
-  dateOfBirth?: string | undefined;
 }
-function LayoutProfile({
-  firstName = '',
-  lastName = '',
-  email = '',
-  dateOfBirth = '',
-}: LayoutProfileProps): JSX.Element {
-  const formattedDateOfBirth = dateOfBirth ? format(new Date(dateOfBirth), 'dd MMMM, yyyy') : '';
+function LayoutProfile({ firstName }: LayoutProfileProps): JSX.Element {
+  const location = useLocation();
 
   return (
     <div className={styles.profileContainer}>
@@ -27,26 +21,8 @@ function LayoutProfile({
       </div>
       <div className={styles.profile}>
         <ProfileMenu />
-        <div className={styles.profileInfo}>
-          <div className={styles.profileInfoItem}>
-            <span className={styles.profileInfoItemTitle}>Your name</span>
-            <span>
-              {lastName} {firstName}
-            </span>
-          </div>
-          <div className={styles.profileInfoItem}>
-            <span className={styles.profileInfoItemTitle}>Email</span>
-            <span>{email}</span>
-          </div>
-          <div className={styles.profileInfoItem}>
-            <span className={styles.profileInfoItemTitle}>Birth Date</span>
-            <span>{formattedDateOfBirth}</span>
-          </div>
-          <button type="button" className={styles.changePasswordButton}>
-            Change Password
-          </button>
-          <Button width="50%">Edit Profile</Button>
-        </div>
+        {location.pathname === RoutesName.profile && <UserProfile />}
+        {location.pathname === `${RoutesName.profile}/addresses` && <UserAddress />}
       </div>
     </div>
   );

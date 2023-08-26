@@ -16,7 +16,7 @@ const profileLinks = [
 function ProfileMenu(): JSX.Element {
   const navigate = useNavigate();
   const disaptch = useAppDispatch();
-  const [activeLink, setActiveLink] = useState('');
+  const [activeLink, setActiveLink] = useState('1');
 
   const handleSignOut = (): void => {
     localStorage.removeItem('accessToken');
@@ -37,7 +37,7 @@ function ProfileMenu(): JSX.Element {
           <button
             type="button"
             key={link.id}
-            className={`${styles.link} ${activeLink === link.id ? styles.linkActive : ''}`}
+            className={activeLink === link.id ? styles.linkActive : ''}
             onClick={(): void => handleLinkClick(link.id)}
           >
             <Link to={link.path}>{link.text}</Link>

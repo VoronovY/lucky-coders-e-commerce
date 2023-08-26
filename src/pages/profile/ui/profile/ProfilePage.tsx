@@ -25,12 +25,7 @@ function ProfilePage(): JSX.Element {
 
   return (
     <div className={styles.profilePage}>
-      <LayoutProfile
-        firstName={userData.firstName}
-        lastName={userData.lastName}
-        email={userData.email}
-        dateOfBirth={userData.dateOfBirth}
-      />
+      <LayoutProfile firstName={userData.firstName} />
     </div>
   );
 }
