@@ -2,8 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { mainSettingsReducer } from '../../shared/model/appSlice';
 
+import { productListReducer } from '../../features/productList/model/productListSlice';
+
 const reducer = {
   mainSettings: mainSettingsReducer,
+  productListReducer,
 };
 
 export const store = configureStore({
