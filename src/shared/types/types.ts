@@ -1,3 +1,5 @@
+import { Attribute } from '@commercetools/platform-sdk';
+
 export interface CountriesOption {
   value: string;
   label: string;
@@ -38,4 +40,16 @@ export interface SignUpRequestData {
   addresses: AddressRequestData[];
   defaultShippingAddress?: number;
   defaultBillingAddress?: number;
+}
+
+export interface ProductCardData {
+  id: string;
+  attributes: Attribute[];
+  discountedPrice: string;
+  originalPrice: string;
+  imageLink: string;
+  imageAlt: string;
+  discount: number;
+  description: string;
+  title: string;
 }

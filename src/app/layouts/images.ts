@@ -19,6 +19,8 @@ import { ReactComponent as BurgerMenuIcon } from '../../../public/assets/burger-
 import { ReactComponent as WarningIcon } from '../../../public/assets/warning.svg';
 import { ReactComponent as EditIcon } from '../../../public/assets/edit.svg';
 import { ReactComponent as CartEmptyIcon } from '../../../public/assets/cart-empty.svg';
+import { ReactComponent as WeightIcon } from '../../../public/assets/icons/icon-weight.svg';
+import { ReactComponent as PaintIcon } from '../../../public/assets/icons/icon-paint.svg';
 
 export {
   RssLogo,
@@ -42,4 +44,6 @@ export {
   WarningIcon,
   EditIcon,
   CartEmptyIcon,
+  WeightIcon,
+  PaintIcon,
 };
