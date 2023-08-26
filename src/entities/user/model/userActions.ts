@@ -1,22 +1,42 @@
-import getCustomer from '../api/userApi';
+import { Customer } from '@commercetools/platform-sdk';
 
-export interface User {
-  email: string;
-  lastName: string;
-  firstName: string;
-  dateOfBirth: string;
-}
-export const getCustomerAction: () => Promise<User> = () => {
-  return getCustomer()
-    .then((user) => {
-      return {
-        email: user.body.email !== undefined ? user.body.email : '',
-        lastName: user.body.lastName !== undefined ? user.body.lastName : '',
-        firstName: user.body.firstName !== undefined ? user.body.firstName : '',
-        dateOfBirth: user.body.dateOfBirth !== undefined ? user.body.dateOfBirth : '',
-      };
-    })
-    .catch((error) => {
-      throw error;
-    });
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { UserData } from '../../../shared/types/types';
+import getCustomer from '../api/userApi';
+import getErrorMessage from '../../../shared/helpers/routerHelpres';
+
+const convertUserFromDTO = (user: Customer): UserData => {
+  return {
+    email: user.email,
+    lastName: user.lastName !== undefined ? user.lastName : '',
+    firstName: user.firstName !== undefined ? user.firstName : '',
+    dateOfBirth: user.dateOfBirth !== undefined ? user.dateOfBirth : '',
+    addresses:
+      user.addresses !== undefined
+        ? user.addresses.map((address) => ({
+            id: address.id,
+            street: address.streetName !== undefined ? address.streetName : '',
+            postalCode: address.postalCode !== undefined ? address.postalCode : '',
+            city: address.city !== undefined ? address.city : '',
+            country: address.country,
+          }))
+        : [],
+  };
 };
+
+const getCustomerAction = createAsyncThunk<UserData, void, { rejectValue: string }>(
+  'profile',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await getCustomer();
+      const userData = convertUserFromDTO(response.body);
+      return userData;
+    } catch (error: unknown) {
+      const message = getErrorMessage(error);
+      return rejectWithValue(message);
+    }
+  },
+);
+
+export default getCustomerAction;

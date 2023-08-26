@@ -1,30 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+
+import { useSelector } from 'react-redux';
 
 import styles from './ProfilePage.module.scss';
 
 import useScrollToTop from '../../../../shared/helpers/ScrollToTop';
 import LayoutProfile from '../../../../widgets/profile';
-import { getCustomerAction, User } from '../../../../entities/user/model/userActions';
+import getCustomerAction from '../../../../entities/user/model/userActions';
+
+import { useAppDispatch } from '../../../../app/appStore/hooks';
+
+import selectUser from '../../../../entities/user/model/userSelectors';
 
 function ProfilePage(): JSX.Element {
   useScrollToTop();
 
-  const [userData, setUserData] = useState<User>({
-    email: '',
-    lastName: '',
-    firstName: '',
-    dateOfBirth: '',
-  });
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getCustomerAction()
-      .then((user) => {
-        setUserData(user);
-      })
-      .catch((error) => {
-        throw error;
-      });
-  }, []);
+    dispatch(getCustomerAction());
+  }, [dispatch]);
+
+  const userData = useSelector(selectUser);
 
   return (
     <div className={styles.profilePage}>

@@ -53,3 +53,17 @@ export interface ProductCardData {
   description: string;
   title: string;
 }
+
+interface UserAddress {
+  country: string;
+  city: string;
+  street: string;
+  postalCode: string;
+}
+export interface UserData {
+  email: string;
+  lastName: string;
+  firstName: string;
+  dateOfBirth: string;
+  addresses: UserAddress[];
+}
