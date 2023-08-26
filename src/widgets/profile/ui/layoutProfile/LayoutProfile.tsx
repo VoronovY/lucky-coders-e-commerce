@@ -2,14 +2,29 @@ import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import { format } from 'date-fns';
+
 import styles from './LayputProfile.module.scss';
 
 import { CategoriesArrowIcon } from '../../../../app/layouts/images';
 import Button from '../../../../shared/ui/button/Button';
 import RoutesName from '../../../../shared/routing';
 
-function LayoutProfile(): JSX.Element {
+interface LayoutProfileProps {
+  firstName?: string | undefined;
+  lastName?: string | undefined;
+  email?: string | undefined;
+  dateOfBirth?: string | undefined;
+}
+function LayoutProfile({
+  firstName = '',
+  lastName = '',
+  email = '',
+  dateOfBirth = '',
+}: LayoutProfileProps): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const formattedDateOfBirth = dateOfBirth ? format(new Date(dateOfBirth), 'dd MMMM, yyyy') : '';
 
   const handleToggle = (): void => {
     setIsExpanded(!isExpanded);
@@ -18,7 +33,7 @@ function LayoutProfile(): JSX.Element {
   return (
     <div className={styles.profileContainer}>
       <div className={styles.profileWelcomeText}>
-        <h2>Hello, Ivan!</h2>
+        <h2>Hello, {firstName}!</h2>
         <span>Welcome to your Account</span>
       </div>
       <div className={styles.profile}>
@@ -49,15 +64,17 @@ function LayoutProfile(): JSX.Element {
         <div className={styles.profileInfo}>
           <div className={styles.profileInfoItem}>
             <span className={styles.profileInfoItemTitle}>Your name</span>
-            <span>Ivanov Ivan</span>
+            <span>
+              {lastName} {firstName}
+            </span>
           </div>
           <div className={styles.profileInfoItem}>
             <span className={styles.profileInfoItemTitle}>Email</span>
-            <span>ivanov@gmail.com</span>
+            <span>{email}</span>
           </div>
           <div className={styles.profileInfoItem}>
             <span className={styles.profileInfoItemTitle}>Birth Date</span>
-            <span>5 june, 1990</span>
+            <span>{formattedDateOfBirth}</span>
           </div>
           <button type="button" className={styles.changePasswordButton}>
             Change Password

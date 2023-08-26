@@ -2,14 +2,18 @@ import { Client, ClientBuilder, ExistingTokenMiddlewareOptions } from '@commerce
 
 import { httpMiddlewareOptions } from '../baseApi';
 
-const token = localStorage.getItem('accessToken');
+const existingFlowClient = (): Client | null => {
+  const token = localStorage.getItem('accessToken');
+  if (!token) {
+    return null;
+  }
 
-const authorization: string = token ? `Bearer ${token}` : '';
-const options: ExistingTokenMiddlewareOptions = {
-  force: true,
-};
+  const authorization: string = token ? `Bearer ${token}` : '';
 
-const existingFlowClient = (): Client => {
+  const options: ExistingTokenMiddlewareOptions = {
+    force: true,
+  };
+
   const client = new ClientBuilder()
     .withExistingTokenFlow(authorization, options)
     .withHttpMiddleware(httpMiddlewareOptions)
