@@ -5,6 +5,7 @@ import styles from './CatalogPage.module.scss';
 import RoutesName from '../../shared/routing';
 import catalogLinks from '../../shared/constants/catalogLinks';
 import useScrollToTop from '../../shared/helpers/ScrollToTop';
+import { ProductList } from '../../features/productList/ui/ProductList';
 
 function CatalogPage(): JSX.Element {
   useScrollToTop();
@@ -19,6 +20,7 @@ function CatalogPage(): JSX.Element {
 
   return (
     <div className={styles.catalogPage}>
+      <ProductList />
       {categoryData && (
         <>
           <h3>{categoryData.text}</h3>
