@@ -55,10 +55,16 @@ export interface ProductCardData {
 }
 
 interface UserAddress {
+  id: string;
   country: string;
   city: string;
   street: string;
+  state: string;
   postalCode: string;
+}
+
+export interface UserDefaultAddress {
+  id: string;
 }
 export interface UserData {
   email: string;
@@ -66,4 +72,6 @@ export interface UserData {
   firstName: string;
   dateOfBirth: string;
   addresses: UserAddress[];
+  shippingAddress?: UserDefaultAddress;
+  billingAddress?: UserDefaultAddress;
 }

@@ -1,6 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import styles from './ProfileMenu.module.scss';
 
@@ -16,7 +16,20 @@ const profileLinks = [
 function ProfileMenu(): JSX.Element {
   const navigate = useNavigate();
   const disaptch = useAppDispatch();
+  const { pathname } = useLocation();
   const [activeLink, setActiveLink] = useState('1');
+
+  const pathToLinkIdMap = useMemo(
+    () => ({
+      [RoutesName.profile]: '1',
+      [`${RoutesName.profile}/addresses`]: '2',
+    }),
+    [],
+  );
+
+  useEffect(() => {
+    setActiveLink(pathToLinkIdMap[pathname] || '1');
+  }, [pathname, pathToLinkIdMap]);
 
   const handleSignOut = (): void => {
     localStorage.removeItem('accessToken');
