@@ -19,8 +19,8 @@ const convertProductFromDTO = (product: ProductProjection): ProductCardData => {
   return {
     id: product.id,
     attributes: attributes || [],
-    discountedPrice: discountedPrice || 0,
-    originalPrice,
+    discountedPrice: (discountedPrice ? discountedPrice / 100 : 0).toFixed(2) || '',
+    originalPrice: (originalPrice / 100).toFixed(2),
     imageLink: firstImageLink,
     imageAlt: firstImageAlt || '',
     discount,

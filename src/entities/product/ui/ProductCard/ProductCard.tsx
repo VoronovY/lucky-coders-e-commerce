@@ -35,7 +35,7 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
   return (
     <div className={styles.productCardWrapper}>
       <div className={styles.discountWrapper}>
-        {discountedPrice > 0 && <div className={styles.discount}>{`-${discount}%`}</div>}
+        {discount !== 0 && <div className={styles.discount}>{`-${discount}%`}</div>}
       </div>
       <div className={styles.mainInfo}>
         <picture className={styles.productImgWrapper}>
@@ -60,8 +60,8 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
       </div>
       <div className={styles.footer}>
         <div className={styles.prices}>
-          {discountedPrice ? <div className={styles.oldPrice}>{originalPrice} €</div> : null}
-          <div className={styles.actualPrice}>{discountedPrice || originalPrice} €</div>
+          {discount !== 0 ? <div className={styles.oldPrice}>{originalPrice} €</div> : null}
+          <div className={styles.actualPrice}>{discount !== 0 ? discountedPrice : originalPrice} €</div>
         </div>
         <Button className={styles.button}>
           <Link className={styles.link} to="http://google.com">

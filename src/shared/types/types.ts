@@ -45,8 +45,8 @@ export interface SignUpRequestData {
 export interface ProductCardData {
   id: string;
   attributes: Attribute[];
-  discountedPrice: number;
-  originalPrice: number;
+  discountedPrice: string;
+  originalPrice: string;
   imageLink: string;
   imageAlt: string;
   discount: number;
