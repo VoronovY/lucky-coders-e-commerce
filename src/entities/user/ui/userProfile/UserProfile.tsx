@@ -1,12 +1,8 @@
-// import { useEffect } from 'react';
 import { format } from 'date-fns';
 
 import { useSelector } from 'react-redux';
 
 import styles from './UserProfile.module.scss';
-
-// import { useAppDispatch } from '../../../../app/appStore/hooks';
-// import getCustomerAction from '../../model/userActions';
 
 import selectUser from '../../model/userSelectors';
 import Button from '../../../../shared/ui/button/Button';

@@ -63,6 +63,7 @@ export const UserSlice = createSlice({
       })
       .addCase(getCustomerAction.fulfilled, (state, { payload }) => {
         const currentState = state;
+        currentState.isLoading = false;
         currentState.user = payload;
       })
       .addCase(getCustomerAction.rejected, (state, { error }) => {
