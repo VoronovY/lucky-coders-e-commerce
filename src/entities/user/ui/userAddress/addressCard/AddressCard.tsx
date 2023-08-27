@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { useDispatch } from 'react-redux';
 
 import styles from './AddressCard.module.scss';
 
 import { Checked, DeleteIcon, EditIcon } from '../../../../../app/layouts/images';
 import { UserDefaultAddress } from '../../../../../shared/types/types';
+import { updateBillingAddress, updateShippingAddress } from '../../../model/userSlice';
 
 interface AddressCardProps {
   id: string;
@@ -33,6 +36,7 @@ function AddressCard({
     { id: 4, title: 'Street', value: street },
     { id: 5, title: 'Postal Code', value: postalCode },
   ];
+  const dispatch = useDispatch();
 
   const [isDefaultShippingAddress, setIsDefaultShippingAddress] = useState(
     shippingAddress && shippingAddress.id.toString() === id.toString(),
@@ -41,12 +45,27 @@ function AddressCard({
     billingAddress && billingAddress.id.toString() === id.toString(),
   );
 
+  useEffect(() => {
+    setIsDefaultShippingAddress(shippingAddress && shippingAddress.id.toString() === id.toString());
+    setIsDefaultBillingAddress(billingAddress && billingAddress.id.toString() === id.toString());
+  }, [shippingAddress, billingAddress, id]);
+
   const handleShippingAddressChange = (): void => {
     setIsDefaultShippingAddress(!isDefaultShippingAddress);
+    if (!isDefaultShippingAddress) {
+      dispatch(updateShippingAddress(id));
+    } else {
+      dispatch(updateShippingAddress(''));
+    }
   };
 
   const handleBillingAddressChange = (): void => {
     setIsDefaultBillingAddress(!isDefaultBillingAddress);
+    if (!isDefaultBillingAddress) {
+      dispatch(updateBillingAddress(id));
+    } else {
+      dispatch(updateBillingAddress(''));
+    }
   };
 
   return (
@@ -75,7 +94,7 @@ function AddressCard({
                 className={styles.input}
                 id={`shipping-${id}`}
                 type="checkbox"
-                checked={isDefaultShippingAddress}
+                checked={shippingAddress?.id === id}
                 onChange={handleShippingAddressChange}
               />
               <span className={styles.box}>
@@ -87,7 +106,7 @@ function AddressCard({
                 className={styles.input}
                 id={`billing-${id}`}
                 type="checkbox"
-                checked={isDefaultBillingAddress}
+                checked={billingAddress?.id === id}
                 onChange={handleBillingAddressChange}
               />
               <span className={styles.box}>

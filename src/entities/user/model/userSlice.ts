@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import getCustomerAction from './userActions';
 
@@ -18,6 +18,8 @@ const initialState: User = {
     firstName: '',
     dateOfBirth: '',
     addresses: [],
+    shippingAddress: undefined,
+    billingAddress: undefined,
   },
   isLoading: false,
   isError: false,
@@ -27,7 +29,32 @@ const initialState: User = {
 export const UserSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    updateShippingAddress: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          shippingAddress: {
+            ...state.user.shippingAddress,
+            id: action.payload,
+          },
+        },
+      };
+    },
+    updateBillingAddress: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          billingAddress: {
+            ...state.user.billingAddress,
+            id: action.payload,
+          },
+        },
+      };
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getCustomerAction.pending, (state) => {
@@ -46,4 +73,5 @@ export const UserSlice = createSlice({
   },
 });
 
-export const { reducer: userReducer } = UserSlice;
+export const { reducer: userDetails } = UserSlice;
+export const { updateShippingAddress, updateBillingAddress } = UserSlice.actions;
