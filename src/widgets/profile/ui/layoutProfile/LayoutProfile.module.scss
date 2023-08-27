@@ -1,6 +1,7 @@
 @import "../../../../app/styles/variables.scss";
 
 .profileContainer {
+  position: relative;
   max-width: var(--width-main-container);
   display: flex;
   flex-direction: column;

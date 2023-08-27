@@ -7,7 +7,10 @@ import styles from './UserProfile.module.scss';
 import selectUser from '../../model/userSelectors';
 import Button from '../../../../shared/ui/button/Button';
 
-function UserProfile(): JSX.Element {
+interface UserProfileProps {
+  onOpenModal: () => void;
+}
+function UserProfile({ onOpenModal }: UserProfileProps): JSX.Element {
   const userData = useSelector(selectUser);
 
   const formattedDateOfBirth = userData.dateOfBirth ? format(new Date(userData.dateOfBirth), 'dd MMMM, yyyy') : '';
@@ -26,7 +29,7 @@ function UserProfile(): JSX.Element {
           <span>{item.value}</span>
         </div>
       ))}
-      <button type="button" className={styles.changePasswordButton}>
+      <button type="button" className={styles.changePasswordButton} onClick={onOpenModal}>
         Change Password
       </button>
       <Button width="70%">Edit Profile</Button>
