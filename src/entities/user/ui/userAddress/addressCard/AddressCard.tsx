@@ -15,6 +15,7 @@ interface AddressCardProps {
   shippingAddress?: UserDefaultAddress;
   billingAddress?: UserDefaultAddress;
 }
+
 function AddressCard({
   id,
   country,
@@ -25,6 +26,14 @@ function AddressCard({
   shippingAddress,
   billingAddress,
 }: AddressCardProps): JSX.Element {
+  const addressDetails = [
+    { id: 1, title: 'Country', value: country },
+    { id: 2, title: 'City', value: city },
+    { id: 3, title: 'State', value: state },
+    { id: 4, title: 'Street', value: street },
+    { id: 5, title: 'Postal Code', value: postalCode },
+  ];
+
   const [isDefaultShippingAddress, setIsDefaultShippingAddress] = useState(
     shippingAddress && shippingAddress.id.toString() === id.toString(),
   );
@@ -43,26 +52,12 @@ function AddressCard({
   return (
     <div className={styles.userAddressItem}>
       <div className={styles.userAddressContainer}>
-        <div>
-          <span>Country: </span>
-          {country}
-        </div>
-        <div>
-          <span>City: </span>
-          {city}
-        </div>
-        <div>
-          <span>State: </span>
-          {state}
-        </div>
-        <div>
-          <span>Street: </span>
-          {street}
-        </div>
-        <div>
-          <span>Postal Code: </span>
-          {postalCode}
-        </div>
+        {addressDetails.map((detail) => (
+          <div key={detail.id}>
+            <span>{detail.title}: </span>
+            {detail.value}
+          </div>
+        ))}
       </div>
       <div className={styles.addressActions}>
         <div className={styles.actionsIcons}>
@@ -75,10 +70,10 @@ function AddressCard({
             <span>default billing address</span>
           </div>
           <div>
-            <label htmlFor={`shipping-${postalCode}`} className={styles.label}>
+            <label htmlFor={`shipping-${id}`} className={styles.label}>
               <input
                 className={styles.input}
-                id={`shipping-${postalCode}`}
+                id={`shipping-${id}`}
                 type="checkbox"
                 checked={isDefaultShippingAddress}
                 onChange={handleShippingAddressChange}
@@ -87,10 +82,10 @@ function AddressCard({
                 <Checked className={styles.checkImg} />
               </span>
             </label>
-            <label htmlFor={`billing-${postalCode}`} className={styles.label}>
+            <label htmlFor={`billing-${id}`} className={styles.label}>
               <input
                 className={styles.input}
-                id={`billing-${postalCode}`}
+                id={`billing-${id}`}
                 type="checkbox"
                 checked={isDefaultBillingAddress}
                 onChange={handleBillingAddressChange}

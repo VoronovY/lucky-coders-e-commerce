@@ -5,6 +5,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { UserData } from '../../../shared/types/types';
 import getCustomer from '../api/userApi';
 import getErrorMessage from '../../../shared/helpers/routerHelpres';
+import countries from '../../../shared/constants/countries';
 
 const convertUserFromDTO = (user: Customer): UserData => {
   const shippingAddressId = user.defaultShippingAddressId;
@@ -23,7 +24,10 @@ const convertUserFromDTO = (user: Customer): UserData => {
             postalCode: address.postalCode !== undefined ? address.postalCode : '---',
             city: address.city !== undefined ? address.city : '---',
             state: address.state !== undefined ? address.state : '---',
-            country: address.country,
+            country:
+              address.country !== undefined
+                ? countries.find((country) => country.iso === address.country)?.label ?? '---'
+                : '---',
           }))
         : [],
     shippingAddress: shippingAddressId !== undefined ? { id: shippingAddressId } : undefined,

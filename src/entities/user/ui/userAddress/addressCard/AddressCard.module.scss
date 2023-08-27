@@ -1,16 +1,21 @@
+@import "../../../../../app/styles/variables.scss";
+
 .userAddressItem {
   display: flex;
   flex-direction: column;
   align-content: center;
   justify-content: space-between;
   gap: 20px;
-  min-width: 300px;
-  max-width: 350px;
+  width: 350px;
   min-height: 250px;
   padding: 20px;
   border-radius: 12px;
   background-color: var(--color-bg-light);
   box-shadow: var(--shadow-card-primary);
+
+  @media (max-width: $width-main-container) {
+    width: 100%;
+  }
 
   .userAddressContainer {
     border: 1px solid var(--color-border-profile);
@@ -36,13 +41,23 @@
         width: 25px;
         height: 25px;
         cursor: pointer;
+        transition: ease-in-out 0.2s;
+
+        &:hover {
+          filter: invert(40%) sepia(90%) saturate(1000%);
+        }
+
+        &:active {
+          transform: scale(0.9);
+        }
       }
     }
 
     .actionsDefault {
       display: flex;
-      gap: 6px;
+      gap: 8px;
       font-size: var(--font-size-small);
+      font-style: italic;
 
       div {
         display: flex;

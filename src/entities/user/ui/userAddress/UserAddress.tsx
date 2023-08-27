@@ -25,7 +25,7 @@ function UserAddress(): JSX.Element {
           billingAddress={userData.billingAddress}
         />
       ))}
-      <div className={`${styles.userAddressItem} ${styles.addNewAddressItem}`}>
+      <div className={styles.addNewAddressItem}>
         <div className={styles.addNewAddress}>
           <PlusIcon />
           <span>Add new address</span>

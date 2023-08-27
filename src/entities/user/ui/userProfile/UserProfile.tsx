@@ -33,7 +33,7 @@ function UserProfile(): JSX.Element {
       <button type="button" className={styles.changePasswordButton}>
         Change Password
       </button>
-      <Button width="50%">Edit Profile</Button>
+      <Button width="70%">Edit Profile</Button>
     </div>
   );
 }
