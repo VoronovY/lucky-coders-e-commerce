@@ -1,15 +1,26 @@
 import { useSelector } from 'react-redux';
 
+import { useState } from 'react';
+
 import styles from './UserAddress.module.scss';
 
 import AddressCard from './addressCard/AddressCard';
 
 import { PlusIcon } from '../../../../app/layouts/images';
 import selectUser from '../../model/userSelectors';
+import AddressModal from '../modal/modaAddress/AddressModal';
 
 function UserAddress(): JSX.Element {
   const userData = useSelector(selectUser);
+  const [isModalAddressOpen, setIsModalAddressOpen] = useState(false);
 
+  const handleEditClick = (): void => {
+    setIsModalAddressOpen(true);
+  };
+
+  const handleCloseAddressModal = (): void => {
+    setIsModalAddressOpen(false);
+  };
   return (
     <div className={styles.profileAddress}>
       {userData.addresses.map((address) => (
@@ -23,12 +34,13 @@ function UserAddress(): JSX.Element {
           postalCode={address.postalCode}
         />
       ))}
-      <div className={styles.addNewAddressItem}>
+      <button type="button" className={styles.addNewAddressItem} onClick={handleEditClick}>
         <div className={styles.addNewAddress}>
           <PlusIcon />
           <span>Add new address</span>
         </div>
-      </div>
+      </button>
+      {isModalAddressOpen && <AddressModal title="Add new address" onCloseAddAddress={handleCloseAddressModal} />}
     </div>
   );
 }

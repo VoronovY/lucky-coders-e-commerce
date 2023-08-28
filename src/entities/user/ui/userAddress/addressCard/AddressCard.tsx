@@ -7,6 +7,7 @@ import styles from './AddressCard.module.scss';
 import { Checked, DeleteIcon, EditIcon } from '../../../../../app/layouts/images';
 import { updateDefaultBillingAddress, updateDefaultShippingAddress } from '../../../model/userSlice';
 import selectUser from '../../../model/userSelectors';
+import AddressModal from '../../modal/modaAddress/AddressModal';
 
 interface AddressCardProps {
   id: string;
@@ -27,6 +28,15 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
   ];
   const dispatch = useDispatch();
   const userData = useSelector(selectUser);
+  const [isModalAddressOpen, setIsModalAddressOpen] = useState(false);
+
+  const handleEditClick = (): void => {
+    setIsModalAddressOpen(true);
+  };
+
+  const handleCloseAddressModal = (): void => {
+    setIsModalAddressOpen(false);
+  };
 
   const { defaultShippingAddress, defaultBillingAddress } = userData;
 
@@ -72,7 +82,7 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
       </div>
       <div className={styles.addressActions}>
         <div className={styles.actionsIcons}>
-          <EditIcon />
+          <EditIcon onClick={handleEditClick} />
           <DeleteIcon />
         </div>
         <div className={styles.actionsDefault}>
@@ -108,6 +118,7 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
           </div>
         </div>
       </div>
+      {isModalAddressOpen && <AddressModal title="Edit address" onCloseAddAddress={handleCloseAddressModal} />}
     </div>
   );
 }

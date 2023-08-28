@@ -94,11 +94,11 @@ function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps)
             );
           }}
         />
-        <Button type="button" width="100%" onClick={onCloseModalPassword}>
-          Cancel
-        </Button>
         <Button type="submit" width="100%">
           Save
+        </Button>
+        <Button type="button" width="100%" onClick={onCloseModalPassword}>
+          Cancel
         </Button>
       </form>
     </ModalForm>

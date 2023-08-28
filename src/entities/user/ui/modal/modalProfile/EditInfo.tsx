@@ -76,11 +76,11 @@ function EditInfo({ onCloseModalInfo }: EditInfoProps): JSX.Element {
             return <DateInput id="4" title="Birth date *" onChange={onChange} value={value} error={errors.birthDate} />;
           }}
         />
-        <Button type="button" width="100%" onClick={onCloseModalInfo}>
-          Cancel
-        </Button>
         <Button type="submit" width="100%">
           Save
+        </Button>
+        <Button type="button" width="100%" onClick={onCloseModalInfo}>
+          Cancel
         </Button>
       </form>
     </ModalForm>
