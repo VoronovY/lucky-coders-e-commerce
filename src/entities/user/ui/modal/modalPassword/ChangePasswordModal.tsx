@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { ObjectSchema } from 'yup';
 
+import { ChangeEvent } from 'react';
+
 import styles from './ChangePasswordModal.module.scss';
 
 import ModalForm from '../../../../../shared/ui/form/modalForm/ModalForm';
@@ -28,6 +30,9 @@ function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps)
   const {
     handleSubmit,
     control,
+    setError,
+    clearErrors,
+    getValues,
     formState: { errors },
   } = useForm<PasswordFields>({
     resolver: yupResolver(changePasswordSchema as ObjectSchema<PasswordFields>),
@@ -36,6 +41,23 @@ function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps)
   });
   const onSubmit = (data: PasswordFields): PasswordFields => {
     return data;
+  };
+
+  const handleNewPasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const newPassword = e.target.value;
+    const confirmPassword = getValues('confirmPassword');
+
+    changePasswordSchema
+      .validateAt('confirmPassword', { newPassword, confirmPassword })
+      .then(() => {
+        clearErrors('confirmPassword');
+      })
+      .catch((error) => {
+        setError('confirmPassword', {
+          type: 'validate',
+          message: error.message,
+        });
+      });
   };
 
   return (
@@ -51,8 +73,8 @@ function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps)
                 id="1"
                 placeholder="Password"
                 label="Current Password *"
-                {...field}
                 error={errors.currentPassword}
+                {...field}
               />
             );
           }}
@@ -65,10 +87,14 @@ function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps)
             return (
               <PasswordInput
                 id="2"
+                name="newPassword"
                 placeholder="Password"
                 label="New password *"
-                {...field}
                 error={errors.newPassword}
+                onChange={(e): void => {
+                  field.onChange(e);
+                  handleNewPasswordChange(e);
+                }}
               />
             );
           }}
@@ -83,8 +109,8 @@ function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps)
                 id="3"
                 placeholder="Password"
                 label="Confirm new password *"
-                {...field}
                 error={errors.confirmPassword}
+                {...field}
               />
             );
           }}
