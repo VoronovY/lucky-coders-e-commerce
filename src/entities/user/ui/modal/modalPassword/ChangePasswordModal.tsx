@@ -12,15 +12,10 @@ import { PasswordInput } from '../../../../../shared/ui/passwordInput/PasswordIn
 
 import Button from '../../../../../shared/ui/button/Button';
 import changePasswordSchema from '../../../model/changePasswordSchema';
+import { PasswordFields } from '../../../../../shared/types/types';
 
 interface ChangePasswordModalProps {
   onCloseModalPassword: () => void;
-}
-
-interface PasswordFields {
-  currentPassword: string;
-  newPassword: string;
-  confirmPassword: string;
 }
 
 const defaultValues = {

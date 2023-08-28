@@ -13,21 +13,25 @@ const convertUserFromDTO = (user: Customer): UserData => {
 
   return {
     email: user.email,
-    lastName: user.lastName !== undefined ? user.lastName : '---',
-    firstName: user.firstName !== undefined ? user.firstName : '---',
-    dateOfBirth: user.dateOfBirth !== undefined ? user.dateOfBirth : '---',
+    lastName: user.lastName !== undefined ? user.lastName : '',
+    firstName: user.firstName !== undefined ? user.firstName : '',
+    dateOfBirth: user.dateOfBirth !== undefined ? user.dateOfBirth : '',
     addresses:
       user.addresses !== undefined
         ? user.addresses.map((address) => ({
-            id: address.id !== undefined ? address.id : '---',
-            street: address.streetName !== undefined ? address.streetName : '---',
-            postalCode: address.postalCode !== undefined ? address.postalCode : '---',
-            city: address.city !== undefined ? address.city : '---',
+            id: address.id !== undefined ? address.id : '',
+            street: address.streetName !== undefined ? address.streetName : '',
+            postalCode: address.postalCode !== undefined ? address.postalCode : '',
+            city: address.city !== undefined ? address.city : '',
             state: address.state !== undefined ? address.state : '---',
             country:
               address.country !== undefined
-                ? countries.find((country) => country.iso === address.country)?.label ?? '---'
-                : '---',
+                ? countries.find((country) => country.iso === address.country) ?? {
+                    value: '',
+                    label: '',
+                    iso: '',
+                  }
+                : { value: '', label: '', iso: '' },
           }))
         : [],
     defaultShippingAddress: shippingAddressId !== undefined ? { id: shippingAddressId } : undefined,

@@ -11,16 +11,10 @@ import ModalForm from '../../../../../shared/ui/form/modalForm/ModalForm';
 import { TextInput } from '../../../../../shared/ui/textInput/TextInput';
 import { DateInput } from '../../../../../shared/ui/dateInput/DateInput';
 import editInfoSchema from '../../../model/editInfoSchema';
+import { InfoFields } from '../../../../../shared/types/types';
 
 interface EditInfoProps {
   onCloseModalInfo: () => void;
-}
-
-interface InfoFields {
-  firstName: string;
-  lastName: string;
-  email: string;
-  birthDate: Date;
 }
 
 const defaultValues = {

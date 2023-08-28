@@ -56,7 +56,7 @@ export interface ProductCardData {
 
 interface UserAddress {
   id: string;
-  country: string;
+  country: CountriesOption | null;
   city: string;
   street: string;
   state: string;
@@ -77,4 +77,26 @@ export interface UserData {
   defaultBillingAddress?: UserDefaultAddress;
   shippingAddress?: UserDefaultAddress[];
   billingAddress?: UserDefaultAddress[];
+}
+
+export interface PasswordFields {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+export interface InfoFields {
+  firstName: string;
+  lastName: string;
+  email: string;
+  birthDate: Date;
+}
+
+export interface ProfileAddressFields {
+  id?: string;
+  country: CountriesOption | null;
+  city: string;
+  state: string;
+  street: string;
+  postalCode: string;
 }

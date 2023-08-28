@@ -15,41 +15,42 @@ import { TextInput } from '../../../../../shared/ui/textInput/TextInput';
 import countries from '../../../../../shared/constants/countries';
 import { vailadtePostalCode } from '../../../../../shared/helpers/validationFunctions';
 import addressSchema from '../../../model/addressSchema';
-import { CountriesOption } from '../../../../../shared/types/types';
+import { ProfileAddressFields } from '../../../../../shared/types/types';
 
-interface AddressModalProps {
+export interface AddressModalProps extends ProfileAddressFields {
   onCloseAddAddress: () => void;
   title: string;
 }
 
-interface AddressFields {
-  country: CountriesOption | null;
-  city: string;
-  state: string;
-  street: string;
-  postalCode: string;
-}
+function AddressModal({
+  onCloseAddAddress,
+  title,
+  country,
+  city,
+  state,
+  street,
+  postalCode,
+}: AddressModalProps): JSX.Element {
+  const defaultValues = {
+    country,
+    city,
+    state,
+    street,
+    postalCode,
+  };
 
-const defaultValues = {
-  country: null,
-  city: '',
-  state: '',
-  street: '',
-  postalCode: '',
-};
-function AddressModal({ onCloseAddAddress, title }: AddressModalProps): JSX.Element {
-  const { handleSubmit, watch, clearErrors, setError, control } = useForm<AddressFields>({
-    resolver: yupResolver(addressSchema as ObjectSchema<AddressFields>),
+  const { handleSubmit, watch, clearErrors, setError, control } = useForm<ProfileAddressFields>({
+    resolver: yupResolver(addressSchema as ObjectSchema<ProfileAddressFields>),
     mode: 'onChange',
     defaultValues,
   });
 
-  const changePostalCode = (postalCode: string): void => {
-    const country = watch('country');
-    if (country) {
-      const { iso } = country;
+  const changePostalCode = (postal: string): void => {
+    const currentCountry = watch('country');
+    if (currentCountry) {
+      const { iso } = currentCountry;
       if (postalCode === '') return;
-      vailadtePostalCode(postalCode, iso)
+      vailadtePostalCode(postal, iso)
         .then(() => {
           clearErrors('postalCode');
         })
@@ -61,7 +62,7 @@ function AddressModal({ onCloseAddAddress, title }: AddressModalProps): JSX.Elem
         });
     }
   };
-  const onSubmit = (data: AddressFields): AddressFields => {
+  const onSubmit = (data: ProfileAddressFields): ProfileAddressFields => {
     return data;
   };
 
@@ -81,8 +82,8 @@ function AddressModal({ onCloseAddAddress, title }: AddressModalProps): JSX.Elem
                 options={countries}
                 onChange={(selectedCountry): void => {
                   onChange(selectedCountry);
-                  const postalCode = watch('postalCode');
-                  changePostalCode(postalCode);
+                  const postal = watch('postalCode');
+                  changePostalCode(postal);
                 }}
                 value={value}
                 error={error}
@@ -131,8 +132,8 @@ function AddressModal({ onCloseAddAddress, title }: AddressModalProps): JSX.Elem
                 error={error}
                 onChange={(e: ChangeEvent<HTMLInputElement>): void => {
                   field.onChange(e.target.value);
-                  const country = watch('country');
-                  if (country) {
+                  const currentCountry = watch('country');
+                  if (currentCountry) {
                     changePostalCode(e.target.value);
                   }
                 }}

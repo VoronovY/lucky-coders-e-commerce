@@ -40,7 +40,17 @@ function UserAddress(): JSX.Element {
           <span>Add new address</span>
         </div>
       </button>
-      {isModalAddressOpen && <AddressModal title="Add new address" onCloseAddAddress={handleCloseAddressModal} />}
+      {isModalAddressOpen && (
+        <AddressModal
+          title="Add new address"
+          onCloseAddAddress={handleCloseAddressModal}
+          country={null}
+          city=""
+          state=""
+          street=""
+          postalCode=""
+        />
+      )}
     </div>
   );
 }
