@@ -33,6 +33,8 @@ function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate }: E
     mode: 'onChange',
     defaultValues,
   });
+
+  const disableSubmit = Object.values(errors).length > 0;
   const onSubmit = (data: InfoFields): InfoFields => {
     return data;
   };
@@ -70,7 +72,7 @@ function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate }: E
             return <DateInput id="4" title="Birth date *" onChange={onChange} value={value} error={errors.birthDate} />;
           }}
         />
-        <Button type="submit" width="100%">
+        <Button type="submit" width="100%" disabled={disableSubmit}>
           Save
         </Button>
         <Button type="button" width="100%" onClick={onCloseModalInfo}>

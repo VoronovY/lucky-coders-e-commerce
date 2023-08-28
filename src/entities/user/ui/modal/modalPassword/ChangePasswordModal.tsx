@@ -39,6 +39,8 @@ function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps)
     mode: 'onChange',
     defaultValues,
   });
+
+  const disableSubmit = Object.values(errors).length > 0;
   const onSubmit = (data: PasswordFields): PasswordFields => {
     return data;
   };
@@ -115,7 +117,7 @@ function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps)
             );
           }}
         />
-        <Button type="submit" width="100%">
+        <Button type="submit" width="100%" disabled={disableSubmit}>
           Save
         </Button>
         <Button type="button" width="100%" onClick={onCloseModalPassword}>
