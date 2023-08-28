@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Draft, PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import getCustomerAction from './userActions';
 
@@ -18,8 +18,10 @@ const initialState: User = {
     firstName: '',
     dateOfBirth: '',
     addresses: [],
-    shippingAddress: undefined,
-    billingAddress: undefined,
+    defaultShippingAddress: undefined,
+    defaultBillingAddress: undefined,
+    shippingAddress: [],
+    billingAddress: [],
   },
   isLoading: false,
   isError: false,
@@ -30,25 +32,35 @@ export const UserSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    updateShippingAddress: (state, action: PayloadAction<string>) => {
+    updateBillingAddresses: (state: Draft<User>, action: PayloadAction<string[]>) => {
+      const newBillingAddress = action.payload.map((address) => ({ id: address }));
+      const currentState = state;
+      currentState.user.billingAddress = newBillingAddress;
+    },
+    updateShippingAddresses: (state: Draft<User>, action: PayloadAction<string[]>) => {
+      const newShippingAddress = action.payload.map((address) => ({ id: address }));
+      const currentState = state;
+      currentState.user.shippingAddress = newShippingAddress;
+    },
+    updateDefaultShippingAddress: (state, action: PayloadAction<string>) => {
       return {
         ...state,
         user: {
           ...state.user,
-          shippingAddress: {
-            ...state.user.shippingAddress,
+          defaultShippingAddress: {
+            ...state.user.defaultShippingAddress,
             id: action.payload,
           },
         },
       };
     },
-    updateBillingAddress: (state, action: PayloadAction<string>) => {
+    updateDefaultBillingAddress: (state, action: PayloadAction<string>) => {
       return {
         ...state,
         user: {
           ...state.user,
-          billingAddress: {
-            ...state.user.billingAddress,
+          defaultBillingAddress: {
+            ...state.user.defaultBillingAddress,
             id: action.payload,
           },
         },
@@ -75,4 +87,9 @@ export const UserSlice = createSlice({
 });
 
 export const { reducer: userDetails } = UserSlice;
-export const { updateShippingAddress, updateBillingAddress } = UserSlice.actions;
+export const {
+  updateDefaultShippingAddress,
+  updateDefaultBillingAddress,
+  updateBillingAddresses,
+  updateShippingAddresses,
+} = UserSlice.actions;

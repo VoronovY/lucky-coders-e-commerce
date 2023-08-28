@@ -21,8 +21,6 @@ function UserAddress(): JSX.Element {
           state={address.state}
           street={address.street}
           postalCode={address.postalCode}
-          shippingAddress={userData.shippingAddress}
-          billingAddress={userData.billingAddress}
         />
       ))}
       <div className={styles.addNewAddressItem}>

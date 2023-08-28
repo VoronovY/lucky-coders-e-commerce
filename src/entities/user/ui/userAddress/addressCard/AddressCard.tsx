@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './AddressCard.module.scss';
 
 import { Checked, DeleteIcon, EditIcon } from '../../../../../app/layouts/images';
-import { UserDefaultAddress } from '../../../../../shared/types/types';
-import { updateBillingAddress, updateShippingAddress } from '../../../model/userSlice';
+import { updateDefaultBillingAddress, updateDefaultShippingAddress } from '../../../model/userSlice';
+import selectUser from '../../../model/userSelectors';
 
 interface AddressCardProps {
   id: string;
@@ -15,20 +15,9 @@ interface AddressCardProps {
   state: string;
   street: string;
   postalCode: string;
-  shippingAddress?: UserDefaultAddress;
-  billingAddress?: UserDefaultAddress;
 }
 
-function AddressCard({
-  id,
-  country,
-  city,
-  state,
-  street,
-  postalCode,
-  shippingAddress,
-  billingAddress,
-}: AddressCardProps): JSX.Element {
+function AddressCard({ id, country, city, state, street, postalCode }: AddressCardProps): JSX.Element {
   const addressDetails = [
     { id: 1, title: 'Country', value: country },
     { id: 2, title: 'City', value: city },
@@ -37,34 +26,37 @@ function AddressCard({
     { id: 5, title: 'Postal Code', value: postalCode },
   ];
   const dispatch = useDispatch();
+  const userData = useSelector(selectUser);
+
+  const { defaultShippingAddress, defaultBillingAddress } = userData;
 
   const [isDefaultShippingAddress, setIsDefaultShippingAddress] = useState(
-    shippingAddress && shippingAddress.id.toString() === id.toString(),
+    defaultShippingAddress && defaultShippingAddress.id.toString() === id.toString(),
   );
   const [isDefaultBillingAddress, setIsDefaultBillingAddress] = useState(
-    billingAddress && billingAddress.id.toString() === id.toString(),
+    defaultBillingAddress && defaultBillingAddress.id.toString() === id.toString(),
   );
 
   useEffect(() => {
-    setIsDefaultShippingAddress(shippingAddress && shippingAddress.id.toString() === id.toString());
-    setIsDefaultBillingAddress(billingAddress && billingAddress.id.toString() === id.toString());
-  }, [shippingAddress, billingAddress, id]);
+    setIsDefaultShippingAddress(defaultShippingAddress && defaultShippingAddress.id.toString() === id.toString());
+    setIsDefaultBillingAddress(defaultBillingAddress && defaultBillingAddress.id.toString() === id.toString());
+  }, [defaultShippingAddress, defaultBillingAddress, id]);
 
   const handleShippingAddressChange = (): void => {
     setIsDefaultShippingAddress(!isDefaultShippingAddress);
     if (!isDefaultShippingAddress) {
-      dispatch(updateShippingAddress(id));
+      dispatch(updateDefaultShippingAddress(id));
     } else {
-      dispatch(updateShippingAddress(''));
+      dispatch(updateDefaultShippingAddress(''));
     }
   };
 
   const handleBillingAddressChange = (): void => {
     setIsDefaultBillingAddress(!isDefaultBillingAddress);
     if (!isDefaultBillingAddress) {
-      dispatch(updateBillingAddress(id));
+      dispatch(updateDefaultBillingAddress(id));
     } else {
-      dispatch(updateBillingAddress(''));
+      dispatch(updateDefaultBillingAddress(''));
     }
   };
 
@@ -94,7 +86,7 @@ function AddressCard({
                 className={styles.input}
                 id={`shipping-${id}`}
                 type="checkbox"
-                checked={shippingAddress?.id === id}
+                checked={defaultShippingAddress?.id === id}
                 onChange={handleShippingAddressChange}
               />
               <span className={styles.box}>
@@ -106,7 +98,7 @@ function AddressCard({
                 className={styles.input}
                 id={`billing-${id}`}
                 type="checkbox"
-                checked={billingAddress?.id === id}
+                checked={defaultBillingAddress?.id === id}
                 onChange={handleBillingAddressChange}
               />
               <span className={styles.box}>

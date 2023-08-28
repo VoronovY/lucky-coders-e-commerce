@@ -66,12 +66,15 @@ interface UserAddress {
 export interface UserDefaultAddress {
   id: string;
 }
+
 export interface UserData {
   email: string;
   lastName: string;
   firstName: string;
   dateOfBirth: string;
   addresses: UserAddress[];
-  shippingAddress?: UserDefaultAddress;
-  billingAddress?: UserDefaultAddress;
+  defaultShippingAddress?: UserDefaultAddress;
+  defaultBillingAddress?: UserDefaultAddress;
+  shippingAddress?: UserDefaultAddress[];
+  billingAddress?: UserDefaultAddress[];
 }

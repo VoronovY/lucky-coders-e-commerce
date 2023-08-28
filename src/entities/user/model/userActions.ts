@@ -30,8 +30,10 @@ const convertUserFromDTO = (user: Customer): UserData => {
                 : '---',
           }))
         : [],
-    shippingAddress: shippingAddressId !== undefined ? { id: shippingAddressId } : undefined,
-    billingAddress: billingAddressId !== undefined ? { id: billingAddressId } : undefined,
+    defaultShippingAddress: shippingAddressId !== undefined ? { id: shippingAddressId } : undefined,
+    defaultBillingAddress: billingAddressId !== undefined ? { id: billingAddressId } : undefined,
+    shippingAddress: user.shippingAddressIds !== undefined ? user.shippingAddressIds.map((id) => ({ id })) : [],
+    billingAddress: user.billingAddressIds !== undefined ? user.billingAddressIds.map((id) => ({ id })) : [],
   };
 };
 
