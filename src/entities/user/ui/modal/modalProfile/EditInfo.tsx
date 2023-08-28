@@ -13,17 +13,17 @@ import { DateInput } from '../../../../../shared/ui/dateInput/DateInput';
 import editInfoSchema from '../../../model/editInfoSchema';
 import { InfoFields } from '../../../../../shared/types/types';
 
-interface EditInfoProps {
+interface EditInfoProps extends InfoFields {
   onCloseModalInfo: () => void;
 }
+function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate }: EditInfoProps): JSX.Element {
+  const defaultValues = {
+    firstName,
+    lastName,
+    email,
+    birthDate,
+  };
 
-const defaultValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  birthDate: new Date(),
-};
-function EditInfo({ onCloseModalInfo }: EditInfoProps): JSX.Element {
   const {
     handleSubmit,
     control,
