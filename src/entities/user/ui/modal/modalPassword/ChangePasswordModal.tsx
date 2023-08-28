@@ -13,7 +13,7 @@ import { PasswordInput } from '../../../../../shared/ui/passwordInput/PasswordIn
 import Button from '../../../../../shared/ui/button/Button';
 import changePasswordSchema from '../../../model/changePasswordSchema';
 
-interface AddressCardProps {
+interface ChangePasswordModalProps {
   onCloseModalPassword: () => void;
 }
 
@@ -23,13 +23,13 @@ interface PasswordFields {
   confirmPassword: string;
 }
 
-const initLoginForm = {
+const defaultValues = {
   currentPassword: '',
   newPassword: '',
   confirmPassword: '',
 };
 
-function ChangePasswordModal({ onCloseModalPassword }: AddressCardProps): JSX.Element {
+function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps): JSX.Element {
   const {
     handleSubmit,
     control,
@@ -37,7 +37,7 @@ function ChangePasswordModal({ onCloseModalPassword }: AddressCardProps): JSX.El
   } = useForm<PasswordFields>({
     resolver: yupResolver(changePasswordSchema as ObjectSchema<PasswordFields>),
     mode: 'onChange',
-    defaultValues: initLoginForm,
+    defaultValues,
   });
   const onSubmit = (data: PasswordFields): PasswordFields => {
     return data;

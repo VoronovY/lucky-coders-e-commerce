@@ -9,17 +9,27 @@ import styles from './UserProfile.module.scss';
 import selectUser from '../../model/userSelectors';
 import Button from '../../../../shared/ui/button/Button';
 import ChangePasswordModal from '../modal/modalPassword/ChangePasswordModal';
+import EditInfo from '../modal/modalProfile/EditInfo';
 
 function UserProfile(): JSX.Element {
   const userData = useSelector(selectUser);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [isModalInfoOpen, setIsModalInfoOpen] = useState(false);
 
   const handleOpenModalPassword = (): void => {
-    setIsModalOpen(true);
+    setIsPasswordModalOpen(true);
   };
 
   const handleCloseModalPassword = (): void => {
-    setIsModalOpen(false);
+    setIsPasswordModalOpen(false);
+  };
+
+  const handleOpenModalInfo = (): void => {
+    setIsModalInfoOpen(true);
+  };
+
+  const handleCloseModalInfo = (): void => {
+    setIsModalInfoOpen(false);
   };
 
   const formattedDateOfBirth = userData.dateOfBirth ? format(new Date(userData.dateOfBirth), 'dd MMMM, yyyy') : '';
@@ -42,9 +52,12 @@ function UserProfile(): JSX.Element {
         <button type="button" className={styles.changePasswordButton} onClick={handleOpenModalPassword}>
           Change Password
         </button>
-        <Button width="70%">Edit Profile</Button>
+        <Button width="70%" onClick={handleOpenModalInfo}>
+          Edit Profile
+        </Button>
       </div>
-      {isModalOpen && <ChangePasswordModal onCloseModalPassword={handleCloseModalPassword} />}
+      {isPasswordModalOpen && <ChangePasswordModal onCloseModalPassword={handleCloseModalPassword} />}
+      {isModalInfoOpen && <EditInfo onCloseModalInfo={handleCloseModalInfo} />}
     </>
   );
 }
