@@ -39,7 +39,14 @@ function AddressModal({
     postalCode,
   };
 
-  const { handleSubmit, watch, clearErrors, setError, control } = useForm<ProfileAddressFields>({
+  const {
+    handleSubmit,
+    watch,
+    clearErrors,
+    setError,
+    control,
+    formState: { errors },
+  } = useForm<ProfileAddressFields>({
     resolver: yupResolver(addressSchema as ObjectSchema<ProfileAddressFields>),
     mode: 'onChange',
     defaultValues,
@@ -62,6 +69,8 @@ function AddressModal({
         });
     }
   };
+
+  const disableSubmit = Object.values(errors).length > 0;
   const onSubmit = (data: ProfileAddressFields): ProfileAddressFields => {
     return data;
   };
@@ -112,7 +121,7 @@ function AddressModal({
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }): JSX.Element => {
-            return <TextInput id="4" placeholder="State" label="State *" {...field} error={error} />;
+            return <TextInput id="4" placeholder="State" label="State" {...field} error={error} />;
           }}
         />
         <Controller
@@ -141,7 +150,7 @@ function AddressModal({
             );
           }}
         />
-        <Button type="submit" width="100%">
+        <Button type="submit" width="100%" disabled={disableSubmit}>
           Save
         </Button>
         <Button type="button" width="100%" onClick={onCloseAddAddress}>

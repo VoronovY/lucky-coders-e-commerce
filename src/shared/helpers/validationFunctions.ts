@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { charsAndNumbersRegExp, digitsRegExp } from '../constants/regExpx';
 
-export const leadingTrailingWhitespaceTest = (value: string): boolean => {
+export const leadingTrailingWhitespaceTest = (value: string | undefined): boolean => {
   if (!value) return true;
   return !(value.startsWith(' ') || value.endsWith(' '));
 };
@@ -16,7 +16,8 @@ export const isNoNumbers = (value: string): boolean => {
   return !digitsRegExp.test(value);
 };
 
-export const isNoSpecSymbols = (value: string): boolean => {
+export const isNoSpecSymbols = (value: string | undefined): boolean => {
+  if (!value) return true;
   return charsAndNumbersRegExp.test(value);
 };
 

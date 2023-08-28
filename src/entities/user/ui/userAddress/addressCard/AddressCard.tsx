@@ -125,7 +125,7 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
           onCloseAddAddress={handleCloseAddressModal}
           country={country}
           city={city}
-          state={state}
+          state={state === '---' ? '' : state}
           street={street}
           postalCode={postalCode}
         />

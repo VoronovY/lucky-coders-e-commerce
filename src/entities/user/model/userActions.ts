@@ -20,9 +20,9 @@ const convertUserFromDTO = (user: Customer): UserData => {
       user.addresses !== undefined
         ? user.addresses.map((address) => ({
             id: address.id !== undefined ? address.id : '',
-            street: address.streetName !== undefined ? address.streetName : '',
-            postalCode: address.postalCode !== undefined ? address.postalCode : '',
-            city: address.city !== undefined ? address.city : '',
+            street: address.streetName !== undefined ? address.streetName : '---',
+            postalCode: address.postalCode !== undefined ? address.postalCode : '---',
+            city: address.city !== undefined ? address.city : '---',
             state: address.state !== undefined ? address.state : '---',
             country:
               address.country !== undefined
