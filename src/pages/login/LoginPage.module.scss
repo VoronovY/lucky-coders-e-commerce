@@ -6,4 +6,8 @@
   height: 100%;
   padding: 40px 10px;
   background-color: var(--color-primary-bg-light);
+
+  form {
+    flex: 0 1 700px;
+  }
 }
