@@ -53,3 +53,50 @@ export interface ProductCardData {
   description: string;
   title: string;
 }
+
+interface UserAddress {
+  id: string;
+  country: CountriesOption | null;
+  city: string;
+  street: string;
+  state: string;
+  postalCode: string;
+}
+
+export interface UserDefaultAddress {
+  id: string;
+}
+
+export interface UserData {
+  email: string;
+  lastName: string;
+  firstName: string;
+  dateOfBirth: string;
+  addresses: UserAddress[];
+  defaultShippingAddress?: UserDefaultAddress;
+  defaultBillingAddress?: UserDefaultAddress;
+  shippingAddress?: UserDefaultAddress[];
+  billingAddress?: UserDefaultAddress[];
+}
+
+export interface PasswordFields {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+export interface InfoFields {
+  firstName: string;
+  lastName: string;
+  email: string;
+  birthDate: Date;
+}
+
+export interface ProfileAddressFields {
+  id?: string;
+  country: CountriesOption | null;
+  city: string;
+  state: string;
+  street: string;
+  postalCode: string;
+}
