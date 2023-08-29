@@ -1,7 +1,7 @@
 .cancelButton {
   background: var(--color-bg-light);
-  color: var(--color-accent-text);
-  border: 2px solid var(--color-accent-bg);
+  color: var(--color-hovered-btn);
+  border: 2px solid var(--color-hovered-btn);
 
   &:hover {
     background: var(--color-hovered-btn);
