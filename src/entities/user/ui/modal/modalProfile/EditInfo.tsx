@@ -8,6 +8,8 @@ import { format } from 'date-fns';
 
 import { useDispatch } from 'react-redux';
 
+import { useState } from 'react';
+
 import styles from './EditInfo.module.scss';
 
 import Button from '../../../../../shared/ui/button/Button';
@@ -20,6 +22,9 @@ import ButtonCancel from '../buttonCancel/ButtonCancel';
 import updateUserInfo from '../../../api/updateUserInfo';
 import getCustomerAction from '../../../model/userActions';
 import { store } from '../../../../../app/appStore/appStore';
+import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
+import ModalError from '../../../../../shared/ui/modalError/ModalError';
+import { updateInfoMessage, updateIsModalInfoOpen } from '../../../../../shared/model/appSlice';
 
 interface EditInfoProps extends InfoFields {
   onCloseModalInfo: () => void;
@@ -45,20 +50,33 @@ function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate, ver
     defaultValues,
   });
 
+  const [errorMessage, setErrorMessage] = useState('');
   const disableSubmit = Object.values(errors).length > 0;
   const onSubmit = (data: InfoFields): void => {
+    setErrorMessage('');
     const formattedBirthDate = format(data.birthDate, 'yyyy-MM-dd');
 
-    updateUserInfo(data.firstName, data.lastName, data.email, formattedBirthDate, version).then(() => {
-      store.dispatch(getCustomerAction()).then((result) => {
-        dispatch(result);
-        onCloseModalInfo();
+    updateUserInfo(data.firstName, data.lastName, data.email, formattedBirthDate, version)
+      .then(() => {
+        store.dispatch(getCustomerAction()).then((result) => {
+          dispatch(result);
+          onCloseModalInfo();
+          dispatch(updateInfoMessage('You have successfully changed your personal information!'));
+          dispatch(updateIsModalInfoOpen(true));
+          setTimeout(() => {
+            dispatch(updateIsModalInfoOpen(false));
+            dispatch(updateInfoMessage(''));
+          }, 5000);
+        });
+      })
+      .catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
       });
-    });
   };
 
   return (
     <ModalForm title="Update information">
+      {errorMessage && <ModalError errorMessage={errorMessage} />}
       <form className={styles.changeInfo} onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="firstName"

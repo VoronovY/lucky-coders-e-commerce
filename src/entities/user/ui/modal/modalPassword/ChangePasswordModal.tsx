@@ -30,7 +30,8 @@ import {
 import myTokenCache from '../../../../../shared/api/auth/tokenCache';
 import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../../shared/ui/modalError/ModalError';
-import { updateVersion } from '../../../model/userSlice';
+import { store } from '../../../../../app/appStore/appStore';
+import getCustomerAction from '../../../model/userActions';
 
 interface ChangePasswordModalProps {
   onCloseModalPassword: () => void;
@@ -66,21 +67,26 @@ function ChangePasswordModal({ version, onCloseModalPassword }: ChangePasswordMo
     setErrorMessage('');
 
     changePassword(version, data.currentPassword, data.newPassword)
-      .then((res) => {
-        dispatch(updateVersion(res.body.version));
+      .then(() => {
         onCloseModalPassword();
         myTokenCache.clear();
-        loginUser(userData.email, data.newPassword).then((response) => {
-          dispatch(updateAccessToken(myTokenCache.store.token));
-          dispatch(updateUserId(response.body.customer.id));
-          localStorage.setItem('accessToken', myTokenCache.store.token);
-          dispatch(updateInfoMessage('You have successfully changed your password!'));
-          dispatch(updateIsModalInfoOpen(true));
-          setTimeout(() => {
-            dispatch(updateIsModalInfoOpen(false));
-            dispatch(updateInfoMessage(''));
-          }, 5000);
-        });
+        loginUser(userData.email, data.newPassword)
+          .then((response) => {
+            dispatch(updateAccessToken(myTokenCache.store.token));
+            dispatch(updateUserId(response.body.customer.id));
+            localStorage.setItem('accessToken', myTokenCache.store.token);
+            dispatch(updateInfoMessage('You have successfully changed your password!'));
+            dispatch(updateIsModalInfoOpen(true));
+            setTimeout(() => {
+              dispatch(updateIsModalInfoOpen(false));
+              dispatch(updateInfoMessage(''));
+            }, 5000);
+          })
+          .then(() => {
+            store.dispatch(getCustomerAction()).then((result) => {
+              dispatch(result);
+            });
+          });
       })
       .catch((error) => {
         setErrorMessage(getErrorSignUpMessage(error.body));
