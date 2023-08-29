@@ -16,6 +16,7 @@ import countries from '../../../../../shared/constants/countries';
 import { vailadtePostalCode } from '../../../../../shared/helpers/validationFunctions';
 import addressSchema from '../../../model/addressSchema';
 import { ProfileAddressFields } from '../../../../../shared/types/types';
+import ButtonCancel from '../buttonCancel/ButtonCancel';
 
 export interface AddressModalProps extends ProfileAddressFields {
   onCloseAddAddress: () => void;
@@ -150,12 +151,10 @@ function AddressModal({
             );
           }}
         />
-        <Button type="submit" width="100%" disabled={disableSubmit}>
+        <Button type="submit" width="100%" height="46px" disabled={disableSubmit}>
           Save
         </Button>
-        <Button type="button" width="100%" onClick={onCloseAddAddress}>
-          Cancel
-        </Button>
+        <ButtonCancel onClick={onCloseAddAddress} />
       </form>
     </ModalForm>
   );

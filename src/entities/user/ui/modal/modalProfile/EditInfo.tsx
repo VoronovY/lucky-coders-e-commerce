@@ -12,6 +12,7 @@ import { TextInput } from '../../../../../shared/ui/textInput/TextInput';
 import { DateInput } from '../../../../../shared/ui/dateInput/DateInput';
 import editInfoSchema from '../../../model/editInfoSchema';
 import { InfoFields } from '../../../../../shared/types/types';
+import ButtonCancel from '../buttonCancel/ButtonCancel';
 
 interface EditInfoProps extends InfoFields {
   onCloseModalInfo: () => void;
@@ -72,12 +73,10 @@ function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate }: E
             return <DateInput id="4" title="Birth date *" onChange={onChange} value={value} error={errors.birthDate} />;
           }}
         />
-        <Button type="submit" width="100%" disabled={disableSubmit}>
+        <Button type="submit" height="46px" width="100%" disabled={disableSubmit}>
           Save
         </Button>
-        <Button type="button" width="100%" onClick={onCloseModalInfo}>
-          Cancel
-        </Button>
+        <ButtonCancel onClick={onCloseModalInfo} />
       </form>
     </ModalForm>
   );

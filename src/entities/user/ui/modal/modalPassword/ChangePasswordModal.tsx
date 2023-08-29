@@ -15,6 +15,7 @@ import { PasswordInput } from '../../../../../shared/ui/passwordInput/PasswordIn
 import Button from '../../../../../shared/ui/button/Button';
 import changePasswordSchema from '../../../model/changePasswordSchema';
 import { PasswordFields } from '../../../../../shared/types/types';
+import ButtonCancel from '../buttonCancel/ButtonCancel';
 
 interface ChangePasswordModalProps {
   onCloseModalPassword: () => void;
@@ -117,12 +118,10 @@ function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps)
             );
           }}
         />
-        <Button type="submit" width="100%" disabled={disableSubmit}>
+        <Button type="submit" width="100%" height="46px" disabled={disableSubmit}>
           Save
         </Button>
-        <Button type="button" width="100%" onClick={onCloseModalPassword}>
-          Cancel
-        </Button>
+        <ButtonCancel onClick={onCloseModalPassword} />
       </form>
     </ModalForm>
   );

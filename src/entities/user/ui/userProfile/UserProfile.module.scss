@@ -1,3 +1,5 @@
+@import "../../../../app/styles/variables.scss";
+
 .profileInfo {
   display: flex;
   flex-direction: column;
@@ -16,25 +18,24 @@
     }
   }
 
-  .changePasswordButton {
-    background: var(--color-bg-light);
-    color: var(--color-accent-text);
-    font-size: var(--font-size-middle);
-    border-radius: 10px;
-    border: 2px solid var(--color-accent-bg);
-    width: 70%;
-    height: 35px;
-    transition: ease-in-out 0.3s;
+  .buttonsWrapper {
+    display: flex;
+    gap: 20px;
 
-    &:hover {
-      cursor: pointer;
-      background: var(--color-hovered-btn);
-      color: var(--color-secondary-text);
-      border: none;
+    @media (max-width: $width-mobile-big) {
+      flex-direction: column;
     }
 
-    &:active {
-      transform: scale(0.95);
+    .changePasswordButton {
+      background: var(--color-bg-light);
+      color: var(--color-accent-text);
+      border: 2px solid var(--color-accent-bg);
+
+      &:hover {
+        background: var(--color-hovered-btn);
+        color: var(--color-secondary-text);
+        border: none;
+      }
     }
   }
 }
