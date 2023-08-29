@@ -13,7 +13,7 @@ function ProductList(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getProductListAction());
+    dispatch(getProductListAction(null));
   }, [dispatch]);
 
   const productList = useAppSelector(selectProductList);

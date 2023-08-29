@@ -4,7 +4,7 @@ import { ProductProjection } from '@commercetools/platform-sdk';
 
 import getProductList from '../api/getProductList';
 import getErrorMessage from '../../../shared/helpers/routerHelpres';
-import { ProductCardData } from '../../../shared/types/types';
+import { FilterFields, ProductCardData } from '../../../shared/types/types';
 
 const convertProductFromDTO = (product: ProductProjection): ProductCardData => {
   const { attributes, images, prices } = product.masterVariant;
@@ -29,11 +29,11 @@ const convertProductFromDTO = (product: ProductProjection): ProductCardData => {
   };
 };
 
-const getProductListAction = createAsyncThunk<ProductCardData[], void, { rejectValue: string }>(
+const getProductListAction = createAsyncThunk<ProductCardData[], FilterFields | null, { rejectValue: string }>(
   'catalog/productList',
-  async (_, { rejectWithValue }) => {
+  async (filters: FilterFields | null, { rejectWithValue }) => {
     try {
-      const response = await getProductList();
+      const response = await getProductList(filters);
       const convertedProductList = response.body.results.map((product) => convertProductFromDTO(product));
       return convertedProductList;
     } catch (error: unknown) {
