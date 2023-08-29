@@ -66,6 +66,7 @@ function UserProfile(): JSX.Element {
           lastName={userData.lastName}
           email={userData.email}
           birthDate={new Date(userData.dateOfBirth)}
+          version={userData.version}
         />
       )}
     </>

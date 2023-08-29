@@ -4,6 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { ObjectSchema } from 'yup';
 
+import { format } from 'date-fns';
+
+import { useDispatch } from 'react-redux';
+
 import styles from './EditInfo.module.scss';
 
 import Button from '../../../../../shared/ui/button/Button';
@@ -13,17 +17,23 @@ import { DateInput } from '../../../../../shared/ui/dateInput/DateInput';
 import editInfoSchema from '../../../model/editInfoSchema';
 import { InfoFields } from '../../../../../shared/types/types';
 import ButtonCancel from '../buttonCancel/ButtonCancel';
+import updateUserInfo from '../../../api/updateUserInfo';
+import getCustomerAction from '../../../model/userActions';
+import { store } from '../../../../../app/appStore/appStore';
 
 interface EditInfoProps extends InfoFields {
   onCloseModalInfo: () => void;
+  version: number;
 }
-function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate }: EditInfoProps): JSX.Element {
+function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate, version }: EditInfoProps): JSX.Element {
   const defaultValues = {
     firstName,
     lastName,
     email,
     birthDate,
+    version,
   };
+  const dispatch = useDispatch();
 
   const {
     handleSubmit,
@@ -36,8 +46,15 @@ function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate }: E
   });
 
   const disableSubmit = Object.values(errors).length > 0;
-  const onSubmit = (data: InfoFields): InfoFields => {
-    return data;
+  const onSubmit = (data: InfoFields): void => {
+    const formattedBirthDate = format(data.birthDate, 'yyyy-MM-dd');
+
+    updateUserInfo(data.firstName, data.lastName, data.email, formattedBirthDate, version).then(() => {
+      store.dispatch(getCustomerAction()).then((result) => {
+        dispatch(result);
+        onCloseModalInfo();
+      });
+    });
   };
 
   return (

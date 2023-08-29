@@ -72,6 +72,7 @@ export interface UserData {
   lastName: string;
   firstName: string;
   dateOfBirth: string;
+  version: number;
   addresses: UserAddress[];
   defaultShippingAddress?: UserDefaultAddress;
   defaultBillingAddress?: UserDefaultAddress;

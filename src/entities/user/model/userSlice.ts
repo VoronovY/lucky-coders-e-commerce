@@ -17,6 +17,7 @@ const initialState: User = {
     lastName: '',
     firstName: '',
     dateOfBirth: '',
+    version: 0,
     addresses: [],
     defaultShippingAddress: undefined,
     defaultBillingAddress: undefined,

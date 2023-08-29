@@ -16,6 +16,7 @@ const convertUserFromDTO = (user: Customer): UserData => {
     lastName: user.lastName || '',
     firstName: user.firstName || '',
     dateOfBirth: user.dateOfBirth || '',
+    version: user.version || 0,
     addresses:
       user.addresses !== undefined
         ? user.addresses.map((address) => ({
