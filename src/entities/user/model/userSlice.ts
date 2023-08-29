@@ -43,28 +43,16 @@ export const UserSlice = createSlice({
       currentState.user.shippingAddress = newShippingAddress;
     },
     updateDefaultShippingAddress: (state, action: PayloadAction<string>) => {
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          defaultShippingAddress: {
-            ...state.user.defaultShippingAddress,
-            id: action.payload,
-          },
-        },
-      };
+      const currentState = state;
+      if (currentState.user.defaultShippingAddress) {
+        currentState.user.defaultShippingAddress.id = action.payload;
+      }
     },
     updateDefaultBillingAddress: (state, action: PayloadAction<string>) => {
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          defaultBillingAddress: {
-            ...state.user.defaultBillingAddress,
-            id: action.payload,
-          },
-        },
-      };
+      const currentState = state;
+      if (currentState.user.defaultBillingAddress) {
+        currentState.user.defaultBillingAddress.id = action.payload;
+      }
     },
   },
   extraReducers(builder) {
