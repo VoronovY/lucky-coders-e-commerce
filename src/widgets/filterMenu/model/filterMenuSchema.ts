@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
 
-import priceValidation from './filterValidations';
+import { priceValidation, weightValidation } from './filterValidations';
 
 const filterMenuSchema = Yup.object().shape({
   weight: Yup.object().shape({
-    from: priceValidation,
-    to: priceValidation,
+    from: weightValidation,
+    to: weightValidation,
   }),
   price: Yup.object().shape({
     from: priceValidation,

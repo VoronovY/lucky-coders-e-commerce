@@ -5,4 +5,9 @@ const priceValidation = Yup.number()
   .min(0, 'Minimum price 0')
   .typeError('price must be a number');
 
-export default priceValidation;
+const weightValidation = Yup.number()
+  .required('Weight is required')
+  .min(0, 'Minimum price 0')
+  .typeError('weight must be a number');
+
+export { priceValidation, weightValidation };

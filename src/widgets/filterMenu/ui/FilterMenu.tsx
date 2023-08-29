@@ -46,6 +46,9 @@ function FilterMenu(): JSX.Element {
   const handleResetFilters = (): void => {
     methods.reset(defaultValues);
   };
+
+  const showBtnDisabled = Object.values(methods.formState.errors).length > 0;
+
   return (
     <FormProvider {...methods}>
       <form className={styles.filterMenuWrapper} onSubmit={methods.handleSubmit(onSubmit)}>
@@ -83,7 +86,7 @@ function FilterMenu(): JSX.Element {
           />
         </Collapse>
         <div className={styles.buttons}>
-          <Button type="submit" height="30px" width="150px">
+          <Button type="submit" height="30px" width="150px" disabled={showBtnDisabled}>
             Show
           </Button>
           <Button type="button" height="30px" width="150px" onClick={handleResetFilters}>
