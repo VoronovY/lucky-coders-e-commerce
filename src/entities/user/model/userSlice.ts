@@ -55,6 +55,10 @@ export const UserSlice = createSlice({
         currentState.user.defaultBillingAddress.id = action.payload;
       }
     },
+    updateVersion: (state, action: PayloadAction<number>) => {
+      const currentState = state;
+      currentState.user.version = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -81,4 +85,5 @@ export const {
   updateDefaultBillingAddress,
   updateBillingAddresses,
   updateShippingAddresses,
+  updateVersion,
 } = UserSlice.actions;

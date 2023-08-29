@@ -58,7 +58,9 @@ function UserProfile(): JSX.Element {
           </Button>
         </div>
       </div>
-      {isPasswordModalOpen && <ChangePasswordModal onCloseModalPassword={handleCloseModalPassword} />}
+      {isPasswordModalOpen && (
+        <ChangePasswordModal version={userData.version} onCloseModalPassword={handleCloseModalPassword} />
+      )}
       {isModalInfoOpen && (
         <EditInfo
           onCloseModalInfo={handleCloseModalInfo}
