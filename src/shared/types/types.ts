@@ -53,3 +53,20 @@ export interface ProductCardData {
   description: string;
   title: string;
 }
+
+export interface FilterFields {
+  weight: {
+    from: number;
+    to: number;
+  };
+  price: {
+    from: number;
+    to: number;
+  };
+  colors: string[];
+}
+
+export interface ColorsValue {
+  value: string;
+  isChecked: boolean;
+}

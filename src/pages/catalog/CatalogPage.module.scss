@@ -1,22 +1,24 @@
+@import "../../app/styles/variables.scss";
+
 .catalogPage {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  margin: 0 auto;
   gap: 10px;
   width: 100%;
   height: 100%;
   padding: 40px 10px;
+  max-width: $width-header-container;
+}
 
-  .catalogImg {
-    max-width: 500px;
-    max-height: 500px;
-    border-radius: 30px;
-    box-shadow: var(--shadow-card-primary);
-  }
-  img {
-    border-radius: 30px;
-    width: 100%;
-    height: 100%;
-  }
+.filters {
+  width: 256px;
+  height: fit-content;
+  padding: 10px;
+  background-color: var(--color-bg-light);
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px 0px var(--color-shadow-border);
+}
+
+.catalog {
+  width: 70%;
 }
