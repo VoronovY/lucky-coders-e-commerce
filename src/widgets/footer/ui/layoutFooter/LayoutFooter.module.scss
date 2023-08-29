@@ -6,7 +6,7 @@
   width: 100%;
 
   .footerContainer {
-    max-width: 1440px;
+    max-width: var(--width-header-container);
     display: flex;
     justify-content: space-between;
     padding: 20px 30px;
