@@ -12,7 +12,7 @@ export interface ITextInputProps {
   label?: string;
   defaultValue?: string;
   error?: FieldError;
-  type?: 'text' | 'email';
+  type?: 'text' | 'email' | 'number';
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
