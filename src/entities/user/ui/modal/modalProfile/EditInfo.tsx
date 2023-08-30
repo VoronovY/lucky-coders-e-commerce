@@ -25,6 +25,7 @@ import { store } from '../../../../../app/appStore/appStore';
 import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../../shared/ui/modalError/ModalError';
 import { updateInfoMessage, updateIsModalInfoOpen } from '../../../../../shared/model/appSlice';
+import SuccessfulMessages from '../../../../../shared/successfulMessages';
 
 interface EditInfoProps extends InfoFields {
   onCloseModalInfo: () => void;
@@ -61,7 +62,7 @@ function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate, ver
         store.dispatch(getCustomerAction()).then((result) => {
           dispatch(result);
           onCloseModalInfo();
-          dispatch(updateInfoMessage('You have successfully changed your personal information!'));
+          dispatch(updateInfoMessage(SuccessfulMessages.updateInfo));
           dispatch(updateIsModalInfoOpen(true));
           setTimeout(() => {
             dispatch(updateIsModalInfoOpen(false));

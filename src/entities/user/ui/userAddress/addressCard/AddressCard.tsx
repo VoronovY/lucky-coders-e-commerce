@@ -16,6 +16,7 @@ import getCustomerAction from '../../../model/userActions';
 import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
 import { updateInfoMessage, updateIsModalInfoOpen } from '../../../../../shared/model/appSlice';
 import editAddress from '../../../api/editAddress';
+import SuccessfulMessages from '../../../../../shared/successfulMessages';
 
 interface AddressCardProps {
   id: string;
@@ -50,7 +51,7 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
       .then(() => {
         store.dispatch(getCustomerAction()).then((result) => {
           dispatch(result);
-          dispatch(updateInfoMessage('You have successfully deleted the address!'));
+          dispatch(updateInfoMessage(SuccessfulMessages.deleteAddress));
           dispatch(updateIsModalInfoOpen(true));
           setTimeout(() => {
             dispatch(updateIsModalInfoOpen(false));
@@ -105,7 +106,7 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
         store.dispatch(getCustomerAction()).then((result) => {
           dispatch(result);
           handleCloseAddressModal();
-          dispatch(updateInfoMessage('You have successfully changed your address!'));
+          dispatch(updateInfoMessage(SuccessfulMessages.changeAddress));
           dispatch(updateIsModalInfoOpen(true));
           setTimeout(() => {
             dispatch(updateIsModalInfoOpen(false));

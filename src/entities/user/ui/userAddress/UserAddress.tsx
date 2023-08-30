@@ -16,6 +16,7 @@ import getCustomerAction from '../../model/userActions';
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
 import { updateInfoMessage, updateIsModalInfoOpen } from '../../../../shared/model/appSlice';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
+import SuccessfulMessages from '../../../../shared/successfulMessages';
 
 function UserAddress(): JSX.Element {
   const userData = useSelector(selectUser);
@@ -48,7 +49,7 @@ function UserAddress(): JSX.Element {
         store.dispatch(getCustomerAction()).then((result) => {
           dispatch(result);
           handleCloseAddressModal();
-          dispatch(updateInfoMessage('You have successfully added a new address!'));
+          dispatch(updateInfoMessage(SuccessfulMessages.newAddress));
           dispatch(updateIsModalInfoOpen(true));
           setTimeout(() => {
             dispatch(updateIsModalInfoOpen(false));

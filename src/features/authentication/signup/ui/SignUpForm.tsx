@@ -32,6 +32,7 @@ import {
   updateUserId,
 } from '../../../../shared/model/appSlice';
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
+import SuccessfulMessages from '../../../../shared/successfulMessages';
 
 const defaultValues = {
   email: '',
@@ -72,7 +73,7 @@ function SignUpForm(): JSX.Element {
           .then((response) => {
             dispatch(updateUserId(response.body.customer.id));
             dispatch(updateAccessToken(myTokenCache.store.token));
-            dispatch(updateInfoMessage('Congratulations! Your account has been successfully created.'));
+            dispatch(updateInfoMessage(SuccessfulMessages.signUp));
             dispatch(updateIsModalInfoOpen(true));
             setTimeout(() => {
               dispatch(updateIsModalInfoOpen(false));
