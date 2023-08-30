@@ -4,9 +4,9 @@ import * as Yup from 'yup';
 import { leadingTrailingWhitespaceTest, whitespaceInMiddleTest } from '../../../shared/helpers/validationFunctions';
 
 const changePasswordSchema = object().shape({
-  currentPassword: Yup.string().required('Password is required'),
+  currentPassword: Yup.string().required('Current password is required'),
   newPassword: Yup.string()
-    .required('Password is required')
+    .required('New password is required')
     .test(
       'no-leading-trailing-whitespace',
       'Password must not contain leading or trailing whitespace',
@@ -34,7 +34,7 @@ const changePasswordSchema = object().shape({
       return value.length >= 8;
     }),
   confirmPassword: Yup.string()
-    .required('Password is required')
+    .required('Confirm your password')
     .oneOf([Yup.ref('newPassword')], 'Passwords must match'),
 });
 

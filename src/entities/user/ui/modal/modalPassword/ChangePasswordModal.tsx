@@ -53,6 +53,7 @@ function ChangePasswordModal({ version, onCloseModalPassword }: ChangePasswordMo
     setError,
     clearErrors,
     getValues,
+    trigger,
     formState: { errors },
   } = useForm<PasswordFields>({
     resolver: yupResolver(changePasswordSchema as ObjectSchema<PasswordFields>),
@@ -109,6 +110,9 @@ function ChangePasswordModal({ version, onCloseModalPassword }: ChangePasswordMo
           type: 'validate',
           message: error.message,
         });
+      })
+      .finally(() => {
+        trigger('confirmPassword');
       });
   };
 

@@ -11,8 +11,7 @@ const handleCustomerAction = async (
   const { dispatch } = store;
 
   return action().then(() => {
-    store.dispatch(getCustomerAction()).then((result) => {
-      dispatch(result);
+    dispatch(getCustomerAction()).then(() => {
       dispatch(updateInfoMessage(successMessage));
       dispatch(updateIsModalInfoOpen(true));
       setTimeout(() => {
