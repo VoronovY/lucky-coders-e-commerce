@@ -4,15 +4,16 @@ import existingFlowClient from '../../../shared/api/clientBuilder/existingTokenF
 import { projectKey } from '../../../shared/api/baseApi';
 import { NewAddress } from '../../../shared/types/types';
 
-const addNewAddress = ({
+const editAddress = ({
   version,
+  id,
   country,
   city,
   streetName,
   state,
   postalCode,
 }: NewAddress): Promise<ClientResponse<Customer>> => {
-  const newAddress: BaseAddress = {
+  const updatedAddress: BaseAddress = {
     country,
     city,
     streetName,
@@ -26,10 +27,10 @@ const addNewAddress = ({
     .post({
       body: {
         version,
-        actions: [{ action: 'addAddress', address: newAddress }],
+        actions: [{ action: 'changeAddress', address: updatedAddress, addressId: id }],
       },
     })
     .execute();
 };
 
-export default addNewAddress;
+export default editAddress;

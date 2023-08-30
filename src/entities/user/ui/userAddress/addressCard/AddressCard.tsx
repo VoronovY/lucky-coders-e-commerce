@@ -15,6 +15,7 @@ import { store } from '../../../../../app/appStore/appStore';
 import getCustomerAction from '../../../model/userActions';
 import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
 import { updateInfoMessage, updateIsModalInfoOpen } from '../../../../../shared/model/appSlice';
+import editAddress from '../../../api/editAddress';
 
 interface AddressCardProps {
   id: string;
@@ -87,7 +88,34 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
   };
 
   const onSubmit = (data: ProfileAddressFields): void => {
-    console.log(data);
+    setErrorMessage('');
+
+    const updatedAddress = {
+      id,
+      version: userData.version,
+      country: data.country?.iso || '',
+      city: data.city,
+      streetName: data.street,
+      state: data.state,
+      postalCode: data.postalCode,
+    };
+
+    editAddress(updatedAddress)
+      .then(() => {
+        store.dispatch(getCustomerAction()).then((result) => {
+          dispatch(result);
+          handleCloseAddressModal();
+          dispatch(updateInfoMessage('You have successfully changed your address!'));
+          dispatch(updateIsModalInfoOpen(true));
+          setTimeout(() => {
+            dispatch(updateIsModalInfoOpen(false));
+            dispatch(updateInfoMessage(''));
+          }, 5000);
+        });
+      })
+      .catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
   };
 
   return (

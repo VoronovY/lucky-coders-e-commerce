@@ -1,4 +1,4 @@
-import { Attribute } from '@commercetools/platform-sdk';
+import { Attribute, BaseAddress } from '@commercetools/platform-sdk';
 
 export interface CountriesOption {
   value: string;
@@ -61,6 +61,10 @@ interface UserAddress {
   street: string;
   state: string;
   postalCode: string;
+}
+
+export interface NewAddress extends BaseAddress {
+  version: number;
 }
 
 export interface UserDefaultAddress {
