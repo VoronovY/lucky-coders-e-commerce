@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useState } from 'react';
 
@@ -9,10 +9,19 @@ import AddressCard from './addressCard/AddressCard';
 import { PlusIcon } from '../../../../app/layouts/images';
 import selectUser from '../../model/userSelectors';
 import AddressModal from '../modal/modaAddress/AddressModal';
+import { ProfileAddressFields } from '../../../../shared/types/types';
+import addNewAddress from '../../api/addNewAddress';
+import { store } from '../../../../app/appStore/appStore';
+import getCustomerAction from '../../model/userActions';
+import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
+import { updateInfoMessage, updateIsModalInfoOpen } from '../../../../shared/model/appSlice';
+import ModalError from '../../../../shared/ui/modalError/ModalError';
 
 function UserAddress(): JSX.Element {
   const userData = useSelector(selectUser);
   const [isModalAddressOpen, setIsModalAddressOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useDispatch();
 
   const handleEditClick = (): void => {
     setIsModalAddressOpen(true);
@@ -21,8 +30,40 @@ function UserAddress(): JSX.Element {
   const handleCloseAddressModal = (): void => {
     setIsModalAddressOpen(false);
   };
+
+  const onSubmit = (data: ProfileAddressFields): void => {
+    setErrorMessage('');
+
+    const newAddress = {
+      version: userData.version,
+      country: data.country?.iso || '',
+      city: data.city,
+      streetName: data.street,
+      state: data.state,
+      postalCode: data.postalCode,
+    };
+
+    addNewAddress(newAddress)
+      .then(() => {
+        store.dispatch(getCustomerAction()).then((result) => {
+          dispatch(result);
+          handleCloseAddressModal();
+          dispatch(updateInfoMessage('You have successfully added a new address!'));
+          dispatch(updateIsModalInfoOpen(true));
+          setTimeout(() => {
+            dispatch(updateIsModalInfoOpen(false));
+            dispatch(updateInfoMessage(''));
+          }, 5000);
+        });
+      })
+      .catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
+  };
+
   return (
     <div className={styles.profileAddress}>
+      {errorMessage && <ModalError errorMessage={errorMessage} />}
       {userData.addresses.map((address) => (
         <AddressCard
           key={address.id}
@@ -43,7 +84,8 @@ function UserAddress(): JSX.Element {
       {isModalAddressOpen && (
         <AddressModal
           title="Add new address"
-          onCloseAddAddress={handleCloseAddressModal}
+          onCloseAddressModal={handleCloseAddressModal}
+          onSubmit={onSubmit}
           country={null}
           city=""
           state=""

@@ -8,7 +8,7 @@ import { Checked, DeleteIcon, EditIcon } from '../../../../../app/layouts/images
 import { updateDefaultBillingAddress, updateDefaultShippingAddress } from '../../../model/userSlice';
 import selectUser from '../../../model/userSelectors';
 import AddressModal from '../../modal/modaAddress/AddressModal';
-import { CountriesOption } from '../../../../../shared/types/types';
+import { CountriesOption, ProfileAddressFields } from '../../../../../shared/types/types';
 
 interface AddressCardProps {
   id: string;
@@ -58,6 +58,10 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
     } else {
       dispatch(updateDefaultBillingAddress(''));
     }
+  };
+
+  const onSubmit = (data: ProfileAddressFields): void => {
+    console.log(data);
   };
 
   return (
@@ -111,7 +115,8 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
       {isModalAddressOpen && (
         <AddressModal
           title="Edit address"
-          onCloseAddAddress={handleCloseAddressModal}
+          onCloseAddressModal={handleCloseAddressModal}
+          onSubmit={onSubmit}
           country={country}
           city={city}
           state={state === '---' ? '' : state}
