@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
 import styles from './UserAddress.module.scss';
@@ -10,19 +9,16 @@ import { PlusIcon } from '../../../../app/layouts/images';
 import selectUser from '../../model/userSelectors';
 import AddressModal from '../modal/modaAddress/AddressModal';
 import { ProfileAddressFields } from '../../../../shared/types/types';
-import addNewAddress from '../../api/addNewAddress';
-import { store } from '../../../../app/appStore/appStore';
-import getCustomerAction from '../../model/userActions';
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
-import { updateInfoMessage, updateIsModalInfoOpen } from '../../../../shared/model/appSlice';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 import SuccessfulMessages from '../../../../shared/successfulMessages';
+import { addNewAddress } from '../../api/userApi';
+import handleCustomerAction from '../../../../shared/helpers/customerActions';
 
 function UserAddress(): JSX.Element {
   const userData = useSelector(selectUser);
   const [isModalAddressOpen, setIsModalAddressOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const dispatch = useDispatch();
 
   const handleEditClick = (): void => {
     setIsModalAddressOpen(true);
@@ -44,18 +40,9 @@ function UserAddress(): JSX.Element {
       postalCode: data.postalCode,
     };
 
-    addNewAddress(newAddress)
+    handleCustomerAction(() => addNewAddress(newAddress), SuccessfulMessages.newAddress)
       .then(() => {
-        store.dispatch(getCustomerAction()).then((result) => {
-          dispatch(result);
-          handleCloseAddressModal();
-          dispatch(updateInfoMessage(SuccessfulMessages.newAddress));
-          dispatch(updateIsModalInfoOpen(true));
-          setTimeout(() => {
-            dispatch(updateIsModalInfoOpen(false));
-            dispatch(updateInfoMessage(''));
-          }, 5000);
-        });
+        handleCloseAddressModal();
       })
       .catch((error) => {
         setErrorMessage(getErrorSignUpMessage(error.body));

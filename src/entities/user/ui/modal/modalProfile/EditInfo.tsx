@@ -1,13 +1,7 @@
 import { Controller, useForm } from 'react-hook-form';
-
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { ObjectSchema } from 'yup';
-
 import { format } from 'date-fns';
-
-import { useDispatch } from 'react-redux';
-
 import { useState } from 'react';
 
 import styles from './EditInfo.module.scss';
@@ -19,13 +13,11 @@ import { DateInput } from '../../../../../shared/ui/dateInput/DateInput';
 import editInfoSchema from '../../../model/editInfoSchema';
 import { InfoFields } from '../../../../../shared/types/types';
 import ButtonCancel from '../buttonCancel/ButtonCancel';
-import updateUserInfo from '../../../api/updateUserInfo';
-import getCustomerAction from '../../../model/userActions';
-import { store } from '../../../../../app/appStore/appStore';
 import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../../shared/ui/modalError/ModalError';
-import { updateInfoMessage, updateIsModalInfoOpen } from '../../../../../shared/model/appSlice';
 import SuccessfulMessages from '../../../../../shared/successfulMessages';
+import { updateUserInfo } from '../../../api/userApi';
+import handleCustomerAction from '../../../../../shared/helpers/customerActions';
 
 interface EditInfoProps extends InfoFields {
   onCloseModalInfo: () => void;
@@ -39,7 +31,6 @@ function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate, ver
     birthDate,
     version,
   };
-  const dispatch = useDispatch();
 
   const {
     handleSubmit,
@@ -57,18 +48,12 @@ function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate, ver
     setErrorMessage('');
     const formattedBirthDate = format(data.birthDate, 'yyyy-MM-dd');
 
-    updateUserInfo(data.firstName, data.lastName, data.email, formattedBirthDate, version)
+    handleCustomerAction(
+      () => updateUserInfo(data.firstName, data.lastName, data.email, formattedBirthDate, version),
+      SuccessfulMessages.updateInfo,
+    )
       .then(() => {
-        store.dispatch(getCustomerAction()).then((result) => {
-          dispatch(result);
-          onCloseModalInfo();
-          dispatch(updateInfoMessage(SuccessfulMessages.updateInfo));
-          dispatch(updateIsModalInfoOpen(true));
-          setTimeout(() => {
-            dispatch(updateIsModalInfoOpen(false));
-            dispatch(updateInfoMessage(''));
-          }, 5000);
-        });
+        onCloseModalInfo();
       })
       .catch((error) => {
         setErrorMessage(getErrorSignUpMessage(error.body));

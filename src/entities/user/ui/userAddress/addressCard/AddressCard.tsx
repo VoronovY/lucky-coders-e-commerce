@@ -10,13 +10,19 @@ import selectUser from '../../../model/userSelectors';
 import AddressModal from '../../modal/modaAddress/AddressModal';
 import { CountriesOption, ProfileAddressFields } from '../../../../../shared/types/types';
 import ModalError from '../../../../../shared/ui/modalError/ModalError';
-import deleteAddress from '../../../api/deleteAddress';
-import { store } from '../../../../../app/appStore/appStore';
-import getCustomerAction from '../../../model/userActions';
+
 import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
-import { updateInfoMessage, updateIsModalInfoOpen } from '../../../../../shared/model/appSlice';
-import editAddress from '../../../api/editAddress';
+
 import SuccessfulMessages from '../../../../../shared/successfulMessages';
+import {
+  deleteAddress,
+  editAddress,
+  removeDefaultBillingAddress,
+  removeDefaultShippingAddress,
+  setDefaultBillingAddress,
+  setDefaultShippingAddress,
+} from '../../../api/userApi';
+import handleCustomerAction from '../../../../../shared/helpers/customerActions';
 
 interface AddressCardProps {
   id: string;
@@ -47,21 +53,9 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
   const handleDeleteClick = (): void => {
     setErrorMessage('');
 
-    deleteAddress(userData.version, id)
-      .then(() => {
-        store.dispatch(getCustomerAction()).then((result) => {
-          dispatch(result);
-          dispatch(updateInfoMessage(SuccessfulMessages.deleteAddress));
-          dispatch(updateIsModalInfoOpen(true));
-          setTimeout(() => {
-            dispatch(updateIsModalInfoOpen(false));
-            dispatch(updateInfoMessage(''));
-          }, 5000);
-        });
-      })
-      .catch((error) => {
-        setErrorMessage(getErrorSignUpMessage(error.body));
-      });
+    handleCustomerAction(() => deleteAddress(userData.version, id), SuccessfulMessages.deleteAddress).catch((error) => {
+      setErrorMessage(getErrorSignUpMessage(error.body));
+    });
   };
   const handleCloseAddressModal = (): void => {
     setIsModalAddressOpen(false);
@@ -75,16 +69,40 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
   const handleShippingAddressChange = (): void => {
     if (!isDefaultShippingAddress) {
       dispatch(updateDefaultShippingAddress(id));
+      handleCustomerAction(
+        () => setDefaultShippingAddress(userData.version, id),
+        SuccessfulMessages.setDefaultShippingAddress,
+      ).catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
     } else {
       dispatch(updateDefaultShippingAddress(''));
+      handleCustomerAction(
+        () => removeDefaultShippingAddress(userData.version, id),
+        SuccessfulMessages.removeDefaultShippingAddress,
+      ).catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
     }
   };
 
   const handleBillingAddressChange = (): void => {
     if (!isDefaultBillingAddress) {
       dispatch(updateDefaultBillingAddress(id));
+      handleCustomerAction(
+        () => setDefaultBillingAddress(userData.version, id),
+        SuccessfulMessages.setDefaultBillingAddress,
+      ).catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
     } else {
       dispatch(updateDefaultBillingAddress(''));
+      handleCustomerAction(
+        () => removeDefaultBillingAddress(userData.version, id),
+        SuccessfulMessages.removeDefaultBillingAddress,
+      ).catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
     }
   };
 
@@ -101,18 +119,9 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
       postalCode: data.postalCode,
     };
 
-    editAddress(updatedAddress)
+    handleCustomerAction(() => editAddress(updatedAddress), SuccessfulMessages.changeAddress)
       .then(() => {
-        store.dispatch(getCustomerAction()).then((result) => {
-          dispatch(result);
-          handleCloseAddressModal();
-          dispatch(updateInfoMessage(SuccessfulMessages.changeAddress));
-          dispatch(updateIsModalInfoOpen(true));
-          setTimeout(() => {
-            dispatch(updateIsModalInfoOpen(false));
-            dispatch(updateInfoMessage(''));
-          }, 5000);
-        });
+        handleCloseAddressModal();
       })
       .catch((error) => {
         setErrorMessage(getErrorSignUpMessage(error.body));

@@ -18,7 +18,7 @@ import Button from '../../../../../shared/ui/button/Button';
 import changePasswordSchema from '../../../model/changePasswordSchema';
 import { PasswordFields } from '../../../../../shared/types/types';
 import ButtonCancel from '../buttonCancel/ButtonCancel';
-import changePassword from '../../../api/changePassword';
+
 import selectUser from '../../../model/userSelectors';
 import loginUser from '../../../../../shared/api/auth/loginUser';
 import {
@@ -33,6 +33,7 @@ import ModalError from '../../../../../shared/ui/modalError/ModalError';
 import { store } from '../../../../../app/appStore/appStore';
 import getCustomerAction from '../../../model/userActions';
 import SuccessfulMessages from '../../../../../shared/successfulMessages';
+import { changePassword } from '../../../api/userApi';
 
 interface ChangePasswordModalProps {
   onCloseModalPassword: () => void;
