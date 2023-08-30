@@ -9,6 +9,12 @@ import { updateDefaultBillingAddress, updateDefaultShippingAddress } from '../..
 import selectUser from '../../../model/userSelectors';
 import AddressModal from '../../modal/modaAddress/AddressModal';
 import { CountriesOption, ProfileAddressFields } from '../../../../../shared/types/types';
+import ModalError from '../../../../../shared/ui/modalError/ModalError';
+import deleteAddress from '../../../api/deleteAddress';
+import { store } from '../../../../../app/appStore/appStore';
+import getCustomerAction from '../../../model/userActions';
+import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
+import { updateInfoMessage, updateIsModalInfoOpen } from '../../../../../shared/model/appSlice';
 
 interface AddressCardProps {
   id: string;
@@ -29,12 +35,32 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
   ];
   const dispatch = useDispatch();
   const userData = useSelector(selectUser);
+  const [errorMessage, setErrorMessage] = useState('');
   const [isModalAddressOpen, setIsModalAddressOpen] = useState(false);
 
   const handleEditClick = (): void => {
     setIsModalAddressOpen(true);
   };
 
+  const handleDeleteClick = (): void => {
+    setErrorMessage('');
+
+    deleteAddress(userData.version, id)
+      .then(() => {
+        store.dispatch(getCustomerAction()).then((result) => {
+          dispatch(result);
+          dispatch(updateInfoMessage('You have successfully deleted the address!'));
+          dispatch(updateIsModalInfoOpen(true));
+          setTimeout(() => {
+            dispatch(updateIsModalInfoOpen(false));
+            dispatch(updateInfoMessage(''));
+          }, 5000);
+        });
+      })
+      .catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
+  };
   const handleCloseAddressModal = (): void => {
     setIsModalAddressOpen(false);
   };
@@ -66,6 +92,7 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
 
   return (
     <div className={styles.userAddressItem}>
+      {errorMessage && <ModalError errorMessage={errorMessage} />}
       <div className={styles.userAddressContainer}>
         {addressDetails.map((detail) => (
           <div key={detail.id}>
@@ -77,7 +104,7 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
       <div className={styles.addressActions}>
         <div className={styles.actionsIcons}>
           <EditIcon onClick={handleEditClick} />
-          <DeleteIcon />
+          <DeleteIcon onClick={handleDeleteClick} />
         </div>
         <div className={styles.actionsDefault}>
           <div>
