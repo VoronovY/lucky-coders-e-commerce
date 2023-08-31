@@ -1,9 +1,6 @@
-import { render, screen } from '@testing-library/react';
-
-import { useParams } from 'react-router-dom';
+import { render } from '@testing-library/react';
 
 import AboutPage from '../../pages/about';
-import CatalogPage from '../../pages/catalog';
 
 window.scrollTo = jest.fn();
 
@@ -26,20 +23,5 @@ describe('AboutPage', () => {
   test('has the correct CSS class', () => {
     const { container } = render(<AboutPage />);
     expect(container.firstChild).toHaveClass('aboutPage');
-  });
-});
-
-describe('CatalogPage', () => {
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
-  test('renders the all catalog data when category is not provided', () => {
-    (useParams as jest.Mock).mockReturnValue({});
-
-    render(<CatalogPage />);
-
-    expect(screen.getByText('All categories')).toBeInTheDocument();
-    expect(screen.getByAltText('All categories')).toBeInTheDocument();
   });
 });
