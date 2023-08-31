@@ -117,3 +117,8 @@ export interface ColorsValue {
   value: string;
   isChecked: boolean;
 }
+
+export interface Sort {
+  sortBy: string;
+  sortDirection: 'asc' | 'desc';
+}

@@ -1,11 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import getProductListAction from './productListActions';
 
-import { ProductCardData } from '../../../shared/types/types';
+import { FilterFields, ProductCardData } from '../../../shared/types/types';
+import defaultFilters from '../../../shared/constants/products';
 
 type ProductList = {
   productList: ProductCardData[];
+  filters: FilterFields;
+  searchValue: string;
+  sortValue: {
+    sortBy: string;
+    sortDirection: 'asc' | 'desc';
+  };
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
@@ -13,6 +20,12 @@ type ProductList = {
 
 const initialState: ProductList = {
   productList: [],
+  filters: defaultFilters,
+  searchValue: '',
+  sortValue: {
+    sortBy: '',
+    sortDirection: 'asc',
+  },
   isLoading: false,
   isError: false,
   errorMessage: '',
@@ -21,7 +34,16 @@ const initialState: ProductList = {
 export const ProductListSlice = createSlice({
   name: 'productList',
   initialState,
-  reducers: {},
+  reducers: {
+    updateFilters: (state, action: PayloadAction<FilterFields>) => {
+      const currentState = state;
+      currentState.filters = action.payload;
+    },
+    updateSearchValue: (state, action: PayloadAction<string>) => {
+      const currentState = state;
+      currentState.searchValue = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getProductListAction.pending, (state) => {
@@ -40,4 +62,7 @@ export const ProductListSlice = createSlice({
   },
 });
 
-export const { reducer: productListReducer } = ProductListSlice;
+export const {
+  reducer: productListReducer,
+  actions: { updateFilters, updateSearchValue },
+} = ProductListSlice;

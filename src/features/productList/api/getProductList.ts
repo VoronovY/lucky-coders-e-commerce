@@ -1,6 +1,7 @@
 import {
   ClientResponse,
   ProductProjectionPagedQueryResponse,
+  SuggestionResult,
   createApiBuilderFromCtpClient,
 } from '@commercetools/platform-sdk';
 
@@ -8,7 +9,11 @@ import { projectKey } from '../../../shared/api/baseApi';
 import credentialsFlowClient from '../../../shared/api/clientBuilder/credentialsFlowClient';
 import { FilterFields } from '../../../shared/types/types';
 
-const getProductList = (filters: FilterFields | null): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> => {
+const getProductList = (
+  filters: FilterFields | null,
+  searchValue: string,
+): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> => {
+  const searchParams = searchValue || null;
   const newFilters = {
     colorFilter: filters?.colors.length
       ? `variants.attributes.color.key: ${filters?.colors
@@ -30,13 +35,26 @@ const getProductList = (filters: FilterFields | null): Promise<ClientResponse<Pr
   const queryArgs = {
     limit: 50,
     filter,
+    'text.en-us': searchParams || '',
   };
+
   return createApiBuilderFromCtpClient(credentialsFlowClient())
     .withProjectKey({ projectKey })
     .productProjections()
     .search()
     .get({
       queryArgs,
+    })
+    .execute();
+};
+
+export const getSearchWords = (prefix: string): Promise<ClientResponse<SuggestionResult>> => {
+  return createApiBuilderFromCtpClient(credentialsFlowClient())
+    .withProjectKey({ projectKey })
+    .productProjections()
+    .suggest()
+    .get({
+      queryArgs: { 'searchKeywords.en-US': `"${prefix}"` },
     })
     .execute();
 };
