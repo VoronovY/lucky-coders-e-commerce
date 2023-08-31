@@ -86,9 +86,7 @@ function ChangePasswordModal({ version, onCloseModalPassword }: ChangePasswordMo
             }, 5000);
           })
           .then(() => {
-            store.dispatch(getCustomerAction()).then((result) => {
-              dispatch(result);
-            });
+            store.dispatch(getCustomerAction());
           });
       })
       .catch((error) => {
@@ -175,7 +173,7 @@ function ChangePasswordModal({ version, onCloseModalPassword }: ChangePasswordMo
         <Button type="submit" width="100%" height="46px" disabled={disableSubmit}>
           Save
         </Button>
-        <ButtonCancel onClick={onCloseModalPassword} />
+        <ButtonCancel onClick={onCloseModalPassword} name="Cancel" />
       </form>
     </ModalForm>
   );

@@ -4,11 +4,12 @@ import Button from '../../../../../shared/ui/button/Button';
 
 interface ButtonCancelProps {
   onClick: () => void;
+  name: string;
 }
-function ButtonCancel({ onClick }: ButtonCancelProps): JSX.Element {
+function ButtonCancel({ onClick, name }: ButtonCancelProps): JSX.Element {
   return (
     <Button width="100%" height="46px" className={styles.cancelButton} onClick={onClick}>
-      Cancel
+      {name}
     </Button>
   );
 }

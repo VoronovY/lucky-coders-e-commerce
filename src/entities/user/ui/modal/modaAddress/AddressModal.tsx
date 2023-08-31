@@ -153,7 +153,7 @@ function AddressModal({
         <Button type="submit" width="100%" height="46px" disabled={disableSubmit}>
           Save
         </Button>
-        <ButtonCancel onClick={onCloseAddressModal} />
+        <ButtonCancel onClick={onCloseAddressModal} name="Cancel" />
       </form>
     </ModalForm>
   );
