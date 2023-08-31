@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
+import { MyCustomerUpdateAction } from '@commercetools/platform-sdk';
+
 import styles from './UserAddress.module.scss';
 
 import AddressCard from './addressCard/AddressCard';
@@ -12,7 +14,7 @@ import { ProfileAddressFields } from '../../../../shared/types/types';
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 import SuccessfulMessages from '../../../../shared/successfulMessages';
-import { addNewAddress } from '../../api/userApi';
+import { executeCustomerAction } from '../../api/userApi';
 import handleCustomerAction from '../../../../shared/helpers/customerActions';
 
 function UserAddress(): JSX.Element {
@@ -32,7 +34,6 @@ function UserAddress(): JSX.Element {
     setErrorMessage('');
 
     const newAddress = {
-      version: userData.version,
       country: data.country?.iso || '',
       city: data.city,
       streetName: data.street,
@@ -40,7 +41,9 @@ function UserAddress(): JSX.Element {
       postalCode: data.postalCode,
     };
 
-    handleCustomerAction(() => addNewAddress(newAddress), SuccessfulMessages.newAddress)
+    const actions: MyCustomerUpdateAction[] = [{ action: 'addAddress', address: newAddress }];
+
+    handleCustomerAction(() => executeCustomerAction(userData.version, actions), SuccessfulMessages.newAddress)
       .then(() => {
         handleCloseAddressModal();
       })

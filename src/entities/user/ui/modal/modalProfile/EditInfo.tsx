@@ -4,6 +4,8 @@ import { ObjectSchema } from 'yup';
 import { format } from 'date-fns';
 import { useState } from 'react';
 
+import { MyCustomerUpdateAction } from '@commercetools/platform-sdk';
+
 import styles from './EditInfo.module.scss';
 
 import Button from '../../../../../shared/ui/button/Button';
@@ -16,7 +18,7 @@ import ButtonCancel from '../buttonCancel/ButtonCancel';
 import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../../shared/ui/modalError/ModalError';
 import SuccessfulMessages from '../../../../../shared/successfulMessages';
-import { updateUserInfo } from '../../../api/userApi';
+import { executeCustomerAction } from '../../../api/userApi';
 import handleCustomerAction from '../../../../../shared/helpers/customerActions';
 
 interface EditInfoProps extends InfoFields {
@@ -48,10 +50,14 @@ function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate, ver
     setErrorMessage('');
     const formattedBirthDate = format(data.birthDate, 'yyyy-MM-dd');
 
-    handleCustomerAction(
-      () => updateUserInfo(data.firstName, data.lastName, data.email, formattedBirthDate, version),
-      SuccessfulMessages.updateInfo,
-    )
+    const actions: MyCustomerUpdateAction[] = [
+      { action: 'setFirstName', firstName: data.firstName },
+      { action: 'setLastName', lastName: data.lastName },
+      { action: 'changeEmail', email: data.email },
+      { action: 'setDateOfBirth', dateOfBirth: formattedBirthDate },
+    ];
+
+    handleCustomerAction(() => executeCustomerAction(version, actions), SuccessfulMessages.updateInfo)
       .then(() => {
         onCloseModalInfo();
       })
