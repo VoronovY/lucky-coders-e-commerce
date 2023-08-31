@@ -67,49 +67,33 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
   const isDefaultBillingAddress = defaultBillingAddress?.id === id;
 
   const handleShippingAddressChange = (): void => {
-    const setActions: MyCustomerUpdateAction[] = [{ action: 'setDefaultShippingAddress', addressId: id }];
-    const deleteActions: MyCustomerUpdateAction[] = [{ action: 'removeShippingAddressId', addressId: id }];
+    const actions: MyCustomerUpdateAction[] = [
+      { action: 'setDefaultShippingAddress', addressId: isDefaultShippingAddress ? undefined : id },
+    ];
 
-    if (!isDefaultShippingAddress) {
-      dispatch(updateDefaultShippingAddress(id));
-      handleCustomerAction(
-        () => executeCustomerAction(userData.version, setActions),
-        SuccessfulMessages.setDefaultShippingAddress,
-      ).catch((error) => {
-        setErrorMessage(getErrorSignUpMessage(error.body));
-      });
-    } else {
-      dispatch(updateDefaultShippingAddress(''));
-      handleCustomerAction(
-        () => executeCustomerAction(userData.version, deleteActions),
-        SuccessfulMessages.removeDefaultShippingAddress,
-      ).catch((error) => {
-        setErrorMessage(getErrorSignUpMessage(error.body));
-      });
-    }
+    const successMessage = isDefaultShippingAddress
+      ? SuccessfulMessages.removeDefaultShippingAddress
+      : SuccessfulMessages.setDefaultShippingAddress;
+
+    dispatch(updateDefaultShippingAddress(isDefaultShippingAddress ? '' : id));
+    handleCustomerAction(() => executeCustomerAction(userData.version, actions), successMessage).catch((error) => {
+      setErrorMessage(getErrorSignUpMessage(error.body));
+    });
   };
 
   const handleBillingAddressChange = (): void => {
-    const setActions: MyCustomerUpdateAction[] = [{ action: 'setDefaultBillingAddress', addressId: id }];
-    const deleteActions: MyCustomerUpdateAction[] = [{ action: 'removeBillingAddressId', addressId: id }];
+    const actions: MyCustomerUpdateAction[] = [
+      { action: 'setDefaultBillingAddress', addressId: isDefaultBillingAddress ? undefined : id },
+    ];
 
-    if (!isDefaultBillingAddress) {
-      dispatch(updateDefaultBillingAddress(id));
-      handleCustomerAction(
-        () => executeCustomerAction(userData.version, setActions),
-        SuccessfulMessages.setDefaultBillingAddress,
-      ).catch((error) => {
-        setErrorMessage(getErrorSignUpMessage(error.body));
-      });
-    } else {
-      dispatch(updateDefaultBillingAddress(''));
-      handleCustomerAction(
-        () => executeCustomerAction(userData.version, deleteActions),
-        SuccessfulMessages.removeDefaultBillingAddress,
-      ).catch((error) => {
-        setErrorMessage(getErrorSignUpMessage(error.body));
-      });
-    }
+    const successMessage = isDefaultBillingAddress
+      ? SuccessfulMessages.removeDefaultBillingAddress
+      : SuccessfulMessages.setDefaultBillingAddress;
+
+    dispatch(updateDefaultBillingAddress(isDefaultBillingAddress ? '' : id));
+    handleCustomerAction(() => executeCustomerAction(userData.version, actions), successMessage).catch((error) => {
+      setErrorMessage(getErrorSignUpMessage(error.body));
+    });
   };
 
   const onSubmit = (data: ProfileAddressFields): void => {

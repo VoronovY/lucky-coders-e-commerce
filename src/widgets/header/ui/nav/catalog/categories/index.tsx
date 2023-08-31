@@ -29,7 +29,7 @@ function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX
             {categoriesArr.map((item, index) => {
               return (
                 <li className={styles.categoriesItem} key={item.id}>
-                  <Link to={item.url} className={styles.link}>
+                  <Link to={item.url} className={styles.link} onClick={onClick}>
                     {item.text}
                   </Link>
                   {index > 0 ? (
