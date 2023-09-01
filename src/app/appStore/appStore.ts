@@ -7,7 +7,7 @@ import { userDetails } from '../../entities/user/model/userSlice';
 
 const reducer = {
   mainSettings: mainSettingsReducer,
-  productListReducer,
+  catalog: productListReducer,
   userDetails,
 };
 

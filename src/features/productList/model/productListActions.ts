@@ -29,18 +29,19 @@ const convertProductFromDTO = (product: ProductProjection): ProductCardData => {
   };
 };
 
-const getProductListAction = createAsyncThunk<ProductCardData[], FilterFields | null, { rejectValue: string }>(
-  'catalog/productList',
-  async (filters: FilterFields | null, { rejectWithValue }) => {
-    try {
-      const response = await getProductList(filters);
-      const convertedProductList = response.body.results.map((product) => convertProductFromDTO(product));
-      return convertedProductList;
-    } catch (error: unknown) {
-      const message = getErrorMessage(error);
-      return rejectWithValue(message);
-    }
-  },
-);
+const getProductListAction = createAsyncThunk<
+  ProductCardData[],
+  { filters: FilterFields | null; searchValue: string },
+  { rejectValue: string }
+>('catalog/productList', async ({ filters, searchValue }, { rejectWithValue }) => {
+  try {
+    const response = await getProductList(filters, searchValue);
+    const convertedProductList = response.body.results.map((product) => convertProductFromDTO(product));
+    return convertedProductList;
+  } catch (error: unknown) {
+    const message = getErrorMessage(error);
+    return rejectWithValue(message);
+  }
+});
 
 export default getProductListAction;

@@ -10,41 +10,40 @@ import { Collapse, RangeInputs } from '../../../shared/ui';
 
 import Checkbox from '../../../shared/ui/checkbox/CheckBox';
 import Button from '../../../shared/ui/button/Button';
-import { useAppDispatch } from '../../../app/appStore/hooks';
+import { useAppDispatch, useAppSelector } from '../../../app/appStore/hooks';
 import { FilterFields } from '../../../shared/types/types';
 import getProductListAction from '../../../features/productList/model/productListActions';
 
 import filterMenuSchema from '../model/filterMenuSchema';
 import colors from '../../../shared/constants/colors';
 import ColorIcon from '../../../shared/ui/colorIcon/ColorIcon';
-
-const defaultValues: FilterFields = {
-  weight: {
-    from: 0,
-    to: 1000,
-  },
-  price: {
-    from: 0,
-    to: 1000,
-  },
-  colors: [],
-};
+import { selectSearchValue } from '../../../features/productList/model/productListSelectors';
+import { updateFilters } from '../../../features/productList/model/productListSlice';
+import defaultFilters from '../../../shared/constants/products';
 
 function FilterMenu(): JSX.Element {
   const methods = useForm<FilterFields>({
     mode: 'onChange',
-    defaultValues,
+    defaultValues: defaultFilters,
     resolver: yupResolver(filterMenuSchema as ObjectSchema<FilterFields>),
   });
+
+  const searchValue = useAppSelector(selectSearchValue);
 
   const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<FilterFields> = (data) => {
-    dispatch(getProductListAction(data));
+    const updateData = {
+      filters: data,
+      searchValue,
+    };
+    dispatch(updateFilters(data));
+    dispatch(getProductListAction(updateData));
+    methods.reset(data);
   };
 
   const handleResetFilters = (): void => {
-    methods.reset(defaultValues);
+    methods.reset(defaultFilters);
   };
 
   const showBtnDisabled = Object.values(methods.formState.errors).length > 0;
@@ -52,13 +51,13 @@ function FilterMenu(): JSX.Element {
   return (
     <FormProvider {...methods}>
       <form className={styles.filterMenuWrapper} onSubmit={methods.handleSubmit(onSubmit)}>
-        <Collapse title="Price">
+        <Collapse title="Price" initialCollapsed={false}>
           <RangeInputs namePrefix="price" />
         </Collapse>
-        <Collapse title="Weight">
+        <Collapse title="Weight" initialCollapsed={false}>
           <RangeInputs namePrefix="weight" />
         </Collapse>
-        <Collapse title="Color">
+        <Collapse title="Color" initialCollapsed={false}>
           <Controller
             name="colors"
             control={methods.control}
@@ -87,7 +86,7 @@ function FilterMenu(): JSX.Element {
         </Collapse>
         <div className={styles.buttons}>
           <Button type="submit" height="30px" width="150px" disabled={showBtnDisabled}>
-            Show
+            Accept
           </Button>
           <Button type="button" height="30px" width="150px" onClick={handleResetFilters}>
             Clear
