@@ -22,13 +22,13 @@ function LayoutHeader(): JSX.Element {
     dispatch(updateIsModalInfoOpen(false));
     dispatch(updateInfoMessage(''));
   };
-
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     if (token) {
       dispatch(updateAccessToken(token));
     }
   }, [dispatch]);
+
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>

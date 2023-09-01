@@ -1,3 +1,5 @@
+@import "../../../../../../app/styles/variables.scss";
+
 .container {
   position: absolute;
   inset: 0 0 0 0;
@@ -18,19 +20,63 @@
   justify-content: flex-start;
   align-items: center;
   box-shadow: var(--categories-shadow);
+
+  @media (max-width: $width-mobile-big) {
+    top: 84px;
+  }
 }
 
 .categories {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px 0px 20px 30px;
+  max-width: 250px;
+  padding: 20px 30px;
+  border-right: var(--color-categories-arrow-button) 2px solid;
 
   .categoriesItem {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    background: transparent;
+    text-align: start;
     padding: 4px 0px;
+
+    .link {
+      width: 100%;
+      display: flex;
+    }
+  }
+}
+
+.subCategoriesList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  max-height: 280px;
+  position: absolute;
+  left: 250px;
+  top: 66px;
+
+  @media (max-width: $width-mobile-big) {
+    position: static;
+    max-height: 100%;
+  }
+
+  li {
+    padding: 20px;
+
+    @media (max-width: $width-mobile-big) {
+      padding: 20px 0 0 20px;
+    }
+  }
+
+  a {
+    color: var(--color-primary-text);
+    font-weight: var(--font-weight-regular);
+  }
+  a:hover {
+    cursor: pointer;
+    color: var(--color-hovered-btn);
   }
 }
 
@@ -60,8 +106,16 @@
   }
 }
 
+.rotatedArrow {
+  @media (max-width: $width-mobile-big) {
+    transform: rotate(90deg);
+    padding: 0;
+  }
+}
+
 .close {
   border-bottom: var(--color-categories-arrow-button) 2px solid;
+  border-right: var(--color-categories-arrow-button) 2px solid;
   padding: 16px 30px;
   display: flex;
   align-items: center;
