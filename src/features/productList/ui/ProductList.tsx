@@ -7,11 +7,19 @@ import styles from './ProductList.module.scss';
 import { useAppDispatch, useAppSelector } from '../../../app/appStore/hooks';
 import getProductListAction from '../model/productListActions';
 import ProductCard from '../../../entities';
-import { selectFilters, selectProductList, selectSearchValue, selectSortValue } from '../model/productListSelectors';
+import {
+  selectFilters,
+  selectIsProductListError,
+  selectProductList,
+  selectProductListErrorMessage,
+  selectSearchValue,
+  selectSortValue,
+} from '../model/productListSelectors';
 import { getSearchWords } from '../api/getProductList';
 import { OptionInput } from '../../../shared/ui/select/SelectInput';
-import { updateSearchValue, updateSortValue } from '../model/productListSlice';
+import { updateError, updateErrorMessage, updateSearchValue, updateSortValue } from '../model/productListSlice';
 import { sortingOptions } from '../../../shared/constants/sort';
+import { ModalInfo } from '../../../shared/ui';
 
 export interface ProductListProps {}
 
@@ -28,6 +36,8 @@ function ProductList(): JSX.Element {
 
   const productList = useAppSelector(selectProductList);
   const sortValue = useAppSelector(selectSortValue);
+  const isError = useAppSelector(selectIsProductListError);
+  const errorMessage = useAppSelector(selectProductListErrorMessage);
 
   useEffect(() => {
     dispatch(getProductListAction({ filters, searchValue: searchValue?.value, sortBy: sortValue?.value || '' }));
@@ -65,6 +75,11 @@ function ProductList(): JSX.Element {
   const handleSortInput = (newSortValue: OnChangeValue<OptionInput, boolean>): void => {
     const currentSortValue: OptionInput = Array.isArray(newSortValue) ? newSortValue[0] : newSortValue;
     dispatch(updateSortValue(currentSortValue));
+  };
+
+  const handleModalInfo = (): void => {
+    dispatch(updateError(false));
+    dispatch(updateErrorMessage(''));
   };
 
   return (
@@ -126,6 +141,7 @@ function ProductList(): JSX.Element {
       {productList.map((product) => {
         return <ProductCard key={product.id} product={product} />;
       })}
+      <ModalInfo isOpen={isError} setIsOpen={handleModalInfo} message={errorMessage} withIcon={false} />
     </div>
   );
 }

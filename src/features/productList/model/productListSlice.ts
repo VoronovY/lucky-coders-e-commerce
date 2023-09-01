@@ -42,6 +42,14 @@ export const ProductListSlice = createSlice({
       const currentState = state;
       currentState.sortValue = action.payload;
     },
+    updateError: (state, action: PayloadAction<boolean>) => {
+      const currentState = state;
+      currentState.isError = action.payload;
+    },
+    updateErrorMessage: (state, action: PayloadAction<string>) => {
+      const currentState = state;
+      currentState.errorMessage = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -53,9 +61,9 @@ export const ProductListSlice = createSlice({
         const currentState = state;
         currentState.productList = payload;
       })
-      .addCase(getProductListAction.rejected, (state, { error }) => {
+      .addCase(getProductListAction.rejected, (state, { payload }) => {
         const currentState = state;
-        currentState.errorMessage = error.message || '';
+        currentState.errorMessage = payload || '';
         currentState.isError = true;
       });
   },
@@ -63,5 +71,5 @@ export const ProductListSlice = createSlice({
 
 export const {
   reducer: productListReducer,
-  actions: { updateFilters, updateSearchValue, updateSortValue },
+  actions: { updateFilters, updateSearchValue, updateSortValue, updateError, updateErrorMessage },
 } = ProductListSlice;

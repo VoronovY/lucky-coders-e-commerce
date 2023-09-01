@@ -36,10 +36,13 @@ const getProductListAction = createAsyncThunk<
 >('catalog/productList', async ({ filters, searchValue, sortBy }, { rejectWithValue }) => {
   try {
     const response = await getProductList(filters, searchValue, sortBy);
+
     const convertedProductList = response.body.results.map((product) => convertProductFromDTO(product));
+
     return convertedProductList;
   } catch (error: unknown) {
     const message = getErrorMessage(error);
+
     return rejectWithValue(message);
   }
 });

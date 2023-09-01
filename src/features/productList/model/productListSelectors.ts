@@ -10,4 +10,15 @@ const selectSortValue = (state: RootState): OptionInput | undefined => state.cat
 
 const selectFilters = (state: RootState): FilterFields => state.catalog.filters;
 
-export { selectProductList, selectSearchValue, selectSortValue, selectFilters };
+const selectIsProductListError = (state: RootState): boolean => state.catalog.isError;
+
+const selectProductListErrorMessage = (state: RootState): string => state.catalog.errorMessage;
+
+export {
+  selectProductList,
+  selectSearchValue,
+  selectSortValue,
+  selectFilters,
+  selectIsProductListError,
+  selectProductListErrorMessage,
+};
