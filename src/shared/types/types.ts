@@ -1,5 +1,4 @@
-import { Attribute, BaseAddress, Category } from '@commercetools/platform-sdk';
-import { Merge } from 'react-hook-form';
+import { Attribute, BaseAddress, CategoryReference, LocalizedString } from '@commercetools/platform-sdk';
 
 export interface CountriesOption {
   value: string;
@@ -129,10 +128,15 @@ export interface Sort {
   sortDirection: 'asc' | 'desc';
 }
 
-export type CategoriesObject = {
-  [key: string]: Merge<Category, { children?: Category[] }>;
-};
-
-export interface NewCategory extends Category {
-  children: Category[];
+export interface CatalogCategory {
+  id: string;
+  name: LocalizedString;
+  description?: LocalizedString;
+  parent?: CategoryReference;
+  key?: string;
+  children?: CatalogCategory[];
 }
+
+export type CategoriesObject = {
+  [key: string]: CatalogCategory;
+};

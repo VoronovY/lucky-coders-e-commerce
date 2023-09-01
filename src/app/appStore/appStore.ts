@@ -4,13 +4,13 @@ import { mainSettingsReducer } from '../../shared/model/appSlice';
 
 import { productListReducer } from '../../features/productList/model/productListSlice';
 import { userDetails } from '../../entities/user/model/userSlice';
-import { categories } from '../../shared/categories/categoriesSlice';
+import { categoriesData } from '../../shared/categories/categoriesSlice';
 
 const reducer = {
   mainSettings: mainSettingsReducer,
   catalog: productListReducer,
   userDetails,
-  categories,
+  categoriesData,
 };
 
 export const store = configureStore({

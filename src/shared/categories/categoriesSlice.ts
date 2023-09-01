@@ -2,17 +2,17 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import getCategoriesAction from './categoriesAction';
 
-import { NewCategory } from '../types/types';
+import { CatalogCategory } from '../types/types';
 
 type Category = {
-  category: NewCategory[];
+  categories: CatalogCategory[];
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
 };
 
 const initialState: Category = {
-  category: [],
+  categories: [],
   isLoading: false,
   isError: false,
   errorMessage: '',
@@ -31,7 +31,7 @@ export const CategoriesSlice = createSlice({
       .addCase(getCategoriesAction.fulfilled, (state, { payload }) => {
         const currentState = state;
         currentState.isLoading = false;
-        currentState.category = payload;
+        currentState.categories = payload;
       })
       .addCase(getCategoriesAction.rejected, (state, { error }) => {
         const currentState = state;
@@ -41,4 +41,4 @@ export const CategoriesSlice = createSlice({
   },
 });
 
-export const { reducer: categories } = CategoriesSlice;
+export const { reducer: categoriesData } = CategoriesSlice;

@@ -1,41 +1,21 @@
 import { Link } from 'react-router-dom';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import styles from './categories.module.scss';
 
 import RoutesName from '../../../../../../shared/routing';
 import { CrossIcon, CategoriesArrowIcon } from '../../../../../../app/layouts/images';
 
-// import createCategories from '../../../../../../shared/categories/createCategories';
-// import { NewCategory } from '../../../../../../shared/types/types';
-import getCategoriesAction from '../../../../../../shared/categories/categoriesAction';
-import { store } from '../../../../../../app/appStore/appStore';
 import selectCategories from '../../../../../../shared/categories/categoriesSelectors';
 
 function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX.Element {
-  // const [categories, setCategories] = useState<NewCategory[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   async function fetchCategories(): Promise<void> {
-  //     const fetchedCategories = await createCategories();
-  //     setCategories(fetchedCategories);
-  //   }
-
-  //   fetchCategories();
-  // }, []);
-
-  useEffect(() => {
-    store.dispatch(getCategoriesAction());
-  }, [dispatch]);
 
   const categories = useSelector(selectCategories);
 
-  // console.log(categories);
   const onClick = (): void => {
     setIsOpen(false);
   };
@@ -43,10 +23,6 @@ function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX
   const onMouseEnter = (categoryId: string): void => {
     setSelectedCategory(categoryId);
   };
-
-  // const onMouseLeave = (): void => {
-  //   setSelectedCategory(null);
-  // };
 
   return (
     <div className={styles.container}>
@@ -76,12 +52,9 @@ function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX
                     <Link to={`${RoutesName.catalog}/${item.key}`} className={styles.link}>
                       {item.name.en}
                     </Link>
-                    <button
-                      type="button"
-                      className={`${styles.arrow} ${selectedCategory === item.id ? styles.rotatedArrow : ''}`}
-                    >
+                    <div className={`${styles.arrow} ${selectedCategory === item.id ? styles.rotatedArrow : ''}`}>
                       <CategoriesArrowIcon />
-                    </button>
+                    </div>
                   </div>
                   {selectedCategory === item.id && (
                     <ul className={styles.subCategoriesList}>

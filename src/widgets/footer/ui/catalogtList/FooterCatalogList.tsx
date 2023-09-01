@@ -1,16 +1,15 @@
 import { Link } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
+
 import styles from './FooterCatalogList.module.scss';
 
 import RoutesName from '../../../../shared/routing';
+import selectCategories from '../../../../shared/categories/categoriesSelectors';
 
-const categories = [
-  { id: 1, name: 'Pearl', path: `${RoutesName.catalog}/pearl` },
-  { id: 2, name: 'Collectible minerals', path: `${RoutesName.catalog}/collectible-minerals` },
-  { id: 3, name: 'Beads', path: `${RoutesName.catalog}/beads` },
-  { id: 4, name: 'Magical stones', path: `${RoutesName.catalog}/magical-stones` },
-];
 function FooterCatalogList(): JSX.Element {
+  const categories = useSelector(selectCategories);
+
   return (
     <div className={styles.footerCatalogsList}>
       <Link to={RoutesName.catalog}>
@@ -19,8 +18,8 @@ function FooterCatalogList(): JSX.Element {
       <ul>
         {categories.map((category) => (
           <li key={category.id}>
-            <Link to={category.path} key={category.id}>
-              {category.name}
+            <Link to={`${RoutesName.catalog}/${category.key}`} key={category.id}>
+              {category.name.en}
             </Link>
           </li>
         ))}
