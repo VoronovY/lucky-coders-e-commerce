@@ -4,16 +4,16 @@ import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
-import styles from './CategoriesList.module.scss';
+import styles from './CategoriesListHeader.module.scss';
 
-import selectCategories from '../model/categoriesSelectors';
-import { CategoriesArrowIcon } from '../../../app/layouts/images';
-import RoutesName from '../../routing';
+import selectCategories from '../../model/categoriesSelectors';
+import { CategoriesArrowIcon } from '../../../../app/layouts/images';
+import RoutesName from '../../../routing';
 
 interface CategoriesListProps {
   onClick: () => void;
 }
-function CategoriesList({ onClick }: CategoriesListProps): JSX.Element {
+function CategoriesListHeader({ onClick }: CategoriesListProps): JSX.Element {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const categories = useSelector(selectCategories);
@@ -57,4 +57,4 @@ function CategoriesList({ onClick }: CategoriesListProps): JSX.Element {
   );
 }
 
-export default CategoriesList;
+export default CategoriesListHeader;

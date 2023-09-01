@@ -5,7 +5,7 @@ import styles from './categories.module.scss';
 import RoutesName from '../../../../../../shared/routing';
 import { CrossIcon } from '../../../../../../app/layouts/images';
 
-import CategoriesList from '../../../../../../shared/categories/ui/CategoriesList';
+import CategoriesListHeader from '../../../../../../shared/categories/ui/CategoriesListHeader/CategoriesListHeader';
 
 function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX.Element {
   const onClick = (): void => {
@@ -37,7 +37,7 @@ function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX
                 All Categories
               </Link>
             </li>
-            <CategoriesList onClick={onClick} />
+            <CategoriesListHeader onClick={onClick} />
           </ul>
         </div>
       </div>
