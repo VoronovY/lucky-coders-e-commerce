@@ -4,7 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { ObjectSchema } from 'yup';
 
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './ChangePasswordModal.module.scss';
 
@@ -15,9 +17,27 @@ import { PasswordInput } from '../../../../../shared/ui/passwordInput/PasswordIn
 import Button from '../../../../../shared/ui/button/Button';
 import changePasswordSchema from '../../../model/changePasswordSchema';
 import { PasswordFields } from '../../../../../shared/types/types';
+import ButtonCancel from '../buttonCancel/ButtonCancel';
+
+import selectUser from '../../../model/userSelectors';
+import loginUser from '../../../../../shared/api/auth/loginUser';
+import {
+  updateAccessToken,
+  updateInfoMessage,
+  updateIsModalInfoOpen,
+  updateUserId,
+} from '../../../../../shared/model/appSlice';
+import myTokenCache from '../../../../../shared/api/auth/tokenCache';
+import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
+import ModalError from '../../../../../shared/ui/modalError/ModalError';
+import { store } from '../../../../../app/appStore/appStore';
+import getCustomerAction from '../../../model/userActions';
+import SuccessfulMessages from '../../../../../shared/successfulMessages';
+import { changePassword } from '../../../api/userApi';
 
 interface ChangePasswordModalProps {
   onCloseModalPassword: () => void;
+  version: number;
 }
 
 const defaultValues = {
@@ -26,13 +46,14 @@ const defaultValues = {
   confirmPassword: '',
 };
 
-function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps): JSX.Element {
+function ChangePasswordModal({ version, onCloseModalPassword }: ChangePasswordModalProps): JSX.Element {
   const {
     handleSubmit,
     control,
     setError,
     clearErrors,
     getValues,
+    trigger,
     formState: { errors },
   } = useForm<PasswordFields>({
     resolver: yupResolver(changePasswordSchema as ObjectSchema<PasswordFields>),
@@ -40,17 +61,45 @@ function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps)
     defaultValues,
   });
 
+  const userData = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState('');
   const disableSubmit = Object.values(errors).length > 0;
-  const onSubmit = (data: PasswordFields): PasswordFields => {
-    return data;
+
+  const onSubmit = (data: PasswordFields): void => {
+    setErrorMessage('');
+
+    changePassword(version, data.currentPassword, data.newPassword)
+      .then(() => {
+        onCloseModalPassword();
+        myTokenCache.clear();
+        loginUser(userData.email, data.newPassword)
+          .then((response) => {
+            dispatch(updateAccessToken(myTokenCache.store.token));
+            dispatch(updateUserId(response.body.customer.id));
+            localStorage.setItem('accessToken', myTokenCache.store.token);
+            dispatch(updateInfoMessage(SuccessfulMessages.updatePassword));
+            dispatch(updateIsModalInfoOpen(true));
+            setTimeout(() => {
+              dispatch(updateIsModalInfoOpen(false));
+              dispatch(updateInfoMessage(''));
+            }, 5000);
+          })
+          .then(() => {
+            store.dispatch(getCustomerAction());
+          });
+      })
+      .catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
   };
 
   const handleNewPasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const newPassword = e.target.value;
-    const confirmPassword = getValues('confirmPassword');
+    const newPasswordValue = e.target.value;
+    const confirmPasswordValue = getValues('confirmPassword');
 
     changePasswordSchema
-      .validateAt('confirmPassword', { newPassword, confirmPassword })
+      .validateAt('confirmPassword', { newPasswordValue, confirmPasswordValue })
       .then(() => {
         clearErrors('confirmPassword');
       })
@@ -59,11 +108,15 @@ function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps)
           type: 'validate',
           message: error.message,
         });
+      })
+      .finally(() => {
+        trigger('confirmPassword');
       });
   };
 
   return (
     <ModalForm title="Change password">
+      {errorMessage && <ModalError errorMessage={errorMessage} />}
       <form className={styles.changePasswordForm} onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="currentPassword"
@@ -117,12 +170,10 @@ function ChangePasswordModal({ onCloseModalPassword }: ChangePasswordModalProps)
             );
           }}
         />
-        <Button type="submit" width="100%" disabled={disableSubmit}>
+        <Button type="submit" width="100%" height="46px" disabled={disableSubmit}>
           Save
         </Button>
-        <Button type="button" width="100%" onClick={onCloseModalPassword}>
-          Cancel
-        </Button>
+        <ButtonCancel onClick={onCloseModalPassword} name="Cancel" />
       </form>
     </ModalForm>
   );

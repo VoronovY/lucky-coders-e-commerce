@@ -16,14 +16,17 @@ import countries from '../../../../../shared/constants/countries';
 import { vailadtePostalCode } from '../../../../../shared/helpers/validationFunctions';
 import addressSchema from '../../../model/addressSchema';
 import { ProfileAddressFields } from '../../../../../shared/types/types';
+import ButtonCancel from '../buttonCancel/ButtonCancel';
 
 export interface AddressModalProps extends ProfileAddressFields {
-  onCloseAddAddress: () => void;
+  onCloseAddressModal: () => void;
+  onSubmit: (data: ProfileAddressFields) => void;
   title: string;
 }
 
 function AddressModal({
-  onCloseAddAddress,
+  onCloseAddressModal,
+  onSubmit,
   title,
   country,
   city,
@@ -53,10 +56,10 @@ function AddressModal({
   });
 
   const changePostalCode = (postal: string): void => {
+    if (postal === '') return;
     const currentCountry = watch('country');
     if (currentCountry) {
       const { iso } = currentCountry;
-      if (postalCode === '') return;
       vailadtePostalCode(postal, iso)
         .then(() => {
           clearErrors('postalCode');
@@ -71,9 +74,6 @@ function AddressModal({
   };
 
   const disableSubmit = Object.values(errors).length > 0;
-  const onSubmit = (data: ProfileAddressFields): ProfileAddressFields => {
-    return data;
-  };
 
   return (
     <ModalForm title={title}>
@@ -150,12 +150,10 @@ function AddressModal({
             );
           }}
         />
-        <Button type="submit" width="100%" disabled={disableSubmit}>
+        <Button type="submit" width="100%" height="46px" disabled={disableSubmit}>
           Save
         </Button>
-        <Button type="button" width="100%" onClick={onCloseAddAddress}>
-          Cancel
-        </Button>
+        <ButtonCancel onClick={onCloseAddressModal} name="Cancel" />
       </form>
     </ModalForm>
   );

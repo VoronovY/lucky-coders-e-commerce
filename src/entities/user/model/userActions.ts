@@ -3,9 +3,10 @@ import { Customer } from '@commercetools/platform-sdk';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { UserData } from '../../../shared/types/types';
-import getCustomer from '../api/userApi';
+
 import getErrorMessage from '../../../shared/helpers/routerHelpres';
 import countries from '../../../shared/constants/countries';
+import { getCustomer } from '../api/userApi';
 
 const convertUserFromDTO = (user: Customer): UserData => {
   const shippingAddressId = user.defaultShippingAddressId;
@@ -16,6 +17,7 @@ const convertUserFromDTO = (user: Customer): UserData => {
     lastName: user.lastName || '',
     firstName: user.firstName || '',
     dateOfBirth: user.dateOfBirth || '',
+    version: user.version || 0,
     addresses:
       user.addresses !== undefined
         ? user.addresses.map((address) => ({

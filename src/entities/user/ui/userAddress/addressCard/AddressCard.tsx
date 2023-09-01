@@ -2,13 +2,22 @@ import { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
+import { MyCustomerUpdateAction } from '@commercetools/platform-sdk';
+
 import styles from './AddressCard.module.scss';
 
 import { Checked, DeleteIcon, EditIcon } from '../../../../../app/layouts/images';
 import { updateDefaultBillingAddress, updateDefaultShippingAddress } from '../../../model/userSlice';
 import selectUser from '../../../model/userSelectors';
 import AddressModal from '../../modal/modaAddress/AddressModal';
-import { CountriesOption } from '../../../../../shared/types/types';
+import { CountriesOption, ProfileAddressFields } from '../../../../../shared/types/types';
+import ModalError from '../../../../../shared/ui/modalError/ModalError';
+
+import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
+
+import SuccessfulMessages from '../../../../../shared/successfulMessages';
+import { executeCustomerAction } from '../../../api/userApi';
+import handleCustomerAction from '../../../../../shared/helpers/customerActions';
 
 interface AddressCardProps {
   id: string;
@@ -29,12 +38,25 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
   ];
   const dispatch = useDispatch();
   const userData = useSelector(selectUser);
+  const [errorMessage, setErrorMessage] = useState('');
   const [isModalAddressOpen, setIsModalAddressOpen] = useState(false);
 
   const handleEditClick = (): void => {
     setIsModalAddressOpen(true);
   };
 
+  const handleDeleteClick = (): void => {
+    setErrorMessage('');
+
+    const actions: MyCustomerUpdateAction[] = [{ action: 'removeAddress', addressId: id }];
+
+    handleCustomerAction(
+      () => executeCustomerAction(userData.version, actions),
+      SuccessfulMessages.deleteAddress,
+    ).catch((error) => {
+      setErrorMessage(getErrorSignUpMessage(error.body));
+    });
+  };
   const handleCloseAddressModal = (): void => {
     setIsModalAddressOpen(false);
   };
@@ -45,23 +67,60 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
   const isDefaultBillingAddress = defaultBillingAddress?.id === id;
 
   const handleShippingAddressChange = (): void => {
-    if (!isDefaultShippingAddress) {
-      dispatch(updateDefaultShippingAddress(id));
-    } else {
-      dispatch(updateDefaultShippingAddress(''));
-    }
+    const actions: MyCustomerUpdateAction[] = [
+      { action: 'setDefaultShippingAddress', addressId: isDefaultShippingAddress ? undefined : id },
+    ];
+
+    const successMessage = isDefaultShippingAddress
+      ? SuccessfulMessages.removeDefaultShippingAddress
+      : SuccessfulMessages.setDefaultShippingAddress;
+
+    dispatch(updateDefaultShippingAddress(isDefaultShippingAddress ? '' : id));
+    handleCustomerAction(() => executeCustomerAction(userData.version, actions), successMessage).catch((error) => {
+      setErrorMessage(getErrorSignUpMessage(error.body));
+    });
   };
 
   const handleBillingAddressChange = (): void => {
-    if (!isDefaultBillingAddress) {
-      dispatch(updateDefaultBillingAddress(id));
-    } else {
-      dispatch(updateDefaultBillingAddress(''));
-    }
+    const actions: MyCustomerUpdateAction[] = [
+      { action: 'setDefaultBillingAddress', addressId: isDefaultBillingAddress ? undefined : id },
+    ];
+
+    const successMessage = isDefaultBillingAddress
+      ? SuccessfulMessages.removeDefaultBillingAddress
+      : SuccessfulMessages.setDefaultBillingAddress;
+
+    dispatch(updateDefaultBillingAddress(isDefaultBillingAddress ? '' : id));
+    handleCustomerAction(() => executeCustomerAction(userData.version, actions), successMessage).catch((error) => {
+      setErrorMessage(getErrorSignUpMessage(error.body));
+    });
+  };
+
+  const onSubmit = (data: ProfileAddressFields): void => {
+    setErrorMessage('');
+
+    const updatedAddress = {
+      country: data.country?.iso || '',
+      city: data.city,
+      streetName: data.street,
+      state: data.state,
+      postalCode: data.postalCode,
+    };
+
+    const actions: MyCustomerUpdateAction[] = [{ action: 'changeAddress', address: updatedAddress, addressId: id }];
+
+    handleCustomerAction(() => executeCustomerAction(userData.version, actions), SuccessfulMessages.changeAddress)
+      .then(() => {
+        handleCloseAddressModal();
+      })
+      .catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
   };
 
   return (
     <div className={styles.userAddressItem}>
+      {errorMessage && <ModalError errorMessage={errorMessage} />}
       <div className={styles.userAddressContainer}>
         {addressDetails.map((detail) => (
           <div key={detail.id}>
@@ -73,7 +132,7 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
       <div className={styles.addressActions}>
         <div className={styles.actionsIcons}>
           <EditIcon onClick={handleEditClick} />
-          <DeleteIcon />
+          <DeleteIcon onClick={handleDeleteClick} />
         </div>
         <div className={styles.actionsDefault}>
           <div>
@@ -111,7 +170,8 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
       {isModalAddressOpen && (
         <AddressModal
           title="Edit address"
-          onCloseAddAddress={handleCloseAddressModal}
+          onCloseAddressModal={handleCloseAddressModal}
+          onSubmit={onSubmit}
           country={country}
           city={city}
           state={state === '---' ? '' : state}

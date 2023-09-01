@@ -49,14 +49,18 @@ function UserProfile(): JSX.Element {
             <span>{item.value}</span>
           </div>
         ))}
-        <button type="button" className={styles.changePasswordButton} onClick={handleOpenModalPassword}>
-          Change Password
-        </button>
-        <Button width="70%" onClick={handleOpenModalInfo}>
-          Edit Profile
-        </Button>
+        <div className={styles.buttonsWrapper}>
+          <Button width="100%" height="46px" onClick={handleOpenModalInfo}>
+            Edit Profile
+          </Button>
+          <Button width="100%" height="46px" className={styles.changePasswordButton} onClick={handleOpenModalPassword}>
+            Change Password
+          </Button>
+        </div>
       </div>
-      {isPasswordModalOpen && <ChangePasswordModal onCloseModalPassword={handleCloseModalPassword} />}
+      {isPasswordModalOpen && (
+        <ChangePasswordModal version={userData.version} onCloseModalPassword={handleCloseModalPassword} />
+      )}
       {isModalInfoOpen && (
         <EditInfo
           onCloseModalInfo={handleCloseModalInfo}
@@ -64,6 +68,7 @@ function UserProfile(): JSX.Element {
           lastName={userData.lastName}
           email={userData.email}
           birthDate={new Date(userData.dateOfBirth)}
+          version={userData.version}
         />
       )}
     </>

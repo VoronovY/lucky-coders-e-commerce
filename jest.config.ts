@@ -15,6 +15,7 @@ export default {
     'src/**/*.tsx',
     '!src/**/*.d.ts',
     '!<rootDir>/node_modules/',
+    '!src/entities/user/api/userApi.ts',
     '!src/shared/api/baseApi.ts',
     '!src/shared/api/clientBuilder/credentialsFlowClient.ts',
     '!src/shared/api/clientBuilder/passwordFlowClient.ts',
