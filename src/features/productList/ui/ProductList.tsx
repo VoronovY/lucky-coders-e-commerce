@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { OnChangeValue } from 'react-select';
+import Select, { OnChangeValue, Theme } from 'react-select';
 
 import styles from './ProductList.module.scss';
 
@@ -9,7 +9,6 @@ import getProductListAction from '../model/productListActions';
 import ProductCard from '../../../entities';
 import { selectFilters, selectProductList, selectSearchValue } from '../model/productListSelectors';
 import { getSearchWords } from '../api/getProductList';
-import { SelectInput } from '../../../shared/ui';
 import { OptionInput } from '../../../shared/ui/select/SelectInput';
 import { updateSearchValue } from '../model/productListSlice';
 
@@ -37,9 +36,10 @@ function ProductList(): JSX.Element {
         const response = data.body;
 
         const allPhrases = new Set<string>();
-        response['searchKeywords.en-US'].forEach((phrase) =>
-          phrase.text.split(' ').forEach((word) => allPhrases.add(word)),
-        );
+        response['searchKeywords.en-US'].forEach((phrase) => {
+          allPhrases.add(phrase.text);
+          phrase.text.split(' ').forEach((word) => allPhrases.add(word));
+        });
         const newSearchOptions = Array.from(allPhrases).map((word: string) => ({ value: word, label: word }));
         setSearchOptions(newSearchOptions);
       });
@@ -65,13 +65,31 @@ function ProductList(): JSX.Element {
     <div className={styles.productListWrapper}>
       <div className={styles.productListHeader}>
         <div className={styles.searchWrapper}>
-          <SelectInput
+          <Select
             options={searchOptions}
             value={searchValue}
             onInputChange={handleSearch}
             onChange={handleSearchInput}
             id="search-12"
-            placeholder="search"
+            placeholder="Search"
+            isClearable
+            defaultValue={undefined}
+            theme={(theme): Theme => ({
+              ...theme,
+              borderRadius: 8,
+              colors: {
+                ...theme.colors,
+                primary25: 'neutral10',
+                primary: 'black',
+              },
+            })}
+            styles={{
+              control: (baseStyles) => ({
+                ...baseStyles,
+                paddingLeft: '20px',
+              }),
+            }}
+            className={styles.select}
           />
         </div>
       </div>

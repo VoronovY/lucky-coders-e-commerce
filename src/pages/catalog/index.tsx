@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import cn from 'classnames';
 
@@ -14,7 +14,7 @@ function CatalogPage(): JSX.Element {
 
   const [showFilters, setShowFilters] = useState(false);
 
-  const handleResizeWindow = (): void => {
+  const handleResizeWindow = useCallback((): void => {
     const body = document.querySelector('body');
     if (body) {
       if (window.innerWidth > widthMobileBig && showFilters) {
@@ -22,13 +22,13 @@ function CatalogPage(): JSX.Element {
         body.style.overflow = 'auto';
       }
     }
-  };
+  }, [showFilters]);
 
   useEffect(() => {
     window.addEventListener('resize', handleResizeWindow);
 
     return () => window.removeEventListener('resize', handleResizeWindow);
-  }, [showFilters]);
+  }, [showFilters, handleResizeWindow]);
 
   useEffect(() => {
     const body = document.querySelector('body');

@@ -15,3 +15,15 @@
 .searchWrapper {
   max-width: 300px;
 }
+.select {
+  position: relative;
+  &::after {
+    content: "";
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 8px;
+    left: 4px;
+    background: url("../../../../public/assets/icons/icon_search.svg") no-repeat center;
+  }
+}
