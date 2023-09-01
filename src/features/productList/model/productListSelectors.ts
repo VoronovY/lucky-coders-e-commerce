@@ -1,11 +1,12 @@
 import { RootState } from '../../../app/appStore/appStore';
-import { FilterFields, ProductCardData, Sort } from '../../../shared/types/types';
+import { FilterFields, ProductCardData } from '../../../shared/types/types';
+import { OptionInput } from '../../../shared/ui/select/SelectInput';
 
 const selectProductList = (state: RootState): ProductCardData[] => state.catalog.productList;
 
 const selectSearchValue = (state: RootState): string => state.catalog.searchValue;
 
-const selectSortValue = (state: RootState): Sort => state.catalog.sortValue;
+const selectSortValue = (state: RootState): OptionInput | undefined => state.catalog.sortValue;
 
 const selectFilters = (state: RootState): FilterFields => state.catalog.filters;
 

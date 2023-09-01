@@ -12,6 +12,7 @@ import { FilterFields } from '../../../shared/types/types';
 const getProductList = (
   filters: FilterFields | null,
   searchValue: string,
+  sortBy: string,
 ): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> => {
   const searchParams = searchValue || null;
   const newFilters = {
@@ -30,12 +31,17 @@ const getProductList = (
 
   const filter: string[] = [];
 
+  const sortedValues = [];
+
+  if (sortBy) sortedValues.push(sortBy);
+
   Object.values(newFilters).forEach((filterValue) => filterValue && filter.push(filterValue));
 
   const queryArgs = {
     limit: 50,
     filter,
     'text.en-us': searchParams || '',
+    sort: sortedValues,
   };
 
   return createApiBuilderFromCtpClient(credentialsFlowClient())

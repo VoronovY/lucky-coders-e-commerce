@@ -31,11 +31,11 @@ const convertProductFromDTO = (product: ProductProjection): ProductCardData => {
 
 const getProductListAction = createAsyncThunk<
   ProductCardData[],
-  { filters: FilterFields | null; searchValue: string },
+  { filters: FilterFields | null; searchValue: string; sortBy: string },
   { rejectValue: string }
->('catalog/productList', async ({ filters, searchValue }, { rejectWithValue }) => {
+>('catalog/productList', async ({ filters, searchValue, sortBy }, { rejectWithValue }) => {
   try {
-    const response = await getProductList(filters, searchValue);
+    const response = await getProductList(filters, searchValue, sortBy);
     const convertedProductList = response.body.results.map((product) => convertProductFromDTO(product));
     return convertedProductList;
   } catch (error: unknown) {

@@ -4,15 +4,13 @@ import getProductListAction from './productListActions';
 
 import { FilterFields, ProductCardData } from '../../../shared/types/types';
 import defaultFilters from '../../../shared/constants/products';
+import { OptionInput } from '../../../shared/ui/select/SelectInput';
 
 type ProductList = {
   productList: ProductCardData[];
   filters: FilterFields;
   searchValue: string;
-  sortValue: {
-    sortBy: string;
-    sortDirection: 'asc' | 'desc';
-  };
+  sortValue: OptionInput | undefined;
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
@@ -22,10 +20,7 @@ const initialState: ProductList = {
   productList: [],
   filters: defaultFilters,
   searchValue: '',
-  sortValue: {
-    sortBy: '',
-    sortDirection: 'asc',
-  },
+  sortValue: undefined,
   isLoading: false,
   isError: false,
   errorMessage: '',
@@ -42,6 +37,10 @@ export const ProductListSlice = createSlice({
     updateSearchValue: (state, action: PayloadAction<string>) => {
       const currentState = state;
       currentState.searchValue = action.payload;
+    },
+    updateSortValue: (state, action: PayloadAction<OptionInput>) => {
+      const currentState = state;
+      currentState.sortValue = action.payload;
     },
   },
   extraReducers(builder) {
@@ -64,5 +63,5 @@ export const ProductListSlice = createSlice({
 
 export const {
   reducer: productListReducer,
-  actions: { updateFilters, updateSearchValue },
+  actions: { updateFilters, updateSearchValue, updateSortValue },
 } = ProductListSlice;
