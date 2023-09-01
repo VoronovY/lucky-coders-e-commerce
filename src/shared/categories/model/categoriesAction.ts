@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Category } from '@commercetools/platform-sdk';
 
-import { CatalogCategory, CategoriesObject } from '../types/types';
-import getErrorMessage from '../helpers/routerHelpres';
-import getCategories from '../api/categories/getCategories';
+import { CatalogCategory, CategoriesObject } from '../../types/types';
+import getErrorMessage from '../../helpers/routerHelpres';
+import getCategories from '../../api/categories/getCategories';
 
 function createCategories(categoriesDTO: Category[]): CatalogCategory[] {
   const categories: CategoriesObject = {};

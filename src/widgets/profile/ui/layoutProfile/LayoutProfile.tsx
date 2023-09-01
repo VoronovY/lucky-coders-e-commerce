@@ -3,9 +3,9 @@ import { useLocation } from 'react-router-dom';
 import styles from './LayoutProfile.module.scss';
 
 import ProfileMenu from '../profileMenu/ProfileMenu';
-import UserProfile from '../../../../entities/user/ui/userProfile/UserProfile';
-import UserAddress from '../../../../entities/user/ui/userAddress/UserAddress';
+
 import RoutesName from '../../../../shared/routing';
+import { UserAddress, UserProfile } from '../../../../entities/user';
 
 interface LayoutProfileProps {
   firstName?: string | undefined;

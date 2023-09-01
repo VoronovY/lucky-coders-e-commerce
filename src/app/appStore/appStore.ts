@@ -4,7 +4,7 @@ import { mainSettingsReducer } from '../../shared/model/appSlice';
 
 import { productListReducer } from '../../features/productList/model/productListSlice';
 import { userDetails } from '../../entities/user/model/userSlice';
-import { categoriesData } from '../../shared/categories/categoriesSlice';
+import { categoriesData } from '../../shared/categories/model/categoriesSlice';
 
 const reducer = {
   mainSettings: mainSettingsReducer,

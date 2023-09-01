@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import getCategoriesAction from './categoriesAction';
 
-import { CatalogCategory } from '../types/types';
+import { CatalogCategory } from '../../types/types';
 
 type Category = {
   categories: CatalogCategory[];

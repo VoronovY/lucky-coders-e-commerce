@@ -1,32 +1,30 @@
 import { Link } from 'react-router-dom';
 
-import { useState } from 'react';
-
-import { useSelector } from 'react-redux';
-
 import styles from './categories.module.scss';
 
 import RoutesName from '../../../../../../shared/routing';
-import { CrossIcon, CategoriesArrowIcon } from '../../../../../../app/layouts/images';
+import { CrossIcon } from '../../../../../../app/layouts/images';
 
-import selectCategories from '../../../../../../shared/categories/categoriesSelectors';
+import CategoriesList from '../../../../../../shared/categories/ui/CategoriesList';
 
 function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX.Element {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  const categories = useSelector(selectCategories);
-
   const onClick = (): void => {
     setIsOpen(false);
   };
 
-  const onMouseEnter = (categoryId: string): void => {
-    setSelectedCategory(categoryId);
+  const handleWrapperClick = (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent): void => {
+    event.stopPropagation();
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.categoriesWrapper}>
+    <div className={styles.container} role="button" tabIndex={0} onClick={onClick} onKeyUp={onClick}>
+      <div
+        className={styles.categoriesWrapper}
+        role="button"
+        tabIndex={0}
+        onClick={handleWrapperClick}
+        onKeyUp={handleWrapperClick}
+      >
         <div>
           <div className={styles.close}>
             <button type="button" onClick={onClick} className={styles.closeButton}>
@@ -39,35 +37,7 @@ function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX
                 All Categories
               </Link>
             </li>
-            {categories.map((item) => {
-              return (
-                <button
-                  type="button"
-                  className={styles.categoriesItem}
-                  key={item.id}
-                  onMouseEnter={(): void => onMouseEnter(item.id)}
-                  onClick={onClick}
-                >
-                  <div className={styles.link}>
-                    <Link to={`${RoutesName.catalog}/${item.key}`} className={styles.link}>
-                      {item.name.en}
-                    </Link>
-                    <div className={`${styles.arrow} ${selectedCategory === item.id ? styles.rotatedArrow : ''}`}>
-                      <CategoriesArrowIcon />
-                    </div>
-                  </div>
-                  {selectedCategory === item.id && (
-                    <ul className={styles.subCategoriesList}>
-                      {item.children?.map((child) => (
-                        <li className={styles.subCategoriesItem} key={child.id}>
-                          <Link to={`${RoutesName.catalog}/${item.key}/${child.key}`}>{child.name['en-US']}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </button>
-              );
-            })}
+            <CategoriesList onClick={onClick} />
           </ul>
         </div>
       </div>

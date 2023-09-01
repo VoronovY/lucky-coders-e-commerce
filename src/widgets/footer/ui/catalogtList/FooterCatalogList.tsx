@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import styles from './FooterCatalogList.module.scss';
 
 import RoutesName from '../../../../shared/routing';
-import selectCategories from '../../../../shared/categories/categoriesSelectors';
+import selectCategories from '../../../../shared/categories/model/categoriesSelectors';
 
 function FooterCatalogList(): JSX.Element {
   const categories = useSelector(selectCategories);
