@@ -10,12 +10,13 @@ import { CheckedGreenIcon } from '../../../app/layouts/images';
 
 export interface ModalProps {
   message: string;
+  isOpen: boolean;
   setIsOpen?: Dispatch<SetStateAction<boolean>>;
   handleClick?: () => void;
-  isOpen: boolean;
+  withIcon?: boolean;
 }
 
-export function ModalInfo({ message, setIsOpen, handleClick, isOpen }: ModalProps): JSX.Element {
+export function ModalInfo({ message, setIsOpen, handleClick, isOpen, withIcon = true }: ModalProps): JSX.Element {
   const handleOkBtn = (): void => {
     if (setIsOpen) setIsOpen(false);
     if (handleClick) handleClick();
@@ -48,9 +49,7 @@ export function ModalInfo({ message, setIsOpen, handleClick, isOpen }: ModalProp
     <Portal target="modal">
       <div className={modalStyle} onClick={handleModalClick} onKeyUp={handleKeyPress} tabIndex={0} role="button">
         <div className={contentStyle}>
-          <div className={styles.icon}>
-            <CheckedGreenIcon width="30" height="30" />
-          </div>
+          <div className={styles.icon}>{withIcon && <CheckedGreenIcon width="30" height="30" />}</div>
           <div className={styles.message}>{message}</div>
           <div>
             <button onClick={handleOkBtn} type="button">

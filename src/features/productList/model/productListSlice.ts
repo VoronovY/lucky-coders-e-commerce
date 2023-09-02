@@ -4,15 +4,13 @@ import getProductListAction from './productListActions';
 
 import { FilterFields, ProductCardData } from '../../../shared/types/types';
 import defaultFilters from '../../../shared/constants/products';
+import { OptionInput } from '../../../shared/ui/select/SelectInput';
 
 type ProductList = {
   productList: ProductCardData[];
   filters: FilterFields;
   searchValue: string;
-  sortValue: {
-    sortBy: string;
-    sortDirection: 'asc' | 'desc';
-  };
+  sortValue: OptionInput | undefined;
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
@@ -22,10 +20,7 @@ const initialState: ProductList = {
   productList: [],
   filters: defaultFilters,
   searchValue: '',
-  sortValue: {
-    sortBy: '',
-    sortDirection: 'asc',
-  },
+  sortValue: undefined,
   isLoading: false,
   isError: false,
   errorMessage: '',
@@ -43,6 +38,18 @@ export const ProductListSlice = createSlice({
       const currentState = state;
       currentState.searchValue = action.payload;
     },
+    updateSortValue: (state, action: PayloadAction<OptionInput>) => {
+      const currentState = state;
+      currentState.sortValue = action.payload;
+    },
+    updateError: (state, action: PayloadAction<boolean>) => {
+      const currentState = state;
+      currentState.isError = action.payload;
+    },
+    updateErrorMessage: (state, action: PayloadAction<string>) => {
+      const currentState = state;
+      currentState.errorMessage = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -55,10 +62,10 @@ export const ProductListSlice = createSlice({
         currentState.isLoading = false;
         currentState.productList = payload;
       })
-      .addCase(getProductListAction.rejected, (state, { error }) => {
+      .addCase(getProductListAction.rejected, (state, { payload }) => {
         const currentState = state;
         currentState.isLoading = false;
-        currentState.errorMessage = error.message || '';
+        currentState.errorMessage = payload || '';
         currentState.isError = true;
       });
   },
@@ -66,5 +73,5 @@ export const ProductListSlice = createSlice({
 
 export const {
   reducer: productListReducer,
-  actions: { updateFilters, updateSearchValue },
+  actions: { updateFilters, updateSearchValue, updateSortValue, updateError, updateErrorMessage },
 } = ProductListSlice;

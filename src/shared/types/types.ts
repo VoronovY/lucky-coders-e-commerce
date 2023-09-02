@@ -124,8 +124,9 @@ export interface ColorsValue {
 }
 
 export interface Sort {
-  sortBy: string;
-  sortDirection: 'asc' | 'desc';
+  name: string;
+  value: string;
+  label?: string;
 }
 
 export interface CatalogCategory {
