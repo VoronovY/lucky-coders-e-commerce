@@ -13,6 +13,7 @@ const getProductList = (
   filters: FilterFields | null,
   searchValue: string,
   sortBy: string,
+  categoryId: string,
 ): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> => {
   const searchParams = searchValue || null;
   const newFilters = {
@@ -27,6 +28,7 @@ const getProductList = (
     weightFilter: filters
       ? `variants.attributes.weightNumber:range (${filters.weight.from} to ${filters.weight.to})`
       : '',
+    categoriesFilter: categoryId ? `categories.id: "${categoryId}"` : '',
   };
 
   const filter: string[] = [];
