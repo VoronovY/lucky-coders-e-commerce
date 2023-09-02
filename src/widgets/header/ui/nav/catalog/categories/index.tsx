@@ -31,14 +31,14 @@ function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX
               <CrossIcon />
             </button>
           </div>
-          <ul className={styles.categories}>
-            <li className={styles.categoriesItem}>
+          <div className={styles.categories}>
+            <button type="button" className={styles.categoriesItem}>
               <Link to={RoutesName.catalog} className={styles.link} onClick={onClick}>
                 All Categories
               </Link>
-            </li>
+            </button>
             <CategoriesListHeader onClick={onClick} />
-          </ul>
+          </div>
         </div>
       </div>
     </div>

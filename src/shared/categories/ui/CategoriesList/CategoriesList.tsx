@@ -11,38 +11,39 @@ import RoutesName from '../../../routing';
 import { CollapseArrowDown } from '../../../../app/layouts/images';
 
 function CategoriesList(): JSX.Element {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const categories = useSelector(selectCategories);
-
-  const onMouseEnter = (categoryId: string): void => {
-    setSelectedCategory(categoryId);
-  };
-
-  const onMouseLeave = (): void => {
-    setSelectedCategory(null);
+  const toggleCategory = (categoryId: string): void => {
+    if (selectedCategories.includes(categoryId)) {
+      setSelectedCategories(selectedCategories.filter((id) => id !== categoryId));
+    } else {
+      setSelectedCategories([...selectedCategories, categoryId]);
+    }
   };
 
   return (
     <>
       {categories.map((item) => {
+        const isOpen = selectedCategories.includes(item.id);
+
         return (
-          <button
-            type="button"
-            className={styles.categoriesItem}
-            key={item.id}
-            onMouseEnter={(): void => onMouseEnter(item.id)}
-            onMouseLeave={onMouseLeave}
-          >
+          <button type="button" className={styles.categoriesItem} key={item.id}>
             <div className={styles.link}>
               <Link to={`${RoutesName.catalog}/${item.key}`} className={styles.link}>
                 {item.name.en}
               </Link>
-              <div className={`${styles.arrow} ${selectedCategory === item.id ? styles.rotatedArrow : ''}`}>
-                <CollapseArrowDown />
+              <div
+                className={styles.button}
+                role="button"
+                tabIndex={0}
+                onKeyUp={(): void => toggleCategory(item.id)}
+                onClick={(): void => toggleCategory(item.id)}
+              >
+                <CollapseArrowDown className={`${styles.arrow} ${isOpen ? styles.rotatedArrow : ''}`} />
               </div>
             </div>
-            {selectedCategory === item.id && (
+            {isOpen && (
               <ul className={styles.subCategoriesList}>
                 {item.children?.map((child) => (
                   <li className={styles.subCategoriesItem} key={child.id}>

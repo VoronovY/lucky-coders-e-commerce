@@ -42,11 +42,19 @@
   color: var(--color-primary-text);
   transition: ease-in-out 0.2s;
   width: 100%;
+
+  .button {
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+
+    &:hover .arrow {
+      filter: invert(40%) sepia(90%) saturate(1000%);
+    }
+  }
 }
 
 .arrow {
-  height: 20px;
-  width: 20px;
   background: none;
   color: var(--color-categories-arrow-button);
   transition: ease-in-out 0.2s;

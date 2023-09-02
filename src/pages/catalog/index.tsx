@@ -59,8 +59,8 @@ function CatalogPage(): JSX.Element {
       <div className={styles.showFiltersBtnWrapper}>{showFilterBtn}</div>
       <div className={styles.catalogBody}>
         <div className={filterStyle}>
-          <CategoriesList />
           {showFilterBtn}
+          <CategoriesList />
           <FilterMenu />
         </div>
         <div className={styles.catalog}>
