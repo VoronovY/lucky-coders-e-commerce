@@ -17,8 +17,6 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  left: 250px;
-  top: 66px;
 
   li {
     padding-left: 20px;
@@ -26,12 +24,7 @@
   }
 
   a {
-    color: var(--color-primary-text);
     font-weight: var(--font-weight-regular);
-  }
-  a:hover {
-    cursor: pointer;
-    color: var(--color-hovered-btn);
   }
 }
 
@@ -52,6 +45,11 @@
       filter: invert(40%) sepia(90%) saturate(1000%);
     }
   }
+}
+
+.activeLink {
+  color: var(--color-hovered-btn);
+  font-weight: var(--font-weight-bold);
 }
 
 .arrow {

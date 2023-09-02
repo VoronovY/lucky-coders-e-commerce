@@ -4,14 +4,14 @@ import getCategoriesAction from './categoriesAction';
 
 import { CatalogCategory } from '../../types/types';
 
-type Category = {
+type Categories = {
   categories: CatalogCategory[];
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
 };
 
-const initialState: Category = {
+const initialState: Categories = {
   categories: [],
   isLoading: false,
   isError: false,
@@ -35,6 +35,7 @@ export const CategoriesSlice = createSlice({
       })
       .addCase(getCategoriesAction.rejected, (state, { error }) => {
         const currentState = state;
+        currentState.isLoading = false;
         currentState.errorMessage = error.message || '';
         currentState.isError = true;
       });

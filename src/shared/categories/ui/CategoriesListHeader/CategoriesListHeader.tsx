@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { useSelector } from 'react-redux';
+import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
@@ -25,6 +26,9 @@ function CategoriesListHeader({ onClick }: CategoriesListProps): JSX.Element {
   return (
     <>
       {categories.map((item) => {
+        const isItemSelected = selectedCategory === item.id;
+        const arrowClassName = cn(styles.arrow, { [styles.rotatedArrow]: isItemSelected });
+
         return (
           <button
             type="button"
@@ -37,11 +41,11 @@ function CategoriesListHeader({ onClick }: CategoriesListProps): JSX.Element {
               <Link to={`${RoutesName.catalog}/${item.key}`} className={styles.link}>
                 {item.name.en}
               </Link>
-              <div className={`${styles.arrow} ${selectedCategory === item.id ? styles.rotatedArrow : ''}`}>
+              <div className={arrowClassName}>
                 <CategoriesArrowIcon />
               </div>
             </div>
-            {selectedCategory === item.id && (
+            {isItemSelected && (
               <ul className={styles.subCategoriesList}>
                 {item.children?.map((child) => (
                   <li className={styles.subCategoriesItem} key={child.id}>
