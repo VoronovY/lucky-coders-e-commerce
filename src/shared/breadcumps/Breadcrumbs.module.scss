@@ -1,0 +1,22 @@
+.breadcrumbs {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+
+  a {
+    font-weight: var(--font-weight-regular);
+    color: var(--color-primary-text);
+  }
+
+  .crumb::after {
+    content: '>';
+    margin-left: 10px;
+  }
+  .crumb:last-child::after {
+    display: none;
+  }
+
+  .crumb:last-child {
+    opacity: .5;
+  }
+}
