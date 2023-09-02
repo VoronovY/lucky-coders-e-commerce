@@ -59,10 +59,12 @@ export const ProductListSlice = createSlice({
       })
       .addCase(getProductListAction.fulfilled, (state, { payload }) => {
         const currentState = state;
+        currentState.isLoading = false;
         currentState.productList = payload;
       })
       .addCase(getProductListAction.rejected, (state, { payload }) => {
         const currentState = state;
+        currentState.isLoading = false;
         currentState.errorMessage = payload || '';
         currentState.isError = true;
       });

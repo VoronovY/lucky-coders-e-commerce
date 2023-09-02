@@ -53,6 +53,7 @@ function FilterMenu(): JSX.Element {
   return (
     <FormProvider {...methods}>
       <form className={styles.filterMenuWrapper} onSubmit={methods.handleSubmit(onSubmit)}>
+        <div className={styles.line} />
         <Collapse title="Price" initialCollapsed={false}>
           <RangeInputs namePrefix="price" />
         </Collapse>

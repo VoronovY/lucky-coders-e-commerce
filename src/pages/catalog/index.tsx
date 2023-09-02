@@ -8,6 +8,7 @@ import useScrollToTop from '../../shared/helpers/ScrollToTop';
 import { ProductList } from '../../features/productList/ui/ProductList';
 import FilterMenu from '../../widgets/filterMenu';
 import widthMobileBig from '../../shared/constants/styles';
+import CategoriesList from '../../shared/categories/ui/CategoriesList/CategoriesList';
 
 function CatalogPage(): JSX.Element {
   useScrollToTop();
@@ -58,7 +59,8 @@ function CatalogPage(): JSX.Element {
       <div className={styles.showFiltersBtnWrapper}>{showFilterBtn}</div>
       <div className={styles.catalogBody}>
         <div className={filterStyle}>
-          {showFilterBtn}
+          <div className={styles.showFiltersBtnWrapper}>{showFilterBtn}</div>
+          <CategoriesList />
           <FilterMenu />
         </div>
         <div className={styles.catalog}>

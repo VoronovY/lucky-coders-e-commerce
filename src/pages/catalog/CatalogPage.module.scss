@@ -18,7 +18,7 @@
   height: 100%;
   display: flex;
   margin: 0 auto;
-  gap: 10px;
+  gap: 30px;
   @media screen and (max-width: $width-mobile-big) {
     padding: 10px;
     justify-content: center;
@@ -60,6 +60,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 10px;
 }
 
 .showFiltersBtn {

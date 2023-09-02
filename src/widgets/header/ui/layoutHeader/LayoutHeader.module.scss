@@ -14,10 +14,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
     padding: 20px 30px;
     margin: 0 auto;
     color: var(--color-secondary-text);
     max-width: var(--width-header-container);
+
+    @media (max-width: $width-mobile-big) {
+      padding: 20px 10px;
+    }
   }
 }
 
@@ -25,7 +30,6 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  width: 146px;
 }
 
 .cart {

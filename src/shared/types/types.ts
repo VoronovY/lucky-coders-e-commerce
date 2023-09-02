@@ -1,4 +1,4 @@
-import { Attribute, BaseAddress } from '@commercetools/platform-sdk';
+import { Attribute, BaseAddress, CategoryReference, LocalizedString } from '@commercetools/platform-sdk';
 
 export interface CountriesOption {
   value: string;
@@ -128,3 +128,16 @@ export interface Sort {
   value: string;
   label?: string;
 }
+
+export interface CatalogCategory {
+  id: string;
+  name: LocalizedString;
+  description?: LocalizedString;
+  parent?: CategoryReference;
+  key?: string;
+  children?: CatalogCategory[];
+}
+
+export type CategoriesObject = {
+  [key: string]: CatalogCategory;
+};

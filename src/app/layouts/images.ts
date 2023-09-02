@@ -23,6 +23,7 @@ import { ReactComponent as WeightIcon } from '../../../public/assets/icons/icon-
 import { ReactComponent as PaintIcon } from '../../../public/assets/icons/icon-paint.svg';
 import { ReactComponent as PlusIcon } from '../../../public/assets/plus.svg';
 import { ReactComponent as DeleteIcon } from '../../../public/assets/delete.svg';
+import { ReactComponent as CollapseArrowDown } from '../../../public/assets/icons/collapse-arrow-down.svg';
 
 export {
   RssLogo,
@@ -50,4 +51,5 @@ export {
   PaintIcon,
   PlusIcon,
   DeleteIcon,
+  CollapseArrowDown,
 };
