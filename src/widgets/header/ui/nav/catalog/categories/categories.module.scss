@@ -1,3 +1,5 @@
+@import "../../../../../../app/styles/variables.scss";
+
 .container {
   position: absolute;
   inset: 0 0 0 0;
@@ -18,19 +20,31 @@
   justify-content: flex-start;
   align-items: center;
   box-shadow: var(--categories-shadow);
+
+  @media (max-width: $width-mobile-big) {
+    top: 84px;
+  }
 }
 
 .categories {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px 0px 20px 30px;
+  max-width: 300px;
+  padding: 20px 30px;
+  border-right: var(--color-categories-arrow-button) 2px solid;
 
   .categoriesItem {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    background: transparent;
+    text-align: start;
     padding: 4px 0px;
+
+    .link {
+      width: 100%;
+      display: flex;
+    }
   }
 }
 
@@ -45,23 +59,9 @@
   }
 }
 
-.arrow {
-  margin-left: 10px;
-  height: 20px;
-  width: 20px;
-  background: none;
-  padding: 4px;
-  color: var(--color-categories-arrow-button);
-  transition: ease-in-out 0.2s;
-
-  &:hover {
-    cursor: pointer;
-    color: var(--color-hovered-btn);
-  }
-}
-
 .close {
   border-bottom: var(--color-categories-arrow-button) 2px solid;
+  border-right: var(--color-categories-arrow-button) 2px solid;
   padding: 16px 30px;
   display: flex;
   align-items: center;

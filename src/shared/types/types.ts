@@ -1,4 +1,4 @@
-import { Attribute } from '@commercetools/platform-sdk';
+import { Attribute, BaseAddress, CategoryReference, LocalizedString } from '@commercetools/platform-sdk';
 
 export interface CountriesOption {
   value: string;
@@ -53,6 +53,7 @@ export interface ProductCardData {
   description: string;
   title: string;
 }
+
 export interface SelectedProductData {
   id: string;
   attributes: Attribute[];
@@ -64,3 +65,91 @@ export interface SelectedProductData {
   description: string;
   title: string;
 }
+
+interface UserAddress {
+  id: string;
+  country: CountriesOption | null;
+  city: string;
+  street: string;
+  state: string;
+  postalCode: string;
+}
+
+export interface NewAddress extends BaseAddress {
+  version: number;
+}
+
+export interface UserDefaultAddress {
+  id: string;
+}
+
+export interface UserData {
+  email: string;
+  lastName: string;
+  firstName: string;
+  dateOfBirth: string;
+  version: number;
+  addresses: UserAddress[];
+  defaultShippingAddress?: UserDefaultAddress;
+  defaultBillingAddress?: UserDefaultAddress;
+  shippingAddress?: UserDefaultAddress[];
+  billingAddress?: UserDefaultAddress[];
+}
+
+export interface PasswordFields {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+export interface InfoFields {
+  firstName: string;
+  lastName: string;
+  email: string;
+  birthDate: Date;
+}
+
+export interface ProfileAddressFields {
+  id?: string;
+  country: CountriesOption | null;
+  city: string;
+  state: string;
+  street: string;
+  postalCode: string;
+}
+
+export interface FilterFields {
+  weight: {
+    from: number;
+    to: number;
+  };
+  price: {
+    from: number;
+    to: number;
+  };
+  colors: string[];
+}
+
+export interface ColorsValue {
+  value: string;
+  isChecked: boolean;
+}
+
+export interface Sort {
+  name: string;
+  value: string;
+  label?: string;
+}
+
+export interface CatalogCategory {
+  id: string;
+  name: LocalizedString;
+  description?: LocalizedString;
+  parent?: CategoryReference;
+  key?: string;
+  children?: CatalogCategory[];
+}
+
+export type CategoriesObject = {
+  [key: string]: CatalogCategory;
+};

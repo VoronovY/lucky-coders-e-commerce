@@ -26,6 +26,7 @@ import {
   updateIsModalInfoOpen,
   updateUserId,
 } from '../../../../shared/model/appSlice';
+import SuccessfulMessages from '../../../../shared/successfulMessages';
 
 interface LoginUserFields {
   email: string;
@@ -61,7 +62,7 @@ function LoginForm(): JSX.Element {
       .then((response) => {
         dispatch(updateUserId(response.body.customer.id));
         dispatch(updateAccessToken(myTokenCache.store.token));
-        dispatch(updateInfoMessage('Congratulations! You are now logged in and ready to explore'));
+        dispatch(updateInfoMessage(SuccessfulMessages.signIn));
         dispatch(updateIsModalInfoOpen(true));
         setTimeout(() => {
           dispatch(updateIsModalInfoOpen(false));

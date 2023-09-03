@@ -1,0 +1,12 @@
+.rangeWrapper {
+  padding: 10px;
+  display: flex;
+  gap: 20px;
+}
+
+.rangeInputWrapper {
+  width: 100px;
+  & label {
+    gap: 0px;
+  }
+}

@@ -3,44 +3,42 @@ import { Link } from 'react-router-dom';
 import styles from './categories.module.scss';
 
 import RoutesName from '../../../../../../shared/routing';
-import { CrossIcon, CategoriesArrowIcon } from '../../../../../../app/layouts/images';
+import { CrossIcon } from '../../../../../../app/layouts/images';
+
+import CategoriesListHeader from '../../../../../../shared/categories/ui/CategoriesListHeader/CategoriesListHeader';
 
 function Categories({ setIsOpen }: { setIsOpen: (state: boolean) => void }): JSX.Element {
   const onClick = (): void => {
     setIsOpen(false);
   };
-  const categoriesArr = [
-    { id: 1, url: RoutesName.catalog, text: 'All Categories' },
-    { id: 2, url: `${RoutesName.catalog}/pearl`, text: 'Pearl' },
-    { id: 3, url: `${RoutesName.catalog}/collectible-minerals`, text: 'Collectible Minerals' },
-    { id: 4, url: `${RoutesName.catalog}/beads`, text: 'Beads' },
-    { id: 5, url: `${RoutesName.catalog}/magical-stones`, text: 'Magical Stones' },
-  ];
+
+  const handleWrapperClick = (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent): void => {
+    event.stopPropagation();
+  };
+
   return (
-    <div className={styles.container}>
-      <div className={styles.categoriesWrapper}>
+    <div className={styles.container} role="button" tabIndex={0} onClick={onClick} onKeyUp={onClick}>
+      <div
+        className={styles.categoriesWrapper}
+        role="button"
+        tabIndex={0}
+        onClick={handleWrapperClick}
+        onKeyUp={handleWrapperClick}
+      >
         <div>
           <div className={styles.close}>
             <button type="button" onClick={onClick} className={styles.closeButton}>
               <CrossIcon />
             </button>
           </div>
-          <ul className={styles.categories}>
-            {categoriesArr.map((item, index) => {
-              return (
-                <li className={styles.categoriesItem} key={item.id}>
-                  <Link to={item.url} className={styles.link}>
-                    {item.text}
-                  </Link>
-                  {index > 0 ? (
-                    <button type="button" className={styles.arrow}>
-                      <CategoriesArrowIcon />
-                    </button>
-                  ) : null}
-                </li>
-              );
-            })}
-          </ul>
+          <div className={styles.categories}>
+            <button type="button" className={styles.categoriesItem}>
+              <Link to={RoutesName.catalog} className={styles.link} onClick={onClick}>
+                All Categories
+              </Link>
+            </button>
+            <CategoriesListHeader onClick={onClick} />
+          </div>
         </div>
       </div>
     </div>

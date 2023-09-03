@@ -21,7 +21,10 @@ const router = createBrowserRouter(
       <Route path={RoutesName.about} element={<AboutPage />} />
       <Route path={RoutesName.catalog} element={<CatalogPage />} />
       <Route path={`${RoutesName.catalog}/:category`} element={<CatalogPage />} />
+      <Route path={`${RoutesName.catalog}/:category/:subcategory`} element={<CatalogPage />} />
+      <Route path={`${RoutesName.catalog}/:category/:subcategory/:product`} element={<CatalogPage />} />
       <Route path={RoutesName.profile} element={<ProfilePage />} />
+      <Route path={`${RoutesName.profile}/:profileLink`} element={<ProfilePage />} />
       <Route path={RoutesName.cart} element={<CartPage />} />
       <Route path={`${RoutesName.product}/:id`} element={<ProductPage />} />
     </Route>,

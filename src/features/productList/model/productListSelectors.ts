@@ -1,6 +1,24 @@
 import { RootState } from '../../../app/appStore/appStore';
-import { ProductCardData } from '../../../shared/types/types';
+import { FilterFields, ProductCardData } from '../../../shared/types/types';
+import { OptionInput } from '../../../shared/ui/select/SelectInput';
 
-const selectProductList = (state: RootState): ProductCardData[] => state.productListReducer.productList;
+const selectProductList = (state: RootState): ProductCardData[] => state.catalog.productList;
 
-export default selectProductList;
+const selectSearchValue = (state: RootState): string => state.catalog.searchValue;
+
+const selectSortValue = (state: RootState): OptionInput | undefined => state.catalog.sortValue;
+
+const selectFilters = (state: RootState): FilterFields => state.catalog.filters;
+
+const selectIsProductListError = (state: RootState): boolean => state.catalog.isError;
+
+const selectProductListErrorMessage = (state: RootState): string => state.catalog.errorMessage;
+
+export {
+  selectProductList,
+  selectSearchValue,
+  selectSortValue,
+  selectFilters,
+  selectIsProductListError,
+  selectProductListErrorMessage,
+};

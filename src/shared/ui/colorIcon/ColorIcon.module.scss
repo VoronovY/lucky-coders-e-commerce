@@ -1,0 +1,45 @@
+@import "../../../app/styles/variables.scss";
+
+.colorIcon {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  border: 1px solid $color-black-dark-light;
+}
+
+.pink {
+  background-color: $color-pink;
+}
+.blue {
+  background-color: $color-blue;
+}
+.purple {
+  background-color: $color-purple;
+}
+.white {
+  background-color: $color-white;
+}
+.cream {
+  background-color: $color-cream;
+}
+.black {
+  background-color: $color-black;
+}
+.yellow {
+  background-color: $color-yellow;
+}
+.orange {
+  background-color: $color-orange;
+}
+.red {
+  background-color: $color-red;
+}
+.gray {
+  background-color: $color-gray;
+}
+.green {
+  background-color: $color-green;
+}
+.turquoise {
+  background-color: $color-turquoise;
+}

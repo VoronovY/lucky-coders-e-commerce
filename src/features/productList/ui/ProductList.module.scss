@@ -1,7 +1,51 @@
+@import "../../../app/styles/variables.scss";
 .productListWrapper {
   margin: 0 auto;
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+.productListHeader {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 10px 30px;
+}
+
+.select {
+  position: relative;
+  width: 320px;
+  &::after {
+    content: "";
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 8px;
+    left: 4px;
+    background: url("../../../../public/assets/icons/icon_search.svg") no-repeat center;
+  }
+  @media screen and (max-width: $width-tablet) {
+    width: 100%;
+  }
+}
+
+.sort {
+  position: relative;
+  width: 320px;
+  &::after {
+    content: "Sort By";
+    color: var(--color-shadow-border);
+    width: 60px;
+    height: 22px;
+    position: absolute;
+    top: 7px;
+    left: 4px;
+  }
+  @media screen and (max-width: $width-tablet) {
+    width: 100%;
+  }
 }

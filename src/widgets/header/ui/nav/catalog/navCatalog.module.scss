@@ -1,8 +1,4 @@
 .navCatalog {
-  .burgerMenu {
-    color: var(--color-secondary-text);
-  }
-
   p {
     color: var(--color-secondary-text);
   }
@@ -20,10 +16,6 @@
 
   &:hover {
     cursor: pointer;
-
-    .burgerMenu {
-      color: var(--color-hovered-btn);
-    }
 
     & > p {
       color: var(--color-hovered-btn);

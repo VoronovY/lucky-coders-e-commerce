@@ -2,7 +2,7 @@ import { FieldError } from 'react-hook-form';
 
 import cn from 'classnames';
 
-import { forwardRef, useState } from 'react';
+import { ChangeEvent, forwardRef, useState } from 'react';
 
 import styles from './PasswordInput.module.scss';
 
@@ -16,11 +16,12 @@ export interface PasswordInputProps {
   value?: string;
   defaultValue?: string;
   error?: FieldError;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   (
-    { id, name, placeholder, label, value, defaultValue, error, ...otherProps }: PasswordInputProps,
+    { id, name, placeholder, label, value, defaultValue, error, onChange, ...otherProps }: PasswordInputProps,
     ref,
   ): JSX.Element => {
     const [inputType, setInputType] = useState('password');
@@ -48,6 +49,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             type={inputType}
             ref={ref}
             {...otherProps}
+            onChange={onChange}
           />
           <button className={styles.inputImgWrapper} onClick={handleShowPasswordBtn} type="button">
             {icon}

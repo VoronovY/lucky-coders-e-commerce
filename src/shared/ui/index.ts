@@ -5,5 +5,7 @@ import { SelectInput } from './select/SelectInput';
 import { DateInput } from './dateInput/DateInput';
 import { PasswordErrors } from './passwordErrors/PasswordErrors';
 import { ModalInfo } from './modalInfo/ModalInfo';
+import { Collapse } from './collapse/Collapse';
+import { RangeInputs } from './rangeInput/RangeInputs';
 
-export { TextInput, Layout, PasswordInput, SelectInput, DateInput, PasswordErrors, ModalInfo };
+export { TextInput, Layout, PasswordInput, SelectInput, DateInput, PasswordErrors, ModalInfo, Collapse, RangeInputs };

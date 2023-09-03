@@ -1,4 +1,4 @@
-import Select, { OnChangeValue, Theme } from 'react-select';
+import Select, { InputActionMeta, SingleValue, Theme, MultiValue } from 'react-select';
 import cn from 'classnames';
 
 import { FieldError } from 'react-hook-form';
@@ -16,7 +16,8 @@ export interface SelectInputProps {
   options?: OptionInput[];
   title?: string | null;
   value?: OptionInput | null;
-  onChange?: (value: OnChangeValue<OptionInput, boolean>) => void;
+  onChange?: (value: SingleValue<OptionInput> | MultiValue<OptionInput>) => void;
+  onInputChange?: (newValue: string, actionMeta: InputActionMeta) => void;
   error?: FieldError | undefined;
 }
 
@@ -27,6 +28,7 @@ function SelectInput({
   title = null,
   value,
   onChange,
+  onInputChange,
   error,
 }: SelectInputProps): JSX.Element {
   return (
@@ -63,6 +65,7 @@ function SelectInput({
         className={styles.select}
         value={value}
         onChange={onChange}
+        onInputChange={onInputChange}
       />
       {error && <span className={styles.errorMessage}>{error?.message && `${error.message}`}</span>}
     </div>
