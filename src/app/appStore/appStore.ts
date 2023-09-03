@@ -3,10 +3,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { mainSettingsReducer } from '../../shared/model/appSlice';
 
 import { productListReducer } from '../../features/productList/model/productListSlice';
+import { selectedProductReducer } from '../../features/selectedProduct/model/productSlice';
 
 const reducer = {
   mainSettings: mainSettingsReducer,
   productListReducer,
+  selectedProductReducer,
 };
 
 export const store = configureStore({
