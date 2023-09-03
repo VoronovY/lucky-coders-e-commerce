@@ -6,14 +6,9 @@ import { useLoadProduct } from '../../app/appStore/hooks';
 
 function ProductPage(): JSX.Element {
   const product = useLoadProduct();
-  const { title } = product;
-  const { description } = product;
+  const { title, description, discount, imageLinks, quantity } = product;
   const actualPrice = product.discountedPrice;
   const oldPrice = product.originalPrice;
-  const { discount } = product;
-  const { imageLinks } = product;
-
-  const { quantity } = product;
   const stockText = quantity ? 'In stock' : 'Sold Out';
   let weight = '';
   let color = '';

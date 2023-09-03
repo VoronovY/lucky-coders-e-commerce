@@ -21,7 +21,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 720px;
+    max-width: var(--width-product-inf);
     width: 100%;
   }
 }
@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  max-width: 720px;
+  max-width: var(--width-product-inf);
   width: 100%;
   height: 400px;
   padding-left: 120px;

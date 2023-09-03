@@ -5,7 +5,7 @@ import getProductAction from './productActions';
 import { SelectedProductData } from '../../../shared/types/types';
 
 type ProductList = {
-  product: SelectedProductData;
+  product: SelectedProductData | null;
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
@@ -46,8 +46,9 @@ export const ProductSlice = createSlice({
         const currentState = state;
         currentState.errorMessage = error.message || '';
         currentState.isError = true;
+        currentState.isLoading = false;
       });
   },
 });
 
-export const selectedProductReducer = ProductSlice.reducer;
+export const selectedProduct = ProductSlice.reducer;

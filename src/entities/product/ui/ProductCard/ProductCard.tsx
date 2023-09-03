@@ -65,11 +65,9 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
           {discount !== 0 ? <div className={styles.oldPrice}>{originalPrice} €</div> : null}
           <div className={styles.actualPrice}>{discount !== 0 ? discountedPrice : originalPrice} €</div>
         </div>
-        <Button className={styles.button}>
-          <Link className={styles.link} to={`${RoutesName.product}/${id}`}>
-            More info
-          </Link>
-        </Button>
+        <Link className={styles.link} to={`${RoutesName.product}/${id}`}>
+          <Button className={styles.button}>More info</Button>
+        </Link>
       </div>
     </div>
   );
