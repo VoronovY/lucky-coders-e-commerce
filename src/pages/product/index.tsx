@@ -1,5 +1,7 @@
 import styles from './ProductPage.module.scss';
 
+import Slider from './slider';
+
 import { useLoadProduct } from '../../app/appStore/hooks';
 
 function ProductPage(): JSX.Element {
@@ -9,6 +11,7 @@ function ProductPage(): JSX.Element {
   const actualPrice = product.discountedPrice;
   const oldPrice = product.originalPrice;
   const { discount } = product;
+  const { imageLinks } = product;
 
   const { quantity } = product;
   const stockText = quantity ? 'In stock' : 'Sold Out';
@@ -33,7 +36,9 @@ function ProductPage(): JSX.Element {
   return (
     <div className={styles.product}>
       <div className={styles.sliderAndMenu}>
-        <div className={styles.sliderContainer} />
+        <div className={styles.sliderContainer}>
+          <Slider linksArr={imageLinks} />
+        </div>
         <div className={styles.menu}>
           <div>
             <h2 className={styles.menutitle}>{title}</h2>
