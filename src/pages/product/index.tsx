@@ -1,6 +1,6 @@
 import styles from './ProductPage.module.scss';
 
-import Slider from './slider';
+import ProductSlider from './productSlider';
 
 import { useLoadProduct } from '../../app/appStore/hooks';
 
@@ -37,7 +37,7 @@ function ProductPage(): JSX.Element {
     <div className={styles.product}>
       <div className={styles.sliderAndMenu}>
         <div className={styles.sliderContainer}>
-          <Slider linksArr={imageLinks} />
+          <ProductSlider linksArr={imageLinks} />
         </div>
         <div className={styles.menu}>
           <div>
