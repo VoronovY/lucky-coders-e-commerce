@@ -14,11 +14,7 @@ function ProductSlider({ linksArr }: { linksArr: string[] }): JSX.Element {
     <Slider
       customPaging={CustomPaging(linksArr)}
       slides={linksArr.map((item: string) => {
-        return (
-          <div className="custom-slide" key={item}>
-            <img src={item} alt="img" />
-          </div>
-        );
+        return <img className="custom-slide" src={item} alt="img" key={item} />;
       })}
     />
   );
