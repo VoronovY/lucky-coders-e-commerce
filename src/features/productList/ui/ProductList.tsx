@@ -67,6 +67,7 @@ function ProductList(): JSX.Element {
   }, [categoryId, dispatch]);
 
   useEffect(() => {
+    if ((category || subcategory) && !categoryId) return;
     dispatch(
       getProductListAction({
         filters,
