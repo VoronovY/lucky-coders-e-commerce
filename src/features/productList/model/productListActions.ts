@@ -31,7 +31,7 @@ const convertProductFromDTO = (product: ProductProjection): ProductCardData => {
 
 const getProductListAction = createAsyncThunk<
   ProductCardData[],
-  { filters: FilterFields | null; searchValue: string; sortBy: string; categoryId: string },
+  { filters: FilterFields | null; searchValue: string; sortBy: string; categoryId: string | null },
   { rejectValue: string }
 >('catalog/productList', async ({ filters, searchValue, sortBy, categoryId }, { rejectWithValue }) => {
   try {

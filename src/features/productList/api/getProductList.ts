@@ -13,7 +13,7 @@ const getProductList = (
   filters: FilterFields | null,
   searchValue: string,
   sortBy: string,
-  categoryId: string,
+  categoryId: string | null,
 ): Promise<ClientResponse<ProductProjectionPagedQueryResponse>> => {
   const searchParams = searchValue || null;
   const newFilters = {

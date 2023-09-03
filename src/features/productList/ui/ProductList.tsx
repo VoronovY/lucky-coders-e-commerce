@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import Select, { OnChangeValue, Theme } from 'react-select';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import styles from './ProductList.module.scss';
 
@@ -30,6 +30,7 @@ import { sortingOptions } from '../../../shared/constants/sort';
 import { ModalInfo } from '../../../shared/ui';
 import selectCategories from '../../../shared/categories/model/categoriesSelectors';
 import findCategoryIdByKey from '../../../shared/helpers/products';
+import RoutesName from '../../../shared/routing';
 
 export interface ProductListProps {}
 
@@ -50,6 +51,8 @@ function ProductList(): JSX.Element {
   const errorMessage = useAppSelector(selectProductListErrorMessage);
   const categories = useAppSelector(selectCategories);
 
+  const navigate = useNavigate();
+
   const { category, subcategory } = useParams();
 
   let curCategory = '';
@@ -57,7 +60,7 @@ function ProductList(): JSX.Element {
   if (category) curCategory = category;
   if (subcategory) curCategory = subcategory;
 
-  const categoryId = useMemo((): string => {
+  const categoryId = useMemo((): string | null => {
     if (!curCategory) return '';
     return findCategoryIdByKey(curCategory, categories);
   }, [curCategory, categories]);
@@ -67,6 +70,9 @@ function ProductList(): JSX.Element {
   }, [categoryId, dispatch]);
 
   useEffect(() => {
+    if (categoryId === null) {
+      navigate(RoutesName.error);
+    }
     if ((category || subcategory) && !categoryId) return;
     dispatch(
       getProductListAction({
@@ -76,7 +82,7 @@ function ProductList(): JSX.Element {
         categoryId,
       }),
     );
-  }, [dispatch, searchValue, sortValue, filters, category, subcategory, categoryId]);
+  }, [dispatch, searchValue, sortValue, filters, category, subcategory, categoryId, navigate]);
 
   const handleSearch = (value: string): void => {
     if (value) {
