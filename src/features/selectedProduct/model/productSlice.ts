@@ -51,4 +51,4 @@ export const ProductSlice = createSlice({
   },
 });
 
-export const selectedProduct = ProductSlice.reducer;
+export const selectedProductReducer = ProductSlice.reducer;

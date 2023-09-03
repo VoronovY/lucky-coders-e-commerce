@@ -10,7 +10,7 @@ import { SelectedProductData } from '../../shared/types/types';
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-export const useLoadProduct: () => SelectedProductData = () => {
+export const useLoadProduct: () => SelectedProductData | null = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   useEffect(() => {
