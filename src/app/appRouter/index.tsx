@@ -21,6 +21,7 @@ const router = createBrowserRouter(
       <Route path={RoutesName.catalog} element={<CatalogPage />} />
       <Route path={`${RoutesName.catalog}/:category`} element={<CatalogPage />} />
       <Route path={`${RoutesName.catalog}/:category/:subcategory`} element={<CatalogPage />} />
+      {/* <Route path={`${RoutesName.catalog}/:category/:subcategory/:product`} element={<ProductPage />} /> */}
       <Route path={RoutesName.profile} element={<ProfilePage />} />
       <Route path={`${RoutesName.profile}/:profileLink`} element={<ProfilePage />} />
       <Route path={RoutesName.cart} element={<CartPage />} />
