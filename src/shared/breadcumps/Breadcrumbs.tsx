@@ -27,16 +27,12 @@ function Breadcrumbs(): React.ReactNode {
         const to = `/${pathnames.slice(0, index + 1).join('/')}`;
         const displayValue = capitalize(value.replace(/-/g, ' '));
 
-        return (
-          <React.Fragment key={value}>
-            {last ? (
-              <span className={styles.crumb}>{displayValue}</span>
-            ) : (
-              <span className={styles.crumb}>
-                <Link to={to}>{displayValue}</Link>
-              </span>
-            )}
-          </React.Fragment>
+        return last ? (
+          <span className={styles.crumb}>{displayValue}</span>
+        ) : (
+          <span className={styles.crumb}>
+            <Link to={to}>{displayValue}</Link>
+          </span>
         );
       })}
     </div>
