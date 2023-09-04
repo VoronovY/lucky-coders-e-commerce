@@ -14,6 +14,7 @@ type ProductList = {
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
+  selectedCategoryId: string | null;
 };
 
 const initialState: ProductList = {
@@ -24,6 +25,7 @@ const initialState: ProductList = {
   isLoading: false,
   isError: false,
   errorMessage: '',
+  selectedCategoryId: '',
 };
 
 export const ProductListSlice = createSlice({
@@ -50,6 +52,10 @@ export const ProductListSlice = createSlice({
       const currentState = state;
       currentState.errorMessage = action.payload;
     },
+    updateSelectedCategoryId: (state, action: PayloadAction<string | null>) => {
+      const currentState = state;
+      currentState.selectedCategoryId = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -73,5 +79,12 @@ export const ProductListSlice = createSlice({
 
 export const {
   reducer: productListReducer,
-  actions: { updateFilters, updateSearchValue, updateSortValue, updateError, updateErrorMessage },
+  actions: {
+    updateFilters,
+    updateSearchValue,
+    updateSortValue,
+    updateError,
+    updateErrorMessage,
+    updateSelectedCategoryId,
+  },
 } = ProductListSlice;

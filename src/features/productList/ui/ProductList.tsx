@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import Select, { OnChangeValue, Theme } from 'react-select';
+
+import { useNavigate, useParams } from 'react-router-dom';
 
 import styles from './ProductList.module.scss';
 
@@ -17,9 +19,18 @@ import {
 } from '../model/productListSelectors';
 import { getSearchWords } from '../api/getProductList';
 import { OptionInput } from '../../../shared/ui/select/SelectInput';
-import { updateError, updateErrorMessage, updateSearchValue, updateSortValue } from '../model/productListSlice';
+import {
+  updateError,
+  updateErrorMessage,
+  updateSearchValue,
+  updateSelectedCategoryId,
+  updateSortValue,
+} from '../model/productListSlice';
 import { sortingOptions } from '../../../shared/constants/sort';
 import { ModalInfo } from '../../../shared/ui';
+import selectCategories from '../../../shared/categories/model/categoriesSelectors';
+import findCategoryIdByKey from '../../../shared/helpers/products';
+import RoutesName from '../../../shared/routing';
 
 export interface ProductListProps {}
 
@@ -38,10 +49,40 @@ function ProductList(): JSX.Element {
   const sortValue = useAppSelector(selectSortValue);
   const isError = useAppSelector(selectIsProductListError);
   const errorMessage = useAppSelector(selectProductListErrorMessage);
+  const categories = useAppSelector(selectCategories);
+
+  const navigate = useNavigate();
+
+  const { category, subcategory } = useParams();
+
+  let curCategory = '';
+
+  if (category) curCategory = category;
+  if (subcategory) curCategory = subcategory;
+
+  const categoryId = useMemo((): string | null => {
+    if (!curCategory) return '';
+    return findCategoryIdByKey(curCategory, categories);
+  }, [curCategory, categories]);
 
   useEffect(() => {
-    dispatch(getProductListAction({ filters, searchValue: searchValue?.value, sortBy: sortValue?.value || '' }));
-  }, [dispatch, searchValue, sortValue, filters]);
+    dispatch(updateSelectedCategoryId(categoryId));
+  }, [categoryId, dispatch]);
+
+  useEffect(() => {
+    if (categoryId === null) {
+      navigate(RoutesName.error);
+    }
+    if ((category || subcategory) && !categoryId) return;
+    dispatch(
+      getProductListAction({
+        filters,
+        searchValue: searchValue?.value,
+        sortBy: sortValue?.value || '',
+        categoryId,
+      }),
+    );
+  }, [dispatch, searchValue, sortValue, filters, category, subcategory, categoryId, navigate]);
 
   const handleSearch = (value: string): void => {
     if (value) {

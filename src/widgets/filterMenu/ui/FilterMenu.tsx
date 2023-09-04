@@ -17,7 +17,11 @@ import getProductListAction from '../../../features/productList/model/productLis
 import filterMenuSchema from '../model/filterMenuSchema';
 import colors from '../../../shared/constants/colors';
 import ColorIcon from '../../../shared/ui/colorIcon/ColorIcon';
-import { selectSearchValue, selectSortValue } from '../../../features/productList/model/productListSelectors';
+import {
+  selectSearchValue,
+  selectSelectedCategoryId,
+  selectSortValue,
+} from '../../../features/productList/model/productListSelectors';
 import { updateFilters } from '../../../features/productList/model/productListSlice';
 import defaultFilters from '../../../shared/constants/products';
 
@@ -30,6 +34,7 @@ function FilterMenu(): JSX.Element {
 
   const searchValue = useAppSelector(selectSearchValue);
   const sortValue = useAppSelector(selectSortValue);
+  const selectedCategoryId = useAppSelector(selectSelectedCategoryId);
 
   const dispatch = useAppDispatch();
 
@@ -38,6 +43,7 @@ function FilterMenu(): JSX.Element {
       filters: data,
       searchValue,
       sortBy: sortValue?.value || '',
+      categoryId: selectedCategoryId,
     };
     dispatch(updateFilters(data));
     dispatch(getProductListAction(updateData));
