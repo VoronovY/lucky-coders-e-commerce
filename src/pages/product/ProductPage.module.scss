@@ -47,22 +47,12 @@
   }
 }
 
-.sliderContainer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  max-width: var(--width-product-inf-container);
-  width: 100%;
-  height: 400px;
-  padding-left: 120px;
-  position: relative;
-}
-
 .menu {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
+
 
   .menuInfo {
     display: flex;
