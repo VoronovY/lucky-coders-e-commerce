@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MouseEvent, TouchEvent, useState } from 'react';
 import ReactModal from 'react-modal';
 
 import 'slick-carousel/slick/slick.css';
@@ -18,10 +18,7 @@ const CustomPaging = (links: string[]) => {
 function ProductSlider({ linksArr }: { linksArr: string[] }): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-
-  const openModal: () => void = () => {
-    setIsOpen(true);
-  };
+  const [dragging, setDragging] = useState(false);
 
   const closeModal: () => void = () => {
     setIsOpen(false);
@@ -77,13 +74,46 @@ function ProductSlider({ linksArr }: { linksArr: string[] }): JSX.Element {
     },
   };
 
+  const openModal = (e: MouseEvent<HTMLButtonElement>): void => {
+    if (dragging) {
+      e.preventDefault();
+      setDragging(false);
+    } else {
+      setIsOpen(true);
+    }
+  };
+
+  const handleMouseUp = (e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>): void => {
+    if (dragging) {
+      e.preventDefault();
+    }
+  };
+
+  const handleMouseMove = (e: MouseEvent<HTMLButtonElement>): void => {
+    if (e.buttons === 1) {
+      setDragging(true);
+    }
+  };
+
+  const handleMouseDown = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+  };
+
   return (
     <div className="productSliderContainer">
       <Slider
         settings={settings}
         slides={linksArr.map((item: string) => {
           return (
-            <button type="button" onClick={openModal} className="custom-slide" key={item}>
+            <button
+              type="button"
+              onClick={openModal}
+              className="custom-slide"
+              key={item}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+            >
               <img src={item} alt="img" />
             </button>
           );
