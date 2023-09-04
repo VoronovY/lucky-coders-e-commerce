@@ -30,7 +30,6 @@ import { sortingOptions } from '../../../shared/constants/sort';
 import { ModalInfo } from '../../../shared/ui';
 import selectCategories from '../../../shared/categories/model/categoriesSelectors';
 import findCategoryIdByKey from '../../../shared/helpers/products';
-import RoutesName from '../../../shared/routing';
 
 export interface ProductListProps {}
 
@@ -42,6 +41,7 @@ function ProductList(): JSX.Element {
     label: initSearchValue,
   });
   const [searchOptions, setSearchOptions] = useState<OptionInput[]>([]);
+  const [notFoundCategory, setNotFoundCategory] = useState<boolean>(false);
 
   const filters = useAppSelector(selectFilters);
 
@@ -71,8 +71,10 @@ function ProductList(): JSX.Element {
 
   useEffect(() => {
     if (categoryId === null) {
-      navigate(RoutesName.error);
+      setNotFoundCategory(true);
+      return;
     }
+    setNotFoundCategory(false);
     if ((category || subcategory) && !categoryId) return;
     dispatch(
       getProductListAction({
@@ -123,7 +125,9 @@ function ProductList(): JSX.Element {
     dispatch(updateErrorMessage(''));
   };
 
-  return (
+  const layout = notFoundCategory ? (
+    <div className={styles.notFound}>Category not found</div>
+  ) : (
     <div className={styles.productListWrapper}>
       <div className={styles.productListHeader}>
         <Select
@@ -185,6 +189,8 @@ function ProductList(): JSX.Element {
       <ModalInfo isOpen={isError} setIsOpen={handleModalInfo} message={errorMessage} withIcon={false} />
     </div>
   );
+
+  return layout;
 }
 
 export { ProductList };
