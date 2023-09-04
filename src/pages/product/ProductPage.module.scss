@@ -64,7 +64,10 @@
   align-items: flex-start;
   gap: 20px;
 
-  &Rating {
+  .menuInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   &ActualPrice {
