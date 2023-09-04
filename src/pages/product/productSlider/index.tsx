@@ -26,6 +26,7 @@ function ProductSlider({ linksArr }: { linksArr: string[] }): JSX.Element {
   const closeModal: () => void = () => {
     setIsOpen(false);
   };
+  ReactModal.setAppElement('#root');
   function modal(): JSX.Element {
     return (
       <ReactModal
