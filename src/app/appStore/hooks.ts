@@ -12,9 +12,9 @@ export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useLoadProduct: () => SelectedProductData | null = () => {
   const dispatch = useAppDispatch();
-  const { id } = useParams();
+  const { key } = useParams();
   useEffect(() => {
-    dispatch(getProductAction(id));
+    dispatch(getProductAction(key));
   }, [dispatch]);
 
   const product = useAppSelector(selectProduct);

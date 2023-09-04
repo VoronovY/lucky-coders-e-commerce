@@ -3,13 +3,13 @@ import { ClientResponse, createApiBuilderFromCtpClient, ProductProjection } from
 import { projectKey } from '../../../shared/api/baseApi';
 import credentialsFlowClient from '../../../shared/api/clientBuilder/credentialsFlowClient';
 
-const getProductById = (id: string): Promise<ClientResponse<ProductProjection>> => {
+const getProductByKey = (key: string): Promise<ClientResponse<ProductProjection>> => {
   return createApiBuilderFromCtpClient(credentialsFlowClient())
     .withProjectKey({ projectKey })
     .productProjections()
-    .withId({ ID: id })
+    .withKey({ key })
     .get()
     .execute();
 };
 
-export default getProductById;
+export default getProductByKey;
