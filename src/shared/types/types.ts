@@ -54,6 +54,18 @@ export interface ProductCardData {
   title: string;
 }
 
+export interface SelectedProductData {
+  id: string;
+  attributes: Attribute[];
+  discountedPrice: string;
+  originalPrice: string;
+  imageLinks: string[];
+  discount: number;
+  quantity: number;
+  description: string;
+  title: string;
+}
+
 interface UserAddress {
   id: string;
   country: CountriesOption | null;
