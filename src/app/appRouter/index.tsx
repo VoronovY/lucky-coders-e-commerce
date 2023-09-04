@@ -23,13 +23,12 @@ const router = createBrowserRouter(
       <Route path={RoutesName.catalog} element={<CatalogPage />} />
       <Route path={`${RoutesName.catalog}/:category`} element={<CatalogPage />} />
       <Route path={`${RoutesName.catalog}/:category/:subcategory`} element={<CatalogPage />} />
-      <Route path={`${RoutesName.catalog}/:category/:subcategory/:product`} element={<CatalogPage />} />
+      <Route path={`${RoutesName.catalog}/:category/:subcategory/:key`} element={<ProductPage />} />
       <Route path={RoutesName.profile} element={<ProfilePage />}>
         <Route index element={<UserProfile />} />
         <Route path={`${RoutesName.profile}/addresses`} element={<UserAddress />} />
       </Route>
       <Route path={RoutesName.cart} element={<CartPage />} />
-      <Route path={`${RoutesName.product}/:id`} element={<ProductPage />} />
     </Route>,
   ),
 );

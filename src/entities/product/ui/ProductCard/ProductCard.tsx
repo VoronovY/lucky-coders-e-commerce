@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 
 import { ReactElement, useMemo } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import styles from './ProductCard.module.scss';
 
 import Button from '../../../../shared/ui/button/Button';
@@ -12,6 +14,9 @@ import { ProductCardData } from '../../../../shared/types/types';
 
 import RoutesName from '../../../../shared/routing';
 
+import selectCategories from '../../../../shared/categories/model/categoriesSelectors';
+import getCategoryName from '../../../../shared/helpers/getCategoryName';
+
 export interface ProductCardProps {
   product: ProductCardData;
 }
@@ -20,12 +25,19 @@ export interface PictogrammNames {
   [key: string]: ReactElement;
 }
 
-/** TODO
- * добавить правильную ссылку на страницу с детальной информацией
- */
-
 function ProductCard({ product }: ProductCardProps): JSX.Element {
-  const { attributes, id, discountedPrice, originalPrice, imageLink, imageAlt, discount, description, title } = product;
+  const {
+    attributes,
+    key,
+    categories,
+    discountedPrice,
+    originalPrice,
+    imageLink,
+    imageAlt,
+    discount,
+    description,
+    title,
+  } = product;
 
   const pictogrammNames: PictogrammNames = useMemo(
     () => ({
@@ -34,6 +46,12 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
     }),
     [],
   );
+
+  const categoriesNames = useSelector(selectCategories);
+
+  const category = getCategoryName(categories[1]?.id, categoriesNames);
+  const subCategory = getCategoryName(categories[0]?.id, categoriesNames);
+
   return (
     <div className={styles.productCardWrapper}>
       <div className={styles.discountWrapper}>
@@ -65,7 +83,7 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
           {discount !== 0 ? <div className={styles.oldPrice}>{originalPrice} €</div> : null}
           <div className={styles.actualPrice}>{discount !== 0 ? discountedPrice : originalPrice} €</div>
         </div>
-        <Link className={styles.link} to={`${RoutesName.product}/${id}`}>
+        <Link className={styles.link} to={`${RoutesName.catalog}/${category}/${subCategory}/${key}`}>
           <Button className={styles.button}>More info</Button>
         </Link>
       </div>

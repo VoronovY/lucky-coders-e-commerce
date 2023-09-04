@@ -18,6 +18,8 @@ const convertProductFromDTO = (product: ProductProjection): ProductCardData => {
   const description = product.description ? product.description['en-US'] : '';
   return {
     id: product.id,
+    key: product.key,
+    categories: product.categories,
     attributes: attributes || [],
     discountedPrice: (discountedPrice ? discountedPrice / 100 : 0).toFixed(2) || '',
     originalPrice: (originalPrice / 100).toFixed(2),
