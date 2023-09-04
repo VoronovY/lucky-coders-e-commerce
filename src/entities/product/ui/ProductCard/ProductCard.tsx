@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 
 import { ReactElement, useMemo } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import styles from './ProductCard.module.scss';
 
 import Button from '../../../../shared/ui/button/Button';
@@ -12,6 +14,8 @@ import { ProductCardData } from '../../../../shared/types/types';
 
 import RoutesName from '../../../../shared/routing';
 
+import selectCategories from '../../../../shared/categories/model/categoriesSelectors';
+
 export interface ProductCardProps {
   product: ProductCardData;
 }
@@ -20,12 +24,19 @@ export interface PictogrammNames {
   [key: string]: ReactElement;
 }
 
-/** TODO
- * добавить правильную ссылку на страницу с детальной информацией
- */
-
 function ProductCard({ product }: ProductCardProps): JSX.Element {
-  const { attributes, id, discountedPrice, originalPrice, imageLink, imageAlt, discount, description, title } = product;
+  const {
+    attributes,
+    key,
+    categories,
+    discountedPrice,
+    originalPrice,
+    imageLink,
+    imageAlt,
+    discount,
+    description,
+    title,
+  } = product;
 
   const pictogrammNames: PictogrammNames = useMemo(
     () => ({
@@ -34,6 +45,27 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
     }),
     [],
   );
+
+  const categoriesNames = useSelector(selectCategories);
+
+  const getCategoryName = (categoryId: string): string | undefined => {
+    const category = categoriesNames.find((cat) => cat.id === categoryId);
+    if (category) {
+      return category.key;
+    }
+    let categoryName;
+    categoriesNames.forEach((parentCategory) => {
+      const childCategory = parentCategory.children?.find((child) => child.id === categoryId);
+      if (childCategory) {
+        categoryName = childCategory.key;
+      }
+    });
+    return categoryName;
+  };
+
+  const category = getCategoryName(categories[1]?.id);
+  const subCategory = getCategoryName(categories[0]?.id);
+
   return (
     <div className={styles.productCardWrapper}>
       <div className={styles.discountWrapper}>
@@ -65,7 +97,7 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
           {discount !== 0 ? <div className={styles.oldPrice}>{originalPrice} €</div> : null}
           <div className={styles.actualPrice}>{discount !== 0 ? discountedPrice : originalPrice} €</div>
         </div>
-        <Link className={styles.link} to={`${RoutesName.product}/${id}`}>
+        <Link className={styles.link} to={`${RoutesName.catalog}/${category}/${subCategory}/${key}`}>
           <Button className={styles.button}>More info</Button>
         </Link>
       </div>

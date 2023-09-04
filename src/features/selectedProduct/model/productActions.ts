@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { ProductProjection } from '@commercetools/platform-sdk';
 
-import getProductById from '../api/getProduct';
+import getProductByKey from '../api/getProduct';
 import getErrorMessage from '../../../shared/helpers/routerHelpres';
 import { SelectedProductData } from '../../../shared/types/types';
 
@@ -34,10 +34,10 @@ const convertProductFromDTO = (product: ProductProjection): SelectedProductData 
 
 const getProductAction = createAsyncThunk<SelectedProductData | null, string | undefined, { rejectValue: string }>(
   'catalog/selectedProduct',
-  async (id: string | undefined, { rejectWithValue }) => {
+  async (key: string | undefined, { rejectWithValue }) => {
     try {
-      if (!id) return null;
-      const response = await getProductById(id);
+      if (!key) return null;
+      const response = await getProductByKey(key);
       const convertedProduct = convertProductFromDTO(response.body);
       return convertedProduct;
     } catch (error: unknown) {

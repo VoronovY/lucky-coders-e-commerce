@@ -9,7 +9,6 @@ import { selectProductList } from '../../features/productList/model/productListS
 function Breadcrumbs(): React.ReactNode {
   const { pathname } = useLocation();
   const products = useSelector(selectProductList);
-  console.log(products);
   const pathnames = pathname.split('/').filter((x) => x);
 
   function capitalize(str: string): string {

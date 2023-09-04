@@ -3,6 +3,7 @@ import styles from './ProductPage.module.scss';
 import ProductSlider from './productSlider';
 
 import { useLoadProduct } from '../../app/appStore/hooks';
+import Breadcrumbs from '../../shared/breadcumps/Breadcrumbs';
 
 function ProductPage(): JSX.Element {
   const product = useLoadProduct();
@@ -29,6 +30,7 @@ function ProductPage(): JSX.Element {
 
   return (
     <div className={styles.product}>
+      <Breadcrumbs />
       <div className={styles.sliderAndMenu}>
         <div className={styles.sliderContainer}>{imageLinks ? <ProductSlider linksArr={imageLinks} /> : ''}</div>
         <div className={styles.menu}>

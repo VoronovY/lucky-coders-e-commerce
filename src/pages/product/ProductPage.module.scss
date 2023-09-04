@@ -1,8 +1,11 @@
 .product {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   max-width: var(--width-main-container);
   width: 100%;
   margin: 0 auto;
-  padding: 50px 40px;
+  padding: 40px 20px;
 
   .title {
     border-bottom: 2px solid var(--color-primary-border);
