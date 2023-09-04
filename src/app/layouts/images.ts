@@ -24,6 +24,8 @@ import { ReactComponent as PaintIcon } from '../../../public/assets/icons/icon-p
 import { ReactComponent as PlusIcon } from '../../../public/assets/plus.svg';
 import { ReactComponent as DeleteIcon } from '../../../public/assets/delete.svg';
 import { ReactComponent as CollapseArrowDown } from '../../../public/assets/icons/collapse-arrow-down.svg';
+import { ReactComponent as StarIcon } from '../../../public/assets/star.svg';
+import { ReactComponent as StarEmptyIcon } from '../../../public/assets/star-empty.svg';
 
 export {
   RssLogo,
@@ -52,4 +54,6 @@ export {
   PlusIcon,
   DeleteIcon,
   CollapseArrowDown,
+  StarIcon,
+  StarEmptyIcon,
 };

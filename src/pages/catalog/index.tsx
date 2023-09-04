@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 import cn from 'classnames';
 
+import { useLocation } from 'react-router-dom';
+
 import styles from './CatalogPage.module.scss';
 
 import useScrollToTop from '../../shared/helpers/ScrollToTop';
@@ -9,9 +11,19 @@ import { ProductList } from '../../features/productList/ui/ProductList';
 import FilterMenu from '../../widgets/filterMenu';
 import widthMobileBig from '../../shared/constants/styles';
 import CategoriesList from '../../shared/categories/ui/CategoriesList/CategoriesList';
+import Breadcrumbs from '../../shared/breadcumps/Breadcrumbs';
 
 function CatalogPage(): JSX.Element {
   useScrollToTop();
+
+  const location = useLocation();
+  const { pathname } = location;
+  const lastWord = pathname.split('/').pop();
+  const formattedLastWord = lastWord
+    ?.split('-')
+    .map((word, index) => (index === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word))
+    .join(' ')
+    ?.replace(/-/g, ' ');
 
   const [showFilters, setShowFilters] = useState(false);
 
@@ -56,7 +68,9 @@ function CatalogPage(): JSX.Element {
 
   return (
     <div className={styles.catalogPage}>
+      <Breadcrumbs />
       <div className={styles.showFiltersBtnWrapper}>{showFilterBtn}</div>
+      <div className={styles.catalogTitle}>{formattedLastWord}</div>
       <div className={styles.catalogBody}>
         <div className={filterStyle}>
           <div className={styles.showFiltersBtnWrapper}>{showFilterBtn}</div>

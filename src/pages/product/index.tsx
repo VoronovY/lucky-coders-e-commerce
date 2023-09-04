@@ -3,6 +3,8 @@ import styles from './ProductPage.module.scss';
 import ProductSlider from './productSlider';
 
 import { useLoadProduct } from '../../app/appStore/hooks';
+import Breadcrumbs from '../../shared/breadcumps/Breadcrumbs';
+import { StarEmptyIcon, StarIcon } from '../../app/layouts/images';
 
 function ProductPage(): JSX.Element {
   const product = useLoadProduct();
@@ -29,12 +31,20 @@ function ProductPage(): JSX.Element {
 
   return (
     <div className={styles.product}>
+      <Breadcrumbs />
       <div className={styles.sliderAndMenu}>
         {imageLinks ? <ProductSlider linksArr={imageLinks} /> : ''}
         <div className={styles.menu}>
-          <div>
+          <div className={styles.menuInfo}>
             <h2 className={styles.menutitle}>{title}</h2>
-            <div className={styles.menuRating}>&#11088;&#11088;&#11088;&#11088;&#11088;</div>
+            <div className={styles.menuRating}>
+              {Array.from({ length: Number(rating) }).map((_, index) => (
+                <StarIcon key={`star-${index + 1}`} />
+              ))}
+              {Array.from({ length: 5 - Number(rating) }).map((_, index) => (
+                <StarEmptyIcon key={`empty-star-${index + 1}`} />
+              ))}
+            </div>
           </div>
           <div>
             <div>
