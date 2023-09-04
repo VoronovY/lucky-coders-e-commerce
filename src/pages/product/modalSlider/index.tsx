@@ -4,7 +4,7 @@ import './modalSlider.scss';
 
 import Slider from '../../../features/slider/slider';
 
-function ModalSlider({ linksArr }: { linksArr: string[] }): JSX.Element {
+function ModalSlider({ index, linksArr }: { index: number; linksArr: string[] }): JSX.Element {
   const settings = {
     dots: true,
     arrows: false,
@@ -12,7 +12,7 @@ function ModalSlider({ linksArr }: { linksArr: string[] }): JSX.Element {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: 1, // Начать со второго слайда (индекс 1)
+    initialSlide: index,
   };
   return (
     <div className="modalSliderContainer">

@@ -17,6 +17,7 @@ const CustomPaging = (links: string[]) => {
 
 function ProductSlider({ linksArr }: { linksArr: string[] }): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const openModal: () => void = () => {
     setIsOpen(true);
@@ -58,7 +59,7 @@ function ProductSlider({ linksArr }: { linksArr: string[] }): JSX.Element {
         <button type="button" onClick={closeModal} className="buttonCloseModal">
           <CrossIcon />
         </button>
-        <ModalSlider linksArr={linksArr} />
+        <ModalSlider index={currentSlideIndex} linksArr={linksArr} />
       </ReactModal>
     );
   }
@@ -70,6 +71,9 @@ function ProductSlider({ linksArr }: { linksArr: string[] }): JSX.Element {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    afterChange: (index: number): void => {
+      setCurrentSlideIndex(index);
+    },
   };
 
   return (
