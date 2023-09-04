@@ -10,6 +10,8 @@ import { WeightIcon, PaintIcon } from '../../../../app/layouts/images';
 import { Pictogramm } from '../../../../shared/pictogramm/Pictogramm';
 import { ProductCardData } from '../../../../shared/types/types';
 
+import RoutesName from '../../../../shared/routing';
+
 export interface ProductCardProps {
   product: ProductCardData;
 }
@@ -23,7 +25,7 @@ export interface PictogrammNames {
  */
 
 function ProductCard({ product }: ProductCardProps): JSX.Element {
-  const { attributes, discountedPrice, originalPrice, imageLink, imageAlt, discount, description, title } = product;
+  const { attributes, id, discountedPrice, originalPrice, imageLink, imageAlt, discount, description, title } = product;
 
   const pictogrammNames: PictogrammNames = useMemo(
     () => ({
@@ -63,11 +65,9 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
           {discount !== 0 ? <div className={styles.oldPrice}>{originalPrice} €</div> : null}
           <div className={styles.actualPrice}>{discount !== 0 ? discountedPrice : originalPrice} €</div>
         </div>
-        <Button className={styles.button}>
-          <Link className={styles.link} to="http://google.com">
-            More info
-          </Link>
-        </Button>
+        <Link className={styles.link} to={`${RoutesName.product}/${id}`}>
+          <Button className={styles.button}>More info</Button>
+        </Link>
       </div>
     </div>
   );
