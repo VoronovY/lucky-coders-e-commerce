@@ -15,6 +15,7 @@ import { ProductCardData } from '../../../../shared/types/types';
 import RoutesName from '../../../../shared/routing';
 
 import selectCategories from '../../../../shared/categories/model/categoriesSelectors';
+import getCategoryName from '../../../../shared/helpers/getCategoryName';
 
 export interface ProductCardProps {
   product: ProductCardData;
@@ -48,23 +49,8 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
 
   const categoriesNames = useSelector(selectCategories);
 
-  const getCategoryName = (categoryId: string): string | undefined => {
-    const category = categoriesNames.find((cat) => cat.id === categoryId);
-    if (category) {
-      return category.key;
-    }
-    let categoryName;
-    categoriesNames.forEach((parentCategory) => {
-      const childCategory = parentCategory.children?.find((child) => child.id === categoryId);
-      if (childCategory) {
-        categoryName = childCategory.key;
-      }
-    });
-    return categoryName;
-  };
-
-  const category = getCategoryName(categories[1]?.id);
-  const subCategory = getCategoryName(categories[0]?.id);
+  const category = getCategoryName(categories[1]?.id, categoriesNames);
+  const subCategory = getCategoryName(categories[0]?.id, categoriesNames);
 
   return (
     <div className={styles.productCardWrapper}>
