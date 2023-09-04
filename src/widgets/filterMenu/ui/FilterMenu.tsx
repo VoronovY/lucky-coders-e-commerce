@@ -4,6 +4,8 @@ import { ObjectSchema } from 'yup';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { useEffect } from 'react';
+
 import styles from './FilterMenu.module.scss';
 
 import { Collapse, RangeInputs } from '../../../shared/ui';
@@ -32,11 +34,17 @@ function FilterMenu(): JSX.Element {
     resolver: yupResolver(filterMenuSchema as ObjectSchema<FilterFields>),
   });
 
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(updateFilters(defaultFilters));
+    };
+  }, [dispatch]);
+
   const searchValue = useAppSelector(selectSearchValue);
   const sortValue = useAppSelector(selectSortValue);
   const selectedCategoryId = useAppSelector(selectSelectedCategoryId);
-
-  const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<FilterFields> = (data) => {
     const updateData = {

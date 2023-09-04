@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -6,7 +5,7 @@ import styles from './Breadcrumbs.module.scss';
 
 import { selectProductList } from '../../features/productList/model/productListSelectors';
 
-function Breadcrumbs(): React.ReactNode {
+function Breadcrumbs(): JSX.Element | null {
   const { pathname } = useLocation();
   const products = useSelector(selectProductList);
   const pathnames = pathname.split('/').filter((x) => x);

@@ -15,7 +15,7 @@ export const useLoadProduct: () => SelectedProductData | null = () => {
   const { key } = useParams();
   useEffect(() => {
     dispatch(getProductAction(key));
-  }, [dispatch]);
+  }, [dispatch, key]);
 
   const product = useAppSelector(selectProduct);
   return product;

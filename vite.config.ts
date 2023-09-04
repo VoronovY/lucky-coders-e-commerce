@@ -25,5 +25,5 @@ export default defineConfig({
     global: 'window',
   },
 
-  base: './',
+  base: '/',
 });

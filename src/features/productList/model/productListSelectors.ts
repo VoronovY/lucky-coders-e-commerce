@@ -14,7 +14,7 @@ const selectIsProductListError = (state: RootState): boolean => state.catalog.is
 
 const selectProductListErrorMessage = (state: RootState): string => state.catalog.errorMessage;
 
-const selectSelectedCategoryId = (state: RootState): string => state.catalog.selectedCategoryId;
+const selectSelectedCategoryId = (state: RootState): string | null => state.catalog.selectedCategoryId;
 
 export {
   selectProductList,

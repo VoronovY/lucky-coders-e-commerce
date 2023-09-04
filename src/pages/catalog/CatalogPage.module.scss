@@ -19,7 +19,7 @@
   display: flex;
   margin: 0 auto;
   gap: 30px;
-  @media screen and (max-width: $width-mobile-big) {
+  @media screen and (max-width: $width-tablet) {
     padding: 10px;
     justify-content: center;
     min-height: 400px;
@@ -37,7 +37,7 @@
   border-radius: 10px;
   box-shadow: 2px 2px 4px 0px var(--color-shadow-border);
   transition: transform ease 0.5s;
-  @media screen and (max-width: $width-mobile-big) {
+  @media screen and (max-width: $width-tablet) {
     position: fixed;
     top: 20px;
     transform: translateX(-200%);
@@ -85,7 +85,7 @@
     color: var(--color-bg-light);
     box-shadow: 0px 0px 8px 0px var(--color-hovered-btn);
   }
-  @media screen and (min-width: $width-mobile-big) {
+  @media screen and (min-width: $width-tablet) {
     display: none;
   }
 }
