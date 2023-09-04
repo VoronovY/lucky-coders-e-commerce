@@ -30,7 +30,7 @@ function ProductPage(): JSX.Element {
   return (
     <div className={styles.product}>
       <div className={styles.sliderAndMenu}>
-        <div className={styles.sliderContainer}>{imageLinks ? <ProductSlider linksArr={imageLinks} /> : ''}</div>
+        {imageLinks ? <ProductSlider linksArr={imageLinks} /> : ''}
         <div className={styles.menu}>
           <div>
             <h2 className={styles.menutitle}>{title}</h2>
