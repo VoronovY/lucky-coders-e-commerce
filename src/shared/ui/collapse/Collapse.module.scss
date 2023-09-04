@@ -1,0 +1,40 @@
+.collapseWrapper {
+  width: 100%;
+}
+
+.collapseButton {
+  position: relative;
+  height: 26px;
+  width: 100%;
+  padding-right: 20px;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-primary);
+  text-align: left;
+  background: none;
+  cursor: pointer;
+}
+
+.collapsed {
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: url("../../../../public/assets/icons/collapse-arrow-down.svg") no-repeat center;
+  }
+}
+
+.opened {
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: "";
+    width: 20px;
+    height: 20px;
+    background: url("../../../../public/assets/icons/collapse-arrow-up.svg") no-repeat center;
+  }
+}

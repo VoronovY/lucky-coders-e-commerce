@@ -9,6 +9,8 @@ import AboutPage from '../../pages/about';
 import CatalogPage from '../../pages/catalog';
 import ProfilePage from '../../pages/profile';
 import CartPage from '../../pages/cart';
+import ProductPage from '../../pages/product';
+import { UserAddress, UserProfile } from '../../entities/user';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,7 +22,12 @@ const router = createBrowserRouter(
       <Route path={RoutesName.about} element={<AboutPage />} />
       <Route path={RoutesName.catalog} element={<CatalogPage />} />
       <Route path={`${RoutesName.catalog}/:category`} element={<CatalogPage />} />
-      <Route path={RoutesName.profile} element={<ProfilePage />} />
+      <Route path={`${RoutesName.catalog}/:category/:subcategory`} element={<CatalogPage />} />
+      <Route path={`${RoutesName.catalog}/:category/:subcategory/:key`} element={<ProductPage />} />
+      <Route path={RoutesName.profile} element={<ProfilePage />}>
+        <Route index element={<UserProfile />} />
+        <Route path={`${RoutesName.profile}/addresses`} element={<UserAddress />} />
+      </Route>
       <Route path={RoutesName.cart} element={<CartPage />} />
     </Route>,
   ),

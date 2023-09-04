@@ -1,0 +1,47 @@
+@import "../../../../app/styles/variables.scss";
+
+.profileAddress {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  flex: 0 0 70%;
+
+  @media (max-width: $width-laptop) {
+    flex: 0 0 50%;
+  }
+
+  .addNewAddressItem {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    width: 350px;
+    min-height: 250px;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: var(--color-bg-light);
+    box-shadow: var(--shadow-card-primary);
+    cursor: pointer;
+
+    @media (max-width: $width-main-container) {
+      width: 100%;
+    }
+
+    &:hover .addNewAddress {
+      filter: invert(40%) sepia(90%) saturate(1000%);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    .addNewAddress {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      transition: ease-in-out 0.2s;
+    }
+  }
+}

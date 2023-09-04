@@ -19,6 +19,13 @@ import { ReactComponent as BurgerMenuIcon } from '../../../public/assets/burger-
 import { ReactComponent as WarningIcon } from '../../../public/assets/warning.svg';
 import { ReactComponent as EditIcon } from '../../../public/assets/edit.svg';
 import { ReactComponent as CartEmptyIcon } from '../../../public/assets/cart-empty.svg';
+import { ReactComponent as WeightIcon } from '../../../public/assets/icons/icon-weight.svg';
+import { ReactComponent as PaintIcon } from '../../../public/assets/icons/icon-paint.svg';
+import { ReactComponent as PlusIcon } from '../../../public/assets/plus.svg';
+import { ReactComponent as DeleteIcon } from '../../../public/assets/delete.svg';
+import { ReactComponent as CollapseArrowDown } from '../../../public/assets/icons/collapse-arrow-down.svg';
+import { ReactComponent as StarIcon } from '../../../public/assets/star.svg';
+import { ReactComponent as StarEmptyIcon } from '../../../public/assets/star-empty.svg';
 
 export {
   RssLogo,
@@ -42,4 +49,11 @@ export {
   WarningIcon,
   EditIcon,
   CartEmptyIcon,
+  WeightIcon,
+  PaintIcon,
+  PlusIcon,
+  DeleteIcon,
+  CollapseArrowDown,
+  StarIcon,
+  StarEmptyIcon,
 };

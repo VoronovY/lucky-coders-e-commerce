@@ -8,6 +8,7 @@ import RoutesName from '../../../../shared/routing';
 import { getAccessToken, getUserId } from '../../../../shared/selectors/mainSettingsSelectors';
 import { useAppDispatch, useAppSelector } from '../../../../app/appStore/hooks';
 import { updateAccessToken, updateUserId } from '../../../../shared/model/appSlice';
+import myTokenCache from '../../../../shared/api/auth/tokenCache';
 
 function HeaderProfile(): JSX.Element {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function HeaderProfile(): JSX.Element {
   ];
   const handleSignOut = (): void => {
     localStorage.removeItem('accessToken');
+    myTokenCache.clear();
     disaptch(updateUserId(''));
     disaptch(updateAccessToken(''));
     navigate(RoutesName.main);

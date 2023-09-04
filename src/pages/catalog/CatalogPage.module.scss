@@ -1,22 +1,91 @@
+@import "../../app/styles/variables.scss";
+
 .catalogPage {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   gap: 10px;
   width: 100%;
   height: 100%;
-  padding: 40px 10px;
+  padding: 40px 20px;
+  max-width: $width-header-container;
+  margin: 0 auto;
+}
 
-  .catalogImg {
-    max-width: 500px;
-    max-height: 500px;
-    border-radius: 30px;
-    box-shadow: var(--shadow-card-primary);
+.catalogBody {
+  position: relative;
+  padding: 10px 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  margin: 0 auto;
+  gap: 30px;
+  @media screen and (max-width: $width-tablet) {
+    padding: 10px;
+    justify-content: center;
+    min-height: 400px;
   }
-  img {
-    border-radius: 30px;
-    width: 100%;
-    height: 100%;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 346px;
+  height: fit-content;
+  padding: 10px;
+  background-color: var(--color-bg-light);
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px 0px var(--color-shadow-border);
+  transition: transform ease 0.5s;
+  @media screen and (max-width: $width-tablet) {
+    position: fixed;
+    top: 20px;
+    transform: translateX(-200%);
+    z-index: 50;
+    width: 90vw;
+    height: 90vh;
+    overflow: auto;
+  }
+  &.show {
+    transform: translateX(0);
+  }
+}
+
+.catalog {
+  width: 100%;
+}
+
+.catalogTitle {
+  padding: 10px 0;
+  font-size: var(--font-size-h2);
+}
+
+.showFiltersBtnWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.showFiltersBtn {
+  width: 150px;
+  height: 40px;
+  background-color: transparent;
+  border: 2px solid var(--color-hovered-btn);
+  border-radius: 12px;
+  color: var(--color-hovered-btn);
+  cursor: pointer;
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-medium);
+  transition: all 0.4s ease;
+  &:hover {
+    transform: scale(1.03);
+    background-color: var(--color-hovered-btn);
+    color: var(--color-bg-light);
+    box-shadow: 0px 0px 8px 0px var(--color-hovered-btn);
+  }
+  @media screen and (min-width: $width-tablet) {
+    display: none;
   }
 }

@@ -1,0 +1,41 @@
+@import "../../../../app/styles/variables.scss";
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  flex: 0 0 60%;
+
+  .profileInfoItem {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--color-border-profile);
+    line-height: var(--font-line-height-list);
+    padding-bottom: 6px;
+
+    span:first-child {
+      opacity: 0.5;
+    }
+  }
+
+  .buttonsWrapper {
+    display: flex;
+    gap: 20px;
+
+    @media (max-width: $width-mobile-big) {
+      flex-direction: column;
+    }
+
+    .changePasswordButton {
+      background: var(--color-bg-light);
+      color: var(--color-hovered-btn);
+      border: 2px solid var(--color-hovered-btn);
+
+      &:hover {
+        background: var(--color-hovered-btn);
+        color: var(--color-secondary-text);
+        border: none;
+      }
+    }
+  }
+}
