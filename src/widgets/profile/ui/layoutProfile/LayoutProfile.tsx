@@ -1,18 +1,13 @@
-import { useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import styles from './LayoutProfile.module.scss';
 
 import ProfileMenu from '../profileMenu/ProfileMenu';
 
-import RoutesName from '../../../../shared/routing';
-import { UserAddress, UserProfile } from '../../../../entities/user';
-
 interface LayoutProfileProps {
   firstName?: string | undefined;
 }
 function LayoutProfile({ firstName }: LayoutProfileProps): JSX.Element {
-  const location = useLocation();
-
   return (
     <div className={styles.profileContainer}>
       <div className={styles.profileWelcomeText}>
@@ -21,8 +16,7 @@ function LayoutProfile({ firstName }: LayoutProfileProps): JSX.Element {
       </div>
       <div className={styles.profile}>
         <ProfileMenu />
-        {location.pathname === RoutesName.profile && <UserProfile />}
-        {location.pathname === `${RoutesName.profile}/addresses` && <UserAddress />}
+        <Outlet />
       </div>
     </div>
   );
