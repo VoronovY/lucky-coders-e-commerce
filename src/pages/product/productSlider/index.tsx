@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import './productSlider.scss';
 
 import Slider from '../../../features/slider/slider';
+import ModalSlider from '../modalSlider';
 import { CrossIcon } from '../../../app/layouts/images';
 
 const CustomPaging = (links: string[]) => {
@@ -57,6 +58,7 @@ function ProductSlider({ linksArr }: { linksArr: string[] }): JSX.Element {
         <button type="button" onClick={closeModal} className="buttonCloseModal">
           <CrossIcon />
         </button>
+        <ModalSlider linksArr={linksArr} />
       </ReactModal>
     );
   }
