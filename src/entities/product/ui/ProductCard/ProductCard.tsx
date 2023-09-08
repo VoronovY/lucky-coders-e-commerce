@@ -60,24 +60,23 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
 
   const onClickCartButton = (): void => {
     setErrorMessage('');
-    const productId = id;
 
     if (!localStorage.getItem('anonymousCartId') && !localStorage.getItem('accessToken')) {
       createAnonymousCart()
-        .then(async (response) => {
+        .then((response) => {
           localStorage.setItem('anonymousCartId', response.body.id);
           localStorage.setItem('anonymousToken', myTokenCache.store.token);
-          await updateUserCart(response.body.id, productId, response.body.version);
+          updateUserCart(response.body.id, id, response.body.version);
         })
         .catch((error) => {
           setErrorMessage(getErrorSignUpMessage(error.body));
         });
     } else {
       getUserCart()
-        .then(async (response) => {
+        .then((response) => {
           const cartId = response.body.id;
           const cartVersion = response.body.version;
-          await updateUserCart(cartId, productId, cartVersion);
+          updateUserCart(cartId, id, cartVersion);
         })
         .catch((error) => {
           setErrorMessage(getErrorSignUpMessage(error.body));

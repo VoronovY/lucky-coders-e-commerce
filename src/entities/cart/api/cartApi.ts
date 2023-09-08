@@ -55,7 +55,7 @@ export const updateUserCart = (cartId: string, productId: string, version: numbe
     productId,
   };
 
-  const update: MyCartUpdate = {
+  const updateBody: MyCartUpdate = {
     version,
     actions: [updateAction],
   };
@@ -66,7 +66,7 @@ export const updateUserCart = (cartId: string, productId: string, version: numbe
     .carts()
     .withId({ ID: cartId })
     .post({
-      body: update,
+      body: updateBody,
     })
     .execute();
 };
