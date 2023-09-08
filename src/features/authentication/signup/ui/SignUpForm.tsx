@@ -1,21 +1,11 @@
 import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { ObjectSchema } from 'yup';
-
 import { useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
-import { useDispatch } from 'react-redux';
-
 import RoutesName from '../../../../shared/routing';
-
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
-
 import { TextInput, PasswordInput, DateInput, PasswordErrors } from '../../../../shared/ui';
-
 import { FormText, FormWrapper } from '../../../../shared/ui/form';
 import signUpSchema from '../model/signUpSchema';
 import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems';
@@ -24,16 +14,12 @@ import { RegisterUserFields } from '../../../../shared/types/types';
 import signUp from '../../../../shared/api/signUp/signUpUser';
 import { signUpConverter } from '../../../../shared/helpers/signUpHelpers';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
-import { createUser, loginUser } from '../../../../shared/api/auth/loginUser';
-import {
-  updateAccessToken,
-  updateInfoMessage,
-  updateIsModalInfoOpen,
-  updateUserId,
-} from '../../../../shared/model/appSlice';
+import { loginUser } from '../../../../shared/api/auth/loginUser';
+
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
-import SuccessfulMessages from '../../../../shared/successfulMessages';
+
 import { createUserCart } from '../../../../entities/cart/api/cartApi';
+import useCreateUserAndNavigate from '../../../../shared/api/auth/userUtils';
 
 const defaultValues = {
   email: '',
@@ -55,27 +41,13 @@ const defaultValues = {
 
 function SignUpForm(): JSX.Element {
   const [errorMessage, setErrorMessage] = useState('');
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const methods = useForm<RegisterUserFields>({
     resolver: yupResolver(signUpSchema as ObjectSchema<RegisterUserFields>),
     mode: 'onChange',
     defaultValues,
   });
 
-  const createUserAndNavigate = async (email: string, password: string): Promise<void> => {
-    const res = await createUser(email, password);
-    dispatch(updateUserId(res.body.id));
-    dispatch(updateAccessToken(myTokenCache.store.token));
-    dispatch(updateInfoMessage(SuccessfulMessages.signIn));
-    dispatch(updateIsModalInfoOpen(true));
-    setTimeout(() => {
-      dispatch(updateIsModalInfoOpen(false));
-      dispatch(updateInfoMessage(''));
-    }, 5000);
-    localStorage.setItem('accessToken', myTokenCache.store.token);
-    navigate(RoutesName.main);
-  };
+  const createUserAndNavigate = useCreateUserAndNavigate();
 
   const disableSubmit = Object.values(methods.formState.errors).length > 0;
 
@@ -85,28 +57,17 @@ function SignUpForm(): JSX.Element {
     signUp(convertedData)
       .then(() => {
         if (localStorage.getItem('anonymousToken')) {
-          loginUser(data.email, data.password)
-            .then((response) => {
-              console.log(response.body);
-              localStorage.removeItem('anonymousToken');
-              localStorage.removeItem('anonymousCartId');
-              myTokenCache.clear();
+          loginUser(data.email, data.password).then(() => {
+            localStorage.removeItem('anonymousToken');
+            localStorage.removeItem('anonymousCartId');
+            myTokenCache.clear();
 
-              createUserAndNavigate(data.email, data.password);
-            })
-            .catch((error) => {
-              setErrorMessage(getErrorSignUpMessage(error.body));
-            });
+            createUserAndNavigate(data.email, data.password);
+          });
         } else {
-          createUserAndNavigate(data.email, data.password)
-            .then(() => {
-              createUserCart().then((res) => {
-                console.log('new cart', res.body);
-              });
-            })
-            .catch((error) => {
-              setErrorMessage(getErrorSignUpMessage(error.body));
-            });
+          createUserAndNavigate(data.email, data.password).then(() => {
+            createUserCart();
+          });
         }
       })
       .catch((error) => {

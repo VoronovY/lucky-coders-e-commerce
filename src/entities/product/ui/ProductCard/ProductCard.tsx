@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { ReactElement, useMemo } from 'react';
+import { ReactElement, useMemo, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
@@ -18,6 +18,8 @@ import selectCategories from '../../../../shared/categories/model/categoriesSele
 import getCategoryName from '../../../../shared/helpers/getCategoryName';
 import { createAnonymousCart, getUserCart, updateUserCart } from '../../../cart/api/cartApi';
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
+import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
+import ModalError from '../../../../shared/ui/modalError/ModalError';
 
 export interface ProductCardProps {
   product: ProductCardData;
@@ -51,33 +53,41 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
   );
 
   const categoriesNames = useSelector(selectCategories);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const category = getCategoryName(categories[1]?.id, categoriesNames);
   const subCategory = getCategoryName(categories[0]?.id, categoriesNames);
 
   const onClickCartButton = (): void => {
+    setErrorMessage('');
     const productId = id;
 
     if (!localStorage.getItem('anonymousCartId') && !localStorage.getItem('accessToken')) {
-      createAnonymousCart().then(async (response) => {
-        console.log('new cart', response.body);
-        localStorage.setItem('anonymousCartId', response.body.id);
-        localStorage.setItem('anonymousToken', myTokenCache.store.token);
-        const updateResponse = await updateUserCart(response.body.id, productId, response.body.version);
-        console.log('updated cart', updateResponse.body);
-      });
+      createAnonymousCart()
+        .then(async (response) => {
+          localStorage.setItem('anonymousCartId', response.body.id);
+          localStorage.setItem('anonymousToken', myTokenCache.store.token);
+          await updateUserCart(response.body.id, productId, response.body.version);
+        })
+        .catch((error) => {
+          setErrorMessage(getErrorSignUpMessage(error.body));
+        });
     } else {
-      getUserCart().then(async (response) => {
-        const cartId = response.body.id;
-        const cartVersion = response.body.version;
-        const updateResponse = await updateUserCart(cartId, productId, cartVersion);
-        console.log('updated cart', updateResponse.body);
-      });
+      getUserCart()
+        .then(async (response) => {
+          const cartId = response.body.id;
+          const cartVersion = response.body.version;
+          await updateUserCart(cartId, productId, cartVersion);
+        })
+        .catch((error) => {
+          setErrorMessage(getErrorSignUpMessage(error.body));
+        });
     }
   };
 
   return (
     <div className={styles.productCardWrapper}>
+      {errorMessage && <ModalError errorMessage={errorMessage} />}
       <div className={styles.discountWrapper}>
         {discount !== 0 && <div className={styles.discount}>{`-${discount}%`}</div>}
       </div>
