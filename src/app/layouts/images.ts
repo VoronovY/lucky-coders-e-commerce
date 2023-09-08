@@ -26,6 +26,7 @@ import { ReactComponent as DeleteIcon } from '../../../public/assets/delete.svg'
 import { ReactComponent as CollapseArrowDown } from '../../../public/assets/icons/collapse-arrow-down.svg';
 import { ReactComponent as StarIcon } from '../../../public/assets/star.svg';
 import { ReactComponent as StarEmptyIcon } from '../../../public/assets/star-empty.svg';
+import { ReactComponent as CartButtonIcon } from '../../../public/assets/cart-button.svg';
 
 export {
   RssLogo,
@@ -56,4 +57,5 @@ export {
   CollapseArrowDown,
   StarIcon,
   StarEmptyIcon,
+  CartButtonIcon,
 };
