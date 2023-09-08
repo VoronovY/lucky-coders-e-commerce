@@ -105,7 +105,7 @@ function FilterMenu(): JSX.Element {
           <Button type="submit" height="30px" width="150px" disabled={showBtnDisabled}>
             Accept
           </Button>
-          <Button type="button" height="30px" width="150px" onClick={handleResetFilters}>
+          <Button className={styles.resetBtn} type="button" height="30px" width="150px" onClick={handleResetFilters}>
             Clear
           </Button>
         </div>

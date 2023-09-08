@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: space-around;
   width: 260px;
-  height: 410px;
+  height: 455px;
   padding: 10px;
   background-color: var(--color-bg-light);
   border-radius: 14px;
@@ -113,12 +113,24 @@
 }
 
 .button {
-  &:hover .link {
-    color: var(--color-primary-text);
+  background: var(--color-bg-light);
+  color: var(--color-hovered-btn);
+  border: 2px solid var(--color-hovered-btn);
+  margin-bottom: 10px;
+
+  &:hover {
+    background: var(--color-hovered-btn);
+    color: var(--color-secondary-text);
+    border: transparent;
   }
 }
 
 .link {
   color: var(--color-secondary-text);
   transition: color 0.2s ease;
+}
+
+.loadingIcon {
+  height: 30px;
+  width: 40px;
 }

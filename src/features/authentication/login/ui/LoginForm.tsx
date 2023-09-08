@@ -1,32 +1,18 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { ObjectSchema } from 'yup';
-
 import { useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
 import { TextInput, PasswordInput, PasswordErrors } from '../../../../shared/ui';
-
 import { FormWrapper, FormText } from '../../../../shared/ui/form';
 import signInSchema from '../model/loginSchema';
 import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems';
 import RoutesName from '../../../../shared/routing';
-import loginUser from '../../../../shared/api/auth/loginUser';
-
+import { loginUser } from '../../../../shared/api/auth/loginUser';
 import { getErrorLoginMessage } from '../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
-import { useAppDispatch } from '../../../../app/appStore/hooks';
-import {
-  updateAccessToken,
-  updateInfoMessage,
-  updateIsModalInfoOpen,
-  updateUserId,
-} from '../../../../shared/model/appSlice';
-import SuccessfulMessages from '../../../../shared/successfulMessages';
+import useCreateUserAndNavigate from '../../../../shared/api/auth/userUtils';
 
 interface LoginUserFields {
   email: string;
@@ -41,9 +27,6 @@ const initLoginForm = {
 function LoginForm(): JSX.Element {
   const [errorMessage, setErrorMessage] = useState('');
 
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
   const {
     handleSubmit,
     control,
@@ -54,26 +37,29 @@ function LoginForm(): JSX.Element {
     defaultValues: initLoginForm,
   });
 
+  const createUserAndNavigate = useCreateUserAndNavigate();
+
   const disableSubmit = Object.values(errors).length > 0;
   const onSubmit: SubmitHandler<LoginUserFields> = (data) => {
     setErrorMessage('');
 
-    loginUser(data.email, data.password)
-      .then((response) => {
-        dispatch(updateUserId(response.body.customer.id));
-        dispatch(updateAccessToken(myTokenCache.store.token));
-        dispatch(updateInfoMessage(SuccessfulMessages.signIn));
-        dispatch(updateIsModalInfoOpen(true));
-        setTimeout(() => {
-          dispatch(updateIsModalInfoOpen(false));
-          dispatch(updateInfoMessage(''));
-        }, 5000);
-        localStorage.setItem('accessToken', myTokenCache.store.token);
-        navigate(RoutesName.main);
-      })
-      .catch((error) => {
+    if (localStorage.getItem('anonymousToken')) {
+      loginUser(data.email, data.password)
+        .then(() => {
+          localStorage.removeItem('anonymousToken');
+          localStorage.removeItem('anonymousCartId');
+          myTokenCache.clear();
+
+          createUserAndNavigate(data.email, data.password);
+        })
+        .catch((error) => {
+          setErrorMessage(getErrorLoginMessage(error.body));
+        });
+    } else {
+      createUserAndNavigate(data.email, data.password).catch((error) => {
         setErrorMessage(getErrorLoginMessage(error.body));
       });
+    }
   };
 
   return (

@@ -19,7 +19,9 @@ function ProfileMenu(): JSX.Element {
   const { pathname } = useLocation();
   const [activeLink, setActiveLink] = useState('1');
 
-  const pathToLinkIdMap = useMemo(
+  const pathToLinkIdMap: {
+    [key: string]: string;
+  } = useMemo(
     () => ({
       [RoutesName.profile]: '1',
       [`${RoutesName.profile}/addresses`]: '2',
