@@ -3,7 +3,13 @@ import { Client, ClientBuilder, ExistingTokenMiddlewareOptions } from '@commerce
 import { httpMiddlewareOptions } from '../baseApi';
 
 const existingFlowClient = (): Client | null => {
-  const token = localStorage.getItem('accessToken');
+  let token: string | null = '';
+  if (localStorage.getItem('accessToken')) {
+    token = localStorage.getItem('accessToken');
+  } else if (localStorage.getItem('anonymousToken')) {
+    token = localStorage.getItem('anonymousToken');
+  }
+
   if (!token) {
     return null;
   }
