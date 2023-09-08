@@ -116,6 +116,7 @@
   background: var(--color-bg-light);
   color: var(--color-hovered-btn);
   border: 2px solid var(--color-hovered-btn);
+  margin-bottom: 10px;
 
   &:hover {
     background: var(--color-hovered-btn);
@@ -129,8 +130,7 @@
   transition: color 0.2s ease;
 }
 
-.cardButtons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.loadingIcon {
+  height: 30px;
+  width: 40px;
 }

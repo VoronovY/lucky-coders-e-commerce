@@ -8,7 +8,7 @@ import styles from './ProductCard.module.scss';
 
 import Button from '../../../../shared/ui/button/Button';
 
-import { WeightIcon, PaintIcon } from '../../../../app/layouts/images';
+import { WeightIcon, PaintIcon, LoadingIcon, CartButtonIcon } from '../../../../app/layouts/images';
 import { Pictogramm } from '../../../../shared/pictogramm/Pictogramm';
 import { ProductCardData } from '../../../../shared/types/types';
 
@@ -54,11 +54,13 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
 
   const categoriesNames = useSelector(selectCategories);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const category = getCategoryName(categories[1]?.id, categoriesNames);
   const subCategory = getCategoryName(categories[0]?.id, categoriesNames);
 
   const onClickCartButton = (): void => {
+    setIsLoading(true);
     setErrorMessage('');
 
     if (!localStorage.getItem('anonymousCartId') && !localStorage.getItem('accessToken')) {
@@ -66,20 +68,34 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
         .then((response) => {
           localStorage.setItem('anonymousCartId', response.body.id);
           localStorage.setItem('anonymousToken', myTokenCache.store.token);
-          updateUserCart(response.body.id, id, response.body.version);
+          updateUserCart(response.body.id, id, response.body.version)
+            .catch((error) => {
+              setErrorMessage(getErrorSignUpMessage(error.body));
+            })
+            .finally(() => {
+              setIsLoading(false);
+            });
         })
         .catch((error) => {
           setErrorMessage(getErrorSignUpMessage(error.body));
+          setIsLoading(false);
         });
     } else {
       getUserCart()
         .then((response) => {
           const cartId = response.body.id;
           const cartVersion = response.body.version;
-          updateUserCart(cartId, id, cartVersion);
+          updateUserCart(cartId, id, cartVersion)
+            .catch((error) => {
+              setErrorMessage(getErrorSignUpMessage(error.body));
+            })
+            .finally(() => {
+              setIsLoading(false);
+            });
         })
         .catch((error) => {
           setErrorMessage(getErrorSignUpMessage(error.body));
+          setIsLoading(false);
         });
     }
   };
@@ -116,14 +132,18 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
           {discount !== 0 ? <div className={styles.oldPrice}>{originalPrice} €</div> : null}
           <div className={styles.actualPrice}>{discount !== 0 ? discountedPrice : originalPrice} €</div>
         </div>
-        <div className={styles.cardButtons}>
-          <Link className={styles.link} to={`${RoutesName.catalog}/${category}/${subCategory}/${key}`}>
-            <Button className={styles.button}>More info</Button>
-          </Link>
-          <Button onClick={onClickCartButton} hasCartIcon>
-            Add to cart
-          </Button>
-        </div>
+        <Link className={styles.link} to={`${RoutesName.catalog}/${category}/${subCategory}/${key}`}>
+          <Button className={styles.button}>More info</Button>
+        </Link>
+        <Button onClick={onClickCartButton}>
+          {isLoading ? (
+            <LoadingIcon className={styles.loadingIcon} />
+          ) : (
+            <>
+              Add to cart <CartButtonIcon />
+            </>
+          )}
+        </Button>
       </div>
     </div>
   );
