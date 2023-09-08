@@ -20,7 +20,7 @@ import { PasswordFields } from '../../../../../shared/types/types';
 import ButtonCancel from '../buttonCancel/ButtonCancel';
 
 import selectUser from '../../../model/userSelectors';
-import loginUser from '../../../../../shared/api/auth/loginUser';
+import { loginUser } from '../../../../../shared/api/auth/loginUser';
 import {
   updateAccessToken,
   updateInfoMessage,

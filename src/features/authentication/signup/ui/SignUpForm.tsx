@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 
 import RoutesName from '../../../../shared/routing';
 
-import { getErrorLoginMessage, getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
+import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
 
 import { TextInput, PasswordInput, DateInput, PasswordErrors } from '../../../../shared/ui';
 
@@ -24,7 +24,7 @@ import { RegisterUserFields } from '../../../../shared/types/types';
 import signUp from '../../../../shared/api/signUp/signUpUser';
 import { signUpConverter } from '../../../../shared/helpers/signUpHelpers';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
-import loginUser from '../../../../shared/api/auth/loginUser';
+import { createUser, loginUser } from '../../../../shared/api/auth/loginUser';
 import {
   updateAccessToken,
   updateInfoMessage,
@@ -33,6 +33,7 @@ import {
 } from '../../../../shared/model/appSlice';
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
 import SuccessfulMessages from '../../../../shared/successfulMessages';
+import { createUserCart } from '../../../../entities/cart/api/cartApi';
 
 const defaultValues = {
   email: '',
@@ -62,6 +63,20 @@ function SignUpForm(): JSX.Element {
     defaultValues,
   });
 
+  const createUserAndNavigate = async (email: string, password: string): Promise<void> => {
+    const res = await createUser(email, password);
+    dispatch(updateUserId(res.body.id));
+    dispatch(updateAccessToken(myTokenCache.store.token));
+    dispatch(updateInfoMessage(SuccessfulMessages.signIn));
+    dispatch(updateIsModalInfoOpen(true));
+    setTimeout(() => {
+      dispatch(updateIsModalInfoOpen(false));
+      dispatch(updateInfoMessage(''));
+    }, 5000);
+    localStorage.setItem('accessToken', myTokenCache.store.token);
+    navigate(RoutesName.main);
+  };
+
   const disableSubmit = Object.values(methods.formState.errors).length > 0;
 
   const onSubmit: SubmitHandler<RegisterUserFields> = (data) => {
@@ -69,22 +84,30 @@ function SignUpForm(): JSX.Element {
     const convertedData = signUpConverter(data);
     signUp(convertedData)
       .then(() => {
-        loginUser(data.email, data.password)
-          .then((response) => {
-            dispatch(updateUserId(response.body.customer.id));
-            dispatch(updateAccessToken(myTokenCache.store.token));
-            dispatch(updateInfoMessage(SuccessfulMessages.signUp));
-            dispatch(updateIsModalInfoOpen(true));
-            setTimeout(() => {
-              dispatch(updateIsModalInfoOpen(false));
-              dispatch(updateInfoMessage(''));
-            }, 5000);
-            localStorage.setItem('accessToken', myTokenCache.store.token);
-            navigate(RoutesName.main);
-          })
-          .catch((error) => {
-            setErrorMessage(getErrorLoginMessage(error.body));
-          });
+        if (localStorage.getItem('anonymousToken')) {
+          loginUser(data.email, data.password)
+            .then((response) => {
+              console.log(response.body);
+              localStorage.removeItem('anonymousToken');
+              localStorage.removeItem('anonymousCartId');
+              myTokenCache.clear();
+
+              createUserAndNavigate(data.email, data.password);
+            })
+            .catch((error) => {
+              setErrorMessage(getErrorSignUpMessage(error.body));
+            });
+        } else {
+          createUserAndNavigate(data.email, data.password)
+            .then(() => {
+              createUserCart().then((res) => {
+                console.log('new cart', res.body);
+              });
+            })
+            .catch((error) => {
+              setErrorMessage(getErrorSignUpMessage(error.body));
+            });
+        }
       })
       .catch((error) => {
         setErrorMessage(getErrorSignUpMessage(error.body));
