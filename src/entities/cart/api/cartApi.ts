@@ -19,8 +19,25 @@ export const getUserCart = (): Promise<ClientResponse<Cart>> => {
   return getApiRoot().withProjectKey({ projectKey }).me().activeCart().get().execute();
 };
 
+export const getCartById = (id: string): Promise<ClientResponse<Cart>> => {
+  return getApiRoot().withProjectKey({ projectKey }).carts().withId({ ID: id }).get().execute();
+};
+
 export const createAnonymousCart = (): Promise<ClientResponse<Cart>> => {
   return createApiBuilderFromCtpClient(anonymousSessionFlowClient())
+    .withProjectKey({ projectKey })
+    .me()
+    .carts()
+    .post({
+      body: {
+        currency: 'EUR',
+      },
+    })
+    .execute();
+};
+
+export const createUserCart = (): Promise<ClientResponse<Cart>> => {
+  return getApiRoot()
     .withProjectKey({ projectKey })
     .me()
     .carts()
