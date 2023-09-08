@@ -1,9 +1,9 @@
-import { ClientBuilder, Client, AuthMiddlewareOptions } from '@commercetools/sdk-client-v2';
+import { ClientBuilder, Client, AnonymousAuthMiddlewareOptions } from '@commercetools/sdk-client-v2';
 
 import { httpMiddlewareOptions, projectKey } from '../baseApi';
 import myTokenCache from '../auth/tokenCache';
 
-const credentialsFlowOptions: () => AuthMiddlewareOptions = () => {
+const credentialsFlowOptions: () => AnonymousAuthMiddlewareOptions = () => {
   const options = {
     host: import.meta.env.VITE_CTP_AUTH_URL,
     projectKey,
@@ -20,7 +20,6 @@ const credentialsFlowOptions: () => AuthMiddlewareOptions = () => {
 
 function anonymousSessionFlowClient(): Client {
   const client = new ClientBuilder()
-    .withClientCredentialsFlow(credentialsFlowOptions())
     .withAnonymousSessionFlow(credentialsFlowOptions())
     .withHttpMiddleware(httpMiddlewareOptions)
     .build();
