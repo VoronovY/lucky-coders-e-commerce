@@ -3,7 +3,7 @@ import { ClientBuilder, Client, AnonymousAuthMiddlewareOptions } from '@commerce
 import { httpMiddlewareOptions, projectKey } from '../baseApi';
 import myTokenCache from '../auth/tokenCache';
 
-const credentialsFlowOptions: () => AnonymousAuthMiddlewareOptions = () => {
+const anonymousFlowOptions: () => AnonymousAuthMiddlewareOptions = () => {
   const options = {
     host: import.meta.env.VITE_CTP_AUTH_URL,
     projectKey,
@@ -20,7 +20,7 @@ const credentialsFlowOptions: () => AnonymousAuthMiddlewareOptions = () => {
 
 function anonymousSessionFlowClient(): Client {
   const client = new ClientBuilder()
-    .withAnonymousSessionFlow(credentialsFlowOptions())
+    .withAnonymousSessionFlow(anonymousFlowOptions())
     .withHttpMiddleware(httpMiddlewareOptions)
     .build();
 
