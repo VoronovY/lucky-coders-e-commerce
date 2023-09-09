@@ -1,0 +1,13 @@
+.cartWrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--width-main-container);
+  margin: 0 auto;
+  gap: 30px;
+  padding: 40px 20px;
+
+  .cart {
+    display: flex;
+    gap: 30px;
+  }
+}

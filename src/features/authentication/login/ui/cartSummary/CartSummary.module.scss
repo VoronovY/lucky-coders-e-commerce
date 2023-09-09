@@ -1,0 +1,36 @@
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  border-radius: 12px;
+  width: 26%;
+  background-color: var(--color-bg-light);
+  box-shadow: var(--shadow-card-primary);
+  font-size: var(--font-size-middle);
+  font-weight: var(--font-weight-bold);
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.addButton {
+  position: absolute;
+  border-radius: 0 8px 8px 0;
+  width: 38px;
+  height: 36px;
+  bottom: 2px;
+  right: 2px;
+  background-color: var(--color-categories-arrow-button);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-gradient-bg-orange);
+    color: var(--color-secondary-text);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
