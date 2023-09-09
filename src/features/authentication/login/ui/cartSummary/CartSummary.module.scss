@@ -1,3 +1,5 @@
+@import "../../../../../app/styles/variables.scss";
+
 .summary {
   display: flex;
   flex-direction: column;
@@ -9,6 +11,11 @@
   box-shadow: var(--shadow-card-primary);
   font-size: var(--font-size-middle);
   font-weight: var(--font-weight-bold);
+
+  @media (max-width: $width-laptop) {
+    width: 100%;
+    order: 0;
+  }
 }
 
 .inputWrapper {
@@ -24,6 +31,7 @@
   right: 2px;
   background-color: var(--color-categories-arrow-button);
   cursor: pointer;
+  transition: all ease-in-out 0.2s;
 
   &:hover {
     background: var(--color-gradient-bg-orange);

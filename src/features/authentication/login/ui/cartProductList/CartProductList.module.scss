@@ -1,7 +1,14 @@
+@import "../../../../../app/styles/variables.scss";
+
 .productList {
   display: flex;
   flex-direction: column;
   width: 70%;
   flex: 0 0 auto;
   gap: 20px;
+
+  @media (max-width: $width-laptop) {
+    width: 100%;
+    order: 1;
+  }
 }

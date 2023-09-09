@@ -1,3 +1,5 @@
+@import "../../../../app/styles/variables.scss";
+
 .cartWrapper {
   display: flex;
   flex-direction: column;
@@ -9,5 +11,9 @@
   .cart {
     display: flex;
     gap: 30px;
+
+    @media (max-width: $width-laptop) {
+      flex-direction: column;
+    }
   }
 }
