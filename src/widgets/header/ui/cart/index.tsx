@@ -7,8 +7,9 @@ import RoutesName from '../../../../shared/routing';
 
 function HeaderCart(): JSX.Element {
   return (
-    <Link to={RoutesName.cart}>
+    <Link to={RoutesName.cart} className={styles.cartLink}>
       <CartIcon className={styles.cart} />
+      <span className={styles.cartCounter}>0</span>
     </Link>
   );
 }
