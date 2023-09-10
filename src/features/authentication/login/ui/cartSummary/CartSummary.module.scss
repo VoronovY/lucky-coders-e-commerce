@@ -6,16 +6,18 @@
   gap: 20px;
   padding: 30px;
   border-radius: 12px;
-  width: 26%;
+  width: 32%;
   background-color: var(--color-bg-light);
   box-shadow: var(--shadow-card-primary);
   font-size: var(--font-size-middle);
-  font-weight: var(--font-weight-bold);
 
   @media (max-width: $width-laptop) {
     width: 100%;
     order: 0;
   }
+}
+.totalPrice {
+  text-decoration: line-through;
 }
 
 .inputWrapper {

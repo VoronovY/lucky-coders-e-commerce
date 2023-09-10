@@ -27,7 +27,9 @@ function CartProduct(): JSX.Element {
         <div className={styles.productInfo}>
           <div className={styles.productName}>Clear Quartz Crystal</div>
           <div className={styles.productQuantity}>In Stock: 12</div>
-          <div className={styles.productPrice}>Price: 4.99 €</div>
+          <div className={styles.productPrice}>
+            Price: <span className={styles.oldPrice}>5.99 €</span> 4.99 €
+          </div>
         </div>
         <div className={styles.productPriceQuantity}>
           <div className={styles.productPrice}>4.99 €</div>

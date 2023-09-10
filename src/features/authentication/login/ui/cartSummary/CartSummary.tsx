@@ -29,7 +29,10 @@ function CartSummary(): JSX.Element {
 
   return (
     <div className={styles.summary}>
-      <div>Total: 1100 €</div>
+      <div>
+        <div className={styles.totalPrice}>Total: 1100 €</div>
+        <div>Total with discount: 900 €</div>
+      </div>
       <form className={styles.addPromo} onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="promoCode"

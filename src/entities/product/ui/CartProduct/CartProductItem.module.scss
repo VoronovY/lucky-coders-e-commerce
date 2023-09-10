@@ -34,6 +34,10 @@
     max-width: 400px;
   }
 
+  .oldPrice {
+    text-decoration: line-through;
+  }
+
   .productControls {
     display: flex;
     gap: 16px;
@@ -41,7 +45,18 @@
     .button {
       width: 24px;
       height: 24px;
+      background-color: var(--color-categories-arrow-button);
+      border-radius: 2px;
       cursor: pointer;
+
+      &:hover {
+        background: var(--color-gradient-bg-orange);
+        color: var(--color-secondary-text);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
     }
   }
 }
