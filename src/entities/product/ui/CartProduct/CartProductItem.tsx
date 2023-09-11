@@ -42,7 +42,9 @@ function CartProduct(): JSX.Element {
               +
             </button>
           </div>
-          <DeleteIcon className={styles.delete} />
+          <button type="button" className={styles.deleteButton}>
+            <DeleteIcon />
+          </button>
         </div>
       </div>
     </div>
