@@ -30,10 +30,11 @@ import {
 import myTokenCache from '../../../../../shared/api/auth/tokenCache';
 import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../../shared/ui/modalError/ModalError';
-import { store } from '../../../../../app/appStore/appStore';
+
 import getCustomerAction from '../../../model/userActions';
 import SuccessfulMessages from '../../../../../shared/successfulMessages';
 import { changePassword } from '../../../api/userApi';
+import { store } from '../../../../../app/appStore/store';
 
 interface ChangePasswordModalProps {
   onCloseModalPassword: () => void;

@@ -9,12 +9,13 @@ import { getAccessToken, getUserId } from '../../../../shared/selectors/mainSett
 import { useAppDispatch, useAppSelector } from '../../../../app/appStore/hooks';
 import { updateAccessToken, updateUserId } from '../../../../shared/model/appSlice';
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
+import { updateCart } from '../../../../entities/cart/model/cartSlice';
 
 function HeaderProfile(): JSX.Element {
   const navigate = useNavigate();
   const userId = useAppSelector(getUserId);
   const token = useAppSelector(getAccessToken);
-  const disaptch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const profileArr = [
     { id: 1, url: RoutesName.login, text: 'Sign In', icon: LoginIcon },
@@ -23,8 +24,9 @@ function HeaderProfile(): JSX.Element {
   const handleSignOut = (): void => {
     localStorage.removeItem('accessToken');
     myTokenCache.clear();
-    disaptch(updateUserId(''));
-    disaptch(updateAccessToken(''));
+    dispatch(updateUserId(''));
+    dispatch(updateAccessToken(''));
+    dispatch(updateCart(null));
     navigate(RoutesName.main);
   };
 

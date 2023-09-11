@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import './app/styles/app.scss';
 import router from './app/appRouter';
-import { store } from './app/appStore/appStore';
+import { store } from './app/appStore/store';
 
 const root = document.getElementById('root');
 

@@ -18,8 +18,9 @@ import { loginUser } from '../../../../shared/api/auth/loginUser';
 
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
 
-import { createUserCart } from '../../../../entities/cart/api/cartApi';
 import useCreateUserAndNavigate from '../../../../shared/api/auth/userUtils';
+import { createCartAction, getCartAction } from '../../../../entities/cart/model/cartActions';
+import { useAppDispatch } from '../../../../app/appStore/hooks';
 
 const defaultValues = {
   email: '',
@@ -48,6 +49,7 @@ function SignUpForm(): JSX.Element {
   });
 
   const createUserAndNavigate = useCreateUserAndNavigate();
+  const dispatch = useAppDispatch();
 
   const disableSubmit = Object.values(methods.formState.errors).length > 0;
 
@@ -57,16 +59,20 @@ function SignUpForm(): JSX.Element {
     signUp(convertedData)
       .then(() => {
         if (localStorage.getItem('anonymousToken')) {
-          loginUser(data.email, data.password).then(() => {
-            localStorage.removeItem('anonymousToken');
-            localStorage.removeItem('anonymousCartId');
-            myTokenCache.clear();
+          loginUser(data.email, data.password)
+            .then(() => {
+              localStorage.removeItem('anonymousToken');
+              localStorage.removeItem('anonymousCartId');
+              myTokenCache.clear();
 
-            createUserAndNavigate(data.email, data.password);
-          });
+              return createUserAndNavigate(data.email, data.password);
+            })
+            .finally(() => {
+              dispatch(getCartAction());
+            });
         } else {
           createUserAndNavigate(data.email, data.password).then(() => {
-            createUserCart();
+            dispatch(createCartAction());
           });
         }
       })
