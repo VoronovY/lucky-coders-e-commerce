@@ -7,16 +7,12 @@ import styles from './Specials.module.scss';
 
 import getDiscounts from '../../../../shared/api/discounts/getDiscounts';
 import PromoElement from '../../../../shared/ui/promocode/PromoElement';
-import Promo1Img from '../../../../../public/assets/promo1.png';
-import Promo2Img from '../../../../../public/assets/promo2.png';
-import Promo3Img from '../../../../../public/assets/promo3.png';
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 
 function SpecialsContainer(): JSX.Element {
   const [discounts, setDiscounts] = useState<DiscountCode[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
-  const imageSrcArray = [Promo1Img, Promo3Img, Promo2Img];
 
   useEffect(() => {
     getDiscounts()
@@ -48,7 +44,6 @@ function SpecialsContainer(): JSX.Element {
           {discounts.map((discount, index) => (
             <PromoElement
               key={discount.id}
-              imageSrc={imageSrcArray[index]}
               promoText={discount?.description?.['en-US'] || ''}
               promoCode={discount?.name?.['en-US'] || ''}
               index={index}
