@@ -45,7 +45,7 @@ function SpecialsContainer(): JSX.Element {
             <PromoElement
               key={discount.id}
               promoText={discount?.description?.['en-US'] || ''}
-              promoCode={discount?.name?.['en-US'] || ''}
+              promoCode={discount.code}
               index={index}
             />
           ))}
