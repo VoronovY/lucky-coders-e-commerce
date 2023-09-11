@@ -40,3 +40,22 @@
     color: var(--color-hovered-btn);
   }
 }
+
+.cartLink {
+  position: relative;
+}
+
+.cartCounter {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-secondary-text);
+  font-size: var(--font-size-small);
+  border-radius: 50%;
+  top: -6px;
+  right: -6px;
+  width: 24px;
+  height: 24px;
+  background: var(--color-gradient-bg-orange);
+}

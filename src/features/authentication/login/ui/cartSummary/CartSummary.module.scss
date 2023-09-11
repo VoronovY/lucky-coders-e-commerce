@@ -1,0 +1,46 @@
+@import "../../../../../app/styles/variables.scss";
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  border-radius: 12px;
+  width: 32%;
+  background-color: var(--color-bg-light);
+  box-shadow: var(--shadow-card-primary);
+  font-size: var(--font-size-middle);
+
+  @media (max-width: $width-laptop) {
+    width: 100%;
+    order: 0;
+  }
+}
+.totalPrice {
+  text-decoration: line-through;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.addButton {
+  position: absolute;
+  border-radius: 0 8px 8px 0;
+  width: 38px;
+  height: 36px;
+  bottom: 2px;
+  right: 2px;
+  background-color: var(--color-categories-arrow-button);
+  cursor: pointer;
+  transition: all ease-in-out 0.2s;
+
+  &:hover {
+    background: var(--color-gradient-bg-orange);
+    color: var(--color-secondary-text);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}

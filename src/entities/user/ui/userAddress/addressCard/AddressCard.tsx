@@ -131,8 +131,12 @@ function AddressCard({ id, country, city, state, street, postalCode }: AddressCa
       </div>
       <div className={styles.addressActions}>
         <div className={styles.actionsIcons}>
-          <EditIcon onClick={handleEditClick} />
-          <DeleteIcon onClick={handleDeleteClick} />
+          <button type="button" onClick={handleEditClick}>
+            <EditIcon />
+          </button>
+          <button type="button" onClick={handleDeleteClick}>
+            <DeleteIcon />
+          </button>
         </div>
         <div className={styles.actionsDefault}>
           <div>
