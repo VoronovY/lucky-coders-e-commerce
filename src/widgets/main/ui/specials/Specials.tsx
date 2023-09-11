@@ -1,36 +1,55 @@
+import { useEffect, useState } from 'react';
+
+import { DiscountCode } from '@commercetools/platform-sdk';
+import Slider from 'react-slick';
+
 import styles from './Specials.module.scss';
 
-import { ArrowLeftIcon, ArrowRightIcon } from '../../../../app/layouts/images';
+import getDiscounts from '../../../../shared/api/discounts/getDiscounts';
+import PromoElement from '../../../../shared/ui/promocode/PromoElement';
+import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
+import ModalError from '../../../../shared/ui/modalError/ModalError';
 
 function SpecialsContainer(): JSX.Element {
+  const [discounts, setDiscounts] = useState<DiscountCode[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    getDiscounts()
+      .then((response) => {
+        setDiscounts(response.body.results);
+      })
+      .catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
+  }, []);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    cssEase: 'linear',
+    pauseOnHover: true,
+  };
+
   return (
     <div className={styles.specialsContainer}>
+      {errorMessage && <ModalError errorMessage={errorMessage} />}
       <h2>Specials</h2>
       <div className={styles.specialsWrapper}>
-        <div>
-          <ArrowLeftIcon className={styles.arrowNav} />
-        </div>
-        <div className={styles.promoWrapper}>
-          <div className={styles.specialsContent}>
-            <div>
-              <span>Explore the world of stones!</span>
-            </div>
-            <div>
-              <span>Add a touch of natural beauty to your life!</span>
-            </div>
-            <div>
-              <span>10% </span>
-              <span>discount on all types of stones.</span>
-            </div>
-            <div>
-              <span>PROMOCODE </span>
-              <span>STONE10</span>
-            </div>
-          </div>
-        </div>
-        <div>
-          <ArrowRightIcon className={styles.arrowNav} />
-        </div>
+        <Slider {...settings}>
+          {discounts.map((discount, index) => (
+            <PromoElement
+              key={discount.id}
+              promoText={discount?.description?.['en-US'] || ''}
+              promoCode={discount.code}
+              index={index}
+            />
+          ))}
+        </Slider>
       </div>
     </div>
   );
