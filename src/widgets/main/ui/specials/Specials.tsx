@@ -10,15 +10,22 @@ import PromoElement from '../../../../shared/ui/promocode/PromoElement';
 import Promo1Img from '../../../../../public/assets/promo1.png';
 import Promo2Img from '../../../../../public/assets/promo2.png';
 import Promo3Img from '../../../../../public/assets/promo3.png';
+import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
+import ModalError from '../../../../shared/ui/modalError/ModalError';
 
 function SpecialsContainer(): JSX.Element {
   const [discounts, setDiscounts] = useState<DiscountCode[]>([]);
-  const [promo1, promo2, promo3] = discounts;
+  const [errorMessage, setErrorMessage] = useState('');
+  const imageSrcArray = [Promo1Img, Promo3Img, Promo2Img];
 
   useEffect(() => {
-    getDiscounts().then((response) => {
-      setDiscounts(response.body.results);
-    });
+    getDiscounts()
+      .then((response) => {
+        setDiscounts(response.body.results);
+      })
+      .catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
   }, []);
 
   const settings = {
@@ -34,30 +41,19 @@ function SpecialsContainer(): JSX.Element {
 
   return (
     <div className={styles.specialsContainer}>
+      {errorMessage && <ModalError errorMessage={errorMessage} />}
       <h2>Specials</h2>
       <div className={styles.specialsWrapper}>
         <Slider {...settings}>
-          <PromoElement
-            imageSrc={Promo1Img}
-            promoText={promo1?.description?.['en-US'] || ''}
-            promoCode={promo1?.name?.['en-US'] || ''}
-            backgroundColor="rgba(244, 201, 145, 0.5)"
-            codeColor="rgb(251, 121, 27)"
-          />
-          <PromoElement
-            imageSrc={Promo3Img}
-            promoText={promo2?.description?.['en-US'] || ''}
-            promoCode={promo2?.name?.['en-US'] || ''}
-            backgroundColor="rgba(199, 199, 146, 0.5)"
-            codeColor="rgb(101, 101, 43)"
-          />
-          <PromoElement
-            imageSrc={Promo2Img}
-            promoText={promo3?.description?.['en-US'] || ''}
-            promoCode={promo3?.name?.['en-US'] || ''}
-            backgroundColor="rgba(164, 175, 191, 0.5)"
-            codeColor="rgb(32, 103, 124)"
-          />
+          {discounts.map((discount, index) => (
+            <PromoElement
+              key={discount.id}
+              imageSrc={imageSrcArray[index]}
+              promoText={discount?.description?.['en-US'] || ''}
+              promoCode={discount?.name?.['en-US'] || ''}
+              index={index}
+            />
+          ))}
         </Slider>
       </div>
     </div>

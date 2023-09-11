@@ -74,7 +74,6 @@
 
       .code {
         font-size: var(--font-size-h1);
-        color: rgb(101, 101, 43);
 
         @media (max-width: $width-laptop) {
           font-size: var(--font-size-h2);
@@ -86,4 +85,28 @@
       }
     }
   }
+}
+
+.promoWrapperOrange .overlay {
+  background-color: var(--color-overlay-orange);
+}
+
+.promoWrapperOrange .code {
+  color: var(--color-code-orange);
+}
+
+.promoWrapperGreen .overlay {
+  background-color: var(--color-overlay-green);
+}
+
+.promoWrapperGreen .code {
+  color: var(--color-code-green);
+}
+
+.promoWrapperGrey .overlay {
+  background-color: var(--color-overlay-grey);
+}
+
+.promoWrapperGrey .code {
+  color: var(--color-code-grey);
 }

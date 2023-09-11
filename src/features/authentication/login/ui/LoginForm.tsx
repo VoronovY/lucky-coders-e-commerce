@@ -45,8 +45,7 @@ function LoginForm(): JSX.Element {
 
     if (localStorage.getItem('anonymousToken')) {
       loginUser(data.email, data.password)
-        .then((response) => {
-          console.log(response.body);
+        .then(() => {
           localStorage.removeItem('anonymousToken');
           localStorage.removeItem('anonymousCartId');
           myTokenCache.clear();
