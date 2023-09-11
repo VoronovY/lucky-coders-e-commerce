@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { DiscountCode } from '@commercetools/platform-sdk';
+import Slider from 'react-slick';
 
 import styles from './Specials.module.scss';
 
-import { ArrowLeftIcon, ArrowRightIcon } from '../../../../app/layouts/images';
 import getDiscounts from '../../../../shared/api/discounts/getDiscounts';
 import PromoElement from '../../../../shared/ui/promocode/PromoElement';
 import Promo1Img from '../../../../../public/assets/promo1.png';
@@ -21,14 +21,22 @@ function SpecialsContainer(): JSX.Element {
     });
   }, []);
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    cssEase: 'linear',
+    pauseOnHover: true,
+  };
+
   return (
     <div className={styles.specialsContainer}>
       <h2>Specials</h2>
       <div className={styles.specialsWrapper}>
-        <div>
-          <ArrowLeftIcon className={styles.arrowNav} />
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <Slider {...settings}>
           <PromoElement
             imageSrc={Promo1Img}
             promoText={promo1?.description?.['en-US'] || ''}
@@ -50,10 +58,7 @@ function SpecialsContainer(): JSX.Element {
             backgroundColor="rgba(164, 175, 191, 0.5)"
             codeColor="rgb(32, 103, 124)"
           />
-        </div>
-        <div>
-          <ArrowRightIcon className={styles.arrowNav} />
-        </div>
+        </Slider>
       </div>
     </div>
   );

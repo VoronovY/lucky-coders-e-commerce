@@ -9,8 +9,6 @@ import { ReactComponent as LogoutIcon } from '../../../public/assets/logout.svg'
 import { ReactComponent as RegisterIcon } from '../../../public/assets/register.svg';
 import { ReactComponent as EyeIcon } from '../../../public/assets/view-eye.svg';
 import { ReactComponent as HiddenEyeIcon } from '../../../public/assets/hidden-eye.svg';
-import { ReactComponent as ArrowLeftIcon } from '../../../public/assets/arrow-left.svg';
-import { ReactComponent as ArrowRightIcon } from '../../../public/assets/arrow-right.svg';
 import { ReactComponent as Checked } from '../../../public/assets/check.svg';
 import { ReactComponent as SearchIcon } from '../../../public/assets/search.svg';
 import { ReactComponent as CrossIcon } from '../../../public/assets/cross.svg';
@@ -40,8 +38,6 @@ export {
   RegisterIcon,
   EyeIcon,
   HiddenEyeIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
   Checked,
   SearchIcon,
   CrossIcon,
