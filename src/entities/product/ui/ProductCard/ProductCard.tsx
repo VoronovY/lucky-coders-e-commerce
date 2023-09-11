@@ -80,7 +80,7 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
   };
 
   const disableAddBtn = currentCart
-    ? currentCart.lineItems.findIndex((lineItem: LineItem) => lineItem.productId === id) > 0
+    ? currentCart.lineItems.findIndex((lineItem: LineItem) => lineItem.productId === id) !== -1
     : false;
 
   return (
