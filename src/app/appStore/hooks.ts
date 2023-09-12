@@ -2,7 +2,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { AppDispatch, RootState } from './appStore';
+import { AppDispatch, RootState } from './store';
 
 import getProductAction from '../../features/selectedProduct/model/productActions';
 import selectProduct from '../../features/selectedProduct/model/productSelectors';

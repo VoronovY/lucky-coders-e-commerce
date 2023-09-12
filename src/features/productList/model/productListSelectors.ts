@@ -1,6 +1,7 @@
-import { RootState } from '../../../app/appStore/appStore';
 import { FilterFields, ProductCardData } from '../../../shared/types/types';
 import { OptionInput } from '../../../shared/ui/select/SelectInput';
+
+import type { RootState } from '../../../app/appStore/store';
 
 const selectProductList = (state: RootState): ProductCardData[] => state.catalog.productList;
 

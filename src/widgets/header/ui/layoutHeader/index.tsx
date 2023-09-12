@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../../../app/appStore/hooks';
 import { updateAccessToken, updateInfoMessage, updateIsModalInfoOpen } from '../../../../shared/model/appSlice';
 import { ModalInfo } from '../../../../shared/ui';
 import { getInfoModalMessage, getIsInfoModalOpen } from '../../../../shared/selectors/mainSettingsSelectors';
+import { getCartAction } from '../../../../entities/cart/model/cartActions';
 
 function LayoutHeader(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ function LayoutHeader(): JSX.Element {
     if (token) {
       dispatch(updateAccessToken(token));
     }
+    dispatch(getCartAction());
   }, [dispatch]);
 
   return (

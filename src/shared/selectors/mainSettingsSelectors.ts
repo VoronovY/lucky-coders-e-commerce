@@ -1,4 +1,4 @@
-import { RootState } from '../../app/appStore/appStore';
+import type { RootState } from '../../app/appStore/store';
 
 export const getUserId = (state: RootState): string => state.mainSettings.userId;
 

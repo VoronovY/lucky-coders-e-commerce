@@ -1,8 +1,8 @@
 import { ClientResponse, Customer } from '@commercetools/platform-sdk';
 
-import { store } from '../../app/appStore/appStore';
 import getCustomerAction from '../../entities/user/model/userActions';
 import { updateInfoMessage, updateIsModalInfoOpen } from '../model/appSlice';
+import { store } from '../../app/appStore/store';
 
 const handleCustomerAction = async (
   action: () => Promise<ClientResponse<Customer>>,

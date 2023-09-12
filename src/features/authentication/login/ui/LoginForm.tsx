@@ -13,6 +13,8 @@ import { getErrorLoginMessage } from '../../../../shared/helpers/getErrorMessage
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
 import useCreateUserAndNavigate from '../../../../shared/api/auth/userUtils';
+import { useAppDispatch } from '../../../../app/appStore/hooks';
+import { getCartAction } from '../../../../entities/cart/model/cartActions';
 
 interface LoginUserFields {
   email: string;
@@ -38,6 +40,7 @@ function LoginForm(): JSX.Element {
   });
 
   const createUserAndNavigate = useCreateUserAndNavigate();
+  const dispatch = useAppDispatch();
 
   const disableSubmit = Object.values(errors).length > 0;
   const onSubmit: SubmitHandler<LoginUserFields> = (data) => {
@@ -50,15 +53,22 @@ function LoginForm(): JSX.Element {
           localStorage.removeItem('anonymousCartId');
           myTokenCache.clear();
 
-          createUserAndNavigate(data.email, data.password);
+          return createUserAndNavigate(data.email, data.password);
         })
         .catch((error) => {
           setErrorMessage(getErrorLoginMessage(error.body));
+        })
+        .finally(() => {
+          dispatch(getCartAction());
         });
     } else {
-      createUserAndNavigate(data.email, data.password).catch((error) => {
-        setErrorMessage(getErrorLoginMessage(error.body));
-      });
+      createUserAndNavigate(data.email, data.password)
+        .catch((error) => {
+          setErrorMessage(getErrorLoginMessage(error.body));
+        })
+        .finally(() => {
+          dispatch(getCartAction());
+        });
     }
   };
 
