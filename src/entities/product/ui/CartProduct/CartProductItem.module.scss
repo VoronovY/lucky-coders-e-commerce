@@ -4,6 +4,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--color-border-profile);
 
   .productImage {
     width: 94px;
@@ -70,6 +72,10 @@
 
   @media (max-width: $width-mobile-big) {
     flex-direction: column;
+  }
+
+  .productPrice {
+    width: 70px;
   }
 }
 
