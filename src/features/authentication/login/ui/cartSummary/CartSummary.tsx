@@ -44,7 +44,7 @@ function CartSummary(): JSX.Element | null {
     <div className={styles.summary}>
       <div>
         <div className={styles.totalPrice}>
-          Total: <span>{totalPrice}</span>
+          Total: <span>{totalPrice} €</span>
         </div>
         {/* <div>Total with discount: 900 €</div> */}
       </div>
