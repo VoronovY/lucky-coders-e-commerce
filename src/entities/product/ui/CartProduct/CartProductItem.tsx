@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import styles from './CartProductItem.module.scss';
 
 import { DeleteIcon } from '../../../../app/layouts/images';
-import { changeProductQuantity } from '../../../cart/api/cartApi';
+import { changeProductQuantity, removeProduct } from '../../../cart/api/cartApi';
 import { useAppDispatch } from '../../../../app/appStore/hooks';
 import { getCartAction } from '../../../cart/model/cartActions';
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
@@ -58,6 +58,17 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
     }
   };
 
+  const handleDeleteProduct = (): void => {
+    setErrorMessage('');
+    removeProduct(cartId, lineItem.id, version)
+      .then(() => {
+        dispatch(getCartAction());
+      })
+      .catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
+  };
+
   return (
     <>
       {errorMessage && <ModalError errorMessage={errorMessage} />}
@@ -104,7 +115,7 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
                 +
               </button>
             </div>
-            <button type="button" className={styles.deleteButton}>
+            <button type="button" className={styles.deleteButton} onClick={handleDeleteProduct}>
               <DeleteIcon />
             </button>
           </div>
