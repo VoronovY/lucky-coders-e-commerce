@@ -14,6 +14,8 @@ import {
   selectIsProductListError,
   selectProductList,
   selectProductListErrorMessage,
+  // selectProductsOffset,
+  selectProductsTotalCount,
   selectSearchValue,
   selectSortValue,
 } from '../model/productListSelectors';
@@ -30,6 +32,7 @@ import { sortingOptions } from '../../../shared/constants/sort';
 import { ModalInfo } from '../../../shared/ui';
 import selectCategories from '../../../shared/categories/model/categoriesSelectors';
 import findCategoryIdByKey from '../../../shared/helpers/products';
+import { PRODUCTS_ON_PAGE } from '../../../shared/constants/products';
 
 export interface ProductListProps {}
 
@@ -50,6 +53,8 @@ function ProductList(): JSX.Element {
   const isError = useAppSelector(selectIsProductListError);
   const errorMessage = useAppSelector(selectProductListErrorMessage);
   const categories = useAppSelector(selectCategories);
+  // const offset = useAppSelector(selectProductsOffset);
+  const totalProductsCount = useAppSelector(selectProductsTotalCount);
 
   const navigate = useNavigate();
 
@@ -85,6 +90,11 @@ function ProductList(): JSX.Element {
       }),
     );
   }, [dispatch, searchValue, sortValue, filters, category, subcategory, categoryId, navigate]);
+
+  const paginationList = useMemo(() => {
+    const pageCount = Math.floor(totalProductsCount / PRODUCTS_ON_PAGE);
+    return new Array(pageCount).fill(0).map((_: undefined, idx: number) => ({ title: idx + 1, id: `id-${idx + 1}` }));
+  }, [totalProductsCount]);
 
   const handleSearch = (value: string): void => {
     if (value) {
@@ -186,6 +196,29 @@ function ProductList(): JSX.Element {
       {productList.map((product) => {
         return <ProductCard key={product.id} product={product} />;
       })}
+      <div className={styles.paginationWrapper}>
+        {paginationList.length > 0 &&
+          paginationList.map(({ title, id }, idx) => {
+            const handlePagination = (): void => {
+              const newOffset = Math.floor(idx + 1);
+              dispatch(
+                getProductListAction({
+                  filters,
+                  searchValue: searchValue?.value,
+                  sortBy: sortValue?.value || '',
+                  categoryId,
+                  newOffset,
+                }),
+              );
+            };
+
+            return (
+              <button key={id} onClick={handlePagination} type="button">
+                {title}
+              </button>
+            );
+          })}
+      </div>
       <ModalInfo isOpen={isError} setIsOpen={handleModalInfo} message={errorMessage} withIcon={false} />
     </div>
   );

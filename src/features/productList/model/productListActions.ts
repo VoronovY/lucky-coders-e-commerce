@@ -4,7 +4,7 @@ import { ProductProjection } from '@commercetools/platform-sdk';
 
 import getProductList from '../api/getProductList';
 import getErrorMessage from '../../../shared/helpers/routerHelpres';
-import { FilterFields, ProductCardData } from '../../../shared/types/types';
+import { FilterFields, ProductCardData, ProductsResponse } from '../../../shared/types/types';
 
 const convertProductFromDTO = (product: ProductProjection): ProductCardData => {
   const { attributes, images, prices } = product.masterVariant;
@@ -32,16 +32,18 @@ const convertProductFromDTO = (product: ProductProjection): ProductCardData => {
 };
 
 const getProductListAction = createAsyncThunk<
-  ProductCardData[],
-  { filters: FilterFields | null; searchValue: string; sortBy: string; categoryId: string | null },
+  ProductsResponse,
+  { filters: FilterFields | null; searchValue: string; sortBy: string; categoryId: string | null; newOffset?: number },
   { rejectValue: string }
->('catalog/productList', async ({ filters, searchValue, sortBy, categoryId }, { rejectWithValue }) => {
+>('catalog/productList', async ({ filters, searchValue, sortBy, categoryId, newOffset = 0 }, { rejectWithValue }) => {
   try {
-    const response = await getProductList(filters, searchValue, sortBy, categoryId);
+    const response = await getProductList(filters, searchValue, sortBy, categoryId, newOffset);
 
     const convertedProductList = response.body.results.map((product) => convertProductFromDTO(product));
+    const { offset } = response.body;
+    const totalProductsCount = response.body.total || 0;
 
-    return convertedProductList;
+    return { convertedProductList, offset, totalProductsCount };
   } catch (error: unknown) {
     const message = getErrorMessage(error);
 

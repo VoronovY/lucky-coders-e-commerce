@@ -17,6 +17,10 @@ const selectProductListErrorMessage = (state: RootState): string => state.catalo
 
 const selectSelectedCategoryId = (state: RootState): string | null => state.catalog.selectedCategoryId;
 
+const selectProductsTotalCount = (state: RootState): number => state.catalog.totalProductCount;
+
+const selectProductsOffset = (state: RootState): number => state.catalog.offset;
+
 export {
   selectProductList,
   selectSearchValue,
@@ -25,4 +29,6 @@ export {
   selectIsProductListError,
   selectProductListErrorMessage,
   selectSelectedCategoryId,
+  selectProductsTotalCount,
+  selectProductsOffset,
 };

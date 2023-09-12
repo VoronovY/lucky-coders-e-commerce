@@ -15,6 +15,8 @@ type ProductList = {
   isError: boolean;
   errorMessage: string;
   selectedCategoryId: string | null;
+  offset: number;
+  totalProductCount: number;
 };
 
 const initialState: ProductList = {
@@ -26,6 +28,8 @@ const initialState: ProductList = {
   isError: false,
   errorMessage: '',
   selectedCategoryId: '',
+  totalProductCount: 0,
+  offset: 0,
 };
 
 export const ProductListSlice = createSlice({
@@ -66,7 +70,9 @@ export const ProductListSlice = createSlice({
       .addCase(getProductListAction.fulfilled, (state, { payload }) => {
         const currentState = state;
         currentState.isLoading = false;
-        currentState.productList = payload;
+        currentState.productList = payload.convertedProductList;
+        currentState.offset = payload.offset;
+        currentState.totalProductCount = payload.totalProductsCount;
       })
       .addCase(getProductListAction.rejected, (state, { payload }) => {
         const currentState = state;
