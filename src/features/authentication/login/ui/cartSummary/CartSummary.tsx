@@ -1,10 +1,15 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
+import { useSelector } from 'react-redux';
+
+import { Cart } from '@commercetools/platform-sdk';
+
 import styles from './CartSummary.module.scss';
 
 import Button from '../../../../../shared/ui/button/Button';
 import { TextInput } from '../../../../../shared/ui';
 import ButtonCancel from '../../../../../entities/user/ui/modal/buttonCancel/ButtonCancel';
+import { selectCart } from '../../../../../entities/cart/model/selectCart';
 
 type FormData = {
   promoCode: string;
@@ -14,7 +19,7 @@ const defaultValues = {
   promoCode: '',
 };
 
-function CartSummary(): JSX.Element {
+function CartSummary(): JSX.Element | null {
   const {
     handleSubmit,
     control,
@@ -23,6 +28,14 @@ function CartSummary(): JSX.Element {
     mode: 'onChange',
     defaultValues,
   });
+
+  const currentCart: Cart | null = useSelector(selectCart);
+
+  if (!currentCart) {
+    return null;
+  }
+
+  const totalPrice = currentCart.totalPrice.centAmount / 100;
   const onSubmit: SubmitHandler<FormData> = (data) => {
     return data;
   };
@@ -30,8 +43,10 @@ function CartSummary(): JSX.Element {
   return (
     <div className={styles.summary}>
       <div>
-        <div className={styles.totalPrice}>Total: 1100 €</div>
-        <div>Total with discount: 900 €</div>
+        <div className={styles.totalPrice}>
+          Total: <span>{totalPrice}</span>
+        </div>
+        {/* <div>Total with discount: 900 €</div> */}
       </div>
       <form className={styles.addPromo} onSubmit={handleSubmit(onSubmit)}>
         <Controller

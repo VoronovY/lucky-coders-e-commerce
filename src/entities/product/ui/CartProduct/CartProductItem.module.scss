@@ -11,12 +11,12 @@
     width: 94px;
     height: 94px;
     margin: 0 auto;
-    border: 1px solid var(--color-border-profile);
     border-radius: 12px;
 
     img {
       width: 100%;
       border-radius: 12px;
+      border: 1px solid var(--color-border-profile);
       height: auto;
     }
   }
