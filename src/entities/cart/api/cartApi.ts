@@ -2,6 +2,7 @@ import {
   ApiRoot,
   Cart,
   ClientResponse,
+  MyCartAddDiscountCodeAction,
   MyCartAddLineItemAction,
   MyCartChangeLineItemQuantityAction,
   MyCartRemoveLineItemAction,
@@ -116,6 +117,32 @@ export const removeProduct = (
   const updateBody: MyCartUpdate = {
     version,
     actions: removeLineItemActions,
+  };
+
+  return getApiRoot()
+    .withProjectKey({ projectKey })
+    .me()
+    .carts()
+    .withId({ ID: cartId })
+    .post({
+      body: updateBody,
+    })
+    .execute();
+};
+
+export const addDiscountCode = (
+  cartId: string,
+  discountCode: string,
+  version: number,
+): Promise<ClientResponse<Cart>> => {
+  const addDiscountCodeAction: MyCartAddDiscountCodeAction = {
+    action: 'addDiscountCode',
+    code: discountCode,
+  };
+
+  const updateBody: MyCartUpdate = {
+    version,
+    actions: [addDiscountCodeAction],
   };
 
   return getApiRoot()

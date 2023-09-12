@@ -4,8 +4,8 @@ import { Cart } from '@commercetools/platform-sdk';
 
 import styles from './CartProductList.module.scss';
 
-import CartProduct from '../../../../../entities/product/ui/CartProduct/CartProductItem';
-import { selectCart } from '../../../../../entities/cart/model/selectCart';
+import CartProduct from '../../../../entities/product/ui/CartProduct/CartProductItem';
+import { selectCart } from '../../../../entities/cart/model/selectCart';
 
 function CartProductList(): JSX.Element | null {
   const currentCart: Cart | null = useSelector(selectCart);

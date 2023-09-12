@@ -1,22 +1,33 @@
-@import "../../../../../app/styles/variables.scss";
+@import "../../../../app/styles/variables.scss";
 
-.summary {
+.summaryWrapper {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 30px;
-  border-radius: 12px;
+  justify-content: center;
   width: 32%;
-  max-height: 400px;
-  background-color: var(--color-bg-light);
-  box-shadow: var(--shadow-card-primary);
-  font-size: var(--font-size-middle);
 
   @media (max-width: $width-laptop) {
     width: 100%;
     order: 0;
   }
+
+  .summary {
+    position: sticky;
+    top: 10px;
+    left: 0;
+    display: flex;
+    width: 100%;
+    align-self: flex-start;
+    flex-direction: column;
+    background-color: var(--color-bg-light);
+    box-shadow: var(--shadow-card-primary);
+    font-size: var(--font-size-middle);
+    border-radius: 12px;
+    padding: 30px;
+    gap: 20px;
+  }
 }
+
 .totalPrice {
   span {
     font-weight: var(--font-weight-bold);

@@ -11,9 +11,9 @@ type PromoElementProps = {
 };
 
 function PromoElement({ promoText, promoCode, index }: PromoElementProps): JSX.Element {
-  const promoWrapperClasses = [styles.promoWrapperOrange, styles.promoWrapperGreen, styles.promoWrapperGrey];
+  const promoWrapperClasses = [styles.promoWrapperOrange, styles.promoWrapperGrey, styles.promoWrapperGreen];
   const promoWrapperClass = promoWrapperClasses[index % promoWrapperClasses.length];
-  const imageSrcArray = [Promo1Img, Promo3Img, Promo2Img];
+  const imageSrcArray = [Promo1Img, Promo2Img, Promo3Img];
   const imageSrc = imageSrcArray[index % imageSrcArray.length];
 
   return (
