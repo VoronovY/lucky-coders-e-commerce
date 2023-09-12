@@ -11,6 +11,8 @@
     width: 94px;
     height: 94px;
     margin: 0 auto;
+    border: 1px solid var(--color-border-profile);
+    border-radius: 12px;
 
     img {
       width: 100%;
@@ -47,17 +49,23 @@
     .button {
       width: 24px;
       height: 24px;
-      background-color: var(--color-categories-arrow-button);
+      background-color: var(--color-bg-orange-light);
       border-radius: 2px;
+      border: 1px solid var(--color-border-profile);
       cursor: pointer;
 
-      &:hover {
+      &:hover:not(:disabled) {
         background: var(--color-gradient-bg-orange);
         color: var(--color-secondary-text);
       }
 
-      &:active {
+      &:active:not(:disabled) {
         transform: scale(0.95);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: default;
       }
     }
   }
@@ -76,6 +84,7 @@
 
   .productPrice {
     width: 70px;
+    text-align: center;
   }
 }
 

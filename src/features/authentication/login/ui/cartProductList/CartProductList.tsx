@@ -14,13 +14,12 @@ function CartProductList(): JSX.Element | null {
     return null;
   }
 
-  const { lineItems } = currentCart;
-  console.log(lineItems);
+  const { lineItems, id: cartId, version } = currentCart;
 
   return (
     <div className={styles.productList}>
       {lineItems.map((lineItem) => (
-        <CartProduct key={lineItem.id} lineItem={lineItem} />
+        <CartProduct key={lineItem.id} lineItem={lineItem} cartId={cartId} version={version} />
       ))}
     </div>
   );
