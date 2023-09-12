@@ -12,6 +12,7 @@ import ProductCard from '../../../entities';
 import {
   selectFilters,
   selectIsProductListError,
+  selectIsProductListLoading,
   selectProductList,
   selectProductListErrorMessage,
   selectProductsOffset,
@@ -56,7 +57,7 @@ function ProductList(): JSX.Element {
   const categories = useAppSelector(selectCategories);
   const offset = useAppSelector(selectProductsOffset);
   const totalProductsCount = useAppSelector(selectProductsTotalCount);
-
+  const isCatalogLoading = useAppSelector(selectIsProductListLoading);
   const navigate = useNavigate();
 
   const { category, subcategory } = useParams();
@@ -93,7 +94,7 @@ function ProductList(): JSX.Element {
   }, [dispatch, searchValue, sortValue, filters, category, subcategory, categoryId, navigate]);
 
   const paginationList = useMemo(() => {
-    const pageCount = Math.floor(totalProductsCount / PRODUCTS_ON_PAGE);
+    const pageCount = Math.ceil(totalProductsCount / PRODUCTS_ON_PAGE);
     return new Array(pageCount).fill(0).map((_: undefined, idx: number) => ({ title: idx + 1, id: `id-${idx + 1}` }));
   }, [totalProductsCount]);
 
@@ -136,7 +137,8 @@ function ProductList(): JSX.Element {
     dispatch(updateErrorMessage(''));
   };
 
-  const handlePaginationBtn = (newOffset: number): void => {
+  const handlePaginationBtn = (newPage: number): void => {
+    const newOffset = Math.floor(newPage * PRODUCTS_ON_PAGE);
     dispatch(
       getProductListAction({
         filters,
@@ -209,7 +211,12 @@ function ProductList(): JSX.Element {
       {productList.map((product) => {
         return <ProductCard key={product.id} product={product} />;
       })}
-      <Pagination pagesButtons={paginationList} onBtnClick={handlePaginationBtn} currentPage={offset} />
+      <Pagination
+        pagesButtons={paginationList}
+        onBtnClick={handlePaginationBtn}
+        currentPage={Math.floor(offset / PRODUCTS_ON_PAGE)}
+        disableOnLoading={isCatalogLoading}
+      />
       <ModalInfo isOpen={isError} setIsOpen={handleModalInfo} message={errorMessage} withIcon={false} />
     </div>
   );
