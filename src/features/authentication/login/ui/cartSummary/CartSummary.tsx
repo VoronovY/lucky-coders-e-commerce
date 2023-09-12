@@ -2,7 +2,9 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import { useSelector } from 'react-redux';
 
-import { Cart } from '@commercetools/platform-sdk';
+import { Cart, LineItem } from '@commercetools/platform-sdk';
+
+import { useState } from 'react';
 
 import styles from './CartSummary.module.scss';
 
@@ -10,6 +12,12 @@ import Button from '../../../../../shared/ui/button/Button';
 import { TextInput } from '../../../../../shared/ui';
 import ButtonCancel from '../../../../../entities/user/ui/modal/buttonCancel/ButtonCancel';
 import { selectCart } from '../../../../../entities/cart/model/selectCart';
+import { removeProduct } from '../../../../../entities/cart/api/cartApi';
+import { useAppDispatch } from '../../../../../app/appStore/hooks';
+import { getCartAction } from '../../../../../entities/cart/model/cartActions';
+import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
+import ModalError from '../../../../../shared/ui/modalError/ModalError';
+import ModalForm from '../../../../../shared/ui/form/modalForm/ModalForm';
 
 type FormData = {
   promoCode: string;
@@ -29,7 +37,10 @@ function CartSummary(): JSX.Element | null {
     defaultValues,
   });
 
+  const dispatch = useAppDispatch();
   const currentCart: Cart | null = useSelector(selectCart);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isModalOpen, setIsModalsOpen] = useState(false);
 
   if (!currentCart) {
     return null;
@@ -40,8 +51,29 @@ function CartSummary(): JSX.Element | null {
     return data;
   };
 
+  const handleOpenModal = (): void => {
+    setIsModalsOpen(true);
+  };
+  const onCloseModal = (): void => {
+    setIsModalsOpen(false);
+  };
+  const clearCart = (cartId: string, lineItems: LineItem[], version: number): void => {
+    setErrorMessage('');
+
+    const lineItemIds = lineItems.map((item) => item.id);
+
+    removeProduct(cartId, lineItemIds, version)
+      .then(() => {
+        dispatch(getCartAction());
+      })
+      .catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
+  };
+
   return (
     <div className={styles.summary}>
+      {errorMessage && <ModalError errorMessage={errorMessage} />}
       {currentCart && (
         <div>
           <div className={styles.totalPrice}>
@@ -69,7 +101,22 @@ function CartSummary(): JSX.Element | null {
         />
       </form>
       <Button height="46px">Buy Now</Button>
-      <ButtonCancel onClick={(): void => {}} name="Clear Cart" />
+      <ButtonCancel onClick={handleOpenModal} name="Clear Cart" />
+      {isModalOpen && (
+        <ModalForm title="Do you want to clear the cart?">
+          <div className={styles.modalBody}>
+            <Button
+              type="submit"
+              width="100%"
+              height="46px"
+              onClick={(): void => clearCart(currentCart.id, currentCart.lineItems, currentCart.version)}
+            >
+              Yes
+            </Button>
+            <ButtonCancel onClick={onCloseModal} name="No" />
+          </div>
+        </ModalForm>
+      )}
     </div>
   );
 }

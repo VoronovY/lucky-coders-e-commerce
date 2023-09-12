@@ -49,3 +49,13 @@
     transform: scale(0.95);
   }
 }
+
+.modalBody {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  button {
+    width: 60px !important;
+  }
+}

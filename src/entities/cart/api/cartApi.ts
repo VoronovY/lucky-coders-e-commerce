@@ -101,15 +101,21 @@ export const changeProductQuantity = (
     .execute();
 };
 
-export const removeProduct = (cartId: string, lineItemId: string, version: number): Promise<ClientResponse<Cart>> => {
-  const removeLineItemAction: MyCartRemoveLineItemAction = {
-    action: 'removeLineItem',
-    lineItemId,
-  };
+export const removeProduct = (
+  cartId: string,
+  lineItemsIds: string[],
+  version: number,
+): Promise<ClientResponse<Cart>> => {
+  const removeLineItemActions: MyCartRemoveLineItemAction[] = lineItemsIds.map((lineItemId) => {
+    return {
+      action: 'removeLineItem',
+      lineItemId,
+    };
+  });
 
   const updateBody: MyCartUpdate = {
     version,
-    actions: [removeLineItemAction],
+    actions: removeLineItemActions,
   };
 
   return getApiRoot()

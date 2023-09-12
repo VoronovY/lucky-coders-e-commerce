@@ -60,7 +60,7 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
 
   const handleDeleteProduct = (): void => {
     setErrorMessage('');
-    removeProduct(cartId, lineItem.id, version)
+    removeProduct(cartId, [lineItem.id], version)
       .then(() => {
         dispatch(getCartAction());
       })
