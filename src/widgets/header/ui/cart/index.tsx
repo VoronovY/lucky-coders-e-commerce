@@ -21,7 +21,7 @@ function HeaderCart(): JSX.Element | null {
   return (
     <Link to={RoutesName.cart} className={styles.cartLink}>
       <CartIcon className={styles.cart} />
-      <span className={styles.cartCounter}>{currentCart.totalLineItemQuantity}</span>
+      <span className={styles.cartCounter}>{currentCart.totalLineItemQuantity || 0}</span>
     </Link>
   );
 }
