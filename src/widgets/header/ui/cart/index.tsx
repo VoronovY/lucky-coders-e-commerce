@@ -11,17 +11,19 @@ import RoutesName from '../../../../shared/routing';
 
 import { selectCart } from '../../../../entities/cart/model/selectCart';
 
-function HeaderCart(): JSX.Element | null {
+function HeaderCart(): JSX.Element {
   const currentCart: Cart | null = useSelector(selectCart);
 
-  if (!currentCart) {
-    return null;
-  }
+  const cartCounter = currentCart ? (
+    <span className={styles.cartCounter}>{currentCart.totalLineItemQuantity ?? 0}</span>
+  ) : (
+    <span className={styles.cartCounter}>0</span>
+  );
 
   return (
     <Link to={RoutesName.cart} className={styles.cartLink}>
       <CartIcon className={styles.cart} />
-      <span className={styles.cartCounter}>{currentCart.totalLineItemQuantity || 0}</span>
+      {cartCounter}
     </Link>
   );
 }

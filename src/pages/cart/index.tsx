@@ -11,15 +11,21 @@ import CartEmpty from './ui/cartEmpty/CartEmpty';
 import useScrollToTop from '../../shared/helpers/ScrollToTop';
 import { selectCart } from '../../entities/cart/model/selectCart';
 
-function CartPage(): JSX.Element | null {
+function CartPage(): JSX.Element {
   useScrollToTop();
   const currentCart: Cart | null = useSelector(selectCart);
 
+  let content: JSX.Element;
+
   if (!currentCart) {
-    return null;
+    content = <CartEmpty />;
+  } else if (currentCart.lineItems.length > 0) {
+    content = <CartPageLayout />;
+  } else {
+    content = <CartEmpty />;
   }
 
-  return <div className={styles.cartPage}>{currentCart.lineItems.length > 0 ? <CartPageLayout /> : <CartEmpty />}</div>;
+  return <div className={styles.cartPage}>{content}</div>;
 }
 
 export default CartPage;
