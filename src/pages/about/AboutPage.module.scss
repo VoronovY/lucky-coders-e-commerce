@@ -1,3 +1,5 @@
+@import "../../app/styles/variables.scss";
+
 .aboutPage {
   display: flex;
   flex-direction: column;
@@ -79,6 +81,7 @@
   .cardContribution {
     list-style: disc;
     padding-left: 10px;
+    align-self: flex-start;
   }
 }
 
@@ -88,9 +91,17 @@
   align-items: center;
   gap: 40px;
 
+  @media (max-width: $width-tablet) {
+    flex-direction: column-reverse;
+  }
+
   .rssLogoLink {
     width: 50%;
     display: flex;
+
+    @media (max-width: $width-tablet) {
+      width: 100%;
+    }
   }
 
   .rssLogo {
@@ -111,5 +122,9 @@
     gap: 20px;
     width: 50%;
     font-size: var(--font-size-middle);
+
+    @media (max-width: $width-tablet) {
+      width: 100%;
+    }
   }
 }
