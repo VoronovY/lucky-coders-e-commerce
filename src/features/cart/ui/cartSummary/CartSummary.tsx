@@ -115,10 +115,10 @@ function CartSummary(): JSX.Element | null {
       });
   };
 
-  const handleRemoveDiscountCode = (cartId: string, discountCodeId: string, version: number): void => {
+  const handleRemoveDiscountCode = (discountCodeId: string): void => {
     setErrorMessage('');
 
-    removeDiscountCode(cartId, discountCodeId, version)
+    removeDiscountCode(currentCart.id, discountCodeId, currentCart.version)
       .then(() => {
         dispatch(updateInfoMessage(SuccessfulMessages.removePromo));
         dispatch(updateIsModalInfoOpen(true));
@@ -141,10 +141,26 @@ function CartSummary(): JSX.Element | null {
         {errorMessage && <ModalError errorMessage={errorMessage} />}
         {currentCart && (
           <div>
-            <div className={styles.totalPrice}>
-              Total: <span>{totalPrice} €</span>
+            <div
+              className={`${styles.totalPrice} ${
+                currentCart.discountCodes && currentCart.discountCodes.length > 0 ? styles.strikethrough : ''
+              }`}
+            >
+              Total:{' '}
+              {currentCart.lineItems.reduce(
+                (total, item) =>
+                  total +
+                  (item.price.discounted ? item.price.discounted.value.centAmount : item.price.value.centAmount) *
+                    item.quantity,
+                0,
+              ) / 100}{' '}
+              €
             </div>
-            {/* <div>Total with discount: 900 €</div> */}
+            {currentCart.discountCodes && currentCart.discountCodes.length > 0 && (
+              <div className={styles.totalPrice}>
+                Total with discount: <span>{totalPrice} €</span>
+              </div>
+            )}
           </div>
         )}
         <form className={styles.addPromo} onSubmit={handleSubmit(onSubmit)}>
@@ -171,10 +187,7 @@ function CartSummary(): JSX.Element | null {
             {activeDiscountCode.map((discount, index) => (
               <div key={`${index + 1}-code`} className={styles.codeWrapper}>
                 <span>{discount.code}</span>
-                <button
-                  type="button"
-                  onClick={(): void => handleRemoveDiscountCode(currentCart.id, discount.id, currentCart.version)}
-                >
+                <button type="button" onClick={(): void => handleRemoveDiscountCode(discount.id)}>
                   -
                 </button>
               </div>
