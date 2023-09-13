@@ -19,9 +19,9 @@ function SkeletonCards({ cardNumber }: SkeletonCardsProps): JSX.Element {
               <Skeleton height="100%" width="100%" />
             </div>
             <div className={styles.mainInfo}>
-              <picture className={styles.productImgWrapperSkeleton}>
+              <div className={styles.productImgWrapperSkeleton}>
                 <Skeleton height="100%" />
-              </picture>
+              </div>
               <div className={styles.pictogramms}>
                 <Skeleton height="100%" />
               </div>
@@ -43,16 +43,6 @@ function SkeletonCards({ cardNumber }: SkeletonCardsProps): JSX.Element {
                 <Skeleton height="100%" />
               </div>
             </div>
-            {/* <h4 className="card-title">
-              <Skeleton circle height={50} width={50} />
-              <Skeleton height={36} width="80%" />
-            </h4>
-            <p className="card-channel">
-              <Skeleton width="60%" />
-            </p>
-            <div className="card-metrics">
-              <Skeleton width="90%" />
-            </div> */}
           </div>
         ))}
     </>

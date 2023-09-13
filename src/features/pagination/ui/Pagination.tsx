@@ -33,7 +33,7 @@ function Pagination({ pagesButtons, currentPage, onBtnClick, disableOnLoading = 
   return (
     <div className={styles.paginationWrapper}>
       <button className={prevBtnStyle} type="button" onClick={handlePreviousPage} disabled={disablePrevBtn}>
-        previousPage
+        Previous page
       </button>
       <div className={styles.buttonsWrapper}>
         {pagesButtons.map(({ title, id }, idx) => {
@@ -72,7 +72,7 @@ function Pagination({ pagesButtons, currentPage, onBtnClick, disableOnLoading = 
       </div>
 
       <button className={nextBtnStyle} type="button" onClick={handleNextPage} disabled={disableNextBtn}>
-        next page
+        Next page
       </button>
     </div>
   );
