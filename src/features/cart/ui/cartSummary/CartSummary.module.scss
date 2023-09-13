@@ -64,6 +64,24 @@
   }
 }
 
+.modalBuyNow {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  gap: 10px;
+
+  .loadingIcon {
+    filter: invert(1);
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.cartEmptyIcon {
+  margin: 20px 0;
+}
+
 .modalBody {
   display: flex;
   justify-content: center;

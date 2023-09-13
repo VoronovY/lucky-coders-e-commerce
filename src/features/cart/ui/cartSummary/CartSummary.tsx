@@ -19,6 +19,7 @@ import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessag
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 import ModalForm from '../../../../shared/ui/form/modalForm/ModalForm';
 import getDiscounts from '../../../../shared/api/discounts/getDiscounts';
+import { CartEmptyIcon, LoadingIcon } from '../../../../app/layouts/images';
 
 type FormData = {
   promoCode: string;
@@ -42,6 +43,7 @@ function CartSummary(): JSX.Element | null {
   const currentCart: Cart | null = useSelector(selectCart);
   const [errorMessage, setErrorMessage] = useState('');
   const [isModalOpen, setIsModalsOpen] = useState(false);
+  const [isBuyNowModalOpen, setIsBuyNowModalOpen] = useState(false);
   const [activeDiscountCode, setActiveDiscountCode] = useState<{ id: string; code: string }[]>([]);
 
   useEffect(() => {
@@ -90,6 +92,14 @@ function CartSummary(): JSX.Element | null {
   };
   const onCloseModal = (): void => {
     setIsModalsOpen(false);
+  };
+
+  const handleOpenBuyNowModal = (): void => {
+    setIsBuyNowModalOpen(true);
+  };
+
+  const onCloseBuyNowModal = (): void => {
+    setIsBuyNowModalOpen(false);
   };
   const clearCart = (): void => {
     setErrorMessage('');
@@ -180,10 +190,22 @@ function CartSummary(): JSX.Element | null {
             ))}
           </div>
         </div>
-        <Button height="46px">Buy Now</Button>
+        <Button height="46px" onClick={handleOpenBuyNowModal}>
+          Buy Now
+        </Button>
+        {isBuyNowModalOpen && (
+          <ModalForm title="Section Under Development">
+            <div className={styles.modalBuyNow}>
+              <p>Sorry, this section is currently under development and not available yet.</p>
+              <LoadingIcon className={styles.loadingIcon} />
+              <ButtonCancel onClick={onCloseBuyNowModal} name="Close" />
+            </div>
+          </ModalForm>
+        )}
         <ButtonCancel onClick={handleOpenModal} name="Clear Cart" />
         {isModalOpen && (
           <ModalForm title="Do you want to clear the cart?">
+            <CartEmptyIcon className={styles.cartEmptyIcon} />
             <div className={styles.modalBody}>
               <Button type="submit" width="100%" height="46px" onClick={(): void => clearCart()}>
                 Yes
