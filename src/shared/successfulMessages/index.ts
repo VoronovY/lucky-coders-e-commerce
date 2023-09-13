@@ -10,8 +10,6 @@ enum SuccessfulMessages {
   setDefaultBillingAddress = 'You have successfully set the default billing address!',
   removeDefaultShippingAddress = 'You have successfully removed the default shipping address!',
   removeDefaultBillingAddress = 'You have successfully removed the default billing address!',
-  addPromo = 'You have successfully added a new promo code!',
-  removePromo = 'You have successfully removed the promo code!',
 }
 
 export default SuccessfulMessages;

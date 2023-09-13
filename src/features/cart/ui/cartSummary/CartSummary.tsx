@@ -2,7 +2,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import { useSelector } from 'react-redux';
 
-import { Cart, LineItem } from '@commercetools/platform-sdk';
+import { Cart } from '@commercetools/platform-sdk';
 
 import { useEffect, useState } from 'react';
 
@@ -19,8 +19,6 @@ import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessag
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 import ModalForm from '../../../../shared/ui/form/modalForm/ModalForm';
 import getDiscounts from '../../../../shared/api/discounts/getDiscounts';
-import { updateInfoMessage, updateIsModalInfoOpen } from '../../../../shared/model/appSlice';
-import SuccessfulMessages from '../../../../shared/successfulMessages';
 
 type FormData = {
   promoCode: string;
@@ -80,14 +78,6 @@ function CartSummary(): JSX.Element | null {
 
     addDiscountCode(currentCart.id, data.promoCode, currentCart.version)
       .then(() => {
-        dispatch(updateInfoMessage(SuccessfulMessages.addPromo));
-        dispatch(updateIsModalInfoOpen(true));
-        setTimeout(() => {
-          dispatch(updateIsModalInfoOpen(false));
-          dispatch(updateInfoMessage(''));
-        }, 5000);
-      })
-      .then(() => {
         dispatch(getCartAction());
       })
       .catch((error) => {
@@ -101,32 +91,28 @@ function CartSummary(): JSX.Element | null {
   const onCloseModal = (): void => {
     setIsModalsOpen(false);
   };
-  const clearCart = (cartId: string, lineItems: LineItem[], version: number): void => {
+  const clearCart = (): void => {
     setErrorMessage('');
 
-    const lineItemIds = lineItems.map((item) => item.id);
+    const discountCodeIds = currentCart.discountCodes.map((code) => code.discountCode.id);
 
-    removeProduct(cartId, lineItemIds, version)
-      .then(() => {
-        dispatch(getCartAction());
-      })
-      .catch((error) => {
-        setErrorMessage(getErrorSignUpMessage(error.body));
-      });
+    removeDiscountCode(currentCart.id, discountCodeIds, currentCart.version).then((response) => {
+      const lineItemIds = response.body.lineItems.map((item) => item.id);
+
+      removeProduct(response.body.id, lineItemIds, response.body.version)
+        .then(() => {
+          dispatch(getCartAction());
+        })
+        .catch((error) => {
+          setErrorMessage(getErrorSignUpMessage(error.body));
+        });
+    });
   };
 
   const handleRemoveDiscountCode = (discountCodeId: string): void => {
     setErrorMessage('');
 
-    removeDiscountCode(currentCart.id, discountCodeId, currentCart.version)
-      .then(() => {
-        dispatch(updateInfoMessage(SuccessfulMessages.removePromo));
-        dispatch(updateIsModalInfoOpen(true));
-        setTimeout(() => {
-          dispatch(updateIsModalInfoOpen(false));
-          dispatch(updateInfoMessage(''));
-        }, 5000);
-      })
+    removeDiscountCode(currentCart.id, [discountCodeId], currentCart.version)
       .then(() => {
         dispatch(getCartAction());
       })
@@ -199,12 +185,7 @@ function CartSummary(): JSX.Element | null {
         {isModalOpen && (
           <ModalForm title="Do you want to clear the cart?">
             <div className={styles.modalBody}>
-              <Button
-                type="submit"
-                width="100%"
-                height="46px"
-                onClick={(): void => clearCart(currentCart.id, currentCart.lineItems, currentCart.version)}
-              >
+              <Button type="submit" width="100%" height="46px" onClick={(): void => clearCart()}>
                 Yes
               </Button>
               <ButtonCancel onClick={onCloseModal} name="No" />

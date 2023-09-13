@@ -159,20 +159,22 @@ export const addDiscountCode = (
 
 export const removeDiscountCode = (
   cartId: string,
-  discountCodeId: string,
+  discountCodeIds: string[],
   version: number,
 ): Promise<ClientResponse<Cart>> => {
-  const removeDiscountCodeAction: MyCartRemoveDiscountCodeAction = {
-    action: 'removeDiscountCode',
-    discountCode: {
-      typeId: 'discount-code',
-      id: discountCodeId,
-    },
-  };
+  const removeDiscountCodeActions: MyCartRemoveDiscountCodeAction[] = discountCodeIds.map((discountCodeId) => {
+    return {
+      action: 'removeDiscountCode',
+      discountCode: {
+        typeId: 'discount-code',
+        id: discountCodeId,
+      },
+    };
+  });
 
   const updateBody: MyCartUpdate = {
     version,
-    actions: [removeDiscountCodeAction],
+    actions: removeDiscountCodeActions,
   };
 
   return getApiRoot()
