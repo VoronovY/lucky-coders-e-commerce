@@ -35,6 +35,7 @@ import selectCategories from '../../../shared/categories/model/categoriesSelecto
 import findCategoryIdByKey from '../../../shared/helpers/products';
 import { PRODUCTS_ON_PAGE } from '../../../shared/constants/products';
 import Pagination from '../../pagination';
+import SkeletonCards from '../../../entities/product/ui/ProductCard/SceletonProductCards';
 
 export interface ProductListProps {}
 
@@ -150,6 +151,14 @@ function ProductList(): JSX.Element {
     );
   };
 
+  const cardList = isCatalogLoading ? (
+    <SkeletonCards cardNumber={PRODUCTS_ON_PAGE} />
+  ) : (
+    productList.map((product) => {
+      return <ProductCard key={product.id} product={product} />;
+    })
+  );
+
   const layout = notFoundCategory ? (
     <div className={styles.notFound}>Category not found</div>
   ) : (
@@ -208,9 +217,7 @@ function ProductList(): JSX.Element {
           className={styles.sort}
         />
       </div>
-      {productList.map((product) => {
-        return <ProductCard key={product.id} product={product} />;
-      })}
+      {cardList}
       <Pagination
         pagesButtons={paginationList}
         onBtnClick={handlePaginationBtn}
