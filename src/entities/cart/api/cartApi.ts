@@ -5,6 +5,7 @@ import {
   MyCartAddDiscountCodeAction,
   MyCartAddLineItemAction,
   MyCartChangeLineItemQuantityAction,
+  MyCartRemoveDiscountCodeAction,
   MyCartRemoveLineItemAction,
   MyCartUpdate,
   createApiBuilderFromCtpClient,
@@ -143,6 +144,35 @@ export const addDiscountCode = (
   const updateBody: MyCartUpdate = {
     version,
     actions: [addDiscountCodeAction],
+  };
+
+  return getApiRoot()
+    .withProjectKey({ projectKey })
+    .me()
+    .carts()
+    .withId({ ID: cartId })
+    .post({
+      body: updateBody,
+    })
+    .execute();
+};
+
+export const removeDiscountCode = (
+  cartId: string,
+  discountCodeId: string,
+  version: number,
+): Promise<ClientResponse<Cart>> => {
+  const removeDiscountCodeAction: MyCartRemoveDiscountCodeAction = {
+    action: 'removeDiscountCode',
+    discountCode: {
+      typeId: 'discount-code',
+      id: discountCodeId,
+    },
+  };
+
+  const updateBody: MyCartUpdate = {
+    version,
+    actions: [removeDiscountCodeAction],
   };
 
   return getApiRoot()

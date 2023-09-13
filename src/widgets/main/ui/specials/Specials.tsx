@@ -17,6 +17,7 @@ function SpecialsContainer(): JSX.Element {
   useEffect(() => {
     getDiscounts()
       .then((response) => {
+        console.log(response);
         setDiscounts(response.body.results);
       })
       .catch((error) => {

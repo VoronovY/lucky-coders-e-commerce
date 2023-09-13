@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { Cart, LineItem } from '@commercetools/platform-sdk';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styles from './CartSummary.module.scss';
 
@@ -12,12 +12,15 @@ import Button from '../../../../shared/ui/button/Button';
 import { TextInput } from '../../../../shared/ui';
 import ButtonCancel from '../../../../entities/user/ui/modal/buttonCancel/ButtonCancel';
 import { selectCart } from '../../../../entities/cart/model/selectCart';
-import { addDiscountCode, removeProduct } from '../../../../entities/cart/api/cartApi';
+import { addDiscountCode, removeDiscountCode, removeProduct } from '../../../../entities/cart/api/cartApi';
 import { useAppDispatch } from '../../../../app/appStore/hooks';
 import { getCartAction } from '../../../../entities/cart/model/cartActions';
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 import ModalForm from '../../../../shared/ui/form/modalForm/ModalForm';
+import getDiscounts from '../../../../shared/api/discounts/getDiscounts';
+import { updateInfoMessage, updateIsModalInfoOpen } from '../../../../shared/model/appSlice';
+import SuccessfulMessages from '../../../../shared/successfulMessages';
 
 type FormData = {
   promoCode: string;
@@ -41,20 +44,51 @@ function CartSummary(): JSX.Element | null {
   const currentCart: Cart | null = useSelector(selectCart);
   const [errorMessage, setErrorMessage] = useState('');
   const [isModalOpen, setIsModalsOpen] = useState(false);
-  const [promoCode, setPromoCode] = useState('');
+  const [activeDiscountCode, setActiveDiscountCode] = useState<{ id: string; code: string }[]>([]);
+
+  useEffect(() => {
+    setErrorMessage('');
+    const getDiscountCodes = (): void => {
+      getDiscounts()
+        .then((response) => {
+          const activeCodes = response.body.results
+            .filter((discountCode) => {
+              return currentCart?.discountCodes.some(
+                (cartDiscountCode) => cartDiscountCode.discountCode.id === discountCode.id,
+              );
+            })
+            .map((discountCode) => ({ id: discountCode.id, code: discountCode.code }));
+
+          setActiveDiscountCode(activeCodes);
+        })
+        .catch((error) => {
+          setErrorMessage(getErrorSignUpMessage(error.body));
+        });
+    };
+
+    getDiscountCodes();
+  }, [currentCart?.discountCodes]);
 
   if (!currentCart) {
     return null;
   }
 
   const totalPrice = currentCart.totalPrice.centAmount / 100;
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
     setErrorMessage('');
 
     addDiscountCode(currentCart.id, data.promoCode, currentCart.version)
       .then(() => {
+        dispatch(updateInfoMessage(SuccessfulMessages.addPromo));
+        dispatch(updateIsModalInfoOpen(true));
+        setTimeout(() => {
+          dispatch(updateIsModalInfoOpen(false));
+          dispatch(updateInfoMessage(''));
+        }, 5000);
+      })
+      .then(() => {
         dispatch(getCartAction());
-        setPromoCode(data.promoCode);
       })
       .catch((error) => {
         setErrorMessage(getErrorSignUpMessage(error.body));
@@ -73,6 +107,26 @@ function CartSummary(): JSX.Element | null {
     const lineItemIds = lineItems.map((item) => item.id);
 
     removeProduct(cartId, lineItemIds, version)
+      .then(() => {
+        dispatch(getCartAction());
+      })
+      .catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
+  };
+
+  const handleRemoveDiscountCode = (cartId: string, discountCodeId: string, version: number): void => {
+    setErrorMessage('');
+
+    removeDiscountCode(cartId, discountCodeId, version)
+      .then(() => {
+        dispatch(updateInfoMessage(SuccessfulMessages.removePromo));
+        dispatch(updateIsModalInfoOpen(true));
+        setTimeout(() => {
+          dispatch(updateIsModalInfoOpen(false));
+          dispatch(updateInfoMessage(''));
+        }, 5000);
+      })
       .then(() => {
         dispatch(getCartAction());
       })
@@ -111,12 +165,22 @@ function CartSummary(): JSX.Element | null {
             }}
           />
         </form>
-        {promoCode && (
-          <div className={styles.promoCode}>
-            <div>Applied codes:</div>
-            <div>{promoCode}</div>
+        <div className={styles.promoCode}>
+          {currentCart?.discountCodes?.length > 0 && <div>Applied codes:</div>}
+          <div className={styles.codes}>
+            {activeDiscountCode.map((discount, index) => (
+              <div key={`${index + 1}-code`} className={styles.codeWrapper}>
+                <span>{discount.code}</span>
+                <button
+                  type="button"
+                  onClick={(): void => handleRemoveDiscountCode(currentCart.id, discount.id, currentCart.version)}
+                >
+                  -
+                </button>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
         <Button height="46px">Buy Now</Button>
         <ButtonCancel onClick={handleOpenModal} name="Clear Cart" />
         {isModalOpen && (
