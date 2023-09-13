@@ -1,15 +1,99 @@
+import { Link } from 'react-router-dom';
+
 import styles from './AboutPage.module.scss';
 
-import aboutImg from '../../../public/assets/about.png';
+import { RssLogo, GithubLogo } from '../../app/layouts/images';
+
 import useScrollToTop from '../../shared/helpers/ScrollToTop';
+
+const usArr = [
+  {
+    id: 1,
+    photo: 'https://avatars.githubusercontent.com/u/106106665?v=4',
+    name: 'Anastasia Shishmareva',
+    github: 'https://github.com/nastasyma',
+    role: 'Developer',
+    bio: 'bio',
+    contributions: [
+      'created application structure',
+      'made a footer component',
+      'made 404 page',
+      'implemented main page',
+      'validated the login form',
+      'created products in commercetools',
+      'implemented a user profile page',
+      'made breadcrumb navigation',
+      'implemented the cart page',
+    ],
+  },
+  {
+    id: 2,
+    photo: 'https://avatars.githubusercontent.com/u/79984594?v=4',
+    name: 'Yuri Voronov',
+    github: 'https://github.com/voronovy',
+    role: 'Team lead',
+    bio: 'bio',
+    contributions: [
+      'added routing',
+      'implemented registration and login forms',
+      'implemented a catalog page: filtering, sorting, product search and pagination',
+    ],
+  },
+  {
+    id: 3,
+    photo: 'https://avatars.githubusercontent.com/u/70838995?v=4',
+    name: 'Julia Kukharckik',
+    github: 'https://github.com/jnorwill',
+    role: 'Developer',
+    bio: 'bio',
+    contributions: ['created header', 'implemented product page', 'added README documentation', 'made "about us" page'],
+  },
+];
 
 function AboutPage(): JSX.Element {
   useScrollToTop();
 
   return (
     <div className={styles.aboutPage}>
-      <div className={styles.aboutImg}>
-        <img src={aboutImg} alt="about" />
+      <h2>Hello! let&apos;s meet our development team!</h2>
+      <p className={styles.aboutPageDescription}>
+        Our project is the result of close collaboration and collective effort among three members of our development
+        team. Open communication, clear organization and mutual support have become the foundation of our work.
+        Effective teamwork and the ability to adapt to change made our project a successful and fun process.
+      </p>
+      <div className={styles.aboutPageInf}>
+        {usArr.map((item) => {
+          return (
+            <div className={styles.card} key={item.id}>
+              <img className={styles.cardPhoto} src={item.photo} alt="img" />
+              <div className={styles.cardName}>
+                <h3>{item.name}</h3>
+                <Link className={styles.cardGithubLink} to={item.github}>
+                  <GithubLogo className={styles.cardGithub} />
+                </Link>
+              </div>
+              <h4 className={styles.cardRole}>{item.role}</h4>
+              <p className={styles.cardBio}>{item.bio}</p>
+              <ul className={styles.cardContribution}>
+                {item.contributions.map((contribution) => {
+                  return <li>{contribution}</li>;
+                })}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+      <div className={styles.rss}>
+        <Link className={styles.rssLogoLink} to="https://rs.school/js">
+          <RssLogo className={styles.rssLogo} />
+        </Link>
+        <div className={styles.rssText}>
+          <p>The application was developed for the final task in the RS School online school.</p>
+          <p>
+            RS School is free-of-charge and community-based education program conducted by The Rolling Scopes developer
+            community since 2013.
+          </p>
+        </div>
       </div>
     </div>
   );
