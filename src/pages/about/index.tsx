@@ -6,7 +6,7 @@ import { RssLogo, GithubLogo } from '../../app/layouts/images';
 
 import useScrollToTop from '../../shared/helpers/ScrollToTop';
 
-const usArr = [
+const infArr = [
   {
     id: 1,
     photo: 'https://avatars.githubusercontent.com/u/106106665?v=4',
@@ -62,7 +62,7 @@ function AboutPage(): JSX.Element {
         Effective teamwork and the ability to adapt to change made our project a successful and fun process.
       </p>
       <div className={styles.aboutPageInf}>
-        {usArr.map((item) => {
+        {infArr.map((item) => {
           return (
             <div className={styles.card} key={item.id}>
               <img className={styles.cardPhoto} src={item.photo} alt="img" />
@@ -76,7 +76,7 @@ function AboutPage(): JSX.Element {
               <p className={styles.cardBio}>{item.bio}</p>
               <ul className={styles.cardContribution}>
                 {item.contributions.map((contribution) => {
-                  return <li>{contribution}</li>;
+                  return <li key={contribution}>{contribution}</li>;
                 })}
               </ul>
             </div>
