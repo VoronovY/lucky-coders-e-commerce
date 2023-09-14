@@ -1,10 +1,9 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
-import { useSelector } from 'react-redux';
-
 import { Cart } from '@commercetools/platform-sdk';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import cn from 'classnames';
 
 import styles from './CartSummary.module.scss';
 
@@ -12,8 +11,8 @@ import Button from '../../../../shared/ui/button/Button';
 import { TextInput } from '../../../../shared/ui';
 import ButtonCancel from '../../../../entities/user/ui/modal/buttonCancel/ButtonCancel';
 import { selectCart } from '../../../../entities/cart/model/selectCart';
-import { addDiscountCode, removeDiscountCode, removeProduct } from '../../../../entities/cart/api/cartApi';
-import { useAppDispatch } from '../../../../app/appStore/hooks';
+import { addDiscountCode, removeDiscountCodes, removeProducts } from '../../../../entities/cart/api/cartApi';
+import { useAppDispatch, useAppSelector } from '../../../../app/appStore/hooks';
 import { getCartAction } from '../../../../entities/cart/model/cartActions';
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
@@ -24,6 +23,11 @@ import { CartEmptyIcon, LoadingIcon } from '../../../../app/layouts/images';
 type FormData = {
   promoCode: string;
 };
+
+interface DiscountCode {
+  id: string;
+  code: string;
+}
 
 const defaultValues = {
   promoCode: '',
@@ -40,34 +44,34 @@ function CartSummary(): JSX.Element | null {
   });
 
   const dispatch = useAppDispatch();
-  const currentCart: Cart | null = useSelector(selectCart);
+  const currentCart: Cart | null = useAppSelector(selectCart);
   const [errorMessage, setErrorMessage] = useState('');
   const [isModalOpen, setIsModalsOpen] = useState(false);
   const [isBuyNowModalOpen, setIsBuyNowModalOpen] = useState(false);
-  const [activeDiscountCode, setActiveDiscountCode] = useState<{ id: string; code: string }[]>([]);
+  const [activeDiscountCode, setActiveDiscountCode] = useState<DiscountCode[]>([]);
+
+  const getDiscountCodes = useCallback(() => {
+    getDiscounts()
+      .then((response) => {
+        const activeCodes = response.body.results
+          .filter((discountCode) => {
+            return currentCart?.discountCodes.some(
+              (cartDiscountCode) => cartDiscountCode.discountCode.id === discountCode.id,
+            );
+          })
+          .map((discountCode) => ({ id: discountCode.id, code: discountCode.code }));
+
+        setActiveDiscountCode(activeCodes);
+      })
+      .catch((error) => {
+        setErrorMessage(getErrorSignUpMessage(error.body));
+      });
+  }, [currentCart?.discountCodes]);
 
   useEffect(() => {
     setErrorMessage('');
-    const getDiscountCodes = (): void => {
-      getDiscounts()
-        .then((response) => {
-          const activeCodes = response.body.results
-            .filter((discountCode) => {
-              return currentCart?.discountCodes.some(
-                (cartDiscountCode) => cartDiscountCode.discountCode.id === discountCode.id,
-              );
-            })
-            .map((discountCode) => ({ id: discountCode.id, code: discountCode.code }));
-
-          setActiveDiscountCode(activeCodes);
-        })
-        .catch((error) => {
-          setErrorMessage(getErrorSignUpMessage(error.body));
-        });
-    };
-
     getDiscountCodes();
-  }, [currentCart?.discountCodes]);
+  }, [getDiscountCodes]);
 
   if (!currentCart) {
     return null;
@@ -106,10 +110,10 @@ function CartSummary(): JSX.Element | null {
 
     const discountCodeIds = currentCart.discountCodes.map((code) => code.discountCode.id);
 
-    removeDiscountCode(currentCart.id, discountCodeIds, currentCart.version).then((response) => {
+    removeDiscountCodes(currentCart.id, discountCodeIds, currentCart.version).then((response) => {
       const lineItemIds = response.body.lineItems.map((item) => item.id);
 
-      removeProduct(response.body.id, lineItemIds, response.body.version)
+      removeProducts(response.body.id, lineItemIds, response.body.version)
         .then(() => {
           dispatch(getCartAction());
         })
@@ -122,7 +126,7 @@ function CartSummary(): JSX.Element | null {
   const handleRemoveDiscountCode = (discountCodeId: string): void => {
     setErrorMessage('');
 
-    removeDiscountCode(currentCart.id, [discountCodeId], currentCart.version)
+    removeDiscountCodes(currentCart.id, [discountCodeId], currentCart.version)
       .then(() => {
         dispatch(getCartAction());
       })
@@ -131,27 +135,25 @@ function CartSummary(): JSX.Element | null {
       });
   };
 
+  const totalAmount =
+    currentCart.lineItems.reduce(
+      (total, item) =>
+        total +
+        (item.price.discounted ? item.price.discounted.value.centAmount : item.price.value.centAmount) * item.quantity,
+      0,
+    ) / 100;
+
+  const totalPriceClassName = cn(styles.totalPrice, {
+    [styles.strikethrough]: currentCart?.discountCodes && currentCart.discountCodes.length > 0,
+  });
+
   return (
     <div className={styles.summaryWrapper}>
       <div className={styles.summary}>
         {errorMessage && <ModalError errorMessage={errorMessage} />}
         {currentCart && (
           <div>
-            <div
-              className={`${styles.totalPrice} ${
-                currentCart.discountCodes && currentCart.discountCodes.length > 0 ? styles.strikethrough : ''
-              }`}
-            >
-              Total:{' '}
-              {currentCart.lineItems.reduce(
-                (total, item) =>
-                  total +
-                  (item.price.discounted ? item.price.discounted.value.centAmount : item.price.value.centAmount) *
-                    item.quantity,
-                0,
-              ) / 100}{' '}
-              €
-            </div>
+            <div className={totalPriceClassName}>Total: {totalAmount} €</div>
             {currentCart.discountCodes && currentCart.discountCodes.length > 0 && (
               <div className={styles.totalPrice}>
                 Total with discount: <span>{totalPrice} €</span>

@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import styles from './CartProductItem.module.scss';
 
 import { DeleteIcon } from '../../../../app/layouts/images';
-import { changeProductQuantity, removeProduct } from '../../../cart/api/cartApi';
+import { changeProductQuantity, removeProducts } from '../../../cart/api/cartApi';
 import { useAppDispatch } from '../../../../app/appStore/hooks';
 import { getCartAction } from '../../../cart/model/cartActions';
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
@@ -60,7 +60,7 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
 
   const handleDeleteProduct = (): void => {
     setErrorMessage('');
-    removeProduct(cartId, [lineItem.id], version)
+    removeProducts(cartId, [lineItem.id], version)
       .then(() => {
         dispatch(getCartAction());
       })
@@ -69,14 +69,15 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
       });
   };
 
+  const isDecreaseDisabled = productQuantity === 1 || isCartLoading;
+  const isIncreaseDisabled = productQuantity === inStockQuantity || isCartLoading;
+
   return (
     <>
       {errorMessage && <ModalError errorMessage={errorMessage} />}
       <div className={styles.productItem}>
         <div className={styles.productImage}>
-          {lineItem.variant.images && lineItem.variant.images.length > 0 && (
-            <img src={lineItem.variant.images[0].url} alt={productName} />
-          )}
+          {lineItem.variant.images?.length && <img src={lineItem.variant.images[0].url} alt={productName} />}
         </div>
         <div className={styles.productInfoWrapper}>
           <div className={styles.productInfo}>
@@ -101,7 +102,7 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
                 type="button"
                 className={styles.button}
                 onClick={handleDecreaseQuantity}
-                disabled={productQuantity === 1 || isCartLoading}
+                disabled={isDecreaseDisabled}
               >
                 -
               </button>
@@ -110,7 +111,7 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
                 type="button"
                 className={styles.button}
                 onClick={handleIncreaseQuantity}
-                disabled={productQuantity === inStockQuantity || isCartLoading}
+                disabled={isIncreaseDisabled}
               >
                 +
               </button>

@@ -53,6 +53,21 @@ export const createUserCart = (): Promise<ClientResponse<Cart>> => {
     .execute();
 };
 
+// export const updateCart = (cartId: string, version: number, body: MyCartUpdate): Promise<ClientResponse<Cart>> => {
+//   return getApiRoot()
+//     .withProjectKey({ projectKey })
+//     .me()
+//     .carts()
+//     .withId({ ID: cartId })
+//     .post({
+//       body: {
+//         version,
+//         actions: body.actions,
+//       },
+//     })
+//     .execute();
+// };
+
 export const updateUserCart = (cartId: string, productId: string, version: number): Promise<ClientResponse<Cart>> => {
   const updateAction: MyCartAddLineItemAction = {
     action: 'addLineItem',
@@ -103,7 +118,7 @@ export const changeProductQuantity = (
     .execute();
 };
 
-export const removeProduct = (
+export const removeProducts = (
   cartId: string,
   lineItemsIds: string[],
   version: number,
@@ -157,7 +172,7 @@ export const addDiscountCode = (
     .execute();
 };
 
-export const removeDiscountCode = (
+export const removeDiscountCodes = (
   cartId: string,
   discountCodeIds: string[],
   version: number,

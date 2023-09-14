@@ -1,5 +1,3 @@
-import { useSelector } from 'react-redux';
-
 import { Cart } from '@commercetools/platform-sdk';
 
 import styles from './CartPage.module.scss';
@@ -10,20 +8,13 @@ import CartEmpty from './ui/cartEmpty/CartEmpty';
 
 import useScrollToTop from '../../shared/helpers/ScrollToTop';
 import { selectCart } from '../../entities/cart/model/selectCart';
+import { useAppSelector } from '../../app/appStore/hooks';
 
 function CartPage(): JSX.Element {
   useScrollToTop();
-  const currentCart: Cart | null = useSelector(selectCart);
+  const currentCart: Cart | null = useAppSelector(selectCart);
 
-  let content: JSX.Element;
-
-  if (!currentCart) {
-    content = <CartEmpty />;
-  } else if (currentCart.lineItems.length > 0) {
-    content = <CartPageLayout />;
-  } else {
-    content = <CartEmpty />;
-  }
+  const content = currentCart && currentCart.lineItems.length > 0 ? <CartPageLayout /> : <CartEmpty />;
 
   return <div className={styles.cartPage}>{content}</div>;
 }
