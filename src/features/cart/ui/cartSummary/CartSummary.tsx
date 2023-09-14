@@ -1,6 +1,6 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
-import { Cart } from '@commercetools/platform-sdk';
+import { Cart, MyCartRemoveDiscountCodeAction, MyCartRemoveLineItemAction } from '@commercetools/platform-sdk';
 
 import { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
@@ -11,7 +11,7 @@ import Button from '../../../../shared/ui/button/Button';
 import { TextInput } from '../../../../shared/ui';
 import ButtonCancel from '../../../../entities/user/ui/modal/buttonCancel/ButtonCancel';
 import { selectCart } from '../../../../entities/cart/model/selectCart';
-import { addDiscountCode, removeDiscountCodes, removeProducts } from '../../../../entities/cart/api/cartApi';
+import { updateCart } from '../../../../entities/cart/api/cartApi';
 import { useAppDispatch, useAppSelector } from '../../../../app/appStore/hooks';
 import { getCartAction } from '../../../../entities/cart/model/cartActions';
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
@@ -19,6 +19,12 @@ import ModalError from '../../../../shared/ui/modalError/ModalError';
 import ModalForm from '../../../../shared/ui/form/modalForm/ModalForm';
 import getDiscounts from '../../../../shared/api/discounts/getDiscounts';
 import { CartEmptyIcon, LoadingIcon } from '../../../../app/layouts/images';
+import {
+  createAddDiscountCodeAction,
+  createRemoveDiscountCodeAction,
+  createRemoveLineItemAction,
+  createUpdateCartBody,
+} from '../../../../shared/helpers/cartActions';
 
 type FormData = {
   promoCode: string;
@@ -81,8 +87,10 @@ function CartSummary(): JSX.Element | null {
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     setErrorMessage('');
+    const action = createAddDiscountCodeAction(data.promoCode);
+    const updateBody = createUpdateCartBody(currentCart.version, [action]);
 
-    addDiscountCode(currentCart.id, data.promoCode, currentCart.version)
+    updateCart(currentCart.id, currentCart.version, updateBody)
       .then(() => {
         dispatch(getCartAction());
       })
@@ -107,13 +115,21 @@ function CartSummary(): JSX.Element | null {
   };
   const clearCart = (): void => {
     setErrorMessage('');
-
     const discountCodeIds = currentCart.discountCodes.map((code) => code.discountCode.id);
 
-    removeDiscountCodes(currentCart.id, discountCodeIds, currentCart.version).then((response) => {
+    const removeDiscountCodeActions: MyCartRemoveDiscountCodeAction[] = discountCodeIds.map((discountCodeId) => {
+      return createRemoveDiscountCodeAction(discountCodeId);
+    });
+    const updateBodyRemoveCodes = createUpdateCartBody(currentCart.version, removeDiscountCodeActions);
+
+    updateCart(currentCart.id, currentCart.version, updateBodyRemoveCodes).then((response) => {
       const lineItemIds = response.body.lineItems.map((item) => item.id);
 
-      removeProducts(response.body.id, lineItemIds, response.body.version)
+      const removeLineItemActions: MyCartRemoveLineItemAction[] = lineItemIds.map((lineItemId) => {
+        return createRemoveLineItemAction(lineItemId);
+      });
+      const updateBodyRemoveProducts = createUpdateCartBody(response.body.version, removeLineItemActions);
+      updateCart(response.body.id, response.body.version, updateBodyRemoveProducts)
         .then(() => {
           dispatch(getCartAction());
         })
@@ -125,8 +141,10 @@ function CartSummary(): JSX.Element | null {
 
   const handleRemoveDiscountCode = (discountCodeId: string): void => {
     setErrorMessage('');
+    const action = createRemoveDiscountCodeAction(discountCodeId);
+    const updateBody = createUpdateCartBody(currentCart.version, [action]);
 
-    removeDiscountCodes(currentCart.id, [discountCodeId], currentCart.version)
+    updateCart(currentCart.id, currentCart.version, updateBody)
       .then(() => {
         dispatch(getCartAction());
       })

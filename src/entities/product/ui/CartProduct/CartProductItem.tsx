@@ -7,12 +7,18 @@ import { useSelector } from 'react-redux';
 import styles from './CartProductItem.module.scss';
 
 import { DeleteIcon } from '../../../../app/layouts/images';
-import { changeProductQuantity, removeProducts } from '../../../cart/api/cartApi';
+import { updateCart } from '../../../cart/api/cartApi';
 import { useAppDispatch } from '../../../../app/appStore/hooks';
 import { getCartAction } from '../../../cart/model/cartActions';
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
 import { selectCartLoading } from '../../../cart/model/selectCart';
+import {
+  createRemoveLineItemAction,
+  createDecreaseQuantityAction,
+  createIncreaseQuantityAction,
+  createUpdateCartBody,
+} from '../../../../shared/helpers/cartActions';
 
 interface CartProductListProps {
   lineItem: LineItem;
@@ -31,11 +37,20 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
   const totalPrice = lineItem.totalPrice.centAmount / 100;
   const oldPrice = lineItem.price.value.centAmount / 100;
   const discountedPrice = lineItem.price.discounted ? lineItem.price.discounted.value.centAmount / 100 : null;
+  const lineItemId = lineItem.id;
 
-  const handleDecreaseQuantity = (): void => {
+  const handleQuantityChange = (newQuantity: number): void => {
     setErrorMessage('');
-    if (productQuantity > 1) {
-      changeProductQuantity(cartId, lineItem.id, productQuantity - 1, version)
+
+    if (newQuantity >= 1 && newQuantity <= inStockQuantity) {
+      const action =
+        newQuantity < productQuantity
+          ? createDecreaseQuantityAction(lineItemId, newQuantity)
+          : createIncreaseQuantityAction(lineItemId, newQuantity);
+
+      const updateBody = createUpdateCartBody(version, [action]);
+
+      updateCart(cartId, version, updateBody)
         .then(() => {
           dispatch(getCartAction());
         })
@@ -45,22 +60,21 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
     }
   };
 
+  const handleDecreaseQuantity = (): void => {
+    handleQuantityChange(productQuantity - 1);
+  };
+
   const handleIncreaseQuantity = (): void => {
-    setErrorMessage('');
-    if (productQuantity < inStockQuantity) {
-      changeProductQuantity(cartId, lineItem.id, productQuantity + 1, version)
-        .then(() => {
-          dispatch(getCartAction());
-        })
-        .catch((error) => {
-          setErrorMessage(getErrorSignUpMessage(error.body));
-        });
-    }
+    handleQuantityChange(productQuantity + 1);
   };
 
   const handleDeleteProduct = (): void => {
     setErrorMessage('');
-    removeProducts(cartId, [lineItem.id], version)
+
+    const action = createRemoveLineItemAction(lineItemId);
+    const updateBody = createUpdateCartBody(version, [action]);
+
+    updateCart(cartId, version, updateBody)
       .then(() => {
         dispatch(getCartAction());
       })

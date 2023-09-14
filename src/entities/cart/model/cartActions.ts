@@ -1,10 +1,12 @@
 import { Cart } from '@commercetools/platform-sdk';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { createAnonymousCart, createUserCart, getCartById, getUserCart, updateUserCart } from '../api/cartApi';
+import { createAnonymousCart, createUserCart, getCartById, getUserCart, updateCart } from '../api/cartApi';
 import getErrorMessage from '../../../shared/helpers/routerHelpres';
 
 import myTokenCache from '../../../shared/api/auth/tokenCache';
+
+import { createProductAction, createUpdateCartBody } from '../../../shared/helpers/cartActions';
 
 import type { RootState } from '../../../app/appStore/store';
 
@@ -77,7 +79,10 @@ const updateCartAction = createAsyncThunk<Cart, string>(
       const cartId = state.userCart.cart?.id || '';
       const cartVersion = state.userCart.cart?.version ? +state.userCart.cart.version : 0;
 
-      const newCart = (await updateUserCart(cartId, productId, cartVersion)).body;
+      const action = createProductAction(productId);
+      const updateBody = createUpdateCartBody(cartVersion, [action]);
+
+      const newCart = (await updateCart(cartId, cartVersion, updateBody)).body;
 
       return newCart;
     } catch (error: unknown) {
