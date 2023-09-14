@@ -56,6 +56,12 @@ export interface ProductCardData {
   title: string;
 }
 
+export interface ProductsResponse {
+  convertedProductList: ProductCardData[];
+  offset: number;
+  totalProductsCount: number;
+}
+
 export interface SelectedProductData {
   id: string;
   attributes: Attribute[];

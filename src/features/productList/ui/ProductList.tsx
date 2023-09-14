@@ -12,8 +12,11 @@ import ProductCard from '../../../entities';
 import {
   selectFilters,
   selectIsProductListError,
+  selectIsProductListLoading,
   selectProductList,
   selectProductListErrorMessage,
+  selectProductsOffset,
+  selectProductsTotalCount,
   selectSearchValue,
   selectSortValue,
 } from '../model/productListSelectors';
@@ -30,6 +33,9 @@ import { sortingOptions } from '../../../shared/constants/sort';
 import { ModalInfo } from '../../../shared/ui';
 import selectCategories from '../../../shared/categories/model/categoriesSelectors';
 import findCategoryIdByKey from '../../../shared/helpers/products';
+import { PRODUCTS_ON_PAGE } from '../../../shared/constants/products';
+import Pagination from '../../pagination';
+import SkeletonCards from '../../../entities/product/ui/ProductCard/SceletonProductCards';
 
 export interface ProductListProps {}
 
@@ -50,7 +56,9 @@ function ProductList(): JSX.Element {
   const isError = useAppSelector(selectIsProductListError);
   const errorMessage = useAppSelector(selectProductListErrorMessage);
   const categories = useAppSelector(selectCategories);
-
+  const offset = useAppSelector(selectProductsOffset);
+  const totalProductsCount = useAppSelector(selectProductsTotalCount);
+  const isCatalogLoading = useAppSelector(selectIsProductListLoading);
   const navigate = useNavigate();
 
   const { category, subcategory } = useParams();
@@ -85,6 +93,11 @@ function ProductList(): JSX.Element {
       }),
     );
   }, [dispatch, searchValue, sortValue, filters, category, subcategory, categoryId, navigate]);
+
+  const paginationList = useMemo(() => {
+    const pageCount = Math.ceil(totalProductsCount / PRODUCTS_ON_PAGE);
+    return new Array(pageCount).fill(0).map((_: undefined, idx: number) => ({ title: idx + 1, id: `id-${idx + 1}` }));
+  }, [totalProductsCount]);
 
   const handleSearch = (value: string): void => {
     if (value) {
@@ -124,6 +137,27 @@ function ProductList(): JSX.Element {
     dispatch(updateError(false));
     dispatch(updateErrorMessage(''));
   };
+
+  const handlePaginationBtn = (newPage: number): void => {
+    const newOffset = Math.floor(newPage * PRODUCTS_ON_PAGE);
+    dispatch(
+      getProductListAction({
+        filters,
+        searchValue: searchValue?.value,
+        sortBy: sortValue?.value || '',
+        categoryId,
+        newOffset,
+      }),
+    );
+  };
+
+  const cardList = isCatalogLoading ? (
+    <SkeletonCards cardNumber={PRODUCTS_ON_PAGE} />
+  ) : (
+    productList.map((product) => {
+      return <ProductCard key={product.id} product={product} />;
+    })
+  );
 
   const layout = notFoundCategory ? (
     <div className={styles.notFound}>Category not found</div>
@@ -183,9 +217,13 @@ function ProductList(): JSX.Element {
           className={styles.sort}
         />
       </div>
-      {productList.map((product) => {
-        return <ProductCard key={product.id} product={product} />;
-      })}
+      {cardList}
+      <Pagination
+        pagesButtons={paginationList}
+        onBtnClick={handlePaginationBtn}
+        currentPage={Math.floor(offset / PRODUCTS_ON_PAGE)}
+        disableOnLoading={isCatalogLoading}
+      />
       <ModalInfo isOpen={isError} setIsOpen={handleModalInfo} message={errorMessage} withIcon={false} />
     </div>
   );
