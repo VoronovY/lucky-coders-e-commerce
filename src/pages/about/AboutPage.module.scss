@@ -1,17 +1,129 @@
+@import "../../app/styles/variables.scss";
+
 .aboutPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  max-width: var(--width-main-container);
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px;
+
+  .aboutPageDescription {
+    font-size: var(--font-size-middle);
+  }
+
+  .aboutPageInf {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    @media (max-width: 852px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  width: 32%;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: var(--color-bg-light);
+  box-shadow: 4px 4px 16px 0px var(--color-shadow-border);
+
+  @media (max-width: 852px) {
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .cardPhoto {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+  }
+
+  .cardName {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    h3 {
+      white-space: nowrap;
+    }
+  }
+
+  .cardGithubLink {
+    display: flex;
+  }
+
+  .cardGithub {
+    width: 20px;
+    height: 20px;
+    color: var(--color-primary-text);
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+
+    &:hover {
+      color: var(--color-hovered-btn);
+    }
+  }
+
+  .cardRole {
+    color: var(--color-hovered-btn);
+  }
+
+  .cardContribution {
+    list-style: disc;
+    padding-left: 10px;
+    align-self: flex-start;
+  }
+}
+
+.rss {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  height: 100%;
-  padding: 40px 10px;
+  gap: 40px;
 
-  .aboutImg {
-    max-width: 700px;
+  @media (max-width: $width-tablet) {
+    flex-direction: column-reverse;
+  }
 
-    img {
+  .rssLogoLink {
+    width: 50%;
+    display: flex;
+
+    @media (max-width: $width-tablet) {
+      width: 100%;
+    }
+  }
+
+  .rssLogo {
+    width: 100%;
+    height: auto;
+    color: var(--color-primary-text);
+    cursor: pointer;
+    transition: ease-in-out 0.2s;
+
+    &:hover {
+      color: var(--color-hovered-btn);
+    }
+  }
+
+  .rssText {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 50%;
+    font-size: var(--font-size-middle);
+
+    @media (max-width: $width-tablet) {
       width: 100%;
     }
   }
