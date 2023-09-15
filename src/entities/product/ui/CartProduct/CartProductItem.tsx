@@ -15,9 +15,8 @@ import ModalError from '../../../../shared/ui/modalError/ModalError';
 import { selectCartLoading } from '../../../cart/model/selectCart';
 import {
   createRemoveLineItemAction,
-  createDecreaseQuantityAction,
-  createIncreaseQuantityAction,
   createUpdateCartBody,
+  createChangeQuantityAction,
 } from '../../../../shared/helpers/cartActions';
 
 interface CartProductListProps {
@@ -43,11 +42,7 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
     setErrorMessage('');
 
     if (newQuantity >= 1 && newQuantity <= inStockQuantity) {
-      const action =
-        newQuantity < productQuantity
-          ? createDecreaseQuantityAction(lineItemId, newQuantity)
-          : createIncreaseQuantityAction(lineItemId, newQuantity);
-
+      const action = createChangeQuantityAction(lineItemId, newQuantity);
       const updateBody = createUpdateCartBody(version, [action]);
 
       updateCart(cartId, version, updateBody)
@@ -83,7 +78,7 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
       });
   };
 
-  const isDecreaseDisabled = productQuantity === 1 || isCartLoading;
+  const isDecreaseDisabled = productQuantity <= 1 || isCartLoading;
   const isIncreaseDisabled = productQuantity === inStockQuantity || isCartLoading;
 
   return (

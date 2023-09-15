@@ -12,18 +12,11 @@ export const createProductAction = (productId: string): MyCartAddLineItemAction 
   return { action: 'addLineItem', productId };
 };
 
-export const createDecreaseQuantityAction = (
+export const createChangeQuantityAction = (
   lineItemId: string,
-  productQuantity: number,
+  quantity: number,
 ): MyCartChangeLineItemQuantityAction => {
-  return { action: 'changeLineItemQuantity', lineItemId, quantity: productQuantity - 1 };
-};
-
-export const createIncreaseQuantityAction = (
-  lineItemId: string,
-  productQuantity: number,
-): MyCartChangeLineItemQuantityAction => {
-  return { action: 'changeLineItemQuantity', lineItemId, quantity: productQuantity + 1 };
+  return { action: 'changeLineItemQuantity', lineItemId, quantity };
 };
 
 export const createRemoveLineItemAction = (lineItemId: string): MyCartRemoveLineItemAction => {

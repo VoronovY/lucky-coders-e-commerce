@@ -14,7 +14,9 @@ function HeaderCart(): JSX.Element {
   const currentCart: Cart | null = useAppSelector(selectCart);
 
   const cartCounter = (
-    <span className={styles.cartCounter}>{currentCart ? currentCart.totalLineItemQuantity ?? 0 : 0}</span>
+    <span className={styles.cartCounter}>
+      {currentCart?.totalLineItemQuantity ? currentCart.totalLineItemQuantity : 0}
+    </span>
   );
 
   return (
