@@ -103,7 +103,7 @@ function EditInfo({ onCloseModalInfo, firstName, lastName, email, birthDate, ver
         <Button type="submit" height="46px" width="100%" disabled={disableSubmit}>
           Save
         </Button>
-        <ButtonCancel width="100%" onClick={onCloseModalInfo} name="Cancel" />
+        <ButtonCancel onClick={onCloseModalInfo} name="Cancel" />
       </form>
     </ModalForm>
   );

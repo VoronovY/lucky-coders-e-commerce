@@ -218,19 +218,19 @@ function CartSummary(): JSX.Element | null {
             <div className={styles.modalBuyNow}>
               <p>Sorry, this section is currently under development and not available yet.</p>
               <LoadingIcon className={styles.loadingIcon} />
-              <ButtonCancel width="100%" onClick={onCloseBuyNowModal} name="Close" />
+              <ButtonCancel onClick={onCloseBuyNowModal} name="Close" />
             </div>
           </ModalForm>
         )}
-        <ButtonCancel width="100%" onClick={handleOpenModal} name="Clear Cart" />
+        <ButtonCancel onClick={handleOpenModal} name="Clear Cart" />
         {isModalOpen && (
           <ModalForm title="Do you want to clear the cart?">
             <CartEmptyIcon className={styles.cartEmptyIcon} />
             <div className={styles.modalBody}>
-              <Button width="60px" height="46px" onClick={(): void => clearCart()}>
+              <Button height="46px" onClick={(): void => clearCart()}>
                 Yes
               </Button>
-              <ButtonCancel width="60px" onClick={onCloseModal} name="No" />
+              <ButtonCancel onClick={onCloseModal} name="No" />
             </div>
           </ModalForm>
         )}

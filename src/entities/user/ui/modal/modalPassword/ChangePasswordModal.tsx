@@ -174,7 +174,7 @@ function ChangePasswordModal({ version, onCloseModalPassword }: ChangePasswordMo
         <Button type="submit" width="100%" height="46px" disabled={disableSubmit}>
           Save
         </Button>
-        <ButtonCancel width="100%" onClick={onCloseModalPassword} name="Cancel" />
+        <ButtonCancel onClick={onCloseModalPassword} name="Cancel" />
       </form>
     </ModalForm>
   );
