@@ -23,7 +23,7 @@ import RoutesName from '../../../../shared/routing';
 import selectCategories from '../../../../shared/categories/model/categoriesSelectors';
 import getCategoryName from '../../../../shared/helpers/getCategoryName';
 import { useAppDispatch } from '../../../../app/appStore/hooks';
-import { updateCartAction } from '../../../cart/model/cartActions';
+import { addProductAction } from '../../../cart/model/cartActions';
 import { selectCart, selectCartError, selectCartErrorMessage, selectCartLoading } from '../../../cart/model/selectCart';
 import { ModalInfo } from '../../../../shared/ui';
 import { updateCartError, updateCartErrorMessage } from '../../../cart/model/cartSlice';
@@ -71,7 +71,7 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
   const subCategory = getCategoryName(categories[0]?.id, categoriesNames);
 
   const handleCartButton = (): void => {
-    dispatch(updateCartAction(id));
+    dispatch(addProductAction(id));
   };
 
   const handleModalClose = (): void => {

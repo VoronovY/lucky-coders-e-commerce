@@ -17,7 +17,7 @@ import {
   createRemoveLineItemAction,
   createUpdateCartBody,
   createChangeQuantityAction,
-} from '../../../../shared/helpers/cartActions';
+} from '../../../../shared/helpers/productCartActions';
 
 interface CartProductListProps {
   lineItem: LineItem;

@@ -24,7 +24,7 @@ import {
   createRemoveDiscountCodeAction,
   createRemoveLineItemAction,
   createUpdateCartBody,
-} from '../../../../shared/helpers/cartActions';
+} from '../../../../shared/helpers/productCartActions';
 
 type FormData = {
   promoCode: string;

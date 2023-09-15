@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Cart } from '@commercetools/platform-sdk';
 
-import { createAnonymousCartAction, createCartAction, getCartAction, updateCartAction } from './cartActions';
+import { addProductAction, createAnonymousCartAction, createCartAction, getCartAction } from './cartActions';
 
 type UserCart = {
   productsInCart: string[];
@@ -72,16 +72,16 @@ export const CartSlice = createSlice({
         currentState.errorMessage = error.message || '';
         currentState.isError = true;
       })
-      .addCase(updateCartAction.pending, (state) => {
+      .addCase(addProductAction.pending, (state) => {
         const currentState = state;
         currentState.isLoading = true;
       })
-      .addCase(updateCartAction.fulfilled, (state, { payload }) => {
+      .addCase(addProductAction.fulfilled, (state, { payload }) => {
         const currentState = state;
         currentState.isLoading = false;
         currentState.cart = payload;
       })
-      .addCase(updateCartAction.rejected, (state, { error }) => {
+      .addCase(addProductAction.rejected, (state, { error }) => {
         const currentState = state;
         currentState.isLoading = false;
         currentState.errorMessage = error.message || '';

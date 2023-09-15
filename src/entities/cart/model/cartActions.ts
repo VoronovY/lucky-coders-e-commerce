@@ -6,7 +6,7 @@ import getErrorMessage from '../../../shared/helpers/routerHelpres';
 
 import myTokenCache from '../../../shared/api/auth/tokenCache';
 
-import { createProductAction, createUpdateCartBody } from '../../../shared/helpers/cartActions';
+import { createProductAction, createUpdateCartBody } from '../../../shared/helpers/productCartActions';
 
 import type { RootState } from '../../../app/appStore/store';
 
@@ -57,7 +57,7 @@ const getCartAction = createAsyncThunk<Cart, string | undefined, { rejectValue: 
   },
 );
 
-const updateCartAction = createAsyncThunk<Cart, string>(
+const addProductAction = createAsyncThunk<Cart, string>(
   'cart/updateCart',
   async (productId, { dispatch, getState, rejectWithValue }) => {
     try {
@@ -98,4 +98,4 @@ const updateCartAction = createAsyncThunk<Cart, string>(
   },
 );
 
-export { getCartAction, updateCartAction };
+export { getCartAction, addProductAction };

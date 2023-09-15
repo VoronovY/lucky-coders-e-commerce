@@ -1,9 +1,4 @@
-import {
-  Cart,
-  ClientResponse,
-  MyCartUpdate,
-  createApiBuilderFromCtpClient,
-} from '@commercetools/platform-sdk';
+import { Cart, ClientResponse, MyCartUpdate, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 
 import { projectKey } from '../../../shared/api/baseApi';
 import anonymousSessionFlowClient from '../../../shared/api/clientBuilder/anonymousSessionFlowClient';
