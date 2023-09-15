@@ -97,11 +97,12 @@
   svg {
     width: 24px;
     height: 24px;
+    color: var(--color-primary-text);
     cursor: pointer;
     transition: all ease-in-out 0.2s;
 
     &:hover {
-      filter: invert(40%) sepia(90%) saturate(1000%);
+      color: var(--color-hovered-btn);
     }
 
     &:active {
