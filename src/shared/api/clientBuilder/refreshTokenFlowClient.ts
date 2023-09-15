@@ -3,7 +3,7 @@ import { Client, ClientBuilder, RefreshAuthMiddlewareOptions } from '@commerceto
 import { httpMiddlewareOptions, projectKey } from '../baseApi';
 
 const refreshTokenFlowClient = (): Client | null => {
-  let token: string | null = '';
+  let token: string | null = null;
   if (localStorage.getItem('accessToken')) {
     token = localStorage.getItem('accessToken');
   } else if (localStorage.getItem('anonymousToken')) {
