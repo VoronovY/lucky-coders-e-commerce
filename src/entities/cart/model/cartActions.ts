@@ -62,7 +62,10 @@ const updateCartAction = createAsyncThunk<Cart, string>(
       if (!localStorage.getItem('anonymousCartId') && !localStorage.getItem('accessToken')) {
         const anonymousCart = await createAnonymousCart();
         localStorage.setItem('anonymousCartId', anonymousCart.body.id);
-        localStorage.setItem('anonymousToken', myTokenCache.store.token);
+        const { refreshToken } = myTokenCache.store;
+        if (refreshToken) {
+          localStorage.setItem('anonymousToken', refreshToken);
+        }
         await dispatch(getCartAction());
       }
 

@@ -7,10 +7,10 @@ import {
 
 import { projectKey } from '../baseApi';
 import passwordFlowClient from '../clientBuilder/passwordFlowClient';
-import existingFlowClient from '../clientBuilder/existingTokenFlowClient';
+import { getApiRoot } from '../clientBuilder/apiRoot';
 
 export const loginUser = (email: string, password: string): Promise<ClientResponse<CustomerSignInResult>> => {
-  return createApiBuilderFromCtpClient(existingFlowClient())
+  return getApiRoot()
     .withProjectKey({ projectKey })
     .me()
     .login()

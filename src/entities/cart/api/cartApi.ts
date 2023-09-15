@@ -1,5 +1,4 @@
 import {
-  ApiRoot,
   Cart,
   ClientResponse,
   MyCartAddLineItemAction,
@@ -8,12 +7,8 @@ import {
 } from '@commercetools/platform-sdk';
 
 import { projectKey } from '../../../shared/api/baseApi';
-import existingFlowClient from '../../../shared/api/clientBuilder/existingTokenFlowClient';
 import anonymousSessionFlowClient from '../../../shared/api/clientBuilder/anonymousSessionFlowClient';
-
-export const getApiRoot: () => ApiRoot = () => {
-  return createApiBuilderFromCtpClient(existingFlowClient());
-};
+import { getApiRoot } from '../../../shared/api/clientBuilder/apiRoot';
 
 export const getUserCart = (): Promise<ClientResponse<Cart>> => {
   return getApiRoot().withProjectKey({ projectKey }).me().activeCart().get().execute();
