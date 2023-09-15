@@ -1,7 +1,6 @@
 import {
   Cart,
   ClientResponse,
-  MyCartAddLineItemAction,
   MyCartUpdate,
   createApiBuilderFromCtpClient,
 } from '@commercetools/platform-sdk';
@@ -44,24 +43,17 @@ export const createUserCart = (): Promise<ClientResponse<Cart>> => {
     .execute();
 };
 
-export const updateUserCart = (cartId: string, productId: string, version: number): Promise<ClientResponse<Cart>> => {
-  const updateAction: MyCartAddLineItemAction = {
-    action: 'addLineItem',
-    productId,
-  };
-
-  const updateBody: MyCartUpdate = {
-    version,
-    actions: [updateAction],
-  };
-
+export const updateCart = (cartId: string, version: number, body: MyCartUpdate): Promise<ClientResponse<Cart>> => {
   return getApiRoot()
     .withProjectKey({ projectKey })
     .me()
     .carts()
     .withId({ ID: cartId })
     .post({
-      body: updateBody,
+      body: {
+        version,
+        actions: body.actions,
+      },
     })
     .execute();
 };

@@ -24,6 +24,7 @@ const infArr = [
       'implemented a user profile page',
       'made breadcrumb navigation',
       'implemented the cart page',
+      'was responsible for unit test coverage',
     ],
   },
   {

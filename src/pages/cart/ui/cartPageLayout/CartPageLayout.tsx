@@ -1,7 +1,7 @@
 import styles from './CartPageLayout.module.scss';
 
-import CartProductList from '../../../../features/authentication/login/ui/cartProductList/CartProductList';
-import CartSummary from '../../../../features/authentication/login/ui/cartSummary/CartSummary';
+import CartProductList from '../../../../features/cart/ui/cartProductList/CartProductList';
+import CartSummary from '../../../../features/cart/ui/cartSummary/CartSummary';
 
 function CartPageLayout(): JSX.Element {
   return (
