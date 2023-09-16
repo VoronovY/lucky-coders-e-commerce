@@ -1,11 +1,10 @@
 import { useSelector } from 'react-redux';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
-
 import { useState } from 'react';
 
 import styles from './AddAndDelProductButton.module.scss';
 
-import { useAppDispatch } from '../../../app/appStore/hooks';
+import { useAppDispatch, useLoadProduct } from '../../../app/appStore/hooks';
 import Button from '../button/Button';
 import { LoadingIcon, CartButtonIcon, DeleteIcon } from '../../../app/layouts/images';
 import { selectCart, selectCartLoading } from '../../../entities/cart/model/selectCart';
@@ -15,6 +14,7 @@ import ModalError from '../modalError/ModalError';
 import { updateCart } from '../../../entities/cart/api/cartApi';
 import { createRemoveLineItemAction, createUpdateCartBody } from '../../helpers/cartActions';
 import { getErrorSignUpMessage } from '../../helpers/getErrorMessages';
+import { updateInfoMessage, updateIsModalInfoOpen } from '../../model/appSlice';
 
 function AddAndDelProductButton({ id }: { id: string }): JSX.Element | null {
   const [errorMessage, setErrorMessage] = useState('');
@@ -22,25 +22,36 @@ function AddAndDelProductButton({ id }: { id: string }): JSX.Element | null {
   const currentCart: Cart | null = useSelector(selectCart);
   const dispatch = useAppDispatch();
 
+  const product = useLoadProduct();
+
   const handleDeleteProduct = (): void => {
     setErrorMessage('');
 
-    if (currentCart) {
-      const lineItem = currentCart?.lineItems.find((item: LineItem) => item.productId === id);
-      const lineItemId = lineItem?.id;
-      const { id: cartId, version } = currentCart;
+    const title = product?.title;
+    const message = `You remove product ${title || ''} from the Cart`;
 
-      if (lineItemId) {
-        const action = createRemoveLineItemAction(lineItemId);
-        const updateBody = createUpdateCartBody(version, [action]);
-        updateCart(cartId, version, updateBody)
-          .then(() => {
-            dispatch(getCartAction());
-          })
-          .catch((error) => {
-            setErrorMessage(getErrorSignUpMessage(error.body));
-          });
-      }
+    const lineItem = currentCart?.lineItems.find((item: LineItem) => item.productId === id);
+    const lineItemId = lineItem?.id;
+    const version = currentCart?.version;
+    const cartId = currentCart?.id;
+
+    if (lineItemId && version && cartId) {
+      const action = createRemoveLineItemAction(lineItemId);
+      const updateBody = createUpdateCartBody(version, [action]);
+      updateCart(cartId, version, updateBody)
+        .then(() => {
+          dispatch(getCartAction());
+
+          dispatch(updateInfoMessage(message));
+          dispatch(updateIsModalInfoOpen(true));
+          setTimeout(() => {
+            dispatch(updateIsModalInfoOpen(false));
+            dispatch(updateInfoMessage(''));
+          }, 5000);
+        })
+        .catch((error) => {
+          setErrorMessage(getErrorSignUpMessage(error.body));
+        });
     }
   };
 
@@ -50,15 +61,24 @@ function AddAndDelProductButton({ id }: { id: string }): JSX.Element | null {
     }
     dispatch(updateCartAction(id));
   };
-
   const disableAddBtn = currentCart
     ? currentCart.lineItems.findIndex((lineItem: LineItem) => lineItem.productId === id) !== -1
     : false;
 
-  if (disableAddBtn) {
-    return (
-      <>
-        {errorMessage && <ModalError errorMessage={errorMessage} />}
+  return (
+    <>
+      <CartButtonIcon className={styles.cartIcon} />
+      {errorMessage && <ModalError errorMessage={errorMessage} />}
+      <Button onClick={handleAddProduct} className={styles.addButton} disabled={disableAddBtn}>
+        {isCartLoading ? (
+          <LoadingIcon className={styles.loadingIcon} />
+        ) : (
+          <>
+            Add to cart <CartButtonIcon className={styles.cartIcon} />
+          </>
+        )}
+      </Button>
+      {disableAddBtn ? (
         <Button onClick={handleDeleteProduct} className={styles.delButton}>
           {isCartLoading ? (
             <LoadingIcon className={styles.loadingIcon} />
@@ -68,21 +88,7 @@ function AddAndDelProductButton({ id }: { id: string }): JSX.Element | null {
             </>
           )}
         </Button>
-      </>
-    );
-  }
-  return (
-    <>
-      {errorMessage && <ModalError errorMessage={errorMessage} />}
-      <Button onClick={handleAddProduct} className={styles.addButton}>
-        {isCartLoading ? (
-          <LoadingIcon className={styles.loadingIcon} />
-        ) : (
-          <>
-            Add to cart <CartButtonIcon className={styles.cartIcon} />
-          </>
-        )}
-      </Button>
+      ) : null}
     </>
   );
 }
