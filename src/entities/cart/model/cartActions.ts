@@ -38,9 +38,10 @@ export const createCartAction = createAsyncThunk<Cart, void, { rejectValue: stri
   },
 );
 
-const getCartAction = createAsyncThunk<Cart, string | undefined, { rejectValue: string }>(
+const getCartAction = createAsyncThunk<Cart | null, string | undefined, { rejectValue: string }>(
   'cart/getCart',
   async (cartId, { rejectWithValue }) => {
+    if (!localStorage.getItem('anonymousCartId') && !localStorage.getItem('accessToken')) return null;
     try {
       if (cartId) {
         const response = await getCartById(cartId);
