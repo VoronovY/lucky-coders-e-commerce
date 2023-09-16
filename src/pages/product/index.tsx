@@ -5,8 +5,11 @@ import ProductSlider from './productSlider';
 import { useLoadProduct } from '../../app/appStore/hooks';
 import Breadcrumbs from '../../shared/breadcumps/Breadcrumbs';
 import { StarEmptyIcon, StarIcon } from '../../app/layouts/images';
+import useScrollToTop from '../../shared/helpers/ScrollToTop';
 
 function ProductPage(): JSX.Element {
+  useScrollToTop();
+
   const product = useLoadProduct();
   const { title, description, discount, imageLinks, quantity } = product || {};
   const actualPrice = product?.discountedPrice;
