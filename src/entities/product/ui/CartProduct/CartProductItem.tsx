@@ -28,6 +28,7 @@ interface CartProductListProps {
 function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [errorMessage, setErrorMessage] = useState('');
+  const [isCartUpdated, setIsCartUpdated] = useState(false);
   const isCartLoading = useSelector(selectCartLoading);
 
   const productName = lineItem.name['en-US'];
@@ -40,6 +41,7 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
 
   const handleQuantityChange = (newQuantity: number): void => {
     setErrorMessage('');
+    setIsCartUpdated(true);
 
     if (newQuantity >= 1 && newQuantity <= inStockQuantity) {
       const action = createChangeQuantityAction(lineItemId, newQuantity);
@@ -48,6 +50,7 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
       updateCart(cartId, version, updateBody)
         .then(() => {
           dispatch(getCartAction());
+          setIsCartUpdated(false);
         })
         .catch((error) => {
           setErrorMessage(getErrorSignUpMessage(error.body));
@@ -78,8 +81,8 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
       });
   };
 
-  const isDecreaseDisabled = productQuantity <= 1 || isCartLoading;
-  const isIncreaseDisabled = productQuantity === inStockQuantity || isCartLoading;
+  const isDecreaseDisabled = productQuantity <= 1 || isCartLoading || isCartUpdated;
+  const isIncreaseDisabled = productQuantity === inStockQuantity || isCartLoading || isCartUpdated;
 
   return (
     <>
