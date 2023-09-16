@@ -5,8 +5,6 @@ import { Cart, MyCartRemoveDiscountCodeAction, MyCartRemoveLineItemAction } from
 import { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
 
-import { useSelector } from 'react-redux';
-
 import styles from './CartSummary.module.scss';
 
 import Button from '../../../../shared/ui/button/Button';
@@ -53,7 +51,7 @@ function CartSummary(): JSX.Element | null {
 
   const dispatch = useAppDispatch();
   const currentCart: Cart | null = useAppSelector(selectCart);
-  const isCartLoading = useSelector(selectCartLoading);
+  const isCartLoading = useAppSelector(selectCartLoading);
   const [errorMessage, setErrorMessage] = useState('');
   const [isModalOpen, setIsModalsOpen] = useState(false);
   const [isBuyNowModalOpen, setIsBuyNowModalOpen] = useState(false);

@@ -2,13 +2,11 @@ import { LineItem } from '@commercetools/platform-sdk';
 
 import { useState } from 'react';
 
-import { useSelector } from 'react-redux';
-
 import styles from './CartProductItem.module.scss';
 
 import { DeleteIcon } from '../../../../app/layouts/images';
 import { updateCart } from '../../../cart/api/cartApi';
-import { useAppDispatch } from '../../../../app/appStore/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../app/appStore/hooks';
 import { getCartAction } from '../../../cart/model/cartActions';
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
@@ -29,7 +27,7 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
   const dispatch = useAppDispatch();
   const [errorMessage, setErrorMessage] = useState('');
   const [isCartUpdated, setIsCartUpdated] = useState(false);
-  const isCartLoading = useSelector(selectCartLoading);
+  const isCartLoading = useAppSelector(selectCartLoading);
 
   const productName = lineItem.name['en-US'];
   const inStockQuantity = lineItem.variant.availability?.availableQuantity || 0;
