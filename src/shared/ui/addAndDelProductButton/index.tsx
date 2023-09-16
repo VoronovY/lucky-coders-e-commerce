@@ -1,10 +1,9 @@
-import { useSelector } from 'react-redux';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
 import { useState } from 'react';
 
 import styles from './AddAndDelProductButton.module.scss';
 
-import { useAppDispatch, useLoadProduct } from '../../../app/appStore/hooks';
+import { useAppDispatch, useLoadProduct, useAppSelector } from '../../../app/appStore/hooks';
 import Button from '../button/Button';
 import { LoadingIcon, CartButtonIcon, DeleteIcon } from '../../../app/layouts/images';
 import { selectCart, selectCartLoading } from '../../../entities/cart/model/selectCart';
@@ -18,8 +17,8 @@ import { updateInfoMessage, updateIsModalInfoOpen } from '../../model/appSlice';
 
 function AddAndDelProductButton({ id }: { id: string }): JSX.Element | null {
   const [errorMessage, setErrorMessage] = useState('');
-  const isCartLoading = useSelector(selectCartLoading);
-  const currentCart: Cart | null = useSelector(selectCart);
+  const isCartLoading = useAppSelector(selectCartLoading);
+  const currentCart: Cart | null = useAppSelector(selectCart);
   const dispatch = useAppDispatch();
 
   const product = useLoadProduct();
