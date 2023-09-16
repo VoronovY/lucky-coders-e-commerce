@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
+
 import { useState } from 'react';
 
 import styles from './AddAndDelProductButton.module.scss';
@@ -8,7 +9,7 @@ import { useAppDispatch } from '../../../app/appStore/hooks';
 import Button from '../button/Button';
 import { LoadingIcon, CartButtonIcon, DeleteIcon } from '../../../app/layouts/images';
 import { selectCart, selectCartLoading } from '../../../entities/cart/model/selectCart';
-import { getCartAction, updateCartAction } from '../../../entities/cart/model/cartActions';
+import { getCartAction, updateCartAction, createCartAction } from '../../../entities/cart/model/cartActions';
 
 import ModalError from '../modalError/ModalError';
 import { updateCart } from '../../../entities/cart/api/cartApi';
@@ -21,35 +22,35 @@ function AddAndDelProductButton({ id }: { id: string }): JSX.Element | null {
   const currentCart: Cart | null = useSelector(selectCart);
   const dispatch = useAppDispatch();
 
-  if (!currentCart) {
-    return null;
-  }
-  const { id: cartId, version } = currentCart;
-
   const handleDeleteProduct = (): void => {
     setErrorMessage('');
 
-    const lineItem = currentCart.lineItems.find((item: LineItem) => item.productId === id);
-    const lineItemId = lineItem?.id;
+    if (currentCart) {
+      const lineItem = currentCart?.lineItems.find((item: LineItem) => item.productId === id);
+      const lineItemId = lineItem?.id;
+      const { id: cartId, version } = currentCart;
 
-    let action;
-    let updateBody;
-    if (lineItemId) {
-      action = createRemoveLineItemAction(lineItemId);
-      updateBody = createUpdateCartBody(version, [action]);
-      updateCart(cartId, version, updateBody)
-        .then(() => {
-          dispatch(getCartAction());
-        })
-        .catch((error) => {
-          setErrorMessage(getErrorSignUpMessage(error.body));
-        });
+      if (lineItemId) {
+        const action = createRemoveLineItemAction(lineItemId);
+        const updateBody = createUpdateCartBody(version, [action]);
+        updateCart(cartId, version, updateBody)
+          .then(() => {
+            dispatch(getCartAction());
+          })
+          .catch((error) => {
+            setErrorMessage(getErrorSignUpMessage(error.body));
+          });
+      }
     }
   };
 
   const handleAddProduct = (): void => {
+    if (!currentCart) {
+      dispatch(createCartAction());
+    }
     dispatch(updateCartAction(id));
   };
+
   const disableAddBtn = currentCart
     ? currentCart.lineItems.findIndex((lineItem: LineItem) => lineItem.productId === id) !== -1
     : false;
