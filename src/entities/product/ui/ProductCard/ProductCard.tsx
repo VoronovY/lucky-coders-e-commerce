@@ -118,7 +118,7 @@ function ProductCard({ product }: ProductCardProps): JSX.Element {
         <Link className={styles.link} to={`${RoutesName.catalog}/${category}/${subCategory}/${key}`}>
           <Button className={styles.button}>More info</Button>
         </Link>
-        <Button onClick={handleCartButton} disabled={disableAddBtn}>
+        <Button onClick={isCartLoading ? undefined : handleCartButton} disabled={disableAddBtn}>
           {isCartLoading ? (
             <LoadingIcon className={styles.loadingIcon} />
           ) : (

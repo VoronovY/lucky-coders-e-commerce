@@ -6,12 +6,14 @@ import { useLoadProduct } from '../../app/appStore/hooks';
 import Breadcrumbs from '../../shared/breadcumps/Breadcrumbs';
 import { StarEmptyIcon, StarIcon } from '../../app/layouts/images';
 import useScrollToTop from '../../shared/helpers/ScrollToTop';
+import AddAndDelProductButton from '../../shared/ui/addAndDelProductButton';
 
 function ProductPage(): JSX.Element {
   useScrollToTop();
 
   const product = useLoadProduct();
   const { title, description, discount, imageLinks, quantity } = product || {};
+  const id = product ? product.id : '';
   const actualPrice = product?.discountedPrice;
   const oldPrice = product?.originalPrice;
   const stockText = quantity ? 'In stock' : 'Sold Out';
@@ -56,6 +58,7 @@ function ProductPage(): JSX.Element {
             </div>
             <div className={styles.menuStock}>{stockText}</div>
           </div>
+          <AddAndDelProductButton id={id} />
         </div>
       </div>
       <div className={styles.descriptionAndInf}>

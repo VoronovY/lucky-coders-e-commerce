@@ -1,0 +1,24 @@
+.loadingIcon {
+  height: 30px;
+  width: 40px;
+}
+
+.cartIcon,
+.delIcon {
+  width: auto;
+  height: 24px;
+}
+
+.delButton {
+  background: var(--color-bg-light);
+  border: 2px solid var(--color-hovered-btn);
+  color: var(--color-hovered-btn);
+  cursor: pointer;
+  transition: all ease-in-out 0.2s;
+
+  &:hover {
+    background: var(--color-hovered-btn);
+    color: var(--color-secondary-text);
+    border: 2px solid transparent;
+  }
+}

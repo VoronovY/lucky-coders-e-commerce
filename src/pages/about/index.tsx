@@ -85,7 +85,7 @@ function AboutPage(): JSX.Element {
         })}
       </div>
       <div className={styles.rss}>
-        <Link className={styles.rssLogoLink} to="https://rs.school/js" target="_blank">
+        <Link className={styles.rssLogoLink} to="https://rs.school/" target="_blank">
           <RssLogo className={styles.rssLogo} />
         </Link>
         <div className={styles.rssText}>
