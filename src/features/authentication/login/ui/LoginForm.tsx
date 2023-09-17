@@ -15,6 +15,7 @@ import myTokenCache from '../../../../shared/api/auth/tokenCache';
 import useCreateUserAndNavigate from '../../../../shared/api/auth/userUtils';
 import { useAppDispatch } from '../../../../app/appStore/hooks';
 import { getCartAction } from '../../../../entities/cart/model/cartActions';
+import { resetApiRoot } from '../../../../shared/api/clientBuilder/apiRoot';
 
 interface LoginUserFields {
   email: string;
@@ -52,6 +53,7 @@ function LoginForm(): JSX.Element {
           localStorage.removeItem('anonymousToken');
           localStorage.removeItem('anonymousCartId');
           myTokenCache.clear();
+          resetApiRoot();
 
           return createUserAndNavigate(data.email, data.password);
         })

@@ -7,11 +7,11 @@ import { useAppDispatch, useLoadProduct, useAppSelector } from '../../../app/app
 import Button from '../button/Button';
 import { LoadingIcon, CartButtonIcon, DeleteIcon } from '../../../app/layouts/images';
 import { selectCart, selectCartLoading } from '../../../entities/cart/model/selectCart';
-import { getCartAction, updateCartAction, createCartAction } from '../../../entities/cart/model/cartActions';
+import { getCartAction, addProductAction, createCartAction } from '../../../entities/cart/model/cartActions';
 
 import ModalError from '../modalError/ModalError';
 import { updateCart } from '../../../entities/cart/api/cartApi';
-import { createRemoveLineItemAction, createUpdateCartBody } from '../../helpers/cartActions';
+import { createRemoveLineItemAction, createUpdateCartBody } from '../../helpers/productCartActions';
 import { getErrorSignUpMessage } from '../../helpers/getErrorMessages';
 import { updateInfoMessage, updateIsModalInfoOpen } from '../../model/appSlice';
 
@@ -62,7 +62,7 @@ function AddAndDelProductButton({ id }: AddAndDelProductButtonProps): JSX.Elemen
     if (!currentCart) {
       dispatch(createCartAction());
     }
-    dispatch(updateCartAction(id));
+    dispatch(addProductAction(id));
   };
   const disableAddBtn = currentCart
     ? currentCart.lineItems.findIndex((lineItem: LineItem) => lineItem.productId === id) !== -1

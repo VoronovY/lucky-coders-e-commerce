@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../../../app/appStore/hooks';
 import { updateAccessToken, updateUserId } from '../../../../shared/model/appSlice';
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
 import { updateCart } from '../../../../entities/cart/model/cartSlice';
+import { resetApiRoot } from '../../../../shared/api/clientBuilder/apiRoot';
 
 function HeaderProfile(): JSX.Element {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ function HeaderProfile(): JSX.Element {
   const handleSignOut = (): void => {
     localStorage.removeItem('accessToken');
     myTokenCache.clear();
+    resetApiRoot();
     dispatch(updateUserId(''));
     dispatch(updateAccessToken(''));
     dispatch(updateCart(null));

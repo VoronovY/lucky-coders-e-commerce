@@ -23,7 +23,10 @@ const useCreateUserAndNavigate = (): ((email: string, password: string) => Promi
       dispatch(updateIsModalInfoOpen(false));
       dispatch(updateInfoMessage(''));
     }, 5000);
-    localStorage.setItem('accessToken', myTokenCache.store.token);
+    const { refreshToken } = myTokenCache.store;
+    if (refreshToken) {
+      localStorage.setItem('accessToken', refreshToken);
+    }
     navigate(RoutesName.main);
   };
 

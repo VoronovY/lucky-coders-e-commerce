@@ -2,13 +2,11 @@ import { LineItem } from '@commercetools/platform-sdk';
 
 import { useState } from 'react';
 
-import { useSelector } from 'react-redux';
-
 import styles from './CartProductItem.module.scss';
 
 import { DeleteIcon } from '../../../../app/layouts/images';
 import { updateCart } from '../../../cart/api/cartApi';
-import { useAppDispatch } from '../../../../app/appStore/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../app/appStore/hooks';
 import { getCartAction } from '../../../cart/model/cartActions';
 import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
@@ -17,7 +15,7 @@ import {
   createRemoveLineItemAction,
   createUpdateCartBody,
   createChangeQuantityAction,
-} from '../../../../shared/helpers/cartActions';
+} from '../../../../shared/helpers/productCartActions';
 
 interface CartProductListProps {
   lineItem: LineItem;
@@ -28,7 +26,8 @@ interface CartProductListProps {
 function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [errorMessage, setErrorMessage] = useState('');
-  const isCartLoading = useSelector(selectCartLoading);
+  const [isCartUpdated, setIsCartUpdated] = useState(false);
+  const isCartLoading = useAppSelector(selectCartLoading);
 
   const productName = lineItem.name['en-US'];
   const inStockQuantity = lineItem.variant.availability?.availableQuantity || 0;
@@ -40,6 +39,7 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
 
   const handleQuantityChange = (newQuantity: number): void => {
     setErrorMessage('');
+    setIsCartUpdated(true);
 
     if (newQuantity >= 1 && newQuantity <= inStockQuantity) {
       const action = createChangeQuantityAction(lineItemId, newQuantity);
@@ -48,6 +48,7 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
       updateCart(cartId, version, updateBody)
         .then(() => {
           dispatch(getCartAction());
+          setIsCartUpdated(false);
         })
         .catch((error) => {
           setErrorMessage(getErrorSignUpMessage(error.body));
@@ -78,8 +79,8 @@ function CartProduct({ lineItem, cartId, version }: CartProductListProps): JSX.E
       });
   };
 
-  const isDecreaseDisabled = productQuantity <= 1 || isCartLoading;
-  const isIncreaseDisabled = productQuantity === inStockQuantity || isCartLoading;
+  const isDecreaseDisabled = productQuantity <= 1 || isCartLoading || isCartUpdated;
+  const isIncreaseDisabled = productQuantity === inStockQuantity || isCartLoading || isCartUpdated;
 
   return (
     <>

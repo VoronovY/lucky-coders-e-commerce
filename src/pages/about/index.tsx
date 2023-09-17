@@ -69,7 +69,7 @@ function AboutPage(): JSX.Element {
               <img className={styles.cardPhoto} src={item.photo} alt="img" />
               <div className={styles.cardName}>
                 <h3>{item.name}</h3>
-                <Link className={styles.cardGithubLink} to={item.github}>
+                <Link className={styles.cardGithubLink} to={item.github} target="_blank">
                   <GithubLogo className={styles.cardGithub} />
                 </Link>
               </div>
@@ -85,7 +85,7 @@ function AboutPage(): JSX.Element {
         })}
       </div>
       <div className={styles.rss}>
-        <Link className={styles.rssLogoLink} to="https://rs.school">
+        <Link className={styles.rssLogoLink} to="https://rs.school/" target="_blank">
           <RssLogo className={styles.rssLogo} />
         </Link>
         <div className={styles.rssText}>

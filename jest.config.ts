@@ -19,5 +19,8 @@ export default {
     '!src/shared/api/baseApi.ts',
     '!src/shared/api/clientBuilder/credentialsFlowClient.ts',
     '!src/shared/api/clientBuilder/passwordFlowClient.ts',
+    '!src/shared/api/clientBuilder/anonymousSessionFlowClient.ts',
+    '!src/shared/api/clientBuilder/refreshTokenFlowClient.ts',
+    '!src/shared/api/clientBuilder/tokenFlowClient.ts',
   ],
 };

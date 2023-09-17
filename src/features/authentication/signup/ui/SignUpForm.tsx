@@ -21,6 +21,7 @@ import myTokenCache from '../../../../shared/api/auth/tokenCache';
 import useCreateUserAndNavigate from '../../../../shared/api/auth/userUtils';
 import { createCartAction, getCartAction } from '../../../../entities/cart/model/cartActions';
 import { useAppDispatch } from '../../../../app/appStore/hooks';
+import { resetApiRoot } from '../../../../shared/api/clientBuilder/apiRoot';
 
 const defaultValues = {
   email: '',
@@ -64,6 +65,7 @@ function SignUpForm(): JSX.Element {
               localStorage.removeItem('anonymousToken');
               localStorage.removeItem('anonymousCartId');
               myTokenCache.clear();
+              resetApiRoot();
 
               return createUserAndNavigate(data.email, data.password);
             })

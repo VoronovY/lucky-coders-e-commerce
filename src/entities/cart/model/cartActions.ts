@@ -6,7 +6,7 @@ import getErrorMessage from '../../../shared/helpers/routerHelpres';
 
 import myTokenCache from '../../../shared/api/auth/tokenCache';
 
-import { createProductAction, createUpdateCartBody } from '../../../shared/helpers/cartActions';
+import { createProductAction, createUpdateCartBody } from '../../../shared/helpers/productCartActions';
 
 import type { RootState } from '../../../app/appStore/store';
 
@@ -38,9 +38,10 @@ export const createCartAction = createAsyncThunk<Cart, void, { rejectValue: stri
   },
 );
 
-const getCartAction = createAsyncThunk<Cart, string | undefined, { rejectValue: string }>(
+const getCartAction = createAsyncThunk<Cart | null, string | undefined, { rejectValue: string }>(
   'cart/getCart',
   async (cartId, { rejectWithValue }) => {
+    if (!localStorage.getItem('anonymousCartId') && !localStorage.getItem('accessToken')) return null;
     try {
       if (cartId) {
         const response = await getCartById(cartId);
@@ -57,14 +58,17 @@ const getCartAction = createAsyncThunk<Cart, string | undefined, { rejectValue: 
   },
 );
 
-const updateCartAction = createAsyncThunk<Cart, string>(
+const addProductAction = createAsyncThunk<Cart, string>(
   'cart/updateCart',
   async (productId, { dispatch, getState, rejectWithValue }) => {
     try {
       if (!localStorage.getItem('anonymousCartId') && !localStorage.getItem('accessToken')) {
         const anonymousCart = await createAnonymousCart();
         localStorage.setItem('anonymousCartId', anonymousCart.body.id);
-        localStorage.setItem('anonymousToken', myTokenCache.store.token);
+        const { refreshToken } = myTokenCache.store;
+        if (refreshToken) {
+          localStorage.setItem('anonymousToken', refreshToken);
+        }
         await dispatch(getCartAction());
       }
 
@@ -95,4 +99,4 @@ const updateCartAction = createAsyncThunk<Cart, string>(
   },
 );
 
-export { getCartAction, updateCartAction };
+export { getCartAction, addProductAction };

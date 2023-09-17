@@ -10,7 +10,7 @@ import styles from './CartSummary.module.scss';
 import Button from '../../../../shared/ui/button/Button';
 import { TextInput } from '../../../../shared/ui';
 import ButtonCancel from '../../../../entities/user/ui/modal/buttonCancel/ButtonCancel';
-import { selectCart } from '../../../../entities/cart/model/selectCart';
+import { selectCart, selectCartLoading } from '../../../../entities/cart/model/selectCart';
 import { updateCart } from '../../../../entities/cart/api/cartApi';
 import { useAppDispatch, useAppSelector } from '../../../../app/appStore/hooks';
 import { getCartAction } from '../../../../entities/cart/model/cartActions';
@@ -24,7 +24,7 @@ import {
   createRemoveDiscountCodeAction,
   createRemoveLineItemAction,
   createUpdateCartBody,
-} from '../../../../shared/helpers/cartActions';
+} from '../../../../shared/helpers/productCartActions';
 
 type FormData = {
   promoCode: string;
@@ -51,6 +51,7 @@ function CartSummary(): JSX.Element | null {
 
   const dispatch = useAppDispatch();
   const currentCart: Cart | null = useAppSelector(selectCart);
+  const isCartLoading = useAppSelector(selectCartLoading);
   const [errorMessage, setErrorMessage] = useState('');
   const [isModalOpen, setIsModalsOpen] = useState(false);
   const [isBuyNowModalOpen, setIsBuyNowModalOpen] = useState(false);
@@ -188,8 +189,8 @@ function CartSummary(): JSX.Element | null {
                 <div>
                   <div className={styles.inputWrapper}>
                     <TextInput id="1" placeholder="" label="Promo Code" error={errors.promoCode} {...field} />
-                    <button type="submit" className={styles.addButton}>
-                      +
+                    <button type="submit" className={styles.addButton} disabled={isCartLoading}>
+                      Apply
                     </button>
                   </div>
                 </div>
