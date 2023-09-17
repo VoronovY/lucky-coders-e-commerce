@@ -68,7 +68,11 @@ function AddAndDelProductButton({ id }: { id: string }): JSX.Element | null {
     <>
       <CartButtonIcon className={styles.cartIcon} />
       {errorMessage && <ModalError errorMessage={errorMessage} />}
-      <Button onClick={handleAddProduct} className={styles.addButton} disabled={disableAddBtn}>
+      <Button
+        onClick={isCartLoading ? undefined : handleAddProduct}
+        className={styles.addButton}
+        disabled={disableAddBtn}
+      >
         {isCartLoading ? (
           <LoadingIcon className={styles.loadingIcon} />
         ) : (
@@ -78,7 +82,7 @@ function AddAndDelProductButton({ id }: { id: string }): JSX.Element | null {
         )}
       </Button>
       {disableAddBtn ? (
-        <Button onClick={handleDeleteProduct} className={styles.delButton}>
+        <Button onClick={isCartLoading ? undefined : handleDeleteProduct} className={styles.delButton}>
           {isCartLoading ? (
             <LoadingIcon className={styles.loadingIcon} />
           ) : (
