@@ -16,7 +16,7 @@ function FooterInfo(): JSX.Element {
       <div className={styles.socials}>
         <SocialLinks />
         <div>
-          <a href="https://rs.school/js/">
+          <a href="https://rs.school">
             <RssLogo className={styles.rssLogo} />
           </a>
         </div>
