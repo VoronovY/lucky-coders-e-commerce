@@ -15,7 +15,11 @@ import { createRemoveLineItemAction, createUpdateCartBody } from '../../helpers/
 import { getErrorSignUpMessage } from '../../helpers/getErrorMessages';
 import { updateInfoMessage, updateIsModalInfoOpen } from '../../model/appSlice';
 
-function AddAndDelProductButton({ id }: { id: string }): JSX.Element | null {
+interface AddAndDelProductButtonProps {
+  id: string;
+}
+
+function AddAndDelProductButton({ id }: AddAndDelProductButtonProps): JSX.Element | null {
   const [errorMessage, setErrorMessage] = useState('');
   const isCartLoading = useAppSelector(selectCartLoading);
   const currentCart: Cart | null = useAppSelector(selectCart);
