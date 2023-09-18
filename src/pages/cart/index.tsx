@@ -4,7 +4,7 @@ import styles from './CartPage.module.scss';
 
 import CartPageLayout from './ui/cartPageLayout/CartPageLayout';
 
-import CartEmpty from './ui/cartEmpty/CartEmpty';
+import CartEmpty from './ui/CartEmpty/CartEmpty';
 
 import useScrollToTop from '../../shared/helpers/ScrollToTop';
 import { selectCart } from '../../entities/cart/model/selectCart';
