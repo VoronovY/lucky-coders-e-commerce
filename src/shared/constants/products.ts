@@ -12,4 +12,6 @@ const defaultFilters: FilterFields = {
   colors: [],
 };
 
+export const PRODUCTS_ON_PAGE = 6;
+
 export default defaultFilters;

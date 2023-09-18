@@ -1,8 +1,10 @@
 .cart {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 40px;
+  min-height: 60vh;
   max-width: var(--width-main-container);
   padding: 30px;
   margin: 0 auto;

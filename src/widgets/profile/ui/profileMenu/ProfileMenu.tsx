@@ -8,6 +8,8 @@ import RoutesName from '../../../../shared/routing';
 import { useAppDispatch } from '../../../../app/appStore/hooks';
 import { updateAccessToken, updateUserId } from '../../../../shared/model/appSlice';
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
+import { updateCart } from '../../../../entities/cart/model/cartSlice';
+import { resetApiRoot } from '../../../../shared/api/clientBuilder/apiRoot';
 
 const profileLinks = [
   { id: '1', path: RoutesName.profile, text: 'Profile' },
@@ -15,11 +17,13 @@ const profileLinks = [
 ];
 function ProfileMenu(): JSX.Element {
   const navigate = useNavigate();
-  const disaptch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const { pathname } = useLocation();
   const [activeLink, setActiveLink] = useState('1');
 
-  const pathToLinkIdMap = useMemo(
+  const pathToLinkIdMap: {
+    [key: string]: string;
+  } = useMemo(
     () => ({
       [RoutesName.profile]: '1',
       [`${RoutesName.profile}/addresses`]: '2',
@@ -34,8 +38,11 @@ function ProfileMenu(): JSX.Element {
   const handleSignOut = (): void => {
     localStorage.removeItem('accessToken');
     myTokenCache.clear();
-    disaptch(updateUserId(''));
-    disaptch(updateAccessToken(''));
+    resetApiRoot();
+    dispatch(updateUserId(''));
+    dispatch(updateAccessToken(''));
+    dispatch(updateCart(null));
+
     navigate(RoutesName.main);
   };
 

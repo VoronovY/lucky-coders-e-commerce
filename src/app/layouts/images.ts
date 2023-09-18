@@ -9,13 +9,10 @@ import { ReactComponent as LogoutIcon } from '../../../public/assets/logout.svg'
 import { ReactComponent as RegisterIcon } from '../../../public/assets/register.svg';
 import { ReactComponent as EyeIcon } from '../../../public/assets/view-eye.svg';
 import { ReactComponent as HiddenEyeIcon } from '../../../public/assets/hidden-eye.svg';
-import { ReactComponent as ArrowLeftIcon } from '../../../public/assets/arrow-left.svg';
-import { ReactComponent as ArrowRightIcon } from '../../../public/assets/arrow-right.svg';
 import { ReactComponent as Checked } from '../../../public/assets/check.svg';
 import { ReactComponent as SearchIcon } from '../../../public/assets/search.svg';
 import { ReactComponent as CrossIcon } from '../../../public/assets/cross.svg';
 import { ReactComponent as CategoriesArrowIcon } from '../../../public/assets/categories-arrow.svg';
-import { ReactComponent as BurgerMenuIcon } from '../../../public/assets/burger-menu.svg';
 import { ReactComponent as WarningIcon } from '../../../public/assets/warning.svg';
 import { ReactComponent as EditIcon } from '../../../public/assets/edit.svg';
 import { ReactComponent as CartEmptyIcon } from '../../../public/assets/cart-empty.svg';
@@ -26,6 +23,8 @@ import { ReactComponent as DeleteIcon } from '../../../public/assets/delete.svg'
 import { ReactComponent as CollapseArrowDown } from '../../../public/assets/icons/collapse-arrow-down.svg';
 import { ReactComponent as StarIcon } from '../../../public/assets/star.svg';
 import { ReactComponent as StarEmptyIcon } from '../../../public/assets/star-empty.svg';
+import { ReactComponent as CartButtonIcon } from '../../../public/assets/cart-button.svg';
+import { ReactComponent as LoadingIcon } from '../../../public/assets/loading.svg';
 
 export {
   RssLogo,
@@ -39,13 +38,10 @@ export {
   RegisterIcon,
   EyeIcon,
   HiddenEyeIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
   Checked,
   SearchIcon,
   CrossIcon,
   CategoriesArrowIcon,
-  BurgerMenuIcon,
   WarningIcon,
   EditIcon,
   CartEmptyIcon,
@@ -56,4 +52,6 @@ export {
   CollapseArrowDown,
   StarIcon,
   StarEmptyIcon,
+  CartButtonIcon,
+  LoadingIcon,
 };

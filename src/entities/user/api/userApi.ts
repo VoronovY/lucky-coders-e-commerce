@@ -1,20 +1,11 @@
-import {
-  ApiRoot,
-  ClientResponse,
-  Customer,
-  MyCustomerUpdateAction,
-  createApiBuilderFromCtpClient,
-} from '@commercetools/platform-sdk';
+import { ClientResponse, Customer, MyCustomerUpdateAction } from '@commercetools/platform-sdk';
 
-import existingFlowClient from '../../../shared/api/clientBuilder/existingTokenFlowClient';
 import { projectKey } from '../../../shared/api/baseApi';
-
-export const getApiRoot: () => ApiRoot = () => {
-  return createApiBuilderFromCtpClient(existingFlowClient());
-};
+import { getApiRoot } from '../../../shared/api/clientBuilder/apiRoot';
+import refreshTokenFlowClient from '../../../shared/api/clientBuilder/refreshTokenFlowClient';
 
 export const getCustomer = (): Promise<ClientResponse<Customer>> => {
-  const client = existingFlowClient();
+  const client = refreshTokenFlowClient();
   if (!client) {
     return Promise.reject(new Error('Access token is missing'));
   }

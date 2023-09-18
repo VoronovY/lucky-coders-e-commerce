@@ -1,21 +1,11 @@
 import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { ObjectSchema } from 'yup';
-
 import { useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
-import { useDispatch } from 'react-redux';
-
 import RoutesName from '../../../../shared/routing';
-
-import { getErrorLoginMessage, getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
-
+import { getErrorSignUpMessage } from '../../../../shared/helpers/getErrorMessages';
 import { TextInput, PasswordInput, DateInput, PasswordErrors } from '../../../../shared/ui';
-
 import { FormText, FormWrapper } from '../../../../shared/ui/form';
 import signUpSchema from '../model/signUpSchema';
 import passwordErrorItems from '../../../../shared/constants/passwordErrorsItems';
@@ -24,15 +14,14 @@ import { RegisterUserFields } from '../../../../shared/types/types';
 import signUp from '../../../../shared/api/signUp/signUpUser';
 import { signUpConverter } from '../../../../shared/helpers/signUpHelpers';
 import ModalError from '../../../../shared/ui/modalError/ModalError';
-import loginUser from '../../../../shared/api/auth/loginUser';
-import {
-  updateAccessToken,
-  updateInfoMessage,
-  updateIsModalInfoOpen,
-  updateUserId,
-} from '../../../../shared/model/appSlice';
+import { loginUser } from '../../../../shared/api/auth/loginUser';
+
 import myTokenCache from '../../../../shared/api/auth/tokenCache';
-import SuccessfulMessages from '../../../../shared/successfulMessages';
+
+import useCreateUserAndNavigate from '../../../../shared/api/auth/userUtils';
+import { createCartAction, getCartAction } from '../../../../entities/cart/model/cartActions';
+import { useAppDispatch } from '../../../../app/appStore/hooks';
+import { resetApiRoot } from '../../../../shared/api/clientBuilder/apiRoot';
 
 const defaultValues = {
   email: '',
@@ -54,13 +43,14 @@ const defaultValues = {
 
 function SignUpForm(): JSX.Element {
   const [errorMessage, setErrorMessage] = useState('');
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const methods = useForm<RegisterUserFields>({
     resolver: yupResolver(signUpSchema as ObjectSchema<RegisterUserFields>),
     mode: 'onChange',
     defaultValues,
   });
+
+  const createUserAndNavigate = useCreateUserAndNavigate();
+  const dispatch = useAppDispatch();
 
   const disableSubmit = Object.values(methods.formState.errors).length > 0;
 
@@ -69,22 +59,24 @@ function SignUpForm(): JSX.Element {
     const convertedData = signUpConverter(data);
     signUp(convertedData)
       .then(() => {
-        loginUser(data.email, data.password)
-          .then((response) => {
-            dispatch(updateUserId(response.body.customer.id));
-            dispatch(updateAccessToken(myTokenCache.store.token));
-            dispatch(updateInfoMessage(SuccessfulMessages.signUp));
-            dispatch(updateIsModalInfoOpen(true));
-            setTimeout(() => {
-              dispatch(updateIsModalInfoOpen(false));
-              dispatch(updateInfoMessage(''));
-            }, 5000);
-            localStorage.setItem('accessToken', myTokenCache.store.token);
-            navigate(RoutesName.main);
-          })
-          .catch((error) => {
-            setErrorMessage(getErrorLoginMessage(error.body));
+        if (localStorage.getItem('anonymousToken')) {
+          loginUser(data.email, data.password)
+            .then(() => {
+              localStorage.removeItem('anonymousToken');
+              localStorage.removeItem('anonymousCartId');
+              myTokenCache.clear();
+              resetApiRoot();
+
+              return createUserAndNavigate(data.email, data.password);
+            })
+            .finally(() => {
+              dispatch(getCartAction());
+            });
+        } else {
+          createUserAndNavigate(data.email, data.password).then(() => {
+            dispatch(createCartAction());
           });
+        }
       })
       .catch((error) => {
         setErrorMessage(getErrorSignUpMessage(error.body));

@@ -14,7 +14,7 @@ function CartEmpty(): JSX.Element {
       <CartEmptyIcon className={styles.cartIcon} />
       <p className={styles.cartText}>Your cart is empty.</p>
       <Link to={RoutesName.catalog} className={styles.linkWrapper}>
-        <Button width="300px" height="35px">
+        <Button width="300px" height="46px">
           Go to Catalog
         </Button>
       </Link>

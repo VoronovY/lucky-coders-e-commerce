@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: space-around;
   width: 260px;
-  height: 410px;
+  height: 455px;
   padding: 10px;
   background-color: var(--color-bg-light);
   border-radius: 14px;
@@ -113,12 +113,59 @@
 }
 
 .button {
-  &:hover .link {
-    color: var(--color-primary-text);
+  background: var(--color-bg-light);
+  color: var(--color-hovered-btn);
+  border: 2px solid var(--color-hovered-btn);
+  margin-bottom: 10px;
+
+  &:hover {
+    background: var(--color-hovered-btn);
+    color: var(--color-secondary-text);
+    border: transparent;
   }
 }
 
 .link {
   color: var(--color-secondary-text);
   transition: color 0.2s ease;
+}
+
+.loadingIcon {
+  height: 30px;
+  width: 40px;
+}
+
+.productCardWrapperSkeleton {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 260px;
+  height: 455px;
+  padding: 10px;
+  border-radius: 14px;
+  box-shadow: 2px 2px 8px 0px var(--color-shadow-border);
+}
+
+.discountWrapperSkeleton {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+}
+
+.productImgWrapperSkeleton {
+  display: flex;
+  padding-bottom: 20px;
+  height: 150px;
+  width: 100%;
+}
+
+.footerSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btnSkeleton {
+  height: 30px;
 }

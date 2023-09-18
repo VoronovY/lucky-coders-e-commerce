@@ -1,20 +1,22 @@
+import { Cart } from '@commercetools/platform-sdk';
+
 import styles from './CartPage.module.scss';
-// import CartProductList from './ui/CartProductList/CartProductList';
-// import CartSummary from './ui/CartSummary/CartSummary';
+
+import CartPageLayout from './ui/cartPageLayout/CartPageLayout';
+
 import CartEmpty from './ui/CartEmpty/CartEmpty';
 
 import useScrollToTop from '../../shared/helpers/ScrollToTop';
+import { selectCart } from '../../entities/cart/model/selectCart';
+import { useAppSelector } from '../../app/appStore/hooks';
 
 function CartPage(): JSX.Element {
   useScrollToTop();
+  const currentCart: Cart | null = useAppSelector(selectCart);
 
-  return (
-    <div className={styles.cart}>
-      <CartEmpty />
-      {/* <CartProductList />
-      <CartSummary /> */}
-    </div>
-  );
+  const content = currentCart && currentCart.lineItems.length > 0 ? <CartPageLayout /> : <CartEmpty />;
+
+  return <div className={styles.cartPage}>{content}</div>;
 }
 
 export default CartPage;

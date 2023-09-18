@@ -20,7 +20,7 @@ import { PasswordFields } from '../../../../../shared/types/types';
 import ButtonCancel from '../buttonCancel/ButtonCancel';
 
 import selectUser from '../../../model/userSelectors';
-import loginUser from '../../../../../shared/api/auth/loginUser';
+import { loginUser } from '../../../../../shared/api/auth/loginUser';
 import {
   updateAccessToken,
   updateInfoMessage,
@@ -30,10 +30,12 @@ import {
 import myTokenCache from '../../../../../shared/api/auth/tokenCache';
 import { getErrorSignUpMessage } from '../../../../../shared/helpers/getErrorMessages';
 import ModalError from '../../../../../shared/ui/modalError/ModalError';
-import { store } from '../../../../../app/appStore/appStore';
+
 import getCustomerAction from '../../../model/userActions';
 import SuccessfulMessages from '../../../../../shared/successfulMessages';
 import { changePassword } from '../../../api/userApi';
+import { store } from '../../../../../app/appStore/store';
+import { resetApiRoot } from '../../../../../shared/api/clientBuilder/apiRoot';
 
 interface ChangePasswordModalProps {
   onCloseModalPassword: () => void;
@@ -73,11 +75,15 @@ function ChangePasswordModal({ version, onCloseModalPassword }: ChangePasswordMo
       .then(() => {
         onCloseModalPassword();
         myTokenCache.clear();
+        resetApiRoot();
         loginUser(userData.email, data.newPassword)
           .then((response) => {
             dispatch(updateAccessToken(myTokenCache.store.token));
             dispatch(updateUserId(response.body.customer.id));
-            localStorage.setItem('accessToken', myTokenCache.store.token);
+            const { refreshToken } = myTokenCache.store;
+            if (refreshToken) {
+              localStorage.setItem('accessToken', refreshToken);
+            }
             dispatch(updateInfoMessage(SuccessfulMessages.updatePassword));
             dispatch(updateIsModalInfoOpen(true));
             setTimeout(() => {
