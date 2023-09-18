@@ -218,12 +218,14 @@ function ProductList(): JSX.Element {
         />
       </div>
       {cardList}
-      <Pagination
-        pagesButtons={paginationList}
-        onBtnClick={handlePaginationBtn}
-        currentPage={Math.floor(offset / PRODUCTS_ON_PAGE)}
-        disableOnLoading={isCatalogLoading}
-      />
+      {paginationList.length > 1 && (
+        <Pagination
+          pagesButtons={paginationList}
+          onBtnClick={handlePaginationBtn}
+          currentPage={Math.floor(offset / PRODUCTS_ON_PAGE)}
+          disableOnLoading={isCatalogLoading}
+        />
+      )}
       <ModalInfo isOpen={isError} setIsOpen={handleModalInfo} message={errorMessage} withIcon={false} />
     </div>
   );
