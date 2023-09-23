@@ -10,7 +10,7 @@
     Discover the Earth's Treasures - Unearth the Magic of Minerals!
     <br />
     <br />
-    <a href="https://VoronovY.github.io/lucky-coders-e-commerce/">Deploy</a>
+    <a href="https://lucky-coders-e-commerce-sprint-4.netlify.app/">Deploy</a>
     ·
     <a href="https://github.com/rolling-scopes-school/tasks/blob/master/tasks/eCommerce-Application/Readme.md">Task</a>
     ·
@@ -65,25 +65,36 @@ This application is developed using the following technologies:
 - <a href="https://react.dev/">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" width="20" height="20">
     React </a>
+- <a href="https://react-redux.js.org/">
+    <img src="https://raw.githubusercontent.com/reduxjs/redux/master/logo/logo.png" alt="React Redux" width="20" height="20">
+    React Redux </a>
 - <a href="https://reactrouter.com/en/main">
-    <img src="https://www.svgrepo.com/show/354262/react-router.svg" alt="React-router" width="20" height="20">
-    React-router </a>
+    <img src="https://www.svgrepo.com/show/354262/react-router.svg" alt="React Router" width="20" height="20">
+    React Router </a>
 - <a href="https://www.typescriptlang.org/">
     <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" alt="Typescript" width="20"height="20">
     Typescript </a>
-- <a href="https://eslint.org/">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/ESLint_logo.svg" alt="ESLint" width="20" height="20">
-    ESLint </a>
 - <a href="https://sass-lang.com/">
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Sass_Logo_Color.svg" alt="Sass" width="20" height="20">
     Sass </a>
-- <a href="https://jestjs.io/">
-    <img src="https://iconape.com/wp-content/files/dx/352988/png/jest-logo.png" alt="Jest" width="20" height="20">
-    Jest </a>
+- <a href="https://vitejs.dev/">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Vitejs-logo.svg" alt="Vite" width="20"height="20">
+    Vite </a>
+    
+- <a href="https://eslint.org/">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/ESLint_logo.svg" alt="ESLint" width="20" height="20">
+    ESLint </a>
 - <a href="https://prettier.io/">
     <img src="https://brandslogos.com/wp-content/uploads/images/large/prettier-logo-vector.svg" alt="Prettier" width="20"height="20">
     Prettier </a>
-- <a href="https://www.npmjs.com/package/husky"> 🐶 Husky</a>
+- <a href="https://jestjs.io/">
+    <img src="https://iconape.com/wp-content/files/dx/352988/png/jest-logo.png" alt="Jest" width="20" height="20">
+    Jest </a>
+- [🐶 Husky](https://www.npmjs.com/package/husky)
+- [React Select](https://react-select.com/home)
+- [React Datepicker](https://reactdatepicker.com/)
+- [React Slick](https://react-slick.neostack.com/)
+- [React Modal](https://reactcommunity.org/react-modal/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -148,9 +159,9 @@ Install the latest version Node.js if you don't have it installed on your system
 ## Roadmap
 
 - [x] Project Setup and CommerceTools Integration 🚀🔧
-- [ ] Login, Registration, and Main Pages Implementation 🔐🖥️
-- [ ] Catalog Product, Detailed Product, and User Profile Pages Implementation 📚🔍👥
-- [ ] Detailed Product Page Enhancement, Basket Page, Catalog Page Enhancement, and About Us Page Implementation 🛍️📊🙋‍♂️🙋‍♀️
+- [x] Login, Registration, and Main Pages Implementation 🔐🖥️
+- [x] Catalog Product, Detailed Product, and User Profile Pages Implementation 📚🔍👥
+- [x] Detailed Product Page Enhancement, Basket Page, Catalog Page Enhancement, and About Us Page Implementation 🛍️📊🙋‍♂️🙋‍♀️
 
 See the [open issues](https://github.com/VoronovY/lucky-coders-e-commerce/issues) for a full list of opened tasks (and known issues).
 
