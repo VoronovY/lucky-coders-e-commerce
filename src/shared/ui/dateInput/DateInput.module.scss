@@ -1,0 +1,24 @@
+@import "../../../app/styles/input.scss";
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input {
+  @extend %input;
+}
+
+.errorMessage {
+  color: var(--font-color-error);
+}
+
+.inputError {
+  border: 1px solid var(--font-color-error);
+}
+
+.inputError:focus {
+  border-color: var(--font-color-error);
+}

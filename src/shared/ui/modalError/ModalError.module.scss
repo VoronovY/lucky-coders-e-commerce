@@ -1,0 +1,33 @@
+@keyframes slideInOut {
+  0% {
+    transform: translateY(-100%);
+  }
+  10% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  90% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.modalWrapper {
+  animation: slideInOut 4s ease-in-out forwards;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 20px;
+  z-index: 10;
+  background-color: #e74c3c;
+  color: var(--color-secondary-text);
+  font-size: var(--font-size-middle);
+}

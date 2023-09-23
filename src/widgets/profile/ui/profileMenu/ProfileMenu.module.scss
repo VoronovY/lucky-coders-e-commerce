@@ -1,0 +1,50 @@
+.profileMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .profileList {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    line-height: var(--font-line-height-list);
+    padding: 30px;
+    border-radius: 12px;
+    min-width: 230px;
+    background-color: var(--color-bg-light);
+    box-shadow: var(--shadow-card-primary);
+    font-size: var(--font-size-middle);
+    font-weight: var(--font-weight-bold);
+
+    a {
+      color: var(--color-primary-text);
+      transition: ease-in-out 0.2s;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--color-accent-text);
+      }
+    }
+
+    .linkActive {
+      a {
+        color: var(--color-accent-text);
+      }
+    }
+
+    button {
+      background: transparent;
+      display: flex;
+      align-self: flex-start;
+      padding: 0;
+      font-weight: var(--font-weight-bold);
+      line-height: var(--font-line-height-list);
+      transition: ease-in-out 0.2s;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--color-accent-text);
+      }
+    }
+  }
+}

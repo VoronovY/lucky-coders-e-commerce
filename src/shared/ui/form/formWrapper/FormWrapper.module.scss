@@ -1,0 +1,36 @@
+@import "../../../../app/styles/variables.scss";
+
+.formWrapper {
+  display: flex;
+  flex: 0 1 700px;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  min-width: 320px;
+  min-height: 400px;
+  border-radius: 12px;
+  padding: 60px;
+  background-color: var(--color-bg-light);
+  box-shadow: 4px 4px 16px 0px var(--color-shadow-border);
+
+  @media (max-width: $width-mobile-big) {
+    padding: 20px;
+  }
+
+  .title {
+    text-align: center;
+    font-size: var(--font-size-large);
+  }
+
+  .line {
+    width: 100%;
+    max-width: 400px;
+    height: 3px;
+    margin-bottom: 20px;
+    background-color: var(--color-primary-bg-dark);
+  }
+
+  .bottom {
+    background-color: var(--color-accent-bg);
+  }
+}

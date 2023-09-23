@@ -1,0 +1,77 @@
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: var(--width-main-container);
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px;
+
+  .title {
+    border-bottom: 2px solid var(--color-primary-border);
+    width: 100%;
+  }
+
+  .sliderAndMenu {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin: 20px 0 40px;
+  }
+
+  .descriptionAndInf {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: var(--width-product-inf-container);
+    width: 100%;
+  }
+}
+
+.inf {
+  .infItem {
+    width: 100%;
+    display: flex;
+  }
+
+  .itemtitle {
+    text-transform: capitalize;
+    color: var(--color-primary-border);
+  }
+
+  .itemPoints {
+    flex-grow: 1;
+    border-bottom: 2px dotted var(--color-primary-border);
+    margin: 0 4px 6px;
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+
+  .menuInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &ActualPrice {
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-large);
+    margin-right: 10px;
+  }
+
+  &OldPrice {
+    position: relative;
+    color: var(--color-primary-border);
+    text-decoration: line-through;
+  }
+
+  &Stock {
+    color: var(--color-primary-border);
+  }
+}

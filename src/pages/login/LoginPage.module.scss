@@ -1,0 +1,13 @@
+.loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 40px 10px;
+  background-color: var(--color-primary-bg-light);
+
+  form {
+    flex: 0 1 700px;
+  }
+}

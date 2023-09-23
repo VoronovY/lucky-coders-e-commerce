@@ -1,0 +1,24 @@
+.navCatalog {
+  p {
+    color: var(--color-secondary-text);
+  }
+}
+
+.buttonOpen {
+  background: none;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  font-weight: var(--font-weight-bold);
+  transition: ease-in-out 0.2s;
+
+  &:hover {
+    cursor: pointer;
+
+    & > p {
+      color: var(--color-hovered-btn);
+    }
+  }
+}

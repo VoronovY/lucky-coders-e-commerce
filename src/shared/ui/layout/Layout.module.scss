@@ -1,0 +1,14 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-primary-bg-light);
+  color: var(--color-primary-text);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-primary);
+  line-height: var(--font-line-height-primary);
+  width: 100%;
+  min-height: 100vh;
+}

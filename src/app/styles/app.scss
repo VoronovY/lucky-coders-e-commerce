@@ -1,0 +1,102 @@
+@import "./normalize.scss";
+@import "./variables.scss";
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --color-primary-bg-light: #{$color-primary-bg-light};
+  --color-secondary-bg-light: #{$color-secondary-bg-light};
+  --color-bg-light: #{$color-primary-light};
+  --color-bg-orange-light: #{$color-orange-light};
+  --color-primary-bg-dark: #{$color-primary-dark};
+  --color-accent-bg: #{$color-accent};
+  --color-primary-text: #{$color-primary-dark};
+  --color-secondary-text: #{$color-primary-light};
+  --color-accent-text: #{$color-accent};
+  --color-primary-border: #{$color-black-light};
+  --color-hover-border: #{$color-black-dark};
+  --color-shadow-border: #{$color-black-dark-light};
+  --font-color-error: #{$color-border-error};
+  --color-categories-arrow-button: #{$color-categories-arrow-button};
+  --color-empty-cart: #{$color-black-light};
+  --color-border-profile: #{$color-border-profile};
+
+  --color-overlay-orange: #{$color-overlay-orange};
+  --color-overlay-green: #{$color-overlay-green};
+  --color-overlay-grey: #{$color-overlay-grey};
+  --color-code-orange: #{$color-code-orange};
+  --color-code-green: #{$color-code-green};
+  --color-code-grey: #{$color-code-grey};
+
+  --font-family-primary: #{$font-family-primary};
+  --font-line-height-primary: #{$font-line-height-primary};
+  --font-line-height-secondary: #{$font-line-height-secondary};
+  --font-line-height-list: #{$font-line-height-list};
+
+  --font-weight-regular: #{$font-weight-regular};
+  --font-weight-medium: #{$font-weight-medium};
+  --font-weight-bold: #{$font-weight-bold};
+
+  --font-size-primary: #{$font-size-primary};
+  --font-size-large: #{$font-size-large};
+  --font-size-middle: #{$font-size-middle};
+  --font-size-small: #{$font-size-small};
+  --font-size-h1: #{$font-size-h1};
+  --font-size-h2: #{$font-size-h2};
+  --font-size-h3: #{$font-size-h3};
+
+  --color-primary-placeholder: #{$color-primary-placeholder};
+
+  --color-gradient-bg-orange: #{$color-gradient-bg-orange};
+  --color-gradient-bg-light: #{$color-gradient-bg-light};
+  --color-button-bg: #{$color-bg-orange};
+  --color-disabled-bg: #{$color-black-dark-light};
+
+  --color-primary-link: #{$color-primary-link};
+  --color-hovered-link: #{$color-hovered-link};
+
+  --color-hovered-btn: #{$color-hovered-btn};
+  --color-line: #{$color-hovered-btn};
+
+  --shadow-card-primary: #{$card-shadow-primary};
+  --categories-shadow: #{$categories-shadow};
+
+  --width-main-container: #{$width-main-container};
+  --width-header-container: #{$width-header-container};
+  --width-product-inf-container: #{$width-product-inf};
+}
+
+a {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-link);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--color-hovered-link);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+}
+
+button {
+  border: none;
+}
+
+p {
+  margin: 0;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  margin: 0;
+
+  @media (max-width: $width-tablet) {
+    font-size: var(--font-size-h3);
+  }
+}

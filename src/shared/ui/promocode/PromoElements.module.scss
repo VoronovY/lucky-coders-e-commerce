@@ -1,0 +1,116 @@
+@import "../../../app/styles/variables.scss";
+
+.promo {
+  padding: 20px;
+}
+.promoWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--color-bg-light);
+  position: relative;
+  max-width: var(--width-main-container);
+  width: 100%;
+  margin: auto;
+  max-height: 460px;
+  min-height: 300px;
+  box-shadow: var(--shadow-card-primary);
+  border-radius: 30px;
+  padding: 0 20px;
+
+  @media (max-width: $width-mobile-big) {
+    justify-content: center;
+  }
+
+  .promoImg {
+    max-width: 460px;
+    max-height: 460px;
+
+    @media (max-width: $width-mobile-big) {
+      display: none;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 30px;
+    }
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+  }
+
+  .promoInfo {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-bold);
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: $width-laptop) {
+      font-size: var(--font-size-middle);
+    }
+
+    .promoText {
+      text-align: center;
+    }
+
+    .promoCodeWrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      span {
+        text-align: center;
+      }
+
+      .code {
+        font-size: var(--font-size-h1);
+
+        @media (max-width: $width-laptop) {
+          font-size: var(--font-size-h2);
+        }
+
+        @media (max-width: $width-mobile-big) {
+          font-size: var(--font-size-h3);
+        }
+      }
+    }
+  }
+}
+
+.promoWrapperOrange .overlay {
+  background-color: var(--color-overlay-orange);
+}
+
+.promoWrapperOrange .code {
+  color: var(--color-code-orange);
+}
+
+.promoWrapperGreen .overlay {
+  background-color: var(--color-overlay-green);
+}
+
+.promoWrapperGreen .code {
+  color: var(--color-code-green);
+}
+
+.promoWrapperGrey .overlay {
+  background-color: var(--color-overlay-grey);
+}
+
+.promoWrapperGrey .code {
+  color: var(--color-code-grey);
+}

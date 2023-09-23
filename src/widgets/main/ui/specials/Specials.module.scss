@@ -1,0 +1,37 @@
+@import "../../../../app/styles/variables.scss";
+
+.specialsContainer {
+  width: 100%;
+
+  h2 {
+    max-width: var(--width-main-container);
+    margin: 0 auto;
+    margin-bottom: 20px;
+
+    @media (max-width: $width-large-laptop) {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .specialsWrapper {
+    width: 100%;
+    margin: 0 auto;
+    gap: 16px;
+
+    button {
+      &::before {
+        color: black;
+      }
+    }
+
+    .arrowNav {
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.1);
+        filter: invert(40%) sepia(90%) saturate(1000%);
+      }
+    }
+  }
+}

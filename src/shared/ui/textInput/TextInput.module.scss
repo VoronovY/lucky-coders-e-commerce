@@ -1,0 +1,30 @@
+@import "../../../app/styles/input.scss";
+
+.errorMessage {
+  color: var(--font-color-error);
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+}
+
+.input {
+  @extend %input;
+}
+
+.inputError {
+  border: 1px solid var(--font-color-error);
+}
+
+.inputError:focus {
+  border-color: var(--font-color-error);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

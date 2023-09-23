@@ -1,0 +1,30 @@
+.footerInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  .socials {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    margin: auto;
+
+    .rssLogo {
+      width: 60px;
+      height: 25px;
+      color: #ffffff;
+    }
+
+    a {
+      transition: ease-in-out 0.2s;
+    }
+
+    a:hover {
+      filter: invert(40%) sepia(90%) saturate(1000%);
+      position: relative;
+      bottom: 3px;
+    }
+  }
+}

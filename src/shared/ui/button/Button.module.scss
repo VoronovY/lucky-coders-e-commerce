@@ -1,0 +1,26 @@
+.button {
+  background: var(--color-gradient-bg-orange);
+  color: var(--color-secondary-text);
+  font-size: var(--font-size-middle);
+  border-radius: 10px;
+  border: none;
+  transition: ease-in-out 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  &:hover {
+    cursor: pointer;
+    background: var(--color-hovered-btn);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+  &:disabled {
+    background: var(--color-disabled-bg);
+    cursor: default;
+    transform: none;
+  }
+}
